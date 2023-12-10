@@ -16,6 +16,9 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^6.13.2",
+    "eslint": "^8.55.0",
+    "eslint-plugin-astro": "^0.30.0",
     "gitmoji-cli": "^9.0.0",
     "husky": "^8.0.3"
   },
