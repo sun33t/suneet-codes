@@ -1,54 +1,16 @@
 ---
-import "@fontsource/open-sans/300.css";
-import "@fontsource/open-sans/400.css";
-import "@fontsource/open-sans/600.css";
-import "@fontsource/open-sans/800.css";
-import GitHub from "../components/Github.astro";
-import LinkedIn from "../components/LinkedIn.astro";
+
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👾</text></svg>"
-    />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>suneet codes</title>
-  </head>
-  <body
-    class="min-h-screen flex justify-center items-center bg-[#9dc2d2] border-8 border-sol border-white text-white font-sans"
-  >
-    <div class="px-12">
-      <a href={`mailto: hello@suneet.codes?subject=Website Enquiry`}>
-        <h1
-          title={`email hello@suneet.codes`}
-          class="text-white font-normal text-[clamp(1.5rem,_5vw,_5vw)] text-center"
-        >
-          <span class="font-light">hello</span>@
-          <span class="font-semibold">suneet.codes</span>
-        </h1>
-      </a>
-      <div class="my-8 mx-auto py-0 px-4">
-        <h2 class="font-light text-center text-[clamp(1rem,_2vw,_2vw)]">
-          I'm a{" "}
-          <span>
-            software developer from Liverpool UK, currently working at {""}
-            <a href="https://lumin.co.uk" class="font-extrabold"> lumin</a>{"."}
-          </span>
-        </h2>
-      </div>
-      <div class="flex items-center justify-center gap-4">
-        <a href="https://www.linkedin.com/in/suneetmisra" title="LinkedIn">
-          <LinkedIn />
-        </a>
-        <a href="https://github.com/sun33t" title="GitHub" class="text-sm">
-          <GitHub />
-        </a>
-      </div>
-    </div>
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<h1>Astro</h1>
+	</body>
 </html>
