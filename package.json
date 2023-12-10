@@ -7,11 +7,24 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@astrojs/check": "^0.3.1",
     "astro": "^4.0.3",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "gitmoji-cli": "^9.0.0",
+    "husky": "^8.0.3"
+  },
+  "gitmoji": {
+    "autoAdd": false,
+    "emojiFormat": "emoji",
+    "scopePrompt": true,
+    "messagePrompt": true,
+    "capitalizeTitle": true,
+    "gitmojisUrl": "https://gitmoji.dev/api/gitmojis"
   }
 }
