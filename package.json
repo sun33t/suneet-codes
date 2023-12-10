@@ -18,9 +18,14 @@
   "devDependencies": {
     "@typescript-eslint/parser": "^6.13.2",
     "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^0.30.0",
     "gitmoji-cli": "^9.0.0",
-    "husky": "^8.0.3"
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "prettier-config-standard": "^7.0.0",
+    "prettier-plugin-astro": "^0.12.2"
   },
   "gitmoji": {
     "autoAdd": false,
@@ -29,5 +34,9 @@
     "messagePrompt": true,
     "capitalizeTitle": true,
     "gitmojisUrl": "https://gitmoji.dev/api/gitmojis"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,astro}": "eslint --cache --fix",
+    "*.{js,jsx,ts,tsx,css,md,json,astro}": "prettier --write"
   }
 }

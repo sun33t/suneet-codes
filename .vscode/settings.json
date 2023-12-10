@@ -6,5 +6,13 @@
     "typescript", // Enable .ts
     "typescriptreact" // Enable .tsx
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "editor.formatOnSave": true,
+  "prettier.requireConfig": false,
+  "prettier.documentSelectors": ["**/*.astro"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
