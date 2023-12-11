@@ -1,0 +1,27 @@
+---
+const platform = 'github'
+const socials = [
+  { platform: 'github', username: 'sun33t' },
+  { platform: 'instagram', username: 'suneet' }
+]
+import Social from './Social.astro'
+const username = 'withastro'
+---
+
+<footer>
+  <p>
+    Learn more about me on {
+      socials.map((social) => (
+        <Social platform={social.platform} username={social.username} />
+      ))
+    }
+  </p>
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>
