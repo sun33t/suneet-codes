@@ -23,6 +23,13 @@ h1 {
 
 /* nav styles */
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
 .hamburger {
   padding-right: 20px;
   cursor: pointer;
@@ -65,6 +72,9 @@ h1 {
 }
 
 @media screen and (min-width: 636px) {
+  .hamburger {
+    display: none;
+  }
   .nav-links {
     margin-left: 5em;
     display: block;
@@ -77,4 +87,13 @@ h1 {
     display: inline-block;
     padding: 15px 20px;
   }
+}
+
+html.dark {
+  background-color: #0d0950;
+  color: #fff;
+}
+
+.dark .nav-links a {
+  color: #fff;
 }
