@@ -1,15 +1,18 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Open_Sans, Roboto_Mono } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const openSans = Open_Sans({
+  weight: "variable",
+  variable: "--font-open-sans",
+  display: "swap",
   subsets: ["latin"],
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoMono = Roboto_Mono({
+  weight: "variable",
+  variable: "--font-roboto-mono",
+  display: "swap",
   subsets: ["latin"],
 });
 
@@ -24,16 +27,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${openSans.variable} ${robotoMono.variable}`}>
       <body>
         <div
-          className={`${geistSans.variable} ${geistMono.variable} relative antialiased min-h-screen grid grid-rows-[1fr_auto]`}
+          className={`relative antialiased min-h-screen grid grid-rows-[1fr_auto]`}
         >
           <header className="grid place-items-center py-8 border-dotted border-2 bg-green-300 absolute inset-x-0 top-0">
-            Header
+            <p>Header</p>
           </header>
           <main className="border-dotted border-2 place-items-center pt-28 pb-8 bg-pink-300">
             {children}
+            <pre>This is some text in mono</pre>
           </main>
           <footer className="grid place-items-center py-8 bg-blue-300">
             Footer
