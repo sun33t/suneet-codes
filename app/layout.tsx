@@ -30,16 +30,16 @@ export default function RootLayout({
     <html lang="en" className={`${openSans.variable} ${robotoMono.variable}`}>
       <body>
         <div
-          className={`relative antialiased min-h-screen grid grid-rows-[1fr_auto]`}
+          className={`relative grid min-h-screen grid-rows-[1fr_auto] antialiased`}
         >
-          <header className="grid place-items-center py-8 border-dotted border-2 bg-green-300 absolute inset-x-0 top-0">
+          <header className="absolute inset-x-0 top-0 grid place-items-center border-2 border-dotted bg-green-300 py-8">
             <p>Header</p>
           </header>
-          <main className="border-dotted border-2 place-items-center pt-28 pb-8 bg-pink-300">
+          <main className="place-items-center border-2 border-dotted bg-pink-300 pb-8 pt-28">
             {children}
             <pre>This is some text in mono</pre>
           </main>
-          <footer className="grid place-items-center py-8 bg-blue-300">
+          <footer className="grid place-items-center bg-blue-300 py-8">
             Footer
           </footer>
         </div>
