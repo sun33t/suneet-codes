@@ -1,6 +1,7 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +25,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <div
+          className={`${geistSans.variable} ${geistMono.variable} relative antialiased min-h-screen grid grid-rows-[1fr_auto]`}
+        >
+          <header className="grid place-items-center py-8 border-dotted border-2 bg-green-300 absolute inset-x-0 top-0">
+            Header
+          </header>
+          <main className="border-dotted border-2 place-items-center pt-28 pb-8 bg-pink-300">
+            {children}
+          </main>
+          <footer className="grid place-items-center py-8 bg-blue-300">
+            Footer
+          </footer>
+        </div>
       </body>
     </html>
   );
