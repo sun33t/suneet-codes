@@ -3,6 +3,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Open_Sans, Roboto_Mono } from "next/font/google";
 
+import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeProvider } from "@/components/theme-provider";
+
 const openSans = Open_Sans({
   weight: "variable",
   variable: "--font-open-sans",
@@ -30,22 +33,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${openSans.variable} ${robotoMono.variable}`}>
+    <html
+      lang="en"
+      className={`${openSans.variable} ${robotoMono.variable}`}
+      suppressHydrationWarning
+    >
       <body>
-        <div
-          className={`relative grid min-h-screen grid-rows-[1fr_auto] antialiased`}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <header className="absolute inset-x-0 top-0 grid place-items-center border-2 border-dotted bg-green-300 py-8">
-            <p>Header</p>
-          </header>
-          <main className="place-items-center border-2 border-dotted bg-pink-300 pb-8 pt-28">
-            {children}
-            <pre>This is some text in mono</pre>
-          </main>
-          <footer className="grid place-items-center bg-blue-300 py-8">
-            Footer
-          </footer>
-        </div>
+          <div
+            className={`relative grid min-h-screen grid-rows-[1fr_auto] antialiased`}
+          >
+            <header className="absolute inset-x-0 top-0 grid place-items-center border-2 border-dotted py-8">
+              <p>Header</p>
+              <ModeToggle />
+            </header>
+            <main className="place-items-center border-2 border-dotted pb-8 pt-28">
+              {children}
+              <pre>This is some text in mono</pre>
+            </main>
+            <footer className="grid place-items-center py-8">Footer</footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

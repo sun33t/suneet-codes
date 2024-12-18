@@ -15,6 +15,7 @@ const eslintConfig = [
   {
     rules: {
       "n/no-process-env": ["warn"],
+      "n/no-missing-import": ["off"],
     },
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
