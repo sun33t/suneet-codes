@@ -49,11 +49,17 @@ to
 To run this project, you will need to add a number of environment variables.
 
 ```bash
-PROJECT_CANONICAL_URL="<value here>"
-PROJECT_AUTHOR="<value here>"
-PROJECT_BASE_TITLE="<value here>"
-NODE_ENV="<development | test | production>"
-# NODE_ENV is optional as it defaults to "development" when dev script is executed.
+# The canonical URL for your website
+PROJECT_CANONICAL_URL="https://example.com"
+
+# Your name or organisation name
+PROJECT_AUTHOR="John Smith"
+
+# The base title used across the website
+PROJECT_BASE_TITLE="My Portfolio"
+
+# The environment mode (defaults to "development" when using npm run dev)
+NODE_ENV="development"
 ```
 
 This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
