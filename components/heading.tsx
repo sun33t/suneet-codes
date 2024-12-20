@@ -30,7 +30,7 @@ export const Heading = <C extends HeadingTags>({
   ...rest
 }: HeadingProps<C>) => {
   const Component = as || "h1";
-  const ariaLevel = (as || "h1").replace("h", "");
+  const ariaLevel = Component.replace("h", "");
 
   return (
     <Component

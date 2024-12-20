@@ -61,6 +61,7 @@ This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime val
 - [vercel](https://vercel.com/)
 - [t3-env](https://github.com/t3-oss/t3-env)
 - [1Password CLI](https://developer.1password.com/docs/cli/secret-references/)
+- [CodeRabbit](https://coderabbit.ai)
 
 ## Authors
 
