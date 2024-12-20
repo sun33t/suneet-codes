@@ -19,9 +19,10 @@ export function ModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          aria-label="Toggle theme mode"
           variant="outline"
           size="icon"
-          className="bg-white/90 text-zinc-800 shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur aria-expanded:text-teal-500 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 aria-expanded:dark:text-teal-400"
+          className="bg-white/90 text-zinc-800 shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur hover:bg-white/90 hover:text-teal-500 aria-expanded:text-teal-500 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 hover:dark:bg-zinc-800/90 dark:hover:text-teal-400 aria-expanded:dark:text-teal-400"
         >
           <Sun className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-[1.5rem] w-[1.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
