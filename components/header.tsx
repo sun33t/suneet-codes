@@ -115,8 +115,8 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<"nav">) {
   return (
     <nav {...props}>
       <ul className="flex rounded-md bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        {pages.map((page, index) => (
-          <NavItem key={`${index}-${page.slug}-desktop`} href={page.slug}>
+        {pages.map((page) => (
+          <NavItem key={`${page.slug}-desktop`} href={page.slug}>
             {page.title}
           </NavItem>
         ))}
@@ -171,10 +171,10 @@ const MobileNavigation = () => {
         onInteractOutside={() => setIsMenuOpen(false)}
         onEscapeKeyDown={() => setIsMenuOpen(false)}
       >
-        {pages.map((page, index) => {
+        {pages.map((page) => {
           return (
             <MobileNavItem
-              key={`${index}-${page.title}`}
+              key={`${page.slug}-mobile`}
               page={page}
               setIsMenuOpen={setIsMenuOpen}
             />
