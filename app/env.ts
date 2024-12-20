@@ -6,6 +6,11 @@ export const env = createEnv({
     PROJECT_CANONICAL_URL: z.string().url(),
     PROJECT_AUTHOR: z.string(),
     PROJECT_BASE_TITLE: z.string(),
+    NODE_ENV: z.union([
+      z.literal("development"),
+      z.literal("production"),
+      z.literal("test"),
+    ]),
   },
   // eslint-disable-next-line n/no-process-env
   experimental__runtimeEnv: process.env,
