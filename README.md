@@ -46,7 +46,15 @@ to
 
 ## Environment Variables
 
-To run this project, you will need to add a number of environment variables. Please see the [env.example](./env.example) file at project root for more details.
+To run this project, you will need to add a number of environment variables.
+
+```bash
+PROJECT_CANONICAL_URL="<value here>"
+PROJECT_AUTHOR="<value here>"
+PROJECT_BASE_TITLE="<value here>"
+NODE_ENV="<development | test | production>"
+# NODE_ENV is optional as it defaults to "development" when dev script is executed.
+```
 
 This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
 
