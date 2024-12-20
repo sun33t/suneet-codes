@@ -1,6 +1,6 @@
 # suneet codes website
 
-This repo holds the source code for https://suneet.codes. It uses astro as the front-end framework as well as a few other libraries, all of which are listed below. It uses the tailwind spotlight template as a starter but replaces their use of headless/ui with shadcn/ui.
+This repo holds the source code for https://suneet.codes. It uses NextJS as the front-end framework as well as a few other libraries, all of which are listed below. It uses the tailwind spotlight template as a starter but replaces their use of headless/ui with shadcn/ui.
 
 ## Run Locally
 
@@ -52,12 +52,12 @@ This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime val
 
 ## Acknowledgements
 
-- [Daniel C Gilberts's Blog Template](https://github.com/danielcgilibert/blog-template)
 - [NextJS](https://nextjs.org/)
 - [TailwindCSS](https://tailwindcss.com)
 - [TailwindUI](https://tailwindui.com)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
+- [Daniel C Gilberts's Blog Template](https://github.com/danielcgilibert/blog-template)
 - [vercel](https://vercel.com/)
 - [t3-env](https://github.com/t3-oss/t3-env)
 - [1Password CLI](https://developer.1password.com/docs/cli/secret-references/)
