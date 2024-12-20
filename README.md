@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# suneet codes website
 
-## Getting Started
+This repo holds the source code for https://suneet.codes. It uses astro as the front-end framework as well as a few other libraries, all of which are listed below. It uses the tailwind spotlight template as a starter but replaces their use of headless/ui with shadcn/ui.
 
-First, run the development server:
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/sun33t/suneet-codes
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd suneet-codes
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Install dependencies
 
-## Learn More
+```bash
+  npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+  npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If you're not using the 1Password CLI locally to store environment variables, modify the `dev` script from:
 
-## Deploy on Vercel
+```json
+{
+  "dev": "op run --env-file=.env -- next dev"
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+to
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```json
+{
+  "dev": "next dev"
+}
+```
+
+## Environment Variables
+
+To run this project, you will need to add a number of environment variables. Please see the [env.example](./env.example) file at project root for more details.
+
+This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
+
+## Acknowledgements
+
+- [Daniel C Gilberts's Blog Template](https://github.com/danielcgilibert/blog-template)
+- [NextJS](https://nextjs.org/)
+- [TailwindCSS](https://tailwindcss.com)
+- [TailwindUI](https://tailwindui.com)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [next-themes](https://github.com/pacocoursey/next-themes)
+- [vercel](https://vercel.com/)
+- [t3-env](https://github.com/t3-oss/t3-env)
+- [1Password CLI](https://developer.1password.com/docs/cli/secret-references/)
+
+## Authors
+
+- [@sun33t](https://www.github.com/sun33t)
