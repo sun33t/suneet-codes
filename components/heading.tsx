@@ -30,9 +30,14 @@ export const Heading = <C extends HeadingTags>({
   ...rest
 }: HeadingProps<C>) => {
   const Component = as || "h1";
+  const ariaLevel = (as || "h1").replace("h", "");
 
   return (
-    <Component className={cn(headingVariants({ as, className }))} {...rest}>
+    <Component
+      className={cn(headingVariants({ as, className }))}
+      {...rest}
+      aria-level={ariaLevel}
+    >
       {children}
     </Component>
   );
