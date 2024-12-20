@@ -1,6 +1,8 @@
 import { ModeToggle } from "./mode-toggle";
 
-export const Layout = ({ children }: React.PropsWithChildren) => {
+type LayoutProps = React.ComponentPropsWithoutRef<"div">;
+
+export const Layout = ({ children }: LayoutProps) => {
   return (
     <div id="layout-container" className="flex w-full">
       <div
