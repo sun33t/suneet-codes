@@ -6,6 +6,7 @@ import { Open_Sans, Roboto_Mono } from "next/font/google";
 import { env } from "@/app/env";
 import { Layout } from "@/components/layout";
 import { ThemeProvider } from "@/components/theme-provider";
+import { TwSizeIndicator } from "@/components/tw-size-indicator";
 
 const openSans = Open_Sans({
   weight: "variable",
@@ -40,6 +41,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="flex h-full bg-background">
+        <TwSizeIndicator />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
