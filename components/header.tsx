@@ -150,7 +150,7 @@ const MobileNavigation = ({ pages }: MobileNavigationProps) => {
       <DropdownMenuTrigger asChild>
         <Button
           onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="font-mediumshadow-lg pointer-events-auto rounded-md bg-white/90 text-sm shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10"
+          className="pointer-events-auto rounded-md bg-white/90 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10"
           variant="outline"
         >
           Menu
