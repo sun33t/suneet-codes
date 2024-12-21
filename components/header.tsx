@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import avatarImage from "@/images/avatar.jpeg";
-import { Pages } from "@/lib/pages";
+import { type Pages } from "@/lib/constants";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b);
