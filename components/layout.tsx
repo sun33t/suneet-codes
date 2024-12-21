@@ -14,9 +14,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <PageBackground />
       <div className="relative flex w-full flex-col">
         <Header pages={memoizedPages} />
-        <main className="flex-auto place-items-center pb-8 pt-28">
-          {children}
-        </main>
+        <main className="flex-auto">{children}</main>
         <Footer />
       </div>
     </div>
