@@ -24,14 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import avatarImage from "@/images/avatar.jpeg";
-
-const pages: Array<{ title: string; slug: string }> = [
-  { title: "About", slug: "/about" },
-  { title: "Articles", slug: "/articles" },
-  { title: "Projects", slug: "/projects" },
-  { title: "Speaking", slug: "/speaking" },
-  { title: "Uses", slug: "/uses" },
-];
+import { Pages } from "@/lib/pages";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b);
@@ -111,9 +104,12 @@ function NavItem({
   );
 }
 
-function DesktopNavigation(props: React.ComponentPropsWithoutRef<"nav">) {
+type DesktopNavigationProps = {
+  pages: Pages;
+} & React.ComponentPropsWithoutRef<"nav">;
+function DesktopNavigation({ pages, ...rest }: DesktopNavigationProps) {
   return (
-    <nav {...props}>
+    <nav {...rest}>
       <ul className="flex rounded-md bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         {pages.map((page) => (
           <NavItem key={`${page.slug}-desktop`} href={page.slug}>
@@ -150,7 +146,8 @@ const MobileNavItem = ({
   );
 };
 
-const MobileNavigation = () => {
+type MobileNavigationProps = { pages: Pages };
+const MobileNavigation = ({ pages }: MobileNavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
     <DropdownMenu open={isMenuOpen}>
@@ -185,7 +182,10 @@ const MobileNavigation = () => {
   );
 };
 
-export const Header = () => {
+type HeaderProps = {
+  pages: Pages;
+};
+export const Header = ({ pages }: HeaderProps) => {
   const isHomePage = usePathname() === "/";
 
   const headerRef = useRef<React.ComponentRef<"div">>(null);
@@ -295,6 +295,7 @@ export const Header = () => {
   return (
     <>
       <header
+        id="header"
         className="pointer-events-none relative z-50 flex flex-none flex-col"
         style={{
           height: "var(--header-height)",
@@ -366,8 +367,11 @@ export const Header = () => {
                 id="mobile-nav-container"
                 className="flex flex-1 justify-end md:justify-center"
               >
-                <MobileNavigation />
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+                <MobileNavigation pages={pages} />
+                <DesktopNavigation
+                  pages={pages}
+                  className="pointer-events-auto hidden md:block"
+                />
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
