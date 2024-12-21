@@ -1,4 +1,7 @@
+import { Footer } from "./footer";
 import { Header } from "./header";
+
+import { pages } from "@/lib/pages";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
@@ -7,13 +10,11 @@ export const Layout = ({ children }: LayoutProps) => {
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
-        <Header />
+        <Header pages={pages} />
         <main className="flex-auto place-items-center pb-8 pt-28">
           {children}
         </main>
-        <footer id="footer" className="grid flex-none place-items-center py-8">
-          Footer
-        </footer>
+        <Footer />
       </div>
     </div>
   );
