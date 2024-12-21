@@ -1,16 +1,19 @@
 import { Footer } from "./footer";
 import { Header } from "./header";
 
-import { pages } from "@/lib/pages";
+import { useMemo } from "react";
+
+import { PAGES } from "@/lib/constants";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
 export const Layout = ({ children }: LayoutProps) => {
+  const memoizedPages = useMemo(() => PAGES, []);
   return (
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
-        <Header pages={pages} />
+        <Header pages={memoizedPages} />
         <main className="flex-auto place-items-center pb-8 pt-28">
           {children}
         </main>

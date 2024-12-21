@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { env } from "@/app/env";
 import { ContainerInner, ContainerOuter } from "@/components/container";
-import { pages } from "@/lib/pages";
+import { PAGES } from "@/lib/constants";
 
 const NavLink = ({
   href,
@@ -29,7 +29,7 @@ export const Footer = () => {
           <ContainerInner>
             <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
               <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                {pages.map((page) => (
+                {PAGES.map((page) => (
                   <NavLink key={`${page.slug}-footer`} href={page.slug}>
                     {page.title}
                   </NavLink>
