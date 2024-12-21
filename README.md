@@ -60,6 +60,15 @@ PROJECT_BASE_TITLE="My Portfolio"
 
 # The environment mode (defaults to "development" when using npm run dev)
 NODE_ENV="development"
+
+# The base description used across the website
+PROJECT_BASE_DESCRIPTION="Your project description"
+
+# The URL of your GitHub repository
+PROJECT_GITHUB_URL=https://github.com/yourusername
+
+# The URL of your LinkedIn profile
+PROJECT_LINKEDIN_URL=https://linkedin.com/in/yourusername
 ```
 
 This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
