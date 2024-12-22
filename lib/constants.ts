@@ -6,6 +6,6 @@ export const PAGES: Pages = [
   { title: "About", slug: "/about" },
   { title: "Articles", slug: "/articles" },
   { title: "Projects", slug: "/projects" },
-  { title: "Speaking", slug: "/speaking" },
+  { title: "Following", slug: "/following" },
   { title: "Uses", slug: "/uses" },
 ];

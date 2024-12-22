@@ -1,3 +1,9 @@
+import { Container } from "@/components/container";
+
 export default function Articles() {
-  return <div>Articles Page</div>;
+  return (
+    <Container id="articles-page-container" className="mt-9">
+      <div className="flex items-center justify-center">Articles Page</div>
+    </Container>
+  );
 }
