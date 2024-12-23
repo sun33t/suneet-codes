@@ -1,13 +1,7 @@
-import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 import "@/app/env";
 
-const nextConfig: NextConfig = {
-  // Configure `pageExtensions` to include markdown and MDX files
-  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-};
+const nextConfig: NextConfig = {};
 
-const withMDX = createMDX();
-
-export default withMDX(nextConfig);
+export default nextConfig;
