@@ -14,7 +14,7 @@ import z from "zod";
 const frontmatterSchema = z.object({
   title: z.string(),
   author: z.string(),
-  date: z.string(),
+  date: z.string().date(),
   slug: z.string(),
   description: z.string(),
 });
@@ -66,6 +66,7 @@ export const getAllArticles = async () => {
 
     articles.push(...fetchedArticles);
   } catch (error) {
+    console.error(error);
     articlesError = error as Error;
   }
 

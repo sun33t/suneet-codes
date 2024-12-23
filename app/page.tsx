@@ -175,8 +175,7 @@ function Resume() {
 
 export default async function Home() {
   const { articles, error } = await getAllArticles();
-  if (!error) {
-  }
+
   return (
     <Fragment>
       <Container className="mt-9">
