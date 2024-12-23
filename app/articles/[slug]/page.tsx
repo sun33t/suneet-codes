@@ -1,11 +1,20 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 import { ArticleImage } from "@/components/article-image";
-import { Frontmatter, getAllArticles, getArticleContent } from "@/lib/articles";
+import {
+  type Frontmatter,
+  getAllArticles,
+  getArticleContent,
+} from "@/lib/articles";
 
 export async function generateStaticParams() {
-  const articles = await getAllArticles();
+  const { articles, error } = await getAllArticles();
+
+  if (error) {
+    return [];
+  }
 
   const slugs = articles.map((article) => ({
     slug: article.slug,
@@ -21,7 +30,12 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  const content = await getArticleContent(slug);
+  const { content, error } = await getArticleContent(slug);
+
+  if (error) {
+    notFound();
+  }
+
   const data = await compileMDX<Frontmatter>({
     source: content,
     options: {
