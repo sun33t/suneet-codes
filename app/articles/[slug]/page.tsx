@@ -47,7 +47,7 @@ export default async function Page({
     },
   });
   return (
-    <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-h1:text-center prose-img:rounded-xl">
+    <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-h1:text-center prose-a:text-accent-foreground prose-strong:text-red-500 prose-img:rounded-xl dark:prose-strong:text-red-300">
       {data.content}
     </div>
   );

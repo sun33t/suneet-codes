@@ -21,7 +21,7 @@ const frontmatterSchema = z.object({
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;
 
-type FrontmatterWithFilename = Frontmatter & {
+export type FrontmatterWithFilename = Frontmatter & {
   filename: string;
 };
 
