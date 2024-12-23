@@ -1,6 +1,7 @@
 import { compileMDX } from "next-mdx-remote/rsc";
-import { Fragment } from "react";
+import Image from "next/image";
 
+import { ArticleImage } from "@/components/article-image";
 import { Frontmatter, getAllArticles, getArticleContent } from "@/lib/articles";
 
 export async function generateStaticParams() {
@@ -26,7 +27,14 @@ export default async function Page({
     options: {
       parseFrontmatter: true,
     },
-    // components: {}
+    components: {
+      Image,
+      ArticleImage,
+    },
   });
-  return <Fragment>{data.content}</Fragment>;
+  return (
+    <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-h1:text-center prose-img:rounded-xl">
+      {data.content}
+    </div>
+  );
 }
