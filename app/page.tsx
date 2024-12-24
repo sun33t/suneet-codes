@@ -82,7 +82,7 @@ function Role({ role }: { role: Role }) {
 
   return (
     <li className="group relative">
-      <div className="absolute -inset-x-2 -inset-y-2 flex scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:rounded-md" />
+      <div className="absolute -inset-x-2 -inset-y-2 flex scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:rounded-md dark:bg-zinc-800/50" />
 
       <Link href={role.href} target="_blank" className="flex w-full gap-4">
         <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
