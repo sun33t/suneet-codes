@@ -1,9 +1,9 @@
 import { promises as fs } from "fs";
 import { compileMDX } from "next-mdx-remote/rsc";
 import path from "path";
-import z, { ZodTypeAny } from "zod";
+import z from "zod";
 
-import { CATEGORIES } from "@/lib/constants";
+import { categoryNames } from "@/lib/constants";
 
 /**
  * Frontmatter could also include:
@@ -13,6 +13,31 @@ import { CATEGORIES } from "@/lib/constants";
  *   isPublished?: boolean;
  */
 
+/**
+ *
+ * https://github.com/colinhacks/zod/issues/831#issuecomment-1918536468
+ */
+function isValidZodLiteralUnion<T extends z.ZodLiteral<unknown>>(
+  literals: T[]
+): literals is [T, T, ...T[]] {
+  return literals.length >= 2;
+}
+
+/**
+ *
+ * https://github.com/colinhacks/zod/issues/831#issuecomment-1918536468
+ */
+function constructZodLiteralUnionType<T extends z.ZodLiteral<unknown>>(
+  literals: T[]
+) {
+  if (!isValidZodLiteralUnion(literals)) {
+    throw new Error(
+      "Literals passed do not meet the criteria for constructing a union schema, the minimum length is 2"
+    );
+  }
+  return z.union(literals);
+}
+
 const frontmatterSchema = z.object({
   title: z.string(),
   author: z.string(),
@@ -20,10 +45,8 @@ const frontmatterSchema = z.object({
   slug: z.string(),
   description: z.string(),
   categories: z.array(
-    z.union(
-      CATEGORIES.map((category) =>
-        z.literal(category.title)
-      ) as unknown as readonly [ZodTypeAny, ZodTypeAny, ...ZodTypeAny[]]
+    constructZodLiteralUnionType(
+      categoryNames.map((literal) => z.literal(literal))
     )
   ),
 });
