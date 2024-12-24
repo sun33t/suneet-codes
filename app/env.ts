@@ -9,6 +9,7 @@ export const env = createEnv({
     PROJECT_AUTHOR: z.string(),
     PROJECT_BASE_TITLE: z.string(),
     PROJECT_BASE_DESCRIPTION: z.string(),
+    PROJECT_CALENDAR_URL: z.string().url(),
     NODE_ENV: z.union([
       z.literal("development"),
       z.literal("production"),
