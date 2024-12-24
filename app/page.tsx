@@ -21,7 +21,12 @@ function SocialLink({
   icon: React.ComponentType<{ className?: string }>;
 }) {
   return (
-    <Link className="group -m-1 p-1" {...props} target="_blank">
+    <Link
+      className="group -m-1 p-1"
+      {...props}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-accent-foreground dark:fill-zinc-400 dark:group-hover:fill-accent-foreground" />
     </Link>
   );
@@ -84,7 +89,12 @@ function Role({ role }: { role: Role }) {
     <li className="group relative">
       <div className="absolute -inset-x-2 -inset-y-2 flex scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:rounded-md dark:bg-zinc-800/50" />
 
-      <Link href={role.href} target="_blank" className="flex w-full gap-4">
+      <Link
+        href={role.href}
+        target="_blank"
+        className="flex w-full gap-4"
+        rel="noopener noreferrer"
+      >
         <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
           <Image
             src={role.logo}
@@ -126,8 +136,8 @@ function Resume({ roles }: { roles: Role[] }) {
         <span className="ml-3">Work</span>
       </h2>
       <ol className="mt-6 space-y-4">
-        {roles.map((role, roleIndex) => (
-          <Role key={roleIndex} role={role} />
+        {roles.map((role) => (
+          <Role key={role.company} role={role} />
         ))}
       </ol>
       <Link
