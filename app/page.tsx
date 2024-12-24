@@ -1,4 +1,4 @@
-import { ArrowDown, Briefcase, MailIcon } from "lucide-react";
+import { Briefcase, CalendarPlus2, MailIcon } from "lucide-react";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -9,11 +9,11 @@ import { Container } from "@/components/container";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Heading } from "@/components/typography/heading";
 import { P } from "@/components/typography/paragraph";
-import { Button } from "@/components/ui/button";
-import logoAirbnb from "@/images/logos/airbnb.svg";
-import logoFacebook from "@/images/logos/facebook.svg";
-import logoPlanetaria from "@/images/logos/planetaria.svg";
-import logoStarbucks from "@/images/logos/starbucks.svg";
+import { Button, buttonVariants } from "@/components/ui/button";
+import ansLogo from "@/images/logos/ans.svg";
+import luminLogo from "@/images/logos/lumin.svg";
+import logoPushorigin from "@/images/logos/pushorigin.svg";
+import verseLogo from "@/images/logos/verse.svg";
 import { type FrontmatterWithFilename, getAllArticles } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 
@@ -94,7 +94,12 @@ function Role({ role }: { role: Role }) {
   return (
     <li className="flex gap-4">
       <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-        <Image src={role.logo} alt="" className="h-7 w-7" unoptimized />
+        <Image
+          src={role.logo}
+          alt={`${role.company}-logo`}
+          className="h-5 w-5"
+          unoptimized
+        />
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
         <dt className="sr-only">Company</dt>
@@ -122,35 +127,35 @@ function Role({ role }: { role: Role }) {
 function Resume() {
   const resume: Array<Role> = [
     {
-      company: "Planetaria",
-      title: "CEO",
-      logo: logoPlanetaria,
-      start: "2019",
+      company: "Pushorigin",
+      title: "Founder, Engineer",
+      logo: logoPushorigin,
+      start: "2024",
       end: {
         label: "Present",
         dateTime: new Date().getFullYear().toString(),
       },
     },
     {
-      company: "Airbnb",
-      title: "Product Designer",
-      logo: logoAirbnb,
-      start: "2014",
-      end: "2019",
+      company: "Lumin",
+      title: "Fullstack Engineer",
+      logo: luminLogo,
+      start: "2023",
+      end: "2024",
     },
     {
-      company: "Facebook",
-      title: "iOS Software Engineer",
-      logo: logoFacebook,
-      start: "2011",
-      end: "2014",
+      company: "ANS",
+      title: "Senior Fullstack Engineer",
+      logo: ansLogo,
+      start: "2021",
+      end: "2021",
     },
     {
-      company: "Starbucks",
-      title: "Shift Supervisor",
-      logo: logoStarbucks,
-      start: "2008",
-      end: "2011",
+      company: "Verse",
+      title: "Senior JavaScript Engineer",
+      logo: verseLogo,
+      start: "2020",
+      end: "2023",
     },
   ];
 
@@ -165,10 +170,14 @@ function Resume() {
           <Role key={roleIndex} role={role} />
         ))}
       </ol>
-      <Button variant="secondary" className="group mt-6 w-full">
-        Download CV
-        <ArrowDown className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-      </Button>
+      <Link
+        href={env.PROJECT_CALENDAR_URL}
+        target="_blank"
+        className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
+      >
+        Let&apos;s Talk
+        <CalendarPlus2 className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+      </Link>
     </div>
   );
 }

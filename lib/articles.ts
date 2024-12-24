@@ -1,7 +1,9 @@
 import { promises as fs } from "fs";
 import { compileMDX } from "next-mdx-remote/rsc";
 import path from "path";
-import z from "zod";
+import z, { ZodTypeAny } from "zod";
+
+import { CATEGORIES } from "@/lib/constants";
 
 /**
  * Frontmatter could also include:
@@ -17,6 +19,13 @@ const frontmatterSchema = z.object({
   date: z.string().date(),
   slug: z.string(),
   description: z.string(),
+  categories: z.array(
+    z.union(
+      CATEGORIES.map((category) =>
+        z.literal(category.title)
+      ) as unknown as readonly [ZodTypeAny, ZodTypeAny, ...ZodTypeAny[]]
+    )
+  ),
 });
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;

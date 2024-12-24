@@ -9,3 +9,12 @@ export const PAGES: Pages = [
   { title: "Following", slug: "/following" },
   { title: "Uses", slug: "/uses" },
 ];
+
+/**
+ * An array of categories for blog posts and articles.
+ */
+export const CATEGORIES: Array<{ title: string }> = [
+  { title: "react" },
+  { title: "javascript" },
+  { title: "aws" },
+];
