@@ -14,7 +14,9 @@ import { categoryNames } from "@/lib/constants";
  */
 
 /**
- *
+ * Type guard to ensure there are enough literals to form a valid union type.
+ * @param literals - Array of Zod literal types
+ * @returns True if the array contains at least two elements
  * https://github.com/colinhacks/zod/issues/831#issuecomment-1918536468
  */
 function isValidZodLiteralUnion<T extends z.ZodLiteral<unknown>>(
@@ -44,11 +46,13 @@ const frontmatterSchema = z.object({
   date: z.string().date(),
   slug: z.string(),
   description: z.string(),
-  categories: z.array(
-    constructZodLiteralUnionType(
-      categoryNames.map((literal) => z.literal(literal))
+  categories: z
+    .array(
+      constructZodLiteralUnionType(
+        categoryNames.map((literal) => z.literal(literal))
+      )
     )
-  ),
+    .min(1, { message: "At least one category is required" }),
 });
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;
