@@ -13,9 +13,9 @@ export type Pages = Array<Page>;
 export const PAGES: Pages = [
   { title: "About", slug: "/about" },
   { title: "Articles", slug: "/articles" },
-  { title: "Projects", slug: "/projects" },
-  { title: "Following", slug: "/following" },
-  { title: "Uses", slug: "/uses" },
+  // { title: "Projects", slug: "/projects" },
+  // { title: "Following", slug: "/following" },
+  // { title: "Uses", slug: "/uses" },
 ];
 
 export const categoryNames = ["react", "javascript", "aws"] as const;
