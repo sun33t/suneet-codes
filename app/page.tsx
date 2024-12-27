@@ -57,9 +57,10 @@ export default async function Home() {
             👋, I&apos;m a developer and founder based in the UK. I&apos;ve been
             building software in the{" "}
             <span className="text-accent-foreground">e-commerce</span> and{" "}
-            <span className="text-accent-foreground">energy/comms</span>{" "}
-            <span className="text-accent-foreground">ombudsman</span> spaces for
-            over five years, after completing my{" "}
+            <span className="text-accent-foreground">
+              energy/comms ombudsman
+            </span>{" "}
+            spaces for over five years, after completing my{" "}
             <span className="text-accent-foreground">MSc in Computing</span>.
             When I&apos;m not working, I like to cook and travel with my wife.
           </P>
