@@ -59,8 +59,9 @@ export default async function Home() {
             <span className="text-accent-foreground">e-commerce</span> and{" "}
             <span className="text-accent-foreground">energy/comms</span>{" "}
             <span className="text-accent-foreground">ombudsman</span> spaces for
-            over five years after completing my MSc in Computing. When I&apos;m
-            not working, I like to cook and travel with my wife.
+            over five years, after completing my{" "}
+            <span className="text-accent-foreground">MSc in Computing</span>.
+            When I&apos;m not working, I like to cook and travel with my wife.
           </P>
           <div className="mt-6 flex gap-2">
             {/* <SocialLink href="#" aria-label="Follow on X" icon={XIcon} /> */}
