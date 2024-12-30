@@ -67,7 +67,9 @@ type Error = {
   message: string;
 } | null;
 
-export const getAllArticles = async (q?: FrontmatterCategories) => {
+export const getAllArticles = async (
+  q?: FrontmatterCategories | FrontmatterCategories[]
+) => {
   const articles: FrontmatterWithFilename[] = [];
   let articlesError: Error = null;
 
@@ -101,9 +103,15 @@ export const getAllArticles = async (q?: FrontmatterCategories) => {
         }
       })
     );
+
     const filteredArticles = q
       ? fetchedArticles.filter((article) => {
-          return article.categories.includes(q);
+          if (typeof q === "string") {
+            return article.categories.includes(q);
+          }
+          if (Array.isArray(q)) {
+            return q.every((category) => article.categories.includes(category));
+          }
         })
       : fetchedArticles;
     articles.push(...filteredArticles);

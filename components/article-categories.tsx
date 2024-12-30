@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { useMemo } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useCallback, useMemo } from "react";
 
 import { CATEGORIES, type CategoryName } from "@/lib/constants";
 
@@ -8,21 +11,40 @@ export const ArticleCategories = ({
 }: {
   categories: CategoryName[];
 }) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      if (params.has(name, value)) {
+        params.delete(name, value);
+      } else {
+        params.append(name, value);
+      }
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   const renderedCategories = useMemo(
     () =>
       categories?.map((categoryTitle) => {
         const category = CATEGORIES.get(categoryTitle);
+
         return category !== undefined ? (
           <Link
             key={category.title}
-            href={`/articles?q=${category.slug}`}
+            href={pathname + "?" + createQueryString("q", category.slug)}
             className="inline-flex items-center rounded-md border-none bg-secondary px-2.5 py-0.5 text-xs font-semibold text-accent-foreground no-underline transition-colors hover:ring-2 hover:ring-accent-foreground hover:ring-offset-2 focus:outline-none focus:ring-2 focus:ring-accent-foreground focus:ring-offset-2"
           >
             {category.title}
           </Link>
         ) : null;
       }),
-    [categories]
+    [categories, createQueryString, pathname]
   );
   return (
     <div
