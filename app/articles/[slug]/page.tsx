@@ -1,9 +1,11 @@
 import { compileMDX } from "next-mdx-remote/rsc";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ArticleCategories } from "@/components/article-categories";
 import { ArticleImage } from "@/components/article-image";
+import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import {
   type Frontmatter,
@@ -50,15 +52,46 @@ export default async function Page({
       ArticleCategories,
     },
   });
+
   return (
-    <Container id="mdx-layout-container">
-      <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-h1:text-center prose-a:text-accent-foreground prose-strong:text-red-500 prose-img:rounded-xl dark:prose-strong:text-red-300">
-        <h1>{data.frontmatter.title}</h1>
-        <ArticleCategories categories={data.frontmatter.categories} />
-        <small className="flex items-center justify-center">
-          {`written by ${data.frontmatter.author} on ${formatDate(data.frontmatter.date)}`}
-        </small>
-        {data.content}
+    <Container id="mdx-layout-container" className="mt-16">
+      <div className="lg:relative">
+        <div className="mx-auto max-w-2xl">
+          <BackButton />
+          <article>
+            <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-a:text-accent-foreground prose-strong:text-red-500 prose-img:rounded-xl dark:prose-strong:text-red-300">
+              <header className="flex flex-col">
+                <h1 className="mt-6 flex">{data.frontmatter.title}</h1>
+                <div className="order-first flex items-center justify-start gap-2 text-sm text-zinc-400 dark:text-zinc-500">
+                  <time
+                    dateTime={data.frontmatter.date}
+                    className="flex items-center"
+                  >
+                    <span className="h-4 w-0.5 rounded-full" />
+                    <span className="ml-3">
+                      {formatDate(data.frontmatter.date)}
+                    </span>
+                  </time>
+                  <span> - </span>
+                  <Link href="/about">Suneet Misra</Link>
+                </div>
+                <div className="mb-4 flex flex-row flex-wrap items-center justify-start gap-4">
+                  {data.frontmatter.categories.map((category) => {
+                    return (
+                      <div
+                        key={category}
+                        className="inline-flex rounded-md border-none bg-secondary px-2.5 py-0.5 text-xs font-semibold text-accent-foreground transition-colors"
+                      >
+                        {category}
+                      </div>
+                    );
+                  })}
+                </div>
+              </header>
+              {data.content}
+            </div>
+          </article>
+        </div>
       </div>
     </Container>
   );

@@ -76,7 +76,7 @@ export const ArticleCategories = ({
             data-selected={selected}
             key={category.title}
             href={pathname + "?" + createQueryString(category.slug)}
-            className="inline-flex items-center rounded-md border-none bg-secondary px-2.5 py-0.5 text-xs font-semibold text-accent-foreground no-underline transition-colors hover:bg-black hover:text-white hover:ring-2 hover:ring-accent-foreground hover:ring-offset-2 focus:outline-none data-[selected=true]:bg-black data-[selected=true]:text-white"
+            className="inline-flex items-center rounded-md border-none bg-secondary px-2.5 py-0.5 text-xs font-semibold text-accent-foreground no-underline transition-colors hover:bg-black hover:text-white hover:ring-2 hover:ring-accent-foreground hover:ring-offset-2 focus:outline-none data-[selected=true]:bg-black data-[selected=true]:text-white dark:hover:bg-white dark:hover:text-black dark:data-[selected=true]:bg-white dark:data-[selected=true]:text-black"
           >
             {category.title}
           </Link>
