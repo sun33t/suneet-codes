@@ -14,29 +14,6 @@ import { formatDate } from "@/lib/formatDate";
 type SearchParams = Promise<{
   [key: string]: FrontmatterCategories | undefined;
 }>;
-// type SearchParams = { [key: string]: string | string[] | undefined };
-
-// export default async function Articles() {
-//   const { articles, error } = await getAllArticles();
-
-//   if (error) {
-//     console.error(error);
-//   }
-//   return (
-//     <Container id="articles-page-container" className="mt-9">
-//       <div className="flex items-center justify-center">Articles Page</div>
-//       {!error ? (
-//         articles.map((article) => (
-//           <div key={article.slug}>
-//             <Link href={`/articles/${article.slug}`}>{article.title}</Link>
-//           </div>
-//         ))
-//       ) : (
-//         <div>Failed to load articles</div>
-//       )}
-//     </Container>
-//   );
-// }
 
 function Article({ article }: { article: FrontmatterWithFilename }) {
   return (
@@ -89,7 +66,7 @@ export default async function Articles({
       intro="All of my long-form thoughts on programming, leadership, product development, and more, collected in chronological order."
     >
       <div className="mb-20">
-        <h2 className="font-bold">Filter articles by topic</h2>
+        <h2 className="font-bold">Filter articles by category</h2>
         <ArticleCategories
           categories={[...CATEGORIES.values().map((value) => value.title)]}
         />
