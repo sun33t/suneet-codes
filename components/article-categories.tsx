@@ -1,5 +1,4 @@
-import { Badge } from "./ui/badge";
-
+import Link from "next/link";
 import { useMemo } from "react";
 
 import { CATEGORIES, type CategoryName } from "@/lib/constants";
@@ -14,9 +13,13 @@ export const ArticleCategories = ({
       categories?.map((categoryTitle) => {
         const category = CATEGORIES.get(categoryTitle);
         return category !== undefined ? (
-          <Badge key={category.title} className={category.className}>
+          <Link
+            key={category.title}
+            href={`/articles?q=${category.slug}`}
+            className="inline-flex items-center rounded-md border-none bg-secondary px-2.5 py-0.5 text-xs font-semibold text-red-500 no-underline transition-colors hover:ring-2 hover:ring-accent-foreground hover:ring-offset-2 focus:outline-none focus:ring-2 focus:ring-accent-foreground focus:ring-offset-2"
+          >
             {category.title}
-          </Badge>
+          </Link>
         ) : null;
       }),
     [categories]
