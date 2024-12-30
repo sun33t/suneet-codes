@@ -40,6 +40,10 @@ function constructZodLiteralUnionType<T extends z.ZodLiteral<unknown>>(
   return z.union(literals);
 }
 
+const frontmatterCategories = constructZodLiteralUnionType(
+  categoryNames.map((literal) => z.literal(literal))
+);
+
 const frontmatterSchema = z.object({
   title: z.string(),
   author: z.string(),
@@ -47,13 +51,11 @@ const frontmatterSchema = z.object({
   slug: z.string(),
   description: z.string(),
   categories: z
-    .array(
-      constructZodLiteralUnionType(
-        categoryNames.map((literal) => z.literal(literal))
-      )
-    )
+    .array(frontmatterCategories)
     .min(1, { message: "At least one category is required" }),
 });
+
+export type FrontmatterCategories = z.infer<typeof frontmatterCategories>;
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;
 
@@ -65,7 +67,7 @@ type Error = {
   message: string;
 } | null;
 
-export const getAllArticles = async () => {
+export const getAllArticles = async (q?: FrontmatterCategories) => {
   const articles: FrontmatterWithFilename[] = [];
   let articlesError: Error = null;
 
@@ -99,8 +101,12 @@ export const getAllArticles = async () => {
         }
       })
     );
-
-    articles.push(...fetchedArticles);
+    const filteredArticles = q
+      ? fetchedArticles.filter((article) => {
+          return article.categories.includes(q);
+        })
+      : fetchedArticles;
+    articles.push(...filteredArticles);
   } catch (error) {
     console.error(error);
     articlesError = error as Error;
