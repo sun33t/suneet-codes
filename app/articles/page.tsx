@@ -12,7 +12,7 @@ import { CATEGORIES } from "@/lib/constants";
 import { formatDate } from "@/lib/formatDate";
 
 type SearchParams = Promise<{
-  [key: string]: FrontmatterCategories | undefined;
+  [key: string]: FrontmatterCategories | FrontmatterCategories[] | undefined;
 }>;
 
 function Article({ article }: { article: FrontmatterWithFilename }) {
