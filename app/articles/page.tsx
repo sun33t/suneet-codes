@@ -65,8 +65,8 @@ export default async function Articles({
       title="Writing on software development and building for the web"
       intro="All of my long-form thoughts on programming, leadership, product development, and more, collected in chronological order."
     >
-      <div className="mb-20">
-        <h2 className="font-bold">Filter articles by category</h2>
+      <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
+        <h2 className="flex-none font-bold">Filter articles by category:</h2>
         <ArticleCategories
           categories={[...CATEGORIES.values().map((value) => value.title)]}
         />
