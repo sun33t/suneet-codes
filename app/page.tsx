@@ -9,7 +9,7 @@ import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Heading } from "@/components/typography/heading";
 import { P } from "@/components/typography/paragraph";
 import { type FrontmatterWithFilename, getAllArticles } from "@/lib/articles";
-import { roles } from "@/lib/constants";
+import { ROLES } from "@/lib/constants";
 import { formatDate } from "@/lib/formatDate";
 
 function SocialLink({
@@ -97,7 +97,7 @@ export default async function Home() {
           )}
           <div className="space-y-10 lg:pl-16 xl:pl-24">
             {/* <Newsletter /> */}
-            <Resume roles={roles} />
+            <Resume roles={ROLES} />
           </div>
         </div>
       </Container>
