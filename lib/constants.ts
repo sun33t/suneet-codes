@@ -26,7 +26,7 @@ export const PAGES: Pages = [
   { title: "About", slug: "/about" },
   { title: "Articles", slug: "/articles" },
   { title: "Projects", slug: "/projects" },
-  // { title: "Following", slug: "/following" },
+  { title: "Following", slug: "/following" },
   // { title: "Uses", slug: "/uses" },
 ];
 
@@ -123,8 +123,65 @@ export const PROJECTS: Array<Project> = [
   {
     name: "One Peter Four",
     description:
-      "Branding, newsletter and website build for this rrganisation design & development consultancy aligned with Christian values",
+      "Branding, newsletter and website build for this organisation design & development consultancy aligned with Christian values",
     link: { href: "https://1peter4.co.uk", label: "1peter4.co.uk" },
     logo: onepeterfourLogo,
   },
 ];
+
+export type InspirationEntry = {
+  title: string;
+  href: string;
+  description: string;
+  cta: string;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const inspirationCategories = ["Blogs", "Podcasts", "Youtube"] as const;
+
+type InspirationCategory = (typeof inspirationCategories)[number];
+
+export const INSPIRATION: Map<InspirationCategory, InspirationEntry[]> =
+  new Map([
+    [
+      "Blogs",
+      [
+        {
+          title: "Josh Comeau",
+          href: "https://www.joshwcomeau.com/",
+          description: "All things CSS",
+          cta: "Read",
+        },
+        {
+          title: "Alex Zajac",
+          href: "https://www.hungryminds.dev/",
+          description: "Get smarter about Software and AI in 5 minutes.",
+          cta: "Read",
+        },
+      ],
+    ],
+    [
+      "Podcasts",
+      [
+        {
+          title: "Josh Comeau",
+          href: "https://www.joshwcomeau.com/",
+          description:
+            "A very talented developer with a heavy emphasis on CSS and frontend development.",
+          cta: "Listen",
+        },
+      ],
+    ],
+    [
+      "Youtube",
+      [
+        {
+          title: "Josh Comeau",
+          href: "https://www.joshwcomeau.com/",
+          description:
+            "A very talented developer with a heavy emphasis on CSS and frontend development.",
+          cta: "Watch",
+        },
+      ],
+    ],
+  ]);
