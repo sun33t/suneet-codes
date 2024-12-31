@@ -22,11 +22,11 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  // metadataBase: new URL(
-  //   env.NODE_ENV === "production"
-  //     ? env.PROJECT_CANONICAL_URL
-  //     : "http://localhost:3000"
-  // ),
+  metadataBase: new URL(
+    env.NODE_ENV === "production"
+      ? env.PROJECT_CANONICAL_URL
+      : "http://localhost:3000"
+  ),
   title: env.PROJECT_BASE_TITLE,
   description: env.PROJECT_BASE_DESCRIPTION,
   openGraph: {
