@@ -32,7 +32,7 @@ const Inspiration = ({ title, description, cta, href }: InspirationProps) => {
 export default function Following() {
   return (
     <SimpleLayout
-      title="Developers and creative professionals who's work I follow."
+      title="Developers and creative professionals whose work I follow."
       intro="This industry is always changing and there's always new challenges to overcome. These are the people who I find inspiring and invaluable to learn from."
     >
       <div className="space-y-20">
