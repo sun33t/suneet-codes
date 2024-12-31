@@ -36,9 +36,8 @@ export default function Following() {
       intro="This industry is always changing and there's always new challenges to overcome. These are the people who I find inspiring and invaluable to learn from."
     >
       <div className="space-y-20">
-        {[
-          ...INSPIRATION.keys().map((category) => {
-            console.log(category);
+        {Array.from(
+          INSPIRATION.keys().map((category) => {
             return (
               <InspirationSection key={category} title={category}>
                 {INSPIRATION.get(category)?.map((entry) => (
@@ -46,8 +45,8 @@ export default function Following() {
                 ))}
               </InspirationSection>
             );
-          }),
-        ]}
+          })
+        )}
       </div>
     </SimpleLayout>
   );
