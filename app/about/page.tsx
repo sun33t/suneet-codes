@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { MailIcon } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -33,6 +34,11 @@ function SocialLink({
     </li>
   );
 }
+
+export const metadata: Metadata = {
+  title: "About",
+  description: `I'm Suneet Misra - a developer working from Chester UK.`,
+};
 
 export default function About() {
   return (

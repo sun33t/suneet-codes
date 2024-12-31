@@ -22,8 +22,16 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
+  // metadataBase: new URL(
+  //   env.NODE_ENV === "production"
+  //     ? env.PROJECT_CANONICAL_URL
+  //     : "http://localhost:3000"
+  // ),
   title: env.PROJECT_BASE_TITLE,
   description: env.PROJECT_BASE_DESCRIPTION,
+  openGraph: {
+    images: ["/images/avatar.jpeg"],
+  },
   icons: {
     icon: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👾</text></svg>",
   },

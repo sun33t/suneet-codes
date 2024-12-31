@@ -28,7 +28,7 @@ export const PAGES: Pages = [
   { title: "Articles", slug: "/articles" },
   { title: "Projects", slug: "/projects" },
   { title: "Following", slug: "/following" },
-  // { title: "Uses", slug: "/uses" },
+  { title: "Uses", slug: "/uses" },
 ];
 
 export const categoryNames = ["react", "javascript", "aws"] as const;

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 
 import { Card } from "@/components/card";
@@ -14,6 +15,11 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
     </svg>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: `Projects that I've built.`,
+};
 
 export default function Projects() {
   return (
