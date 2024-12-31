@@ -164,10 +164,9 @@ export const INSPIRATION: Map<InspirationCategory, InspirationEntry[]> =
       "Podcasts",
       [
         {
-          title: "Josh Comeau",
-          href: "https://www.joshwcomeau.com/",
-          description:
-            "A very talented developer with a heavy emphasis on CSS and frontend development.",
+          title: "Syntax FM",
+          href: "https://syntax.fm/",
+          description: "Tasty treats for web developers.",
           cta: "Listen",
         },
       ],
@@ -176,10 +175,10 @@ export const INSPIRATION: Map<InspirationCategory, InspirationEntry[]> =
       "Youtube",
       [
         {
-          title: "Josh Comeau",
-          href: "https://www.joshwcomeau.com/",
+          title: "Jack Herrington",
+          href: "https://www.youtube.com/@jherr",
           description:
-            "A very talented developer with a heavy emphasis on CSS and frontend development.",
+            "Frontend videos from basic to very advanced; tutorials, technology deep dives.",
           cta: "Watch",
         },
       ],
