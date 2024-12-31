@@ -50,6 +50,7 @@ const frontmatterSchema = z.object({
   date: z.string().date(),
   slug: z.string(),
   description: z.string(),
+  coverImage: z.string(),
   categories: z
     .array(frontmatterCategories)
     .min(1, { message: "At least one category is required" }),

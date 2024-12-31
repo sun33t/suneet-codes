@@ -1,8 +1,10 @@
+import { Metadata } from "next";
 import { compileMDX } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { env } from "@/app/env";
 import { ArticleCategories } from "@/components/article-categories";
 import { ArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
@@ -13,6 +15,11 @@ import {
   getArticleContent,
 } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 export async function generateStaticParams() {
   const { articles, error } = await getAllArticles();
@@ -26,6 +33,42 @@ export async function generateStaticParams() {
   }));
 
   return slugs;
+}
+
+export async function generateMetadata(
+  { params }: Props
+  // parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const slug = (await params).slug;
+  const { content, error } = await getArticleContent(slug);
+
+  if (error) {
+    console.error(error);
+  }
+
+  const data = await compileMDX<Frontmatter>({
+    source: content,
+    options: {
+      parseFrontmatter: true,
+    },
+  });
+
+  return {
+    title: data.frontmatter.title,
+    description: data.frontmatter.description,
+    openGraph: {
+      images: [data.frontmatter.coverImage],
+      title: data.frontmatter.title,
+      description: data.frontmatter.description,
+      url: `/articles/${slug}`,
+      type: "article",
+      authors: data.frontmatter.author,
+      tags: data.frontmatter.categories,
+      locale: "en-GB",
+      siteName: env.PROJECT_BASE_TITLE,
+    },
+  };
 }
 
 export default async function Page({

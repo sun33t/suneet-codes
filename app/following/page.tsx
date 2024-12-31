@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
@@ -27,6 +29,11 @@ const Inspiration = ({ title, description, cta, href }: InspirationProps) => {
       <Card.Cta>{cta}</Card.Cta>
     </Card>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Following",
+  description: `Developers and creative professionals whose work I follow.`,
 };
 
 export default function Following() {
