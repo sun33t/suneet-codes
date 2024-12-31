@@ -4,6 +4,7 @@ import { LinkProps } from "next/link";
 
 import ansLogo from "@/images/logos/ans.svg";
 import luminLogo from "@/images/logos/lumin.svg";
+import northcodersLogo from "@/images/logos/northcoders.png";
 import onepeterfourLogo from "@/images/logos/onepeterfour.webp";
 import logoPushorigin from "@/images/logos/pushorigin.svg";
 import verseLogo from "@/images/logos/verse.svg";
@@ -116,6 +117,14 @@ export const ROLES: Array<Role> = [
     start: "2020",
     end: "2023",
     href: "https://verse.co.uk",
+  },
+  {
+    company: "Northcoders",
+    title: "Tutor",
+    logo: northcodersLogo,
+    start: "2019",
+    end: "2020",
+    href: "https://northcoders.com",
   },
 ];
 

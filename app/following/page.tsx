@@ -3,7 +3,7 @@ import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
 import { INSPIRATION, InspirationEntry } from "@/lib/constants";
 
-const FollowingSection = ({
+const InspirationSection = ({
   children,
   ...props
 }: React.ComponentPropsWithoutRef<typeof Section>) => {
@@ -40,11 +40,11 @@ export default function Following() {
           ...INSPIRATION.keys().map((category) => {
             console.log(category);
             return (
-              <FollowingSection key={category} title={category}>
+              <InspirationSection key={category} title={category}>
                 {INSPIRATION.get(category)?.map((entry) => (
                   <Inspiration key={entry.href} {...entry} />
                 ))}
-              </FollowingSection>
+              </InspirationSection>
             );
           }),
         ]}
