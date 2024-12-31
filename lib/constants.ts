@@ -120,7 +120,7 @@ export const ROLES: Array<Role> = [
   },
   {
     company: "Northcoders",
-    title: "Tutor",
+    title: "Tutor - Developer Pathway",
     logo: northcodersLogo,
     start: "2019",
     end: "2020",
