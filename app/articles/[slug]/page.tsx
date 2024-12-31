@@ -73,7 +73,7 @@ export default async function Page({
                     </span>
                   </time>
                   <span> - </span>
-                  <Link href="/about">Suneet Misra</Link>
+                  <Link href="/about">{data.frontmatter.author}</Link>
                 </div>
                 <div className="mb-4 flex flex-row flex-wrap items-center justify-start gap-4">
                   {data.frontmatter.categories.map((category) => {
