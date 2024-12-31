@@ -1,8 +1,10 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { ImageProps } from "next/image";
 import { LinkProps } from "next/link";
 
 import ansLogo from "@/images/logos/ans.svg";
 import luminLogo from "@/images/logos/lumin.svg";
+import onepeterfourLogo from "@/images/logos/onepeterfour.webp";
 import logoPushorigin from "@/images/logos/pushorigin.svg";
 import verseLogo from "@/images/logos/verse.svg";
 
@@ -10,10 +12,20 @@ type Slug = `/${string}`;
 type Page = { title: string; slug: Slug };
 export type Pages = Array<Page>;
 
+type Project = {
+  name: string;
+  description: string;
+  link: {
+    href: string;
+    label: string;
+  };
+  logo: StaticImport;
+};
+
 export const PAGES: Pages = [
   { title: "About", slug: "/about" },
   { title: "Articles", slug: "/articles" },
-  // { title: "Projects", slug: "/projects" },
+  { title: "Projects", slug: "/projects" },
   // { title: "Following", slug: "/following" },
   // { title: "Uses", slug: "/uses" },
 ];
@@ -69,7 +81,7 @@ export interface Role {
   href: LinkProps["href"];
 }
 
-export const roles: Array<Role> = [
+export const ROLES: Array<Role> = [
   {
     company: "Pushorigin",
     title: "Founder, Engineer",
@@ -104,5 +116,15 @@ export const roles: Array<Role> = [
     start: "2020",
     end: "2023",
     href: "https://verse.co.uk",
+  },
+];
+
+export const PROJECTS: Array<Project> = [
+  {
+    name: "One Peter Four",
+    description:
+      "Branding, newsletter and website build for this rrganisation design & development consultancy aligned with Christian values",
+    link: { href: "https://1peter4.co.uk", label: "1peter4.co.uk" },
+    logo: onepeterfourLogo,
   },
 ];
