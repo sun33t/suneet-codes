@@ -6,12 +6,12 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
-import { CATEGORIES, type CategoryName } from "@/lib/constants/categories";
+import { type Category } from "@/lib/constants/categories";
 
 export const ArticleCategories = ({
   categories,
 }: {
-  categories: CategoryName[];
+  categories: Category[];
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -66,8 +66,7 @@ export const ArticleCategories = ({
 
   const renderedCategories = useMemo(
     () =>
-      categories?.map((categoryTitle) => {
-        const category = CATEGORIES.get(categoryTitle);
+      categories?.map((category) => {
         const selected = category && isSelected(category.slug);
 
         return category !== undefined ? (
