@@ -5,7 +5,7 @@ import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
 import { FOLLOWING, FollowingEntry } from "@/lib/constants/following";
 
-const InspirationSection = ({
+const FollowingSection = ({
   children,
   ...props
 }: React.ComponentPropsWithoutRef<typeof Section>) => {
@@ -16,9 +16,7 @@ const InspirationSection = ({
   );
 };
 
-type InspirationProps = FollowingEntry;
-
-const Inspiration = ({ title, description, cta, href }: InspirationProps) => {
+const FollowingCard = ({ title, description, cta, href }: FollowingEntry) => {
   return (
     <Card as="article">
       <Card.Title as="h3" href={href}>
@@ -46,11 +44,11 @@ export default function Following() {
         {Array.from(
           FOLLOWING.keys().map((category) => {
             return (
-              <InspirationSection key={category} title={category}>
+              <FollowingSection key={category} title={category}>
                 {FOLLOWING.get(category)?.map((entry) => (
-                  <Inspiration key={entry.href} {...entry} />
+                  <FollowingCard key={entry.href} {...entry} />
                 ))}
-              </InspirationSection>
+              </FollowingSection>
             );
           })
         )}

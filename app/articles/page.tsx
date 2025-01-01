@@ -67,9 +67,7 @@ export default async function Articles({
     >
       <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
         <h2 className="flex-none font-bold">Filter articles by category:</h2>
-        <ArticleCategories
-          categories={[...CATEGORIES.values().map((value) => value.title)]}
-        />
+        <ArticleCategories categories={CATEGORIES} />
       </div>
       <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
         <div className="flex max-w-3xl flex-col space-y-16">
