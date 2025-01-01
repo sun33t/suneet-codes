@@ -45,11 +45,7 @@ export default function Following() {
                     {category}
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div
-                      key={category}
-                      title={category}
-                      className="flex flex-col space-y-16"
-                    >
+                    <div className="flex flex-col space-y-16">
                       {INSPIRATION.get(category)?.map((entry) => (
                         <Inspiration key={entry.href} {...entry} />
                       ))}
