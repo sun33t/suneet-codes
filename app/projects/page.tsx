@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
-import { PROJECTS } from "@/lib/constants";
+import { PROJECTS } from "@/lib/constants/projects";
 
 function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
   return (
