@@ -9,6 +9,8 @@ import { Container } from "@/components/container";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import profileWide from "@/images/profile_wide.jpeg";
 
+// https://www.robinwieruch.de/work-with-me/ see here for inspo
+
 function SocialLink({
   className,
   href,
