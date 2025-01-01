@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
-import { INSPIRATION, InspirationEntry } from "@/lib/constants";
+import { FOLLOWING, FollowingEntry } from "@/lib/constants/following";
 
 const InspirationSection = ({
   children,
@@ -16,7 +16,7 @@ const InspirationSection = ({
   );
 };
 
-type InspirationProps = InspirationEntry;
+type InspirationProps = FollowingEntry;
 
 const Inspiration = ({ title, description, cta, href }: InspirationProps) => {
   return (
@@ -44,10 +44,10 @@ export default function Following() {
     >
       <div className="space-y-20">
         {Array.from(
-          INSPIRATION.keys().map((category) => {
+          FOLLOWING.keys().map((category) => {
             return (
               <InspirationSection key={category} title={category}>
-                {INSPIRATION.get(category)?.map((entry) => (
+                {FOLLOWING.get(category)?.map((entry) => (
                   <Inspiration key={entry.href} {...entry} />
                 ))}
               </InspirationSection>

@@ -3,7 +3,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import path from "path";
 import z from "zod";
 
-import { categoryNames } from "@/lib/constants";
+import { categoryNames } from "@/lib/constants/categories";
 
 /**
  * Frontmatter could also include:

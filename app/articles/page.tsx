@@ -8,7 +8,7 @@ import {
   type FrontmatterWithFilename,
   getAllArticles,
 } from "@/lib/articles";
-import { CATEGORIES } from "@/lib/constants";
+import { CATEGORIES } from "@/lib/constants/categories";
 import { formatDate } from "@/lib/formatDate";
 
 type SearchParams = Promise<{

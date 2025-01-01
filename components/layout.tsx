@@ -3,7 +3,7 @@ import { Header } from "./header";
 
 import { useMemo } from "react";
 
-import { PAGES } from "@/lib/constants";
+import { PAGES } from "@/lib/constants/pages";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
-import { CATEGORIES, type CategoryName } from "@/lib/constants";
+import { CATEGORIES, type CategoryName } from "@/lib/constants/categories";
 
 export const ArticleCategories = ({
   categories,
