@@ -2,6 +2,7 @@ import { MDXContent } from "@content-collections/mdx/react";
 import { allArticles } from "content-collections";
 import { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { env } from "@/app/env";
 import { ArticleImage } from "@/components/article-image";
@@ -58,6 +59,10 @@ export default async function Page({
   const { slug } = await params;
 
   const article = getArticleByFilename(slug);
+
+  if (!article) {
+    return notFound();
+  }
 
   return (
     <Container id="mdx-layout-container" className="mt-16">
