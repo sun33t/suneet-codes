@@ -65,7 +65,7 @@ const ArticlesFilter = () => {
       <Button
         size="sm"
         variant="link"
-        className="h-0 text-sm underline"
+        className="h-0 text-xs underline"
         disabled={!isFiltered}
         onClick={() =>
           router.push("/articles", {
