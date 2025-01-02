@@ -3,7 +3,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import path from "path";
 
 import {
-  type Error,
+  type AppError,
   type Frontmatter,
   type FrontmatterCategories,
   type FrontmatterWithFilename,
@@ -21,7 +21,7 @@ export const getAllArticlesInfo = async (
   const articlesDirectory = path.join(process.cwd(), "content/articles");
 
   // initialises an empty error to store any potential errors that occur within the try/catch block
-  let articlesError: Error = null;
+  let articlesError: AppError = null;
 
   try {
     // reads all the filenames in the "content/articles" directory
@@ -76,7 +76,7 @@ export const getAllArticlesInfo = async (
     articles.push(...filteredArticles);
   } catch (error) {
     console.error(error);
-    articlesError = error as Error;
+    articlesError = error as AppError;
   }
 
   return { articles, error: articlesError };
@@ -89,7 +89,7 @@ export const getArticle = async (
   filename: FrontmatterWithFilename["filename"]
 ) => {
   let content: string = "";
-  let contentError: Error = null;
+  let contentError: AppError = null;
 
   const articlesDirectory = path.join(process.cwd(), "content/articles");
 
@@ -100,7 +100,7 @@ export const getArticle = async (
     );
     content = articleContent;
   } catch (error) {
-    contentError = error as Error;
+    contentError = error as AppError;
   }
 
   return { content, error: contentError };
