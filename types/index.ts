@@ -1,11 +1,5 @@
-import { FrontmatterCategories } from "./frontmatter";
-
-export * from "./frontmatter";
-
-export type AppError = {
-  message: string;
-} | null;
+import { type Article } from "content-collections";
 
 export type SearchParams = Promise<{
-  category: FrontmatterCategories | FrontmatterCategories[] | undefined;
+  category: Article["categories"]["0"] | Article["categories"] | undefined;
 }>;

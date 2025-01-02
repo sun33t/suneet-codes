@@ -16,6 +16,12 @@ const eslintConfig = [
     rules: {
       "n/no-process-env": ["warn"],
       "n/no-missing-import": ["off"],
+      "n/no-extraneous-import": [
+        "error",
+        {
+          allowModules: ["content-collections"],
+        },
+      ],
     },
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
