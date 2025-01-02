@@ -3,11 +3,7 @@ import { Metadata } from "next";
 import { SuspendedArticlesFilter } from "@/components/articles-filter";
 import { SuspendedArticlesList } from "@/components/articles-list";
 import { SimpleLayout } from "@/components/simple-layout";
-import { FrontmatterCategories } from "@/lib/articles";
-
-type SearchParams = Promise<{
-  [key: string]: FrontmatterCategories | FrontmatterCategories[] | undefined;
-}>;
+import { type SearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Articles",
