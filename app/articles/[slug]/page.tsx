@@ -34,7 +34,7 @@ export async function generateMetadata(
 
   return article
     ? {
-        title: article?.title,
+        title: `${env.PROJECT_BASE_TITLE} | ${article?.title}`,
         description: article?.description,
         openGraph: {
           images: [article?.coverImage],

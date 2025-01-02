@@ -1,9 +1,15 @@
 import { Metadata } from "next";
 import Image from "next/image";
 
+import { env } from "@/app/env";
 import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
 import { PROJECTS } from "@/lib/constants/projects";
+
+export const metadata: Metadata = {
+  title: `${env.PROJECT_BASE_TITLE} | projects`,
+  description: `Projects that I've built.`,
+};
 
 function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
   return (
@@ -15,11 +21,6 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
     </svg>
   );
 }
-
-export const metadata: Metadata = {
-  title: "Projects",
-  description: `Projects that I've built.`,
-};
 
 export default function Projects() {
   return (
