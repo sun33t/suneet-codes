@@ -1,3 +1,4 @@
+import { type Article } from "content-collections";
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -8,10 +9,9 @@ import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Heading } from "@/components/typography/heading";
 import { P } from "@/components/typography/paragraph";
-import { getAllArticlesInfo } from "@/lib/articles";
+import { latestArticles } from "@/lib/articles";
 import { ROLES } from "@/lib/constants/roles";
 import { formatDate } from "@/lib/formatDate";
-import { type FrontmatterWithFilename } from "@/types";
 
 function SocialLink({
   icon: Icon,
@@ -31,10 +31,10 @@ function SocialLink({
   );
 }
 
-function Article({ article }: { article: FrontmatterWithFilename }) {
+function ArticleCard({ article }: { article: Article }) {
   return (
     <Card as="article">
-      <Card.Title href={`/articles/${article.filename}`}>
+      <Card.Title href={`/articles/${article._meta.path}`}>
         {article.title}
       </Card.Title>
       <Card.Eyebrow as="time" dateTime={article.date} decorate>
@@ -46,9 +46,7 @@ function Article({ article }: { article: FrontmatterWithFilename }) {
   );
 }
 
-export default async function Home() {
-  const { articles, error } = await getAllArticlesInfo();
-
+export default function Home() {
   return (
     <Fragment>
       <Container className="mt-9">
@@ -87,15 +85,13 @@ export default async function Home() {
       </Container>
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-          {error ? (
-            <div>Error loading articles</div>
-          ) : (
-            <div className="flex flex-col gap-16">
-              {articles.map((article) => (
-                <Article key={article.filename} article={article} />
-              ))}
-            </div>
-          )}
+          <div className="flex flex-col gap-16">
+            {latestArticles.map((article) => {
+              return (
+                <ArticleCard key={article._meta.fileName} article={article} />
+              );
+            })}
+          </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
             {/* <Newsletter /> */}
             <Resume roles={ROLES} />

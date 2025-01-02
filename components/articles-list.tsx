@@ -1,11 +1,12 @@
 import { Card } from "./card";
 import { Skeleton } from "./ui/skeleton";
 
+import { type Article } from "content-collections";
 import { Suspense } from "react";
 
-import { getAllArticlesInfo } from "@/lib/articles";
+import { getArticlesByCategory } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
-import { type FrontmatterWithFilename, type SearchParams } from "@/types";
+import { type SearchParams } from "@/types";
 
 const SkeletonCard = () => {
   return (
@@ -56,11 +57,11 @@ const SkeletonCardList = () => {
   );
 };
 
-function Article({ article }: { article: FrontmatterWithFilename }) {
+function Article({ article }: { article: Article }) {
   return (
     <article className="md:grid md:grid-cols-4 md:items-baseline">
       <Card className="md:col-span-3">
-        <Card.Title href={`/articles/${article.filename}`}>
+        <Card.Title href={`/articles/${article._meta.path}`}>
           {article.title}
         </Card.Title>
         <Card.Eyebrow
@@ -91,16 +92,14 @@ const ArticlesList = async ({
   searchParams: SearchParams;
 }) => {
   const { category } = await searchParams;
-  const { articles, error } = await getAllArticlesInfo(category);
 
-  if (error) {
-    console.error(error);
-  }
+  const articles = getArticlesByCategory({ category });
+
   return (
     <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
       <div className="flex max-w-3xl flex-col space-y-16">
         {articles.map((article) => (
-          <Article key={article.filename} article={article} />
+          <Article key={article._meta.path} article={article} />
         ))}
       </div>
     </div>
