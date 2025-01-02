@@ -1,11 +1,9 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 
-import { ArticleCategories } from "@/components/article-categories";
-import { ArticleList } from "@/components/article-list";
+import { SuspendedArticlesFilter } from "@/components/articles-filter";
+import { SuspendedArticlesList } from "@/components/articles-list";
 import { SimpleLayout } from "@/components/simple-layout";
 import { FrontmatterCategories } from "@/lib/articles";
-import { CATEGORIES } from "@/lib/constants/categories";
 
 type SearchParams = Promise<{
   [key: string]: FrontmatterCategories | FrontmatterCategories[] | undefined;
@@ -27,22 +25,8 @@ export default function Articles({
       title="Writing on software development and building for the web"
       intro="All of my long-form thoughts on programming, leadership, product development, and more, collected in chronological order."
     >
-      <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
-        <h2 className="flex-none font-bold">Filter articles by category:</h2>
-        <Suspense fallback={<div>Categories loading...</div>}>
-          <ArticleCategories categories={CATEGORIES} />
-        </Suspense>
-      </div>
-      <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-        <div className="flex max-w-3xl flex-col space-y-16">
-          <Suspense fallback={<div>Loading...</div>}>
-            <ArticleList searchParams={searchParams} />
-          </Suspense>
-          {/* {articles.map((article) => (
-            <Article key={article.slug} article={article} />
-          ))} */}
-        </div>
-      </div>
+      <SuspendedArticlesFilter />
+      <SuspendedArticlesList searchParams={searchParams} />
     </SimpleLayout>
   );
 }

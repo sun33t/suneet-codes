@@ -1,6 +1,6 @@
 import { Card } from "./card";
 
-import { Fragment } from "react";
+import { Suspense } from "react";
 
 import {
   FrontmatterCategories,
@@ -38,7 +38,7 @@ function Article({ article }: { article: FrontmatterWithFilename }) {
   );
 }
 
-export const ArticleList = async ({
+const ArticlesList = async ({
   searchParams,
 }: {
   searchParams: Promise<{
@@ -52,10 +52,26 @@ export const ArticleList = async ({
     console.error(error);
   }
   return (
-    <Fragment>
-      {articles.map((article) => (
-        <Article key={article.slug} article={article} />
-      ))}
-    </Fragment>
+    <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+      <div className="flex max-w-3xl flex-col space-y-16">
+        {articles.map((article) => (
+          <Article key={article.slug} article={article} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export const SuspendedArticlesList = ({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    [key: string]: FrontmatterCategories | FrontmatterCategories[] | undefined;
+  }>;
+}) => {
+  return (
+    <Suspense fallback={<div>Internal Loading...</div>}>
+      <ArticlesList searchParams={searchParams} />
+    </Suspense>
   );
 };
