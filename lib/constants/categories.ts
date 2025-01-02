@@ -21,3 +21,5 @@ export const CATEGORIES: Category[] = [
     slug: "aws",
   },
 ];
+
+export const CATEGORY_PARAM_NAME = "category";

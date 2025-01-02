@@ -2,7 +2,7 @@ import { FrontmatterCategories } from "./frontmatter";
 
 export * from "./frontmatter";
 
-export type Error = {
+export type AppError = {
   message: string;
 } | null;
 

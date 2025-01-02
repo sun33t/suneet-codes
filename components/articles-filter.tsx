@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useMemo } from "react";
 
-import { CATEGORIES } from "@/lib/constants/categories";
+import { CATEGORIES, CATEGORY_PARAM_NAME } from "@/lib/constants/categories";
 
 const SkeletonFilter = () => {
   return (
@@ -29,7 +29,7 @@ const SkeletonFilter = () => {
 const ArticlesFilter = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const searchParamName = "category";
+  const categoryParamName = CATEGORY_PARAM_NAME;
 
   const isFiltered = useMemo(() => {
     return searchParams.size > 0;
@@ -39,24 +39,24 @@ const ArticlesFilter = () => {
     (value: string) => {
       const params = new URLSearchParams(searchParams.toString());
 
-      if (params.has(searchParamName, value)) {
-        params.delete(searchParamName, value);
+      if (params.has(categoryParamName, value)) {
+        params.delete(categoryParamName, value);
       } else {
-        params.append(searchParamName, value);
+        params.append(categoryParamName, value);
       }
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams, categoryParamName]
   );
 
   const isSelected = useCallback(
     (value: string) => {
       const params = new URLSearchParams(searchParams.toString());
 
-      return params.has(searchParamName, value);
+      return params.has(categoryParamName, value);
     },
-    [searchParams]
+    [searchParams, categoryParamName]
   );
 
   const ClearFilter = () => {
