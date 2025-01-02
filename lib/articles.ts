@@ -1,89 +1,41 @@
 import { promises as fs } from "fs";
 import { compileMDX } from "next-mdx-remote/rsc";
 import path from "path";
-import z from "zod";
 
-import { categoryNames } from "@/lib/constants/categories";
-
-/**
- * Frontmatter could also include:
- *   tags?: string[];
- *   readingTime?: number;
- *   coverImage?: string;
- *   isPublished?: boolean;
- */
+import {
+  type Error,
+  type Frontmatter,
+  type FrontmatterCategories,
+  type FrontmatterWithFilename,
+  frontmatterSchema,
+} from "@/types";
 
 /**
- * Type guard to ensure there are enough literals to form a valid union type.
- * @param literals - Array of Zod literal types
- * @returns True if the array contains at least two elements
- * https://github.com/colinhacks/zod/issues/831#issuecomment-1918536468
+ * Method for fetching all articles from the file system
  */
-function isValidZodLiteralUnion<T extends z.ZodLiteral<unknown>>(
-  literals: T[]
-): literals is [T, T, ...T[]] {
-  return literals.length >= 2;
-}
-
-/**
- *
- * https://github.com/colinhacks/zod/issues/831#issuecomment-1918536468
- */
-function constructZodLiteralUnionType<T extends z.ZodLiteral<unknown>>(
-  literals: T[]
-) {
-  if (!isValidZodLiteralUnion(literals)) {
-    throw new Error(
-      "Literals passed do not meet the criteria for constructing a union schema, the minimum length is 2"
-    );
-  }
-  return z.union(literals);
-}
-
-const frontmatterCategories = constructZodLiteralUnionType(
-  categoryNames.map((literal) => z.literal(literal))
-);
-
-const frontmatterSchema = z.object({
-  title: z.string(),
-  author: z.string(),
-  date: z.string().date(),
-  slug: z.string(),
-  description: z.string(),
-  coverImage: z.string(),
-  categories: z
-    .array(frontmatterCategories)
-    .min(1, { message: "At least one category is required" }),
-});
-
-export type FrontmatterCategories = z.infer<typeof frontmatterCategories>;
-
-export type Frontmatter = z.infer<typeof frontmatterSchema>;
-
-export type FrontmatterWithFilename = Frontmatter & {
-  filename: string;
-};
-
-type Error = {
-  message: string;
-} | null;
-
-export const getAllArticles = async (
-  q?: FrontmatterCategories | FrontmatterCategories[]
+export const getAllArticlesInfo = async (
+  category?: FrontmatterCategories | FrontmatterCategories[]
 ) => {
+  // initialises an empty array to store the articles
   const articles: FrontmatterWithFilename[] = [];
+  const articlesDirectory = path.join(process.cwd(), "content/articles");
+
+  // initialises an empty error to store any potential errors that occur within the try/catch block
   let articlesError: Error = null;
 
   try {
-    const filenames = await fs.readdir(
-      path.join(process.cwd(), "content/articles")
-    );
+    // reads all the filenames in the "content/articles" directory
+    const filenames = await fs.readdir(articlesDirectory);
+
     const fetchedArticles = await Promise.all(
+      // maps over each filename
       filenames.map(async (filename) => {
+        // uses the readFile method to store the content of each file
         const content = await fs.readFile(
-          path.join(process.cwd(), "content/articles", filename),
+          path.join(articlesDirectory, filename),
           "utf-8"
         );
+        // that content is then passed through the compileMDX method to extract the frontmatter
         const { frontmatter } = await compileMDX<Frontmatter>({
           source: content,
           options: {
@@ -91,27 +43,33 @@ export const getAllArticles = async (
           },
         });
 
+        // the frontmatter is then tested against the required schema.
         const { data, success, error } =
           frontmatterSchema.safeParse(frontmatter);
 
         if (!success) {
+          // throw an error if any article's frontmatter does not match the scheme
           throw new Error(error.message);
         } else {
+          // else return an object that contains the frontmatter and filename of the article
           return {
-            filename,
+            filename: filename.replace(".mdx", ""),
             ...data,
           };
         }
       })
     );
 
-    const filteredArticles = q
+    // if a category/array of categories are passed as an argument, then filter the returned article information based upon that argument
+    const filteredArticles = category
       ? fetchedArticles.filter((article) => {
-          if (typeof q === "string") {
-            return article.categories.includes(q);
+          if (typeof category === "string") {
+            return article.categories.includes(category);
           }
-          if (Array.isArray(q)) {
-            return q.every((category) => article.categories.includes(category));
+          if (Array.isArray(category)) {
+            return category.every((category) =>
+              article.categories.includes(category)
+            );
           }
         })
       : fetchedArticles;
@@ -124,30 +82,23 @@ export const getAllArticles = async (
   return { articles, error: articlesError };
 };
 
-export const getArticleContent = async (slug: Frontmatter["slug"]) => {
+/**
+ * Method for retrieving the content of a specific article. It receives the filename for the article as an argument. This is the filename that is appended onto the frontmatter object from the getAllArticlesInfo method.
+ */
+export const getArticle = async (
+  filename: FrontmatterWithFilename["filename"]
+) => {
   let content: string = "";
   let contentError: Error = null;
 
-  const { articles, error: articlesError } = await getAllArticles();
-
-  if (articlesError) {
-    contentError = articlesError;
-    console.error(articlesError.message);
-    return { content, error: contentError };
-  }
+  const articlesDirectory = path.join(process.cwd(), "content/articles");
 
   try {
-    const filename = articles.find(
-      (article) => article.slug === slug
-    )?.filename;
-    if (!filename) {
-      throw new Error(`Article with slug ${slug} not found`);
-    }
-    const fetchedContent = await fs.readFile(
-      path.join(process.cwd(), "content/articles", `${filename}`),
+    const articleContent = await fs.readFile(
+      path.join(articlesDirectory, `${filename}.mdx`),
       "utf-8"
     );
-    content = fetchedContent;
+    content = articleContent;
   } catch (error) {
     contentError = error as Error;
   }

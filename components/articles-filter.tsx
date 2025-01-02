@@ -29,7 +29,7 @@ const SkeletonFilter = () => {
 const ArticlesFilter = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const searchParamName = "q";
+  const searchParamName = "category";
 
   const isFiltered = useMemo(() => {
     return searchParams.size > 0;

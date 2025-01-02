@@ -7,12 +7,9 @@ import { env } from "@/app/env";
 import { ArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
-import {
-  type Frontmatter,
-  getAllArticles,
-  getArticleContent,
-} from "@/lib/articles";
+import { getAllArticlesInfo, getArticle } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
+import { Frontmatter } from "@/types";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -20,14 +17,14 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const { articles, error } = await getAllArticles();
+  const { articles, error } = await getAllArticlesInfo();
 
   if (error) {
     return [];
   }
 
   const slugs = articles.map((article) => ({
-    slug: article.slug,
+    slug: article.filename,
   }));
 
   return slugs;
@@ -39,7 +36,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const slug = (await params).slug;
-  const { content, error } = await getArticleContent(slug);
+  const { content, error } = await getArticle(slug);
 
   if (error) {
     console.error(error);
@@ -76,7 +73,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  const { content, error } = await getArticleContent(slug);
+  const { content, error } = await getArticle(slug);
 
   if (error) {
     notFound();

@@ -8,9 +8,10 @@ import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Heading } from "@/components/typography/heading";
 import { P } from "@/components/typography/paragraph";
-import { type FrontmatterWithFilename, getAllArticles } from "@/lib/articles";
+import { getAllArticlesInfo } from "@/lib/articles";
 import { ROLES } from "@/lib/constants/roles";
 import { formatDate } from "@/lib/formatDate";
+import { type FrontmatterWithFilename } from "@/types";
 
 function SocialLink({
   icon: Icon,
@@ -33,7 +34,7 @@ function SocialLink({
 function Article({ article }: { article: FrontmatterWithFilename }) {
   return (
     <Card as="article">
-      <Card.Title href={`/articles/${article.slug}`}>
+      <Card.Title href={`/articles/${article.filename}`}>
         {article.title}
       </Card.Title>
       <Card.Eyebrow as="time" dateTime={article.date} decorate>
@@ -46,7 +47,7 @@ function Article({ article }: { article: FrontmatterWithFilename }) {
 }
 
 export default async function Home() {
-  const { articles, error } = await getAllArticles();
+  const { articles, error } = await getAllArticlesInfo();
 
   return (
     <Fragment>
@@ -91,7 +92,7 @@ export default async function Home() {
           ) : (
             <div className="flex flex-col gap-16">
               {articles.map((article) => (
-                <Article key={article.slug} article={article} />
+                <Article key={article.filename} article={article} />
               ))}
             </div>
           )}

@@ -3,12 +3,9 @@ import { Skeleton } from "./ui/skeleton";
 
 import { Suspense } from "react";
 
-import {
-  FrontmatterCategories,
-  FrontmatterWithFilename,
-  getAllArticles,
-} from "@/lib/articles";
+import { getAllArticlesInfo } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
+import { type FrontmatterWithFilename, type SearchParams } from "@/types";
 
 const SkeletonCard = () => {
   return (
@@ -63,7 +60,7 @@ function Article({ article }: { article: FrontmatterWithFilename }) {
   return (
     <article className="md:grid md:grid-cols-4 md:items-baseline">
       <Card className="md:col-span-3">
-        <Card.Title href={`/articles/${article.slug}`}>
+        <Card.Title href={`/articles/${article.filename}`}>
           {article.title}
         </Card.Title>
         <Card.Eyebrow
@@ -91,12 +88,10 @@ function Article({ article }: { article: FrontmatterWithFilename }) {
 const ArticlesList = async ({
   searchParams,
 }: {
-  searchParams: Promise<{
-    [key: string]: FrontmatterCategories | FrontmatterCategories[] | undefined;
-  }>;
+  searchParams: SearchParams;
 }) => {
-  const { q } = await searchParams;
-  const { articles, error } = await getAllArticles(q);
+  const { category } = await searchParams;
+  const { articles, error } = await getAllArticlesInfo(category);
 
   if (error) {
     console.error(error);
@@ -105,7 +100,7 @@ const ArticlesList = async ({
     <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
       <div className="flex max-w-3xl flex-col space-y-16">
         {articles.map((article) => (
-          <Article key={article.slug} article={article} />
+          <Article key={article.filename} article={article} />
         ))}
       </div>
     </div>
@@ -115,9 +110,7 @@ const ArticlesList = async ({
 export const SuspendedArticlesList = ({
   searchParams,
 }: {
-  searchParams: Promise<{
-    [key: string]: FrontmatterCategories | FrontmatterCategories[] | undefined;
-  }>;
+  searchParams: SearchParams;
 }) => {
   return (
     <Suspense fallback={<SkeletonCardList />}>
