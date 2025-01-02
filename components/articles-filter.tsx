@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useMemo } from "react";
 
-import { CATEGORIES, CATEGORY_PARAM_NAME } from "@/lib/constants/categories";
+import { CATEGORIES, CATEGORY_PARAM_NAME } from "@/content/categories";
 
 const SkeletonFilter = () => {
   return (
