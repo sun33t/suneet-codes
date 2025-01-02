@@ -1,12 +1,30 @@
 "use client";
 
 import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useMemo } from "react";
 
 import { CATEGORIES } from "@/lib/constants/categories";
+
+const SkeletonFilter = () => {
+  return (
+    <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
+      <h2 className="flex-none font-bold">Filter articles by category:</h2>
+      <div
+        id="article-categories"
+        aria-label="Article Categories"
+        className="my-4 flex flex-row flex-wrap items-center justify-start gap-4"
+      >
+        <Skeleton className="h-[20px] w-[80px]" />
+        <Skeleton className="h-[20px] w-[80px]" />
+        <Skeleton className="h-[20px] w-[80px]" />
+      </div>
+    </div>
+  );
+};
 
 const ArticlesFilter = () => {
   const pathname = usePathname();
@@ -80,25 +98,23 @@ const ArticlesFilter = () => {
     [createQueryString, pathname, isSelected]
   );
   return (
-    <Suspense fallback={<div>Internal Suspense boundary...</div>}>
-      <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
-        <h2 className="flex-none font-bold">Filter articles by category:</h2>
-        <div
-          id="article-categories"
-          aria-label="Article Categories"
-          className="my-4 flex flex-row items-center justify-start gap-4"
-        >
-          {renderedCategories}
-          {isFiltered && <ClearFilter />}
-        </div>
+    <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
+      <h2 className="flex-none font-bold">Filter articles by category:</h2>
+      <div
+        id="article-categories"
+        aria-label="Article Categories"
+        className="my-4 flex flex-row flex-wrap items-center justify-start gap-4"
+      >
+        {renderedCategories}
+        {isFiltered && <ClearFilter />}
       </div>
-    </Suspense>
+    </div>
   );
 };
 
 export const SuspendedArticlesFilter = () => {
   return (
-    <Suspense fallback={<div>Internal Suspense boundary...</div>}>
+    <Suspense fallback={<SkeletonFilter />}>
       <ArticlesFilter />
     </Suspense>
   );
