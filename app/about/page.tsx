@@ -11,6 +11,11 @@ import profileWide from "@/images/profile_wide.jpeg";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspo
 
+export const metadata: Metadata = {
+  title: `${env.PROJECT_BASE_TITLE} | about`,
+  description: `I'm Suneet Misra - a developer working from Chester UK.`,
+};
+
 function SocialLink({
   className,
   href,
@@ -36,11 +41,6 @@ function SocialLink({
     </li>
   );
 }
-
-export const metadata: Metadata = {
-  title: "About",
-  description: `I'm Suneet Misra - a developer working from Chester UK.`,
-};
 
 export default function About() {
   return (

@@ -1,9 +1,15 @@
 import { Metadata } from "next";
 
+import { env } from "@/app/env";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
 import { FOLLOWING, FollowingEntry } from "@/lib/constants/following";
+
+export const metadata: Metadata = {
+  title: `${env.PROJECT_BASE_TITLE} | following`,
+  description: `Developers and creative professionals whose work I follow.`,
+};
 
 const FollowingSection = ({
   children,
@@ -27,11 +33,6 @@ const FollowingCard = ({ title, description, cta, href }: FollowingEntry) => {
       <Card.Cta>{cta}</Card.Cta>
     </Card>
   );
-};
-
-export const metadata: Metadata = {
-  title: "Following",
-  description: `Developers and creative professionals whose work I follow.`,
 };
 
 export default function Following() {
