@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { env } from "@/app/env";
-import { type Role } from "@/lib/constants/roles";
+import { type Role } from "@/content/roles";
 
 const Role = ({ role }: { role: Role }) => {
   const startLabel =

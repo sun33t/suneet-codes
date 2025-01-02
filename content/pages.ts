@@ -1,7 +1,4 @@
-type Slug = `/${string}`;
-
-type Page = { title: string; slug: Slug };
-export type Pages = Array<Page>;
+import { Pages } from "@/types";
 
 export const PAGES: Pages = [
   { title: "About", slug: "/about" },

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { env } from "@/app/env";
 import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
-import { PROJECTS } from "@/lib/constants/projects";
+import { PROJECTS } from "@/content/projects";
 
 export const metadata: Metadata = {
   title: `${env.PROJECT_BASE_TITLE} | projects`,

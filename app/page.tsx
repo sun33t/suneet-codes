@@ -9,8 +9,8 @@ import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Heading } from "@/components/typography/heading";
 import { P } from "@/components/typography/paragraph";
+import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
-import { ROLES } from "@/lib/constants/roles";
 import { formatDate } from "@/lib/formatDate";
 
 function SocialLink({

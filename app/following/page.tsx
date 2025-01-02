@@ -4,7 +4,7 @@ import { env } from "@/app/env";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
-import { FOLLOWING, FollowingEntry } from "@/lib/constants/following";
+import { FOLLOWING, FollowingEntry } from "@/content/following";
 
 export const metadata: Metadata = {
   title: `${env.PROJECT_BASE_TITLE} | following`,

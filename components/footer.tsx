@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { env } from "@/app/env";
 import { ContainerInner, ContainerOuter } from "@/components/container";
-import { PAGES } from "@/lib/constants/pages";
+import { PAGES } from "@/content/pages";
 
 const NavLink = ({
   href,
