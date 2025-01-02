@@ -1,11 +1,9 @@
 import { Metadata } from "next";
 import { compileMDX } from "next-mdx-remote/rsc";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { env } from "@/app/env";
-import { ArticleCategories } from "@/components/article-categories";
 import { ArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
@@ -90,9 +88,7 @@ export default async function Page({
       parseFrontmatter: true,
     },
     components: {
-      Image,
       ArticleImage,
-      ArticleCategories,
     },
   });
 

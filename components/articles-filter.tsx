@@ -4,15 +4,11 @@ import { Button } from "./ui/button";
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { Suspense, useCallback, useMemo } from "react";
 
-import { type Category } from "@/lib/constants/categories";
+import { CATEGORIES } from "@/lib/constants/categories";
 
-export const ArticleCategories = ({
-  categories,
-}: {
-  categories: Category[];
-}) => {
+const ArticlesFilter = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchParamName = "q";
@@ -66,7 +62,7 @@ export const ArticleCategories = ({
 
   const renderedCategories = useMemo(
     () =>
-      categories?.map((category) => {
+      CATEGORIES?.map((category) => {
         const selected = category && isSelected(category.slug);
 
         return category !== undefined ? (
@@ -81,16 +77,29 @@ export const ArticleCategories = ({
           </Link>
         ) : null;
       }),
-    [categories, createQueryString, pathname, isSelected]
+    [createQueryString, pathname, isSelected]
   );
   return (
-    <div
-      id="article-categories"
-      aria-label="Article Categories"
-      className="my-4 flex flex-row items-center justify-start gap-4"
-    >
-      {renderedCategories}
-      {isFiltered && <ClearFilter />}
-    </div>
+    <Suspense fallback={<div>Internal Suspense boundary...</div>}>
+      <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
+        <h2 className="flex-none font-bold">Filter articles by category:</h2>
+        <div
+          id="article-categories"
+          aria-label="Article Categories"
+          className="my-4 flex flex-row items-center justify-start gap-4"
+        >
+          {renderedCategories}
+          {isFiltered && <ClearFilter />}
+        </div>
+      </div>
+    </Suspense>
+  );
+};
+
+export const SuspendedArticlesFilter = () => {
+  return (
+    <Suspense fallback={<div>Internal Suspense boundary...</div>}>
+      <ArticlesFilter />
+    </Suspense>
   );
 };
