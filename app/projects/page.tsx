@@ -22,7 +22,7 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
 export default function Projects() {
   return (
     <SimpleLayout
-      title="Things I’ve made."
+      title="Projects"
       intro="I’ve worked on many projects over the years as an employee but these are the projects that I've built myself as a freelance and self-employed developer. I've only just started so the list is very small!
       "
     >

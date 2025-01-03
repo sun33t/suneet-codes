@@ -45,7 +45,7 @@ const Tool = ({
 export default function Uses() {
   return (
     <SimpleLayout
-      title="What I use."
+      title="What I use"
       intro="From time to time, I get asked about what I use to work on my projects. I've put this list together to help answer that question and hopefully help you out."
     >
       <div className="space-y-20">

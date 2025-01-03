@@ -56,8 +56,7 @@ export default function About() {
         </div>
         <div className="prose dark:prose-invert prose-strong:text-accent-foreground lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            {`I'm Suneet. I live in Chester where I like to build stuff on my
-            laptop.`}
+            A little bit about me
           </h1>
           <div className="mt-6 text-base">
             <p>
