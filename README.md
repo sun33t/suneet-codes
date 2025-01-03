@@ -74,10 +74,10 @@ PROJECT_GITHUB_URL=https://github.com/yourusername
 PROJECT_LINKEDIN_URL=https://linkedin.com/in/yourusername
 
 # Your API key with resend.com
-RESEND_API_KEY="your resend api key"
+RESEND_API_KEY="re_123..." # Required: Get this from https://resend.com/api-keys
 
 # The email address used for sending emails from the website
-RESEND_EMAIL_ADDRESS="website@yourdomain.com"
+RESEND_EMAIL_ADDRESS="website@yourdomain.com" # Required: Must be a verified domain in Resend
 ```
 
 This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
