@@ -12,6 +12,8 @@ export const env = createEnv({
     PROJECT_BASE_DESCRIPTION: z.string(),
     PROJECT_CALENDAR_URL: z.string().url(),
     PROJECT_EMAIL_ADDRESS: z.string().email(),
+    RESEND_EMAIL_ADDRESS: z.string().email(),
+    RESEND_API_KEY: z.string(),
     NODE_ENV: z.union([
       z.literal("development"),
       z.literal("production"),
