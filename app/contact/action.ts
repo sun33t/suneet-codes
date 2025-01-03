@@ -18,7 +18,7 @@ const contactFormSchema = z.object({
 });
 
 export const createEnquiry = async (
-  pervState: ContactFormState,
+  prevState: ContactFormState,
   payload: FormData
 ): Promise<ContactFormState> => {
   if (!(payload instanceof FormData)) {
@@ -57,6 +57,6 @@ export const createEnquiry = async (
     console.error(error);
     return { success: false, fields: parsed.data };
   } finally {
-    revalidatePath("/contact/form");
+    revalidatePath("/contact");
   }
 };
