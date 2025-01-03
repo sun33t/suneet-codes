@@ -9,6 +9,7 @@ export const PAGE_TITLES: PageTitle[] = [
   { title: "projects" },
   { title: "following" },
   { title: "uses" },
+  { title: "contact" },
 ];
 
 export const PAGE_METADATA: Record<Page, Metadata> = {
@@ -51,6 +52,14 @@ export const PAGE_METADATA: Record<Page, Metadata> = {
     openGraph: {
       title: `uses | ${env.PROJECT_BASE_TITLE}`,
       description: `What I use.`,
+    },
+  },
+  contact: {
+    title: "contact",
+    description: "Tell me about your project.",
+    openGraph: {
+      title: `contact | ${env.PROJECT_BASE_TITLE}`,
+      description: `Tell me about your project.`,
     },
   },
 };
