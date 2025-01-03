@@ -22,6 +22,9 @@ const contactFormSchema = z.object({
   message: z.string().min(10),
 });
 
+const MAX_ATTEMPTS = 3;
+const BASE_DELAY_MS = 1000; // 1 second backoff start
+
 export const createEnquiry = async (
   prevState: ContactFormState,
   payload: FormData
@@ -56,8 +59,6 @@ export const createEnquiry = async (
 
   const parsedData = parsed.data;
 
-  const MAX_ATTEMPTS = 3;
-  const BASE_DELAY_MS = 1000; // 1 second backoff start
   let attempt = 0;
 
   while (attempt < MAX_ATTEMPTS) {
