@@ -23,7 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import avatarImage from "@/images/avatar.jpeg";
+import avatarImage from "@/images/avatar.jpg";
 import { type Pages } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
@@ -69,7 +69,6 @@ const Avatar = ({
           "rounded-full bg-zinc-100 object-cover dark:bg-zinc-800",
           large ? "h-16 w-16" : "h-9 w-9"
         )}
-        priority
       />
     </Link>
   );
