@@ -62,4 +62,12 @@ export const PAGE_METADATA: Record<Page, Metadata> = {
       description: `Tell me about your project.`,
     },
   },
+  "thank-you": {
+    title: "thank you",
+    description: "Thanks for getting in touch",
+    openGraph: {
+      title: `thank you | ${env.PROJECT_BASE_TITLE}`,
+      description: `Thanks for getting in touch`,
+    },
+  },
 };
