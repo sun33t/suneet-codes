@@ -6,7 +6,7 @@ import { Resend } from "resend";
 import { z } from "zod";
 
 import { env } from "@/app/env";
-import { EmailTemplate } from "@/components/email-template";
+import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -60,7 +60,7 @@ export const createEnquiry = async (
     from: env.RESEND_EMAIL_ADDRESS,
     to: env.PROJECT_EMAIL_ADDRESS,
     subject: "Website Enquiry",
-    react: EmailTemplate({ ...parsedData }),
+    react: NewEnquiryEmail({ ...parsedData }),
   });
 
   if (resendError) {
