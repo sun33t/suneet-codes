@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
+import DOMPurify from "dompurify";
 import { useActionState } from "react";
 
 import { createEnquiry } from "@/app/contact/action";
@@ -31,9 +32,28 @@ const ErrorMessage = ({ error }: { error?: string[] }) => {
 };
 
 export const ContactForm = () => {
-  const [state, formAction, isPending] = useActionState(createEnquiry, {
+  const [state, dispatch, isPending] = useActionState(createEnquiry, {
     success: false,
   });
+
+  const formAction = (formData: FormData) => {
+    const data = Object.fromEntries(formData.entries());
+    const sanitizedFormData = new FormData();
+    for (const key in data) {
+      sanitizedFormData.append(
+        key,
+        DOMPurify.sanitize(data[key].toString(), {
+          USE_PROFILES: {
+            html: false,
+            svg: false,
+            mathMl: false,
+            svgFilters: false,
+          },
+        })
+      );
+    }
+    dispatch(sanitizedFormData);
+  };
   return (
     <form action={formAction} className="max-w-lg">
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
