@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   title: env.PROJECT_BASE_TITLE,
   description: env.PROJECT_BASE_DESCRIPTION,
   openGraph: {
-    images: ["/images/avatar.jpeg"],
+    images: ["/images/avatar.jpg"],
   },
 };
 

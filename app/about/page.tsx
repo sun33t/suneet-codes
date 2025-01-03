@@ -7,7 +7,7 @@ import Link from "next/link";
 import { env } from "@/app/env";
 import { Container } from "@/components/container";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
-import profileWide from "@/images/profile_wide.jpeg";
+import profileWide from "@/images/profile_wide.jpg";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspo
 
