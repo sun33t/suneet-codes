@@ -12,11 +12,11 @@ export default function Contact() {
   return (
     <SimpleLayout
       title="Contact"
-      intro="Book a time to catch up in my calendar, send me an email or, if you prefer, fill in a an enquiry form and I'll come back to you. I look forward to hearing about your project."
+      intro="Book a time to catch up in my calendar, send me an email or, if you prefer, fill in an enquiry form and I'll come back to you. I look forward to hearing about your project."
     >
       <div className="grid max-w-sm grid-cols-1">
         <Link
-          aria-description="Book some time in my calendar to catch up."
+          aria-label="Book some time in my calendar to catch up."
           href={env.PROJECT_CALENDAR_URL}
           target="_blank"
           className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
@@ -25,7 +25,7 @@ export default function Contact() {
           Calendar
         </Link>
         <Link
-          aria-description="Send me an email."
+          aria-label="Send me an email."
           href={`mailto:${env.PROJECT_EMAIL_ADDRESS}`}
           className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
         >
@@ -33,7 +33,7 @@ export default function Contact() {
           Email
         </Link>
         <Link
-          aria-description="Fill in an enquiry form."
+          aria-label="Fill in an enquiry form."
           href={`#`}
           className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
         >
