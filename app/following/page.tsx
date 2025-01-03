@@ -1,13 +1,12 @@
 import { Metadata } from "next";
 
-import { env } from "@/app/env";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
 import { FOLLOWING, FollowingEntry } from "@/content/following";
 
 export const metadata: Metadata = {
-  title: `${env.PROJECT_BASE_TITLE} | following`,
+  title: `following`,
   description: `Developers and creative professionals whose work I follow.`,
 };
 

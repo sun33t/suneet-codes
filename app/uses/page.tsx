@@ -1,4 +1,3 @@
-import { env } from "@/app/env";
 import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
@@ -7,7 +6,7 @@ import { USES } from "@/content/uses";
 // https://www.robinwieruch.de/about/ look here for inspo
 
 export const metadata = {
-  title: `${env.PROJECT_BASE_TITLE} | uses`,
+  title: `uses`,
   description: "What I use",
 };
 
