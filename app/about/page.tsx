@@ -54,48 +54,58 @@ export default function About() {
             />
           </div>
         </div>
-        <div className="lg:order-first lg:row-span-2">
+        <div className="prose dark:prose-invert prose-strong:text-accent-foreground lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            I’m Suneet. I live in Chester where I like to build stuff on my
-            laptop.
+            {`I'm Suneet. I live in Chester where I like to build stuff on my
+            laptop.`}
           </h1>
-          <div className="mt-6 space-y-7 text-base">
+          <div className="mt-6 text-base">
             <p>
-              In 2017, I met someone who encouraged me to puruse a long-held
+              In 2017, I met someone who encouraged me to pursue a long-held
               dream that I had, but never had the courage to make happen. That
               dream was to become a software developer and that person is now my
               lovely wife and best-friend, Satty!
             </p>
             <p>
-              In 2019, shortly after Satty and I married, I enrolled and
-              completed the intense, challenging and inspiring developer
-              pathway, at the Northcoders bootcamp in Manchester. These three
-              months were transformational. I met some amazing people in my
-              fellow students and tutors and shortly after graduating, I was
-              proud to join the tuition team myself where I helped subsequent
-              students on their journey into dev. This was one of the most
-              rewarding experiences in my life.
+              In 2019 after completing an <strong>MSc in Computing</strong> and
+              a <strong>PGCE in Computer Science</strong> (Secondary School), I
+              enrolled in and completed the intense, challenging and inspiring
+              developer pathway, at the <strong>northcoders</strong> bootcamp in
+              Manchester. Those three months were transformational. I met some
+              amazing people in my fellow students and tutors and shortly after
+              graduating, I was proud to join the tuition team myself where I
+              helped subsequent students on their journey into dev. This was one
+              of the most rewarding experiences in my life.
             </p>
             <p>
-              In 2020, I started the next stage of my journey as a developer,
-              leaving education for my first production role. In the 4 years
-              that followed I have worked with a variety of multi-disciplinary
-              teams and extremely talented individuals, specialising in building
-              fullstack apps on the PERN stack, supported by AWS infrastucture.
-              I&apos;ve had the opportunity to lead projects and mentor junior
-              developers and apprentices and I&apos;ve loved (almost) every
-              minute of it.
+              In 2020, I left northcoders for my first production role and I
+              never looked back. In the 4 years that followed I have had the
+              privilage to work with a variety of multi-disciplinary teams and
+              extremely talented individuals, specialising in building fullstack
+              applications, design systems and internal tools within a variety
+              of industries. Along the way I&apos;ve had the opportunity to lead
+              projects and mentor junior developers and apprentices. No two days
+              have been the same and I&apos;ve loved (almost) every minute of
+              it!
             </p>
             <p>
-              Today, I’m contract developer working within the nodeJS/TypeScript
-              domain across all sectors and founder of pushorigin ltd - a
-              collective of developers and creatives who collaborate on together
-              to bring delight and joy to users all over the world. Admittedly,
-              we&apos;re just getting started so I don&apos;t have too much to
-              say on that at the moment but if I&apos;m fortunate enough to
-              attract your attention in a few months time, I hope have an update
-              for you!
+              Today, I&apos;m a freelance developer specialising in building
+              with NodeJS, TypeScript, React/NextJS and AWS. I consider myself
+              to be a T-shaped developer and am comfortable building full-stack
+              applications as well as internal tools.
             </p>
+            <p>I&apos;m available for:</p>
+            <ul>
+              <li>Product development (solo/team)</li>
+              <li>Consulting and development</li>
+              <li>Team lead and mentoring</li>
+              <li>MVPs and prototyping</li>
+              <li>Full stack applications with databases and ui</li>
+              <li>
+                Tech stack migrations to React and associated meta-frameworks
+              </li>
+              <li>Code audits and reviews</li>
+            </ul>
           </div>
         </div>
         <div className="lg:pl-20">
