@@ -79,7 +79,7 @@ export default function About() {
             <p>
               In 2020, I left northcoders for my first production role and I
               never looked back. In the 4 years that followed I have had the
-              privilage to work with a variety of multi-disciplinary teams and
+              privilege to work with a variety of multi-disciplinary teams and
               extremely talented individuals, specialising in building fullstack
               applications, design systems and internal tools within a variety
               of industries. Along the way I&apos;ve had the opportunity to lead
