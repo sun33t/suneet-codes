@@ -7,14 +7,12 @@ import Link from "next/link";
 import { env } from "@/app/env";
 import { Container } from "@/components/container";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
+import { PAGE_METADATA } from "@/content/pages";
 import profileWide from "@/images/profile_wide.jpg";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspo
 
-export const metadata: Metadata = {
-  title: `about`,
-  description: `I'm Suneet Misra - a developer working from Chester UK.`,
-};
+export const metadata: Metadata = { ...PAGE_METADATA.about };
 
 function SocialLink({
   className,

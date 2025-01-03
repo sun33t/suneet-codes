@@ -98,8 +98,10 @@ const ArticlesFilter = () => {
     [createQueryString, pathname, isSelected]
   );
   return (
-    <div className="mb-20 flex flex-row flex-wrap items-center gap-4">
-      <h2 className="flex-none font-bold">Filter articles by category:</h2>
+    <div className="mb-8 flex flex-row flex-wrap items-center gap-4">
+      <h2 className="flex-none text-base text-muted-foreground">
+        Filter by category:
+      </h2>
       <div
         id="article-categories"
         aria-label="Article Categories"

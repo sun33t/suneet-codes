@@ -13,7 +13,6 @@ import { formatDate } from "@/lib/formatDate";
 
 type Props = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateStaticParams() {
@@ -24,31 +23,30 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-export async function generateMetadata(
-  { params }: Props
-  // parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const slug = (await params).slug;
   const article = getArticleByFilename(slug);
 
-  return article
-    ? {
-        title: `${article?.title}`,
-        description: article?.description,
-        openGraph: {
-          images: [article?.coverImage],
-          title: article?.title,
-          description: article?.description,
-          url: `/articles/${slug}`,
-          type: "article",
-          authors: article?.author,
-          tags: article?.categories,
-          locale: "en-GB",
-          siteName: env.PROJECT_BASE_TITLE,
-        },
-      }
-    : {};
+  if (!article) {
+    notFound();
+  }
+
+  return {
+    title: `${article.title}`,
+    description: article.description,
+    openGraph: {
+      images: [article.coverImage],
+      title: article.title,
+      description: article.description,
+      url: `/articles/${slug}`,
+      type: "article",
+      authors: article.author,
+      tags: article.categories,
+      locale: "en-GB",
+      siteName: env.PROJECT_BASE_TITLE,
+    },
+  };
 }
 
 export default async function Page({

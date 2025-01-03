@@ -3,13 +3,10 @@ import { Metadata } from "next";
 import { SuspendedArticlesFilter } from "@/components/articles-filter";
 import { SuspendedArticlesList } from "@/components/articles-list";
 import { SimpleLayout } from "@/components/simple-layout";
+import { PAGE_METADATA } from "@/content/pages";
 import { type SearchParams } from "@/types";
 
-export const metadata: Metadata = {
-  title: `articles`,
-  description:
-    "All of my long-form thoughts on programming, leadership, product design, and more, collected in chronological order.",
-};
+export const metadata: Metadata = { ...PAGE_METADATA.articles };
 
 export default function Articles({
   searchParams,
@@ -18,8 +15,8 @@ export default function Articles({
 }) {
   return (
     <SimpleLayout
-      title="Writing on software development and building for the web"
-      intro="All of my long-form thoughts on programming, leadership, product development, and more, collected in chronological order."
+      title="Articles"
+      intro="My notes on programming, leadership and mentoring, product design/development, and more."
     >
       <SuspendedArticlesFilter />
       <SuspendedArticlesList searchParams={searchParams} />
