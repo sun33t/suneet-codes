@@ -60,14 +60,17 @@ export default function About() {
           </h1>
           <div className="mt-6 text-base">
             <p>
-              In 2017, I met someone who encouraged me to pursue a long-held
-              dream that I had, but never had the courage to make happen. That
-              dream was to become a software developer and that person is now my
-              lovely wife and best-friend, Satty!
+              In <time dateTime="2017">2017</time>, I met someone who encouraged
+              me to pursue a long-held dream that I had, but never had the
+              courage to make happen. That dream was to become a software
+              developer and that person is now my lovely wife and best-friend,
+              Satty!
             </p>
+
             <p>
-              In 2019 after completing an <strong>MSc in Computing</strong> and
-              a <strong>PGCE in Computer Science</strong> (Secondary School), I
+              In <time dateTime="2019">2019</time> after completing an{" "}
+              <strong>MSc in Computing</strong> and a{" "}
+              <strong>PGCE in Computer Science</strong> (Secondary School), I
               enrolled in and completed the intense, challenging and inspiring
               developer pathway, at the <strong>northcoders</strong> bootcamp in
               Manchester. Those three months were transformational. I met some
@@ -77,15 +80,15 @@ export default function About() {
               of the most rewarding experiences in my life.
             </p>
             <p>
-              In 2020, I left northcoders for my first production role and I
-              never looked back. In the 4 years that followed I have had the
-              privilege to work with a variety of multi-disciplinary teams and
-              extremely talented individuals, specialising in building fullstack
-              applications, design systems and internal tools within a variety
-              of industries. Along the way I&apos;ve had the opportunity to lead
-              projects and mentor junior developers and apprentices. No two days
-              have been the same and I&apos;ve loved (almost) every minute of
-              it!
+              In <time dateTime="2020">2020</time>, I left northcoders for my
+              first production role and I never looked back. In the 4 years that
+              followed I have had the privilege to work with a variety of
+              multi-disciplinary teams and extremely talented individuals,
+              specialising in building fullstack applications, design systems
+              and internal tools within a variety of industries. Along the way
+              I&apos;ve had the opportunity to lead projects and mentor junior
+              developers and apprentices. No two days have been the same and
+              I&apos;ve loved (almost) every minute of it!
             </p>
             <p>
               Today, I&apos;m a freelance developer specialising in building
@@ -93,18 +96,56 @@ export default function About() {
               to be a T-shaped developer and am comfortable building full-stack
               applications as well as internal tools.
             </p>
-            <p>I&apos;m available for:</p>
-            <ul>
-              <li>Product development (solo/team)</li>
-              <li>Consulting and development</li>
-              <li>Team lead and mentoring</li>
-              <li>MVPs and prototyping</li>
-              <li>Full stack applications with databases and ui</li>
-              <li>
-                Tech stack migrations to React and associated meta-frameworks
-              </li>
-              <li>Code audits and reviews</li>
-            </ul>
+            <h2>I&apos;m available for:</h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div>
+                <h3 className="mb-2 font-semibold">Development Services</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <strong>Full-Stack Development</strong>
+                    <p className="text-sm">
+                      End-to-end applications with modern databases and UI
+                    </p>
+                  </li>
+                  <li>
+                    <strong>MVP Development</strong>
+                    <p className="text-sm">
+                      Rapid prototyping and minimum viable products
+                    </p>
+                  </li>
+                  <li>
+                    <strong>Technical Migrations</strong>
+                    <p className="text-sm">
+                      Addressing tech debt and migrating to modern patterns and
+                      frameworks
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="mb-2 font-semibold">Professional Services</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <strong>Technical Leadership</strong>
+                    <p className="text-sm">
+                      Team leadership and developer mentoring
+                    </p>
+                  </li>
+                  <li>
+                    <strong>Technical Consulting</strong>
+                    <p className="text-sm">
+                      Architecture and development consulting
+                    </p>
+                  </li>
+                  <li>
+                    <strong>Code Quality</strong>
+                    <p className="text-sm">
+                      Comprehensive code audits and reviews
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div className="lg:pl-20">
