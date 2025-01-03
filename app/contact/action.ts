@@ -56,22 +56,48 @@ export const createEnquiry = async (
 
   const parsedData = parsed.data;
 
-  const { error: resendError } = await resend.emails.send({
-    from: env.RESEND_EMAIL_ADDRESS,
-    to: env.PROJECT_EMAIL_ADDRESS,
-    subject: "Website Enquiry",
-    react: NewEnquiryEmail({ ...parsedData }),
-  });
+  const MAX_ATTEMPTS = 3;
+  const BASE_DELAY_MS = 1000; // 1 second backoff start
+  let attempt = 0;
 
-  if (resendError) {
-    console.error(resendError.message);
-    return {
-      success: false,
-      fields: parsedData,
-      errors: { error: ["Could not send enquiry"] },
-    };
+  while (attempt < MAX_ATTEMPTS) {
+    const { error: resendError } = await resend.emails.send({
+      from: env.RESEND_EMAIL_ADDRESS,
+      to: env.PROJECT_EMAIL_ADDRESS,
+      subject: "Website Enquiry",
+      react: NewEnquiryEmail({ ...parsedData }),
+    });
+
+    if (!resendError) {
+      // If successful, revalidate and redirect
+      revalidatePath("/contact");
+      redirect("/thank-you");
+    }
+
+    attempt++;
+
+    if (attempt < MAX_ATTEMPTS) {
+      // Exponential backoff delay
+      const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
+      console.error(
+        `Retry attempt ${attempt} failed. Retrying in ${delay}ms...`
+      );
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    } else {
+      // All attempts failed
+      console.error(resendError?.message || "Unknown error");
+      return {
+        success: false,
+        fields: parsedData,
+        errors: { error: ["Could not send enquiry after multiple retries"] },
+      };
+    }
   }
 
-  revalidatePath("/contact");
-  redirect("/thank-you");
+  // Should never reach here due to return/redirect logic above
+  return {
+    success: false,
+    fields: parsedData,
+    errors: { error: ["Unexpected error"] },
+  };
 };
