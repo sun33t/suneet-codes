@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 type ContactFormState = {
@@ -52,7 +53,6 @@ export const createEnquiry = async (
   try {
     // add async logic here to send the enqiry data to resend
     console.log("Successful Enquiry Sent!", data);
-    return { success: true };
   } catch (error) {
     console.error(error);
     return {
@@ -60,7 +60,8 @@ export const createEnquiry = async (
       fields: parsed.data,
       errors: { error: ["Could not send enquiry"] },
     };
-  } finally {
-    revalidatePath("/contact");
   }
+
+  revalidatePath("/contact");
+  redirect("/thank-you");
 };
