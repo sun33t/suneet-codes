@@ -2,7 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { Resend } from "resend";
 import { z } from "zod";
+
+import { env } from "@/app/env";
+import { EmailTemplate } from "@/components/email-template";
+
+const resend = new Resend(env.RESEND_API_KEY);
 
 type ContactFormState = {
   success: boolean;
@@ -48,16 +54,20 @@ export const createEnquiry = async (
     };
   }
 
-  const data = parsed.data;
+  const parsedData = parsed.data;
 
-  try {
-    // add async logic here to send the enqiry data to resend
-    console.log("Successful Enquiry Sent!", data);
-  } catch (error) {
-    console.error(error);
+  const { error: resendError } = await resend.emails.send({
+    from: env.RESEND_EMAIL_ADDRESS,
+    to: env.PROJECT_EMAIL_ADDRESS,
+    subject: "Website Enquiry",
+    react: EmailTemplate({ ...parsedData }),
+  });
+
+  if (resendError) {
+    console.error(resendError.message);
     return {
       success: false,
-      fields: parsed.data,
+      fields: parsedData,
       errors: { error: ["Could not send enquiry"] },
     };
   }
