@@ -38,7 +38,7 @@ export const createEnquiry = async (
     for (const key of Object.keys(formData)) {
       fields[key] = formData[key].toString();
     }
-    console.error(errors);
+    console.error("server-side validation error encountered");
 
     return {
       success: false,
@@ -55,7 +55,11 @@ export const createEnquiry = async (
     return { success: true };
   } catch (error) {
     console.error(error);
-    return { success: false, fields: parsed.data };
+    return {
+      success: false,
+      fields: parsed.data,
+      errors: { error: ["Could not send enquiry"] },
+    };
   } finally {
     revalidatePath("/contact");
   }
