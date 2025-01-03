@@ -33,7 +33,13 @@ export const metadata: Metadata = {
   },
   description: env.PROJECT_BASE_DESCRIPTION,
   openGraph: {
+    title: env.PROJECT_BASE_TITLE,
+    description: env.PROJECT_BASE_DESCRIPTION,
+    url: env.PROJECT_CANONICAL_URL,
+    siteName: env.PROJECT_BASE_TITLE,
     images: ["/images/avatar.jpg"],
+    locale: "en_GB",
+    type: "website",
   },
 };
 

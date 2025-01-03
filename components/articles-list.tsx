@@ -98,9 +98,13 @@ const ArticlesList = async ({
   return (
     <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
       <div className="flex max-w-3xl flex-col space-y-16">
-        {articles.map((article) => (
-          <Article key={article._meta.path} article={article} />
-        ))}
+        {articles.length > 0 ? (
+          articles.map((article) => (
+            <Article key={article._meta.path} article={article} />
+          ))
+        ) : (
+          <div>No articles match this combination of categories.</div>
+        )}
       </div>
     </div>
   );

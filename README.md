@@ -52,8 +52,11 @@ To run this project, you will need to add a number of environment variables.
 # The canonical URL for your website
 PROJECT_CANONICAL_URL="https://example.com"
 
-# Your name or organisation name
+# Your name
 PROJECT_AUTHOR="John Smith"
+
+# Your location
+PROJECT_AUTHOR_LOCATION="Mars, Solar Sytem"
 
 # The base title used across the website
 PROJECT_BASE_TITLE="My Portfolio"

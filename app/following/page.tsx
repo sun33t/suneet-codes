@@ -4,11 +4,9 @@ import { Card } from "@/components/card";
 import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
 import { FOLLOWING, FollowingEntry } from "@/content/following";
+import { PAGE_METADATA } from "@/content/pages";
 
-export const metadata: Metadata = {
-  title: `following`,
-  description: `Developers and creative professionals whose work I follow.`,
-};
+export const metadata: Metadata = { ...PAGE_METADATA.following };
 
 const FollowingSection = ({
   children,

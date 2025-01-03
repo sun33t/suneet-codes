@@ -1,13 +1,9 @@
-export const categoryNames = ["react", "javascript", "aws"] as const;
-
-export type CategoryName = (typeof categoryNames)[number];
-
-export type Category = {
-  title: CategoryName;
+export type ArticleCategory = {
+  title: "react" | "javascript" | "aws" | "leadership";
   slug: string;
 };
 
-export const CATEGORIES: Category[] = [
+export const CATEGORIES: ArticleCategory[] = [
   {
     title: "react",
     slug: "react",
@@ -19,6 +15,10 @@ export const CATEGORIES: Category[] = [
   {
     title: "aws",
     slug: "aws",
+  },
+  {
+    title: "leadership",
+    slug: "leadership",
   },
 ];
 

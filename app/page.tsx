@@ -55,13 +55,17 @@ export default function Home() {
           <P className="text-base text-muted-foreground">
             👋, I&apos;m a developer and founder based in the UK. I&apos;ve been
             building software in the{" "}
-            <span className="text-accent-foreground">e-commerce</span> space and{" "}
+            <span className="text-accent-foreground">e-commerce</span>,{" "}
+            <span className="text-accent-foreground">retail</span> and{" "}
+            <span className="text-accent-foreground">hospitality</span> spaces
+            as well as for the{" "}
             <span className="text-accent-foreground">
-              energy/comms ombudsman
+              energy and comms ombudsman
             </span>{" "}
-            for over five years, after completing my{" "}
+            over a five year period after completing my{" "}
             <span className="text-accent-foreground">MSc in Computing</span>.
-            When I&apos;m not working, I like to cook and travel with my wife.
+            When I&apos;m not working, I like to cook and travel with my wife
+            and spend time in the outdoors with my friends.
           </P>
           <div className="mt-6 flex gap-2">
             {/* <SocialLink href="#" aria-label="Follow on X" icon={XIcon} /> */}

@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import avatarImage from "@/images/avatar.jpg";
-import { type Pages } from "@/types";
+import { type PageTitle } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b);
@@ -88,7 +88,7 @@ function NavItem({
       <Link
         href={href}
         className={clsx(
-          "relative block px-3 py-2 transition",
+          "relative block px-3 py-2 capitalize transition",
           isActive ? "text-accent-foreground" : "hover:text-accent-foreground"
         )}
       >
@@ -102,15 +102,15 @@ function NavItem({
 }
 
 type DesktopNavigationProps = {
-  pages: Pages;
+  pages: PageTitle[];
 } & React.ComponentPropsWithoutRef<"nav">;
 function DesktopNavigation({ pages, ...rest }: DesktopNavigationProps) {
   return (
     <nav {...rest}>
       <ul className="flex rounded-md bg-white/90 px-3 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10">
-        {pages.map((page) => (
-          <NavItem key={`${page.slug}-desktop`} href={page.slug}>
-            {page.title}
+        {pages.map(({ title }) => (
+          <NavItem key={`${title}-dt`} href={`/${title}`}>
+            {title}
           </NavItem>
         ))}
       </ul>
@@ -119,13 +119,14 @@ function DesktopNavigation({ pages, ...rest }: DesktopNavigationProps) {
 }
 
 const MobileNavItem = ({
-  page,
+  title,
   setIsMenuOpen,
 }: {
-  page: { title: string; slug: string };
+  title: string;
   setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const isActive = usePathname() === page.slug;
+  const href = `/${title}`;
+  const isActive = usePathname() === href;
   return (
     <DropdownMenuItem
       className={clsx(
@@ -134,14 +135,14 @@ const MobileNavItem = ({
       )}
       onClick={() => setIsMenuOpen(false)}
     >
-      <Link href={page.slug} legacyBehavior passHref>
-        {page.title}
+      <Link href={href} legacyBehavior passHref>
+        {title}
       </Link>
     </DropdownMenuItem>
   );
 };
 
-type MobileNavigationProps = { pages: Pages };
+type MobileNavigationProps = { pages: PageTitle[] };
 const MobileNavigation = ({ pages }: MobileNavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
@@ -159,15 +160,15 @@ const MobileNavigation = ({ pages }: MobileNavigationProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="rounded-md bg-white/90 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
+        className="rounded-md bg-white/90 text-sm font-medium capitalize shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
         onInteractOutside={() => setIsMenuOpen(false)}
         onEscapeKeyDown={() => setIsMenuOpen(false)}
       >
-        {pages.map((page) => {
+        {pages.map(({ title }) => {
           return (
             <MobileNavItem
-              key={`${page.slug}-mobile`}
-              page={page}
+              key={`${title}-mob`}
+              title={title}
               setIsMenuOpen={setIsMenuOpen}
             />
           );
@@ -178,7 +179,7 @@ const MobileNavigation = ({ pages }: MobileNavigationProps) => {
 };
 
 type HeaderProps = {
-  pages: Pages;
+  pages: PageTitle[];
 };
 export const Header = ({ pages }: HeaderProps) => {
   const isHomePage = usePathname() === "/";

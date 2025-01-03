@@ -3,12 +3,10 @@ import Image from "next/image";
 
 import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
+import { PAGE_METADATA } from "@/content/pages";
 import { PROJECTS } from "@/content/projects";
 
-export const metadata: Metadata = {
-  title: `projects`,
-  description: `Projects that I've built.`,
-};
+export const metadata: Metadata = { ...PAGE_METADATA.projects };
 
 function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
   return (

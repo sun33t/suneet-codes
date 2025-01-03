@@ -13,7 +13,12 @@ const articles = defineCollection({
     coverImage: z.string(),
     categories: z
       .array(
-        z.union([z.literal("aws"), z.literal("react"), z.literal("javascript")])
+        z.union([
+          z.literal("aws"),
+          z.literal("react"),
+          z.literal("javascript"),
+          z.literal("leadership"),
+        ])
       )
       .min(1, { message: "At least one category is required" }),
   }),

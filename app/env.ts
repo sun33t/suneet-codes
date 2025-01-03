@@ -7,6 +7,7 @@ export const env = createEnv({
     PROJECT_GITHUB_URL: z.string().url(),
     PROJECT_LINKEDIN_URL: z.string().url(),
     PROJECT_AUTHOR: z.string(),
+    PROJECT_AUTHOR_LOCATION: z.string(),
     PROJECT_BASE_TITLE: z.string(),
     PROJECT_BASE_DESCRIPTION: z.string(),
     PROJECT_CALENDAR_URL: z.string().url(),

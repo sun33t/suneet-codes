@@ -3,19 +3,19 @@ import { Header } from "./header";
 
 import { useMemo } from "react";
 
-import { PAGES } from "@/content/pages";
+import { PAGE_TITLES } from "@/content/pages";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
 export const Layout = ({ children }: LayoutProps) => {
-  const memoizedPages = useMemo(() => PAGES, []);
+  const memoizedPages = useMemo(() => PAGE_TITLES, []);
   return (
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
         <Header pages={memoizedPages} />
         <main className="flex-auto">{children}</main>
-        <Footer />
+        <Footer pages={memoizedPages} />
       </div>
     </div>
   );

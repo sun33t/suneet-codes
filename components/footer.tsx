@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { env } from "@/app/env";
 import { ContainerInner, ContainerOuter } from "@/components/container";
-import { PAGES } from "@/content/pages";
+import { PageTitle } from "@/types";
 
 const NavLink = ({
   href,
@@ -18,7 +18,7 @@ const NavLink = ({
   );
 };
 
-export const Footer = () => {
+export const Footer = ({ pages }: { pages: PageTitle[] }) => {
   return (
     <footer id="footer" className="mt-32 flex-none">
       <ContainerOuter>
@@ -26,12 +26,12 @@ export const Footer = () => {
           <ContainerInner>
             <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
               <div
-                className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium"
+                className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium capitalize"
                 aria-label="Footer Navigation"
               >
-                {PAGES.map((page) => (
-                  <NavLink key={`${page.slug}-footer`} href={page.slug}>
-                    {page.title}
+                {pages.map(({ title }) => (
+                  <NavLink key={`${title}-footer`} href={title}>
+                    {title}
                   </NavLink>
                 ))}
               </div>
