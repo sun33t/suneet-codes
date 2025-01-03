@@ -6,7 +6,8 @@ export type Page =
   | "projects"
   | "following"
   | "uses"
-  | "contact";
+  | "contact"
+  | "thank-you";
 export type PageTitle = Record<"title", Page>;
 
 export type SearchParams = Promise<{

@@ -7,7 +7,7 @@ import { Textarea } from "./ui/textarea";
 
 import { useActionState } from "react";
 
-import { createEnquiry } from "@/app/contact/form/action";
+import { createEnquiry } from "@/app/contact/action";
 
 const SubmitButton = ({ pending }: { pending: boolean }) => {
   return (
