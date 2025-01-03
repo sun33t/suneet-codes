@@ -8,8 +8,6 @@ import { z } from "zod";
 import { env } from "@/app/env";
 import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
 
-const resend = new Resend(env.RESEND_API_KEY);
-
 type ContactFormState = {
   success: boolean;
   fields?: Record<string, string>;
@@ -28,6 +26,8 @@ export const createEnquiry = async (
   prevState: ContactFormState,
   payload: FormData
 ): Promise<ContactFormState> => {
+  const resend = new Resend(env.RESEND_API_KEY);
+
   if (!(payload instanceof FormData)) {
     return {
       success: false,
