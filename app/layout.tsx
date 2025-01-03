@@ -27,7 +27,10 @@ export const metadata: Metadata = {
       ? env.PROJECT_CANONICAL_URL
       : "http://localhost:3000"
   ),
-  title: env.PROJECT_BASE_TITLE,
+  title: {
+    template: `%s | ${env.PROJECT_BASE_TITLE}`,
+    default: env.PROJECT_BASE_TITLE,
+  },
   description: env.PROJECT_BASE_DESCRIPTION,
   openGraph: {
     images: ["/images/avatar.jpg"],

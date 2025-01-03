@@ -34,7 +34,7 @@ export async function generateMetadata(
 
   return article
     ? {
-        title: `${env.PROJECT_BASE_TITLE} | ${article?.title}`,
+        title: `${article?.title}`,
         description: article?.description,
         openGraph: {
           images: [article?.coverImage],
@@ -61,7 +61,7 @@ export default async function Page({
   const article = getArticleByFilename(slug);
 
   if (!article) {
-    return notFound();
+    notFound();
   }
 
   return (

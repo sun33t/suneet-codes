@@ -12,7 +12,7 @@ import profileWide from "@/images/profile_wide.jpg";
 // https://www.robinwieruch.de/work-with-me/ see here for inspo
 
 export const metadata: Metadata = {
-  title: `${env.PROJECT_BASE_TITLE} | about`,
+  title: `about`,
   description: `I'm Suneet Misra - a developer working from Chester UK.`,
 };
 

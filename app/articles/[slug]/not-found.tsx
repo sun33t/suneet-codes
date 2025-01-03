@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 
+import { env } from "@/app/env";
 import { NotFound } from "@/components/not-found";
 
 export const metadata: Metadata = {
-  title: "404 - Article not found",
+  title: `404 | ${env.PROJECT_BASE_TITLE}`,
 };
 
 export default function NotFoundPage() {
