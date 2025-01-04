@@ -14,12 +14,20 @@ export const env = createEnv({
     PROJECT_EMAIL_ADDRESS: z.string().email(),
     RESEND_EMAIL_ADDRESS: z.string().email(),
     RESEND_API_KEY: z.string(),
+
+    TURNSTILE_SECRET_KEY: z.string(),
     NODE_ENV: z.union([
       z.literal("development"),
       z.literal("production"),
       z.literal("test"),
     ]),
   },
-  // eslint-disable-next-line n/no-process-env
-  experimental__runtimeEnv: process.env,
+  client: {
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string(),
+  },
+
+  experimental__runtimeEnv: {
+    // eslint-disable-next-line n/no-process-env
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+  },
 });

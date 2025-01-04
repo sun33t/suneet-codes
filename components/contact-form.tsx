@@ -6,16 +6,24 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
 import DOMPurify from "dompurify";
-import { useActionState } from "react";
+import { Turnstile } from "next-turnstile";
+import { useActionState, useState } from "react";
 
 import { createEnquiry } from "@/app/contact/action";
+import { env } from "@/app/env";
 
-const SubmitButton = ({ pending }: { pending: boolean }) => {
+const SubmitButton = ({
+  pending,
+  disabled,
+}: {
+  pending: boolean;
+  disabled: boolean;
+}) => {
   return (
     <Button
       type="submit"
-      aria-disabled={pending}
-      disabled={pending}
+      aria-disabled={pending || disabled}
+      disabled={pending || disabled}
       className="w-full"
     >
       {pending ? "Submitting..." : "Submit"}
@@ -35,8 +43,12 @@ export const ContactForm = () => {
   const [state, dispatch, isPending] = useActionState(createEnquiry, {
     success: false,
   });
+  const [token, setToken] = useState<string | null>(null);
 
   const formAction = (formData: FormData) => {
+    if (!token) {
+      return;
+    }
     const data = Object.fromEntries(formData.entries());
     const sanitizedFormData = new FormData();
     for (const key in data) {
@@ -133,8 +145,14 @@ export const ContactForm = () => {
             <ErrorMessage error={state?.errors?.message} />
           </div>
         </div>
+        <Turnstile
+          siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+          onVerify={setToken}
+          appearance="always"
+          theme="auto"
+        />
         <div id="form-group-submit" className="sm:col-span-2">
-          <SubmitButton pending={isPending} />
+          <SubmitButton pending={isPending} disabled={!token} />
         </div>
       </div>
 

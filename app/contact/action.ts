@@ -1,5 +1,6 @@
 "use server";
 
+import { validateTurnstileToken } from "next-turnstile";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
@@ -38,6 +39,30 @@ export const createEnquiry = async (
       errors: { error: ["Invalid form data"] },
     };
   }
+
+  // logic for validating the Turnstile token
+  const token = payload.get("cf-turnstile-response");
+
+  if (!token || typeof token !== "string") {
+    return {
+      success: false,
+      errors: { error: ["No turnstile token provided"] },
+    };
+  }
+
+  const result = await validateTurnstileToken({
+    token,
+    secretKey: env.TURNSTILE_SECRET_KEY,
+  });
+
+  if (!result.success) {
+    console.log("no result");
+    return {
+      success: false,
+      errors: { error: ["Invalid turnstile token"] },
+    };
+  }
+
   const formData = Object.fromEntries(payload);
 
   const parsed = contactFormSchema.safeParse(formData);
