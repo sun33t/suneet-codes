@@ -143,6 +143,6 @@ export const createEnquiry = async (
   return {
     success: false,
     fields: parsedData,
-    errorMessage: "Unexected error",
+    errorMessage: "Unexpected error",
   };
 };
