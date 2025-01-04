@@ -6,11 +6,12 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
 import DOMPurify from "dompurify";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 import { createEnquiry } from "@/app/contact/action";
 import { env } from "@/app/env";
 import { Turnstile } from "@/components/turnstile";
+import { useToast } from "@/hooks/use-toast";
 
 const SubmitButton = ({
   pending,
@@ -44,6 +45,18 @@ export const ContactForm = () => {
     success: false,
   });
   const [token, setToken] = useState<string | null>(null);
+
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (!state?.success && state?.errorMessage) {
+      toast({
+        title: "Uh oh, something went wrong!",
+        description: state.errorMessage,
+        variant: "destructive",
+      });
+    }
+  }, [state?.errorMessage, state?.success, toast]);
 
   const formAction = (formData: FormData) => {
     if (!token) {
@@ -161,7 +174,6 @@ export const ContactForm = () => {
           ? "Successful submission"
           : "Unsuccessful submission, please try again"}
       </p>
-      {!state?.success && <p>{state?.errors?.error?.[0]}</p>}
     </form>
   );
 };

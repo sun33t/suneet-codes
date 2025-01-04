@@ -1,5 +1,6 @@
 import { Footer } from "./footer";
 import { Header } from "./header";
+import { Toaster } from "./ui/toaster";
 
 import { useMemo } from "react";
 
@@ -16,6 +17,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <Header pages={memoizedPages} />
         <main className="flex-auto">{children}</main>
         <Footer pages={memoizedPages} />
+        <Toaster />
       </div>
     </div>
   );
