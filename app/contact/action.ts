@@ -8,12 +8,6 @@ import { z } from "zod";
 import { env } from "@/app/env";
 import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
 
-type ContactFormState = {
-  success: boolean;
-  fields?: Record<string, string>;
-  errors?: Record<string, string[]>;
-};
-
 const contactFormSchema = z.object({
   firstname: z.string().min(3),
   lastname: z.string().min(3),
@@ -21,6 +15,13 @@ const contactFormSchema = z.object({
   email: z.string().email(),
   message: z.string().min(10),
 });
+type ContactFormSchema = z.infer<typeof contactFormSchema>;
+
+type ContactFormState = {
+  success: boolean;
+  fields?: ContactFormSchema;
+  errors?: Partial<Record<keyof ContactFormSchema | "error", string[]>>;
+};
 
 const MAX_ATTEMPTS = 3;
 const BASE_DELAY_MS = 1000; // 1 second backoff start
@@ -43,10 +44,10 @@ export const createEnquiry = async (
 
   if (!parsed.success) {
     const errors = parsed.error.flatten().fieldErrors;
-    const fields: ContactFormState["fields"] = {};
+    const fields = {} as ContactFormState["fields"];
 
-    for (const key of Object.keys(formData)) {
-      fields[key] = formData[key].toString();
+    for (const key in formData) {
+      fields![key as keyof ContactFormSchema] = formData[key].toString();
     }
     console.error("server-side validation error encountered");
 
