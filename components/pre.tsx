@@ -29,7 +29,9 @@ export const Pre = ({
       <button
         disabled={isCopied}
         onClick={handleClickCopy}
-        className="absolute right-4 size-6"
+        className="absolute right-4 size-6 focus:outline-none focus:ring-2 focus:ring-primary"
+        aria-label={isCopied ? "Copied to clipboard" : "Copy to clipboard"}
+        title={isCopied ? "Copied to clipboard" : "Copy to clipboard"}
       >
         {isCopied ? (
           <Check className="h-5" />
