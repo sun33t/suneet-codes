@@ -148,7 +148,6 @@ export const ContactForm = () => {
         <Turnstile
           siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           onVerify={setToken}
-          sandbox={true}
           appearance="always"
           theme="auto"
         />
