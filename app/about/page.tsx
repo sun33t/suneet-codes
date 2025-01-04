@@ -60,20 +60,16 @@ export default function About() {
           </h1>
           <div className="mt-6 text-base">
             <p>
-              In <time dateTime="2017">2017</time>, I met someone who encouraged
-              me to pursue a long-held dream that I had, but never had the
-              courage to make happen. That dream was to become a software
-              developer and that person is now my lovely wife and best-friend,
-              Satty!
-            </p>
-
-            <p>
               In <time dateTime="2019">2019</time> after completing an{" "}
               <strong>MSc in Computing</strong> and a{" "}
               <strong>PGCE in Computer Science</strong> (Secondary School), I
-              enrolled in and completed the intense, challenging and inspiring
-              developer pathway, at the <strong>northcoders</strong> bootcamp in
-              Manchester. Those three months were transformational. I met some
+              enrolled in the developer pathway, at the{" "}
+              <strong>northcoders</strong> bootcamp in Manchester, after being
+              encouraged to pursue a long-held dream of becoming a software
+              developer.
+            </p>
+            <p>
+              The three months that followed were transformational. I met some
               amazing people in my fellow students and tutors and shortly after
               graduating, I was proud to join the tuition team myself where I
               helped subsequent students on their journey into dev. This was one
@@ -81,20 +77,40 @@ export default function About() {
             </p>
             <p>
               In <time dateTime="2020">2020</time>, I left northcoders for my
-              first production role and I never looked back. In the 4 years that
-              followed I have had the privilege to work with a variety of
-              multi-disciplinary teams and extremely talented individuals,
-              specialising in building fullstack applications, design systems
-              and internal tools within a variety of industries. Along the way
-              I&apos;ve had the opportunity to lead projects and mentor junior
-              developers and apprentices. No two days have been the same and
-              I&apos;ve loved (almost) every minute of it!
+              first production role and I have never looked back. In the 4 years
+              that followed I have enjoyed the opportunity to work on a variety
+              of projects which have included{" "}
+              <strong>fullstack e-commerce</strong> websites for national an
+              international brands, <strong>component libraries</strong> and{" "}
+              <strong>cli tools</strong> for digital agencies and{" "}
+              <strong>microservice backends</strong> and{" "}
+              <strong>cloud infrastructure</strong> for a variety of app
+              development clients.
             </p>
             <p>
-              Today, I&apos;m a freelance developer specialising in building
-              with NodeJS, TypeScript, React/NextJS and AWS. I consider myself
-              to be a T-shaped developer and am comfortable building full-stack
-              applications as well as internal tools.
+              My most recent experience has been as a full stack developer at{" "}
+              <strong>Lumin</strong> where I helped to address technical debt in
+              their legacy react application and to expend upon their
+              utilisation of <strong>aws</strong> infrastructure to achieve
+              improved performance and reliability at scale.
+            </p>
+            <p>
+              Along the way I&apos;ve had the opportunity to lead projects and
+              mentor junior developers and apprentices. No two days have been
+              the same and I&apos;ve loved (almost) every minute of it!
+            </p>
+            <p>
+              Although I have experience working in java, ruby, and python,
+              today, I&apos;m a freelance developer specialising in building
+              with node using TypeScript. It&apos;s my prefered ecosystem as the
+              tooling and libraries are constantly being moved forwards and I
+              love building for the web!
+            </p>
+            <p>
+              I also love to learn and am keeping up-to-date with developments
+              within the LLM and LCM spaces to see how these emerging
+              technologies can be applied into the applications and digital
+              experiences of the future.
             </p>
             <h2>I&apos;m available for:</h2>
             <div className="grid gap-6 md:grid-cols-2">
