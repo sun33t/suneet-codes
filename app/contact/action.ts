@@ -21,7 +21,8 @@ type ContactFormSchema = z.infer<typeof contactFormSchema>;
 type ContactFormState = {
   success: boolean;
   fields?: ContactFormSchema;
-  errors?: Partial<Record<keyof ContactFormSchema | "error", string[]>>;
+  errors?: Partial<Record<keyof ContactFormSchema, string[]>>;
+  errorMessage?: string;
 };
 
 const MAX_ATTEMPTS = 3;
@@ -36,7 +37,7 @@ export const createEnquiry = async (
   if (!(payload instanceof FormData)) {
     return {
       success: false,
-      errors: { error: ["Invalid form data"] },
+      errorMessage: "invalid form data",
     };
   }
 
@@ -59,7 +60,7 @@ export const createEnquiry = async (
     return {
       success: false,
       fields,
-      errors: { error: ["No turnstile token provided"] },
+      errorMessage: "Cloudflare Turnstile token missing",
     };
   }
 
@@ -78,8 +79,8 @@ export const createEnquiry = async (
 
     return {
       success: false,
-      errors: { error: ["Invalid turnstile token"] },
       fields,
+      errorMessage: "Turnstile validation failed.",
     };
   }
 
@@ -95,6 +96,7 @@ export const createEnquiry = async (
       success: false,
       errors,
       fields,
+      errorMessage: "Please check all fields are valid and try again",
     };
   }
 
@@ -132,7 +134,7 @@ export const createEnquiry = async (
       return {
         success: false,
         fields: parsedData,
-        errors: { error: ["Could not send enquiry after multiple retries"] },
+        errorMessage: "Could not send enquiry after multiple retries",
       };
     }
   }
@@ -141,6 +143,6 @@ export const createEnquiry = async (
   return {
     success: false,
     fields: parsedData,
-    errors: { error: ["Unexpected error"] },
+    errorMessage: "Unexected error",
   };
 };
