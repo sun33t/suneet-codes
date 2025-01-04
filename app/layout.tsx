@@ -1,22 +1,22 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Open_Sans, Roboto_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 import { env } from "@/app/env";
 import { Layout } from "@/components/layout";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TwSizeIndicator } from "@/components/tw-size-indicator";
 
-const openSans = Open_Sans({
+const geistSans = Geist({
   weight: "variable",
-  variable: "--font-open-sans",
+  variable: "--font-geist-sans",
   display: "swap",
   subsets: ["latin"],
 });
-const robotoMono = Roboto_Mono({
+const geistMono = Geist_Mono({
   weight: "variable",
-  variable: "--font-roboto-mono",
+  variable: "--font-geist-mono",
   display: "swap",
   subsets: ["latin"],
 });
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${openSans.variable} ${robotoMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="flex h-full bg-background">
