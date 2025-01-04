@@ -148,8 +148,6 @@ export const ContactForm = () => {
         <Turnstile
           siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           onVerify={setToken}
-          // eslint-disable-next-line n/no-process-env
-          sandbox={process.env.NODE_ENV === "development"}
           appearance="always"
           theme="auto"
         />
