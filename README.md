@@ -78,6 +78,12 @@ RESEND_API_KEY="re_123..." # Required: Get this from https://resend.com/api-keys
 
 # The email address used for sending emails from the website
 RESEND_EMAIL_ADDRESS="website@yourdomain.com" # Required: Must be a verified domain in Resend
+
+# Site Key retrieved from the cloudflare turnstile dashboard. Required for turnstile implementation on the contact form. See https://developers.cloudflare.com/turnstile/
+NEXT_PUBLIC_TURNSTILE_SITE_KEY="qeq_123..."
+
+# Secret Key retrieved from the cloudflare turnstile dashboard. Required for turnstile implementation on the contact form. See https://developers.cloudflare.com/turnstile/
+TURNSTILE_SECRET_KEY="re_123..."
 ```
 
 This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
