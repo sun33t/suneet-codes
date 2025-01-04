@@ -42,6 +42,7 @@ export const createEnquiry = async (
 
   // logic for validating the Turnstile token
   const token = payload.get("cf-turnstile-response");
+  const formData = Object.fromEntries(payload);
 
   if (!token || typeof token !== "string") {
     return {
@@ -50,20 +51,27 @@ export const createEnquiry = async (
     };
   }
 
-  const result = await validateTurnstileToken({
+  const turnstileResponse = await validateTurnstileToken({
     token,
     secretKey: env.TURNSTILE_SECRET_KEY,
   });
 
-  if (!result.success) {
-    console.log("no result");
+  if (!turnstileResponse.success) {
+    console.error(
+      "Turnstile submission error: ",
+      turnstileResponse.error_codes
+    );
+    const fields = {} as ContactFormState["fields"];
+
+    for (const key in formData) {
+      fields![key as keyof ContactFormSchema] = formData[key].toString();
+    }
     return {
       success: false,
       errors: { error: ["Invalid turnstile token"] },
+      fields,
     };
   }
-
-  const formData = Object.fromEntries(payload);
 
   const parsed = contactFormSchema.safeParse(formData);
 

@@ -148,6 +148,7 @@ export const ContactForm = () => {
         <Turnstile
           siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           onVerify={setToken}
+          sandbox={true}
           appearance="always"
           theme="auto"
         />
@@ -161,6 +162,7 @@ export const ContactForm = () => {
           ? "Successful submission"
           : "Unsuccessful submission, please try again"}
       </p>
+      {!state?.success && <p>{state?.errors?.error?.[0]}</p>}
     </form>
   );
 };
