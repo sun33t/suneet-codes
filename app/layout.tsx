@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { env } from "@/app/env";
@@ -19,6 +19,13 @@ const geistMono = Geist_Mono({
   display: "swap",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#18181b" },
+    { media: "(prefers-color-scheme: light)", color: "ffffff" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(
