@@ -40,32 +40,42 @@ export const createEnquiry = async (
     };
   }
 
-  // logic for validating the Turnstile token
-  const token = payload.get("cf-turnstile-response");
+  // retrieve token from Turnstile widget
+  const turnstileToken = payload.get("cf-turnstile-response");
+
+  // convert FormData to object
   const formData = Object.fromEntries(payload);
 
-  if (!token || typeof token !== "string") {
+  // create object of form fields to pass back to client as form state.
+  const fields = {} as ContactFormState["fields"];
+
+  for (const key in formData) {
+    fields![key as keyof ContactFormSchema] = formData[key].toString();
+  }
+
+  // if no turnstile token, return an error along with form state
+  if (!turnstileToken || typeof turnstileToken !== "string") {
+    console.error("No turnstile token provided");
     return {
       success: false,
+      fields,
       errors: { error: ["No turnstile token provided"] },
     };
   }
 
+  // validate turnstile token with cloudflare
   const turnstileResponse = await validateTurnstileToken({
-    token,
+    token: turnstileToken,
     secretKey: env.TURNSTILE_SECRET_KEY,
   });
 
+  // if turnstile validation fails, return an error along with form state
   if (!turnstileResponse.success) {
     console.error(
       "Turnstile submission error: ",
       turnstileResponse.error_codes
     );
-    const fields = {} as ContactFormState["fields"];
 
-    for (const key in formData) {
-      fields![key as keyof ContactFormSchema] = formData[key].toString();
-    }
     return {
       success: false,
       errors: { error: ["Invalid turnstile token"] },
@@ -73,15 +83,12 @@ export const createEnquiry = async (
     };
   }
 
+  // with turnstil token validated, progress with server-side form validation
   const parsed = contactFormSchema.safeParse(formData);
 
+  // if validation fails, return form state and associated field errors.
   if (!parsed.success) {
     const errors = parsed.error.flatten().fieldErrors;
-    const fields = {} as ContactFormState["fields"];
-
-    for (const key in formData) {
-      fields![key as keyof ContactFormSchema] = formData[key].toString();
-    }
     console.error("server-side validation error encountered");
 
     return {
@@ -91,6 +98,7 @@ export const createEnquiry = async (
     };
   }
 
+  // with server-side validation passing, send new enquiry email
   const parsedData = parsed.data;
 
   let attempt = 0;

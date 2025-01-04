@@ -1,6 +1,15 @@
+import { type TurnstileProps } from "next-turnstile";
 import React, { useCallback, useEffect, useRef } from "react";
 
-import { TurnstileProps } from "@/types/turnstile";
+/**
+ * This implementation has been adapted from the next-turnstile package to address an issue in non-development environments where the widget would not render upon page load. It would only render upon navigating away and back to the page.
+ *
+ * The solution to this issue was to remove a conditional determination of the script url based upon the value of the NODE_ENV and set that script url to be the one below which is always used. See https://www.npmjs.com/package/next-turnstile?activeTab=code.
+ *
+ * I believe that in the original implementation, omitting the argument `onload=onloadTurnstileCallback` from the script in non DEVELOPMENT environments meant that html elements with the `cf-turnstile` class would not show a challenge.
+ *
+ * In addition, this implmenetation wraps the definition of renderWidget in its on useCallback and updates the dependencies within the useEffect. These modifications were guided by react-hooks eslint rules.
+ */
 
 declare global {
   interface Window {
