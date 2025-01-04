@@ -1,5 +1,6 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
+import rehypePrettyCode from "rehype-pretty-code";
 
 const articles = defineCollection({
   name: "articles",
@@ -23,7 +24,17 @@ const articles = defineCollection({
       .min(1, { message: "At least one category is required" }),
   }),
   transform: async (document, context) => {
-    const mdx = await compileMDX(context, document);
+    const mdx = await compileMDX(context, document, {
+      rehypePlugins: [
+        [
+          rehypePrettyCode,
+          {
+            theme: "aurora-x",
+            grid: false,
+          },
+        ],
+      ],
+    });
     return {
       ...document,
       mdx,
