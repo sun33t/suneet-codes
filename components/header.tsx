@@ -23,7 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import avatarImage from "@/images/avatar.jpg";
+import avatarImage from "@/images/avatar_small.jpg";
 import { type PageTitle } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
