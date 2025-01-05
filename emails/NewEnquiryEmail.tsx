@@ -31,8 +31,14 @@ const codeBlockTheme: Theme = {
   },
   ...rest,
 };
-export const NewEnquiryEmail = (props: NewEnquiryEmailProps) => {
-  const codeBlockContent = `{\nname: '${props.firstname} ${props.lastname}',\nemail: '${props.email}',\ncompany: '${props.company}',\nmessage: "${props.message}"\n}`;
+export const NewEnquiryEmail = ({
+  email,
+  firstname,
+  lastname,
+  company = "N/A",
+  message,
+}: NewEnquiryEmailProps) => {
+  const codeBlockContent = `{\nname: '${firstname} ${lastname}',\nemail: '${email}',\ncompany: '${company}',\nmessage: "${message}"\n}`;
   return (
     <Tailwind>
       <Html>
@@ -49,7 +55,7 @@ export const NewEnquiryEmail = (props: NewEnquiryEmailProps) => {
             }}
           />
         </Head>
-        <Preview>{`New enquiry from ${props.firstname} ${props.lastname}`}</Preview>
+        <Preview>{`New enquiry from ${firstname} ${lastname}`}</Preview>
         <Container className="font-sans text-slate-800">
           <Section>
             <Heading className="text-center font-mono text-slate-800" as="h1">

@@ -14,7 +14,7 @@ import {
 } from "@react-email/components";
 
 interface NewEnquiryConfirmationEmailProps {
-  firstname?: string;
+  firstname: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
