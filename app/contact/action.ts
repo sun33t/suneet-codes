@@ -12,8 +12,24 @@ import { sendResendEmail } from "@/lib/resend";
 import { validateTurnstile } from "@/lib/turnstile";
 
 const contactFormSchema = z.object({
-  firstname: z.string().min(3),
-  lastname: z.string().min(3),
+  firstname: z
+    .string({
+      required_error: "firstname is required",
+      invalid_type_error: "firstname must be a string",
+    })
+    .min(3)
+    .regex(/^[a-zA-Z]+$/, {
+      message: "Alphabetic characters only",
+    }),
+  lastname: z
+    .string({
+      required_error: "lastname is required",
+      invalid_type_error: "lastname must be a string",
+    })
+    .min(3)
+    .regex(/^[a-zA-Z]+$/, {
+      message: "Alphabetic characters only",
+    }),
   company: z.string().min(3).optional(),
   email: z.string().email(),
   message: z.string().min(10),
