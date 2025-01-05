@@ -1,4 +1,5 @@
 import { buttonVariants } from "./ui/button";
+import { Card, CardContent } from "./ui/card";
 
 import { Briefcase, CalendarPlus2 } from "lucide-react";
 import Image from "next/image";
@@ -61,24 +62,26 @@ const Role = ({ role }: { role: Role }) => {
 
 export const Resume = ({ roles }: { roles: Role[] }) => {
   return (
-    <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+    <Card className="bg-transparent p-6 shadow-none">
       <h2 className="flex items-center text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <Briefcase className="h-5 w-5 flex-none fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500" />
         <span className="ml-3">Work</span>
       </h2>
-      <ol className="mt-6 space-y-4">
-        {roles.map((role) => (
-          <Role key={role.company} role={role} />
-        ))}
-      </ol>
-      <Link
-        href={env.PROJECT_CALENDAR_URL}
-        target="_blank"
-        className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
-      >
-        Let&apos;s Talk
-        <CalendarPlus2 className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-      </Link>
-    </div>
+      <CardContent className="p-0">
+        <ol className="mt-6 space-y-4">
+          {roles.map((role) => (
+            <Role key={role.company} role={role} />
+          ))}
+        </ol>
+        <Link
+          href={env.PROJECT_CALENDAR_URL}
+          target="_blank"
+          className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
+        >
+          Let&apos;s Talk
+          <CalendarPlus2 className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+        </Link>
+      </CardContent>
+    </Card>
   );
 };
