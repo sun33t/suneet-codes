@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useRef } from "react";
  * I believe that in the original implementation, omitting the argument `onload=onloadTurnstileCallback` from the script in non DEVELOPMENT environments meant that html elements with the `cf-turnstile` class would not show a challenge.
  *
  * In addition, this implmenetation wraps the definition of renderWidget in its on useCallback and updates the dependencies within the useEffect. These modifications were guided by react-hooks eslint rules.
+ *
  */
 
 declare global {

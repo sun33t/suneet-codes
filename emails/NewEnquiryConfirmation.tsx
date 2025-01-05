@@ -57,7 +57,7 @@ export const NewEnquiryConfirmationEmail = ({
               you as soon as I can.
             </Text>
             <Text className="mb-2 text-left">
-              Looking forward to speaking with you!
+              Looking forward to speaking with you,
             </Text>
             <Text className="mb-2 text-left">
               <strong>Suneet</strong>

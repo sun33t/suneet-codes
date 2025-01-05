@@ -1,13 +1,15 @@
 "use server";
 
-import { validateTurnstileToken } from "next-turnstile";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { z } from "zod";
 
 import { env } from "@/app/env";
-import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
+import { NewEnquiryConfirmationEmail } from "@/emails/NewEnquiryConfirmation";
+import { NewEnquiryEmail } from "@/emails/NewEnquiryEmail";
+import { sendResendEmail } from "@/lib/resend";
+import { validateTurnstile } from "@/lib/turnstile";
 
 const contactFormSchema = z.object({
   firstname: z.string().min(3),
@@ -24,9 +26,6 @@ type ContactFormState = {
   errors?: Partial<Record<keyof ContactFormSchema, string[]>>;
   errorMessage?: string;
 };
-
-const MAX_ATTEMPTS = 3;
-const BASE_DELAY_MS = 1000; // 1 second backoff start
 
 export const createEnquiry = async (
   prevState: ContactFormState,
@@ -54,33 +53,16 @@ export const createEnquiry = async (
     fields![key as keyof ContactFormSchema] = formData[key].toString();
   }
 
-  // if no turnstile token, return an error along with form state
-  if (!turnstileToken || typeof turnstileToken !== "string") {
-    console.error("No turnstile token provided");
+  const { message: turnstileMessage, success: turnstileSuccess } =
+    await validateTurnstile({
+      token: turnstileToken,
+    });
+
+  if (!turnstileSuccess) {
     return {
       success: false,
       fields,
-      errorMessage: "Cloudflare Turnstile token missing",
-    };
-  }
-
-  // validate turnstile token with cloudflare
-  const turnstileResponse = await validateTurnstileToken({
-    token: turnstileToken,
-    secretKey: env.TURNSTILE_SECRET_KEY,
-  });
-
-  // if turnstile validation fails, return an error along with form state
-  if (!turnstileResponse.success) {
-    console.error(
-      "Turnstile submission error: ",
-      turnstileResponse.error_codes
-    );
-
-    return {
-      success: false,
-      fields,
-      errorMessage: "Turnstile validation failed.",
+      errorMessage: turnstileMessage,
     };
   }
 
@@ -103,46 +85,42 @@ export const createEnquiry = async (
   // with server-side validation passing, send new enquiry email
   const parsedData = parsed.data;
 
-  let attempt = 0;
+  const isEnquiryEmailSent = await sendResendEmail({
+    from: env.RESEND_EMAIL_ADDRESS,
+    to: env.PROJECT_EMAIL_ADDRESS,
+    BASE_DELAY_MS: 1000,
+    MAX_ATTEMPTS: 3,
+    subject: "Website Enquiry",
+    resend,
+    Template: NewEnquiryEmail,
+    data: parsedData,
+  });
 
-  while (attempt < MAX_ATTEMPTS) {
-    const { error: resendError } = await resend.emails.send({
-      from: env.RESEND_EMAIL_ADDRESS,
-      to: env.PROJECT_EMAIL_ADDRESS,
-      subject: "Website Enquiry",
-      react: NewEnquiryEmail({ ...parsedData }),
-    });
-
-    if (!resendError) {
-      // If successful, revalidate and redirect
-      revalidatePath("/contact");
-      redirect("/thank-you");
-    }
-
-    attempt++;
-
-    if (attempt < MAX_ATTEMPTS) {
-      // Exponential backoff delay
-      const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
-      console.error(
-        `Retry attempt ${attempt} failed. Retrying in ${delay}ms...`
-      );
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    } else {
-      // All attempts failed
-      console.error(resendError?.message || "Unknown error");
-      return {
-        success: false,
-        fields: parsedData,
-        errorMessage: "Could not send enquiry after multiple retries",
-      };
-    }
+  if (!isEnquiryEmailSent) {
+    return {
+      success: false,
+      fields: parsedData,
+      errorMessage: "Failed to send enquiry email, please try again.",
+    };
   }
 
-  // Should never reach here due to return/redirect logic above
-  return {
-    success: false,
-    fields: parsedData,
-    errorMessage: "Unexpected error",
-  };
+  // finally send a confirmation email to the user
+  const isEnquiryConfirmationEmalSent = await sendResendEmail({
+    from: env.RESEND_EMAIL_ADDRESS,
+    to: parsedData.email,
+    BASE_DELAY_MS: 1000,
+    MAX_ATTEMPTS: 3,
+    subject: "Thanks for getting in touch",
+    resend,
+    Template: NewEnquiryConfirmationEmail,
+    data: parsedData,
+  });
+
+  if (!isEnquiryConfirmationEmalSent) {
+    console.error("Failed to send enquiry confirmation email.");
+  }
+
+  // If successful, revalidate and redirect
+  revalidatePath("/contact");
+  redirect("/thank-you");
 };

@@ -86,6 +86,27 @@ NEXT_PUBLIC_TURNSTILE_SITE_KEY="qeq_123..."
 TURNSTILE_SECRET_KEY="re_123..."
 ```
 
+The following credentials are alternatives for the `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` which can be used during development to simulate challenge responses on the client and server:
+
+```bash
+# Always Passes:
+NEXT_PUBLIC_TURNSTILE_SITE_KEY="1x00000000000000000000AA"
+TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"
+
+#  Always Blocks:
+NEXT_PUBLIC_TURNSTILE_SITE_KEY="2x00000000000000000000AB"
+
+#  Forces Interactive Challenge:
+NEXT_PUBLIC_TURNSTILE_SITE_KEY="3x00000000000000000000FF"
+
+#  Always Fails:
+TURNSTILE_SECRET_KEY="2x0000000000000000000000000000000AA"
+
+#  Yields A Token Already Spent Error:
+TURNSTILE_SECRET_KEY="3x0000000000000000000000000000000AA"
+
+```
+
 This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
 
 ## Acknowledgements

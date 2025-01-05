@@ -31,7 +31,7 @@ const codeBlockTheme: Theme = {
   },
   ...rest,
 };
-export default function NewEnquiryEmail(props: NewEnquiryEmailProps) {
+export const NewEnquiryEmail = (props: NewEnquiryEmailProps) => {
   const codeBlockContent = `{\nname: '${props.firstname} ${props.lastname}',\nemail: '${props.email}',\ncompany: '${props.company}',\nmessage: "${props.message}"\n}`;
   return (
     <Tailwind>
@@ -69,7 +69,7 @@ export default function NewEnquiryEmail(props: NewEnquiryEmailProps) {
       </Html>
     </Tailwind>
   );
-}
+};
 
 NewEnquiryEmail.PreviewProps = {
   firstname: "Alan",
