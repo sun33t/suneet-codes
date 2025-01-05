@@ -17,7 +17,7 @@ export default function Contact() {
       title="Contact"
       intro={`Book a time to catch up in my calendar, send me an email or, if you prefer, fill in an enquiry form and I'll come back to you as soon as I can.`}
     >
-      <Card className="mx-auto mb-16 max-w-lg bg-white px-6 py-6 dark:bg-zinc-900">
+      <Card className="mb-16 max-w-lg bg-transparent px-6 py-6 shadow-none">
         <CardContent className="pb-0">
           <div className="grid max-w-lg grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <Link
