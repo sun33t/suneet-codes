@@ -76,6 +76,7 @@ export const Resume = ({ roles }: { roles: Role[] }) => {
         <Link
           href={env.PROJECT_CALENDAR_URL}
           target="_blank"
+          rel="noopener noreferrer"
           className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
         >
           Let&apos;s Talk

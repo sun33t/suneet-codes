@@ -24,6 +24,7 @@ export default function Contact() {
               aria-label="Book some time in my calendar to catch up."
               href={env.PROJECT_CALENDAR_URL}
               target="_blank"
+              rel="noopener noreferrer"
               className={`w-full ${buttonVariants({ variant: "secondary" })}`}
             >
               Calendar
