@@ -54,7 +54,7 @@ export default function About() {
             />
           </div>
         </div>
-        <div className="prose dark:prose-invert prose-strong:text-accent-foreground lg:order-first lg:row-span-2">
+        <div className="prose dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             A little bit about me
           </h1>
@@ -90,9 +90,9 @@ export default function About() {
             <p>
               My most recent experience has been as a full stack developer at{" "}
               <strong>Lumin</strong> where I helped to address technical debt in
-              their legacy react application and to expend upon their
-              utilisation of <strong>aws</strong> infrastructure to achieve
-              improved performance and reliability at scale.
+              their legacy react application and to extend their utilisation of
+              aws infrastructure to achieve improved performance and reliability
+              at scale.
             </p>
             <p>
               Along the way I&apos;ve had the opportunity to lead projects and
