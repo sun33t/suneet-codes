@@ -1,11 +1,10 @@
 import { buttonVariants } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 
-import { Briefcase, CalendarPlus2 } from "lucide-react";
+import { Briefcase, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { env } from "@/app/env";
 import { type Role } from "@/content/roles";
 
 const Role = ({ role }: { role: Role }) => {
@@ -74,13 +73,11 @@ export const Resume = ({ roles }: { roles: Role[] }) => {
           ))}
         </ol>
         <Link
-          href={env.PROJECT_CALENDAR_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/contact"
           className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
         >
           Let&apos;s Talk
-          <CalendarPlus2 className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+          <MessageCircle className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
         </Link>
       </CardContent>
     </Card>
