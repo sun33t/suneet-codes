@@ -55,15 +55,15 @@ export default function Home() {
           <P className="text-base text-muted-foreground">
             👋, I&apos;m a developer and founder based in the UK. I&apos;ve been
             building software in the{" "}
-            <span className="text-accent-foreground">e-commerce</span>,{" "}
-            <span className="text-accent-foreground">retail</span> and{" "}
-            <span className="text-accent-foreground">hospitality</span> spaces
+            <span className="font-semibold underline">e-commerce</span>,{" "}
+            <span className="font-semibold underline">retail</span> and{" "}
+            <span className="font-semibold underline">hospitality</span> spaces
             as well as for the{" "}
-            <span className="text-accent-foreground">
+            <span className="font-semibold underline">
               energy and comms ombudsman
             </span>{" "}
             over a five year period after completing my{" "}
-            <span className="text-accent-foreground">MSc in Computing</span>.
+            <span className="font-semibold underline">MSc in Computing</span>.
             When I&apos;m not working, I like to cook and travel with my wife
             and spend time in the outdoors with my friends.
           </P>
