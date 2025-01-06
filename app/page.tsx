@@ -49,7 +49,7 @@ function ArticleCard({ article }: { article: Article }) {
 export default function Home() {
   return (
     <Fragment>
-      <Container className="mt-9 duration-1000 animate-in fade-in">
+      <Container className="mt-12 duration-1000 animate-in fade-in">
         <div className="max-w-2xl">
           <Heading as={"h1"}>{env.PROJECT_AUTHOR}</Heading>
           <P className="text-base text-muted-foreground">
