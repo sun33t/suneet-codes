@@ -55,7 +55,7 @@ const NewEnquiryEmail = ({
             }}
           />
         </Head>
-        <Preview>{`New enquiry from ${firstname} ${lastname}`}</Preview>
+        <Preview>{`New website Enquiry`}</Preview>
         <Container className="font-sans text-slate-800">
           <Section>
             <Heading className="text-center font-mono text-slate-800" as="h1">
