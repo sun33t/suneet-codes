@@ -24,7 +24,7 @@ const isValidUrl = (url: string) => {
   }
 };
 
-export const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : `http://localhost:${process.env.PORT || 3000}`;
 
