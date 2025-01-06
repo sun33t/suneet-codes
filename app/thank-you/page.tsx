@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
+import { Confetti } from "@/components/confetti";
 import { SimpleLayout } from "@/components/simple-layout";
 import { buttonVariants } from "@/components/ui/button";
 import { PAGE_METADATA } from "@/content/pages";
@@ -15,6 +16,7 @@ export default function ThankYouPage() {
       <Link className={buttonVariants({ variant: "default" })} href="/">
         Back home
       </Link>
+      <Confetti />
     </SimpleLayout>
   );
 }
