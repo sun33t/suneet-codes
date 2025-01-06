@@ -1,4 +1,6 @@
-export const DEVELOPMENT_SERVICES: { title: string; description: string }[] = [
+import { ServiceItem } from "@/types";
+
+export const DEVELOPMENT_SERVICES: ServiceItem[] = [
   {
     title: "Full-Stack/Web Development",
     description: "End-to-end applications with modern databases and UI",
@@ -13,7 +15,7 @@ export const DEVELOPMENT_SERVICES: { title: string; description: string }[] = [
       "Addressing tech debt and migrating to modern patterns and frameworks",
   },
 ];
-export const PROFESSIONAL_SERVICES: { title: string; description: string }[] = [
+export const PROFESSIONAL_SERVICES: ServiceItem[] = [
   {
     title: "Technical Leadership",
     description: "Team leadership and developer mentoring",

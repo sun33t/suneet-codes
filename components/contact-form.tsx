@@ -25,8 +25,12 @@ import {
   PROFESSIONAL_SERVICES,
 } from "@/content/services";
 import { useToast } from "@/hooks/use-toast";
+import { ServiceItem } from "@/types";
 
-const enquiryReasons = [...DEVELOPMENT_SERVICES, ...PROFESSIONAL_SERVICES];
+const enquiryReasons: ServiceItem[] = [
+  ...DEVELOPMENT_SERVICES,
+  ...PROFESSIONAL_SERVICES,
+];
 
 const SubmitButton = ({
   pending,
@@ -85,7 +89,6 @@ export const ContactForm = () => {
       return;
     }
     const data = Object.fromEntries(formData.entries());
-    console.log({ data });
     const sanitizedFormData = new FormData();
     for (const key in data) {
       sanitizedFormData.append(
@@ -108,7 +111,9 @@ export const ContactForm = () => {
         <form action={formAction} className="max-w-xl" aria-busy={isPending}>
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
             <div id="form-group-firstname">
-              <Label htmlFor="firstname">First name *</Label>
+              <Label htmlFor="firstname" aria-label="First name (required)">
+                First name *
+              </Label>
               <div className="mt-2.5">
                 <Input
                   defaultValue={state?.fields?.firstname}
@@ -124,7 +129,9 @@ export const ContactForm = () => {
               </div>
             </div>
             <div id="form-group-lastname">
-              <Label htmlFor="lastname">Last name *</Label>
+              <Label htmlFor="lastname" aria-label="Last name (required)">
+                Last name *
+              </Label>
               <div className="mt-2.5">
                 <Input
                   defaultValue={state?.fields?.lastname}
@@ -154,7 +161,9 @@ export const ContactForm = () => {
               </div>
             </div>
             <div id="form-group-email" className="sm:col-span-2">
-              <Label htmlFor="email">Email *</Label>
+              <Label htmlFor="email" aria-label="Email (required)">
+                Email *
+              </Label>
               <div className="mt-2.5">
                 <Input
                   defaultValue={state?.fields?.email}
@@ -169,7 +178,9 @@ export const ContactForm = () => {
               </div>
             </div>
             <div id="form-group-reason-for-enquiry">
-              <Label htmlFor="reason">Reason for Enquiry *</Label>
+              <Label htmlFor="reason" aria-label="Reason (required)">
+                Reason for Enquiry *
+              </Label>
               <div className="mt-2.5">
                 <Select
                   name="reason"
@@ -188,6 +199,7 @@ export const ContactForm = () => {
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
+                <ErrorMessage error={state?.errors?.reason} />
               </div>
             </div>
             <div id="form-group-message" className="sm:col-span-2">

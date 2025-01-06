@@ -15,10 +15,22 @@ import {
 
 import { type ContactFormFieldSchema } from "@/types";
 
-export const baseUrl =
-  process.env.VERCEL_PROJECT_PRODUCTION_URL !== undefined
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : `http://localhost:${process.env.PORT || 3000}`;
+const isValidUrl = (url: string) => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : `http://localhost:${process.env.PORT || 3000}`;
+
+if (!isValidUrl(baseUrl)) {
+  throw new Error(`Invalid base URL: ${baseUrl}`);
+}
 
 const NewEnquiryConfirmationEmail = ({ firstname }: ContactFormFieldSchema) => (
   <Tailwind>

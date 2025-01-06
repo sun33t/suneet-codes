@@ -15,6 +15,8 @@ export type SearchParams = Promise<{
   category: Article["categories"]["0"] | Article["categories"] | undefined;
 }>;
 
+export type ServiceItem = { title: string; description: string };
+
 export const contactFormFieldSchema = z.object({
   firstname: z
     .string({
@@ -22,7 +24,7 @@ export const contactFormFieldSchema = z.object({
       invalid_type_error: "firstname must be a string",
     })
     .min(3)
-    .regex(/^[a-zA-Z]+$/, {
+    .regex(/^[a-zA-Z\s'\-]+$/, {
       message: "Alphabetic characters only",
     }),
   lastname: z
@@ -31,7 +33,7 @@ export const contactFormFieldSchema = z.object({
       invalid_type_error: "lastname must be a string",
     })
     .min(3)
-    .regex(/^[a-zA-Z]+$/, {
+    .regex(/^[a-zA-Z\s'\-]+$/, {
       message: "Alphabetic characters only",
     }),
   company: z.string().min(3).optional(),
