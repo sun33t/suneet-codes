@@ -36,7 +36,6 @@ export const Turnstile: React.FC<TurnstileProps> = ({
   tabIndex,
   responseField = true,
   responseFieldName = "cf-turnstile-response",
-  size = "normal",
   retry = "auto",
   retryInterval = 8000,
   refreshExpired = "auto",
@@ -58,6 +57,11 @@ export const Turnstile: React.FC<TurnstileProps> = ({
 
   const renderWidget = useCallback(() => {
     if (!containerRef.current || !window.turnstile) return;
+
+    const size =
+      window && window.matchMedia("(max-width: 440px)").matches
+        ? "compact"
+        : "flexible";
 
     cleanup();
 
@@ -95,7 +99,6 @@ export const Turnstile: React.FC<TurnstileProps> = ({
     retryInterval,
     sandbox,
     siteKey,
-    size,
     tabIndex,
     theme,
   ]);
