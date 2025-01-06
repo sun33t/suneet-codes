@@ -49,7 +49,7 @@ function ArticleCard({ article }: { article: Article }) {
 export default function Home() {
   return (
     <Fragment>
-      <Container className="mt-9">
+      <Container className="mt-9 duration-1000 animate-in fade-in">
         <div className="max-w-2xl">
           <Heading as={"h1"}>{env.PROJECT_AUTHOR}</Heading>
           <P className="text-base text-muted-foreground">
@@ -89,16 +89,20 @@ export default function Home() {
       </Container>
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-          <div className="flex flex-col gap-16">
-            {latestArticles.map((article) => {
-              return (
-                <ArticleCard key={article._meta.fileName} article={article} />
-              );
-            })}
+          <div className="duration-1000 animate-in fade-in">
+            <div className="flex flex-col gap-16">
+              {latestArticles.map((article) => {
+                return (
+                  <ArticleCard key={article._meta.fileName} article={article} />
+                );
+              })}
+            </div>
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
             {/* <Newsletter /> */}
-            <Resume roles={ROLES} />
+            <div className="duration-1000 animate-in fade-in">
+              <Resume roles={ROLES} />
+            </div>
           </div>
         </div>
       </Container>

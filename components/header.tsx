@@ -292,7 +292,7 @@ export const Header = ({ pages }: HeaderProps) => {
     <>
       <header
         id="header"
-        className="pointer-events-none relative z-50 flex flex-none flex-col"
+        className="pointer-events-none relative z-50 flex flex-none flex-col duration-1000 animate-in fade-in"
         style={{
           height: "var(--header-height)",
           marginBottom: "var(--header-mb)",
