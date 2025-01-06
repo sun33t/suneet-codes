@@ -21,7 +21,7 @@ export const metadata: Metadata = { ...PAGE_METADATA.about };
 
 const SocialLinks = () => {
   return (
-    <Card className="h-fit bg-transparent shadow-none lg:ml-20 lg:block">
+    <Card className="h-fit shadow-none lg:ml-20 lg:block lg:max-w-xs">
       <CardContent>
         <ul role="list">
           {/* <SocialLink href="#" icon={XIcon}>
@@ -36,8 +36,8 @@ const SocialLinks = () => {
             rel="noopener noreferrer"
             className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
           >
+            <GitHubIcon className="h-4 w-4 fill-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
             Follow on GitHub
-            <GitHubIcon className="h-4 w-4 fill-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
           </Link>
           <Link
             href={env.PROJECT_LINKEDIN_URL}
@@ -45,15 +45,15 @@ const SocialLinks = () => {
             rel="noopener noreferrer"
             className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
           >
+            <LinkedInIcon className="h-4 w-4 fill-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
             Follow on LinkedIn
-            <LinkedInIcon className="h-4 w-4 fill-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
           </Link>
           <Link
             href="/contact"
             className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
           >
+            <MessageCircle className="h-4 w-4 stroke-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
             Let&apos;s Talk
-            <MessageCircle className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
           </Link>
         </ul>
       </CardContent>
@@ -135,7 +135,7 @@ export default function About() {
             </p>
           </div>
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex lg:justify-center">
           <SocialLinks />
         </div>
       </div>
@@ -147,14 +147,11 @@ export default function About() {
           <h3 className="font-semibold underline">Development Services</h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
             {DEVELOPMENT_SERVICES.map((item) => (
-              <Card
-                key={item.title}
-                className="grow bg-transparent shadow-none"
-              >
+              <Card key={item.title} className="grow shadow-none">
                 <CardHeader className="pb-3">
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="text-sm">
+                <CardContent className="text-sm font-extralight">
                   {item.description}
                 </CardContent>
               </Card>
@@ -165,14 +162,11 @@ export default function About() {
           <h3 className="font-semibold underline">Professional Services</h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
             {PROFESSIONAL_SERVICES.map((item) => (
-              <Card
-                key={item.title}
-                className="grow bg-transparent shadow-none"
-              >
+              <Card key={item.title} className="grow shadow-none">
                 <CardHeader className="pb-3">
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="text-sm">
+                <CardContent className="text-sm font-extralight">
                   {item.description}
                 </CardContent>
               </Card>
