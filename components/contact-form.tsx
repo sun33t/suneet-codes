@@ -187,7 +187,7 @@ export const ContactForm = () => {
                   required
                   defaultValue={state.fields?.reason}
                 >
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a reason" />
                   </SelectTrigger>
                   <SelectContent>
