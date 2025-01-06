@@ -65,7 +65,10 @@ export default async function Page({
   }
 
   return (
-    <Container id="mdx-layout-container" className="mt-16">
+    <Container
+      id="mdx-layout-container"
+      className="mt-16 duration-1000 animate-in fade-in"
+    >
       <div className="lg:relative">
         <div className="mx-auto max-w-2xl">
           <BackButton />
