@@ -1,4 +1,3 @@
-/* eslint-disable n/no-process-env */
 import {
   Body,
   Column,
@@ -13,13 +12,11 @@ import {
   Text,
 } from "@react-email/components";
 
+import { baseUrl } from "@/lib/baseUrl";
+
 interface NewEnquiryConfirmationEmailProps {
   firstname: string;
 }
-
-const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
 
 const NewEnquiryConfirmationEmail = ({
   firstname,

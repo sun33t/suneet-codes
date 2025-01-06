@@ -14,7 +14,8 @@ export const env = createEnv({
     PROJECT_EMAIL_ADDRESS: z.string().email(),
     RESEND_EMAIL_ADDRESS: z.string().email(),
     RESEND_API_KEY: z.string(),
-
+    VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
+    PORT: z.string().optional(),
     TURNSTILE_SECRET_KEY: z.string(),
     NODE_ENV: z.union([
       z.literal("development"),
