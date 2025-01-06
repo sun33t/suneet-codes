@@ -1,3 +1,4 @@
+/* eslint-disable n/no-process-env */
 import {
   Body,
   Column,
@@ -12,15 +13,14 @@ import {
   Text,
 } from "@react-email/components";
 
-import { baseUrl } from "@/lib/baseUrl";
+import { type ContactFormFieldSchema } from "@/types";
 
-interface NewEnquiryConfirmationEmailProps {
-  firstname: string;
-}
+export const baseUrl =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL !== undefined
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : `http://localhost:${process.env.PORT || 3000}`;
 
-const NewEnquiryConfirmationEmail = ({
-  firstname,
-}: NewEnquiryConfirmationEmailProps) => (
+const NewEnquiryConfirmationEmail = ({ firstname }: ContactFormFieldSchema) => (
   <Tailwind>
     <Html>
       <Head />
@@ -67,6 +67,12 @@ const NewEnquiryConfirmationEmail = ({
 );
 NewEnquiryConfirmationEmail.PreviewProps = {
   firstname: "Alan",
-} as NewEnquiryConfirmationEmailProps;
+  lastname: "Turing",
+  email: "alan@codebreakers.com",
+  company: "codebreakers",
+  reason: "Technical Leadership",
+  message:
+    "I'm interested in your product and would like to learn more about your services in relation to migrating from tech debt.",
+} satisfies ContactFormFieldSchema;
 
 export default NewEnquiryConfirmationEmail;

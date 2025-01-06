@@ -1,6 +1,6 @@
 export const DEVELOPMENT_SERVICES: { title: string; description: string }[] = [
   {
-    title: "Full-Stack Development",
+    title: "Full-Stack/Web Development",
     description: "End-to-end applications with modern databases and UI",
   },
   {

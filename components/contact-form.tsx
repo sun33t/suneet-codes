@@ -3,6 +3,13 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { Textarea } from "./ui/textarea";
 
 import DOMPurify from "dompurify";
@@ -13,7 +20,13 @@ import { createEnquiry } from "@/app/contact/action";
 import { env } from "@/app/env";
 import { Turnstile } from "@/components/turnstile";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  DEVELOPMENT_SERVICES,
+  PROFESSIONAL_SERVICES,
+} from "@/content/services";
 import { useToast } from "@/hooks/use-toast";
+
+const enquiryReasons = [...DEVELOPMENT_SERVICES, ...PROFESSIONAL_SERVICES];
 
 const SubmitButton = ({
   pending,
@@ -72,6 +85,7 @@ export const ContactForm = () => {
       return;
     }
     const data = Object.fromEntries(formData.entries());
+    console.log({ data });
     const sanitizedFormData = new FormData();
     for (const key in data) {
       sanitizedFormData.append(
@@ -94,7 +108,7 @@ export const ContactForm = () => {
         <form action={formAction} className="max-w-xl" aria-busy={isPending}>
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
             <div id="form-group-firstname">
-              <Label htmlFor="firstname">First name</Label>
+              <Label htmlFor="firstname">First name *</Label>
               <div className="mt-2.5">
                 <Input
                   defaultValue={state?.fields?.firstname}
@@ -110,7 +124,7 @@ export const ContactForm = () => {
               </div>
             </div>
             <div id="form-group-lastname">
-              <Label htmlFor="lastname">Last name</Label>
+              <Label htmlFor="lastname">Last name *</Label>
               <div className="mt-2.5">
                 <Input
                   defaultValue={state?.fields?.lastname}
@@ -140,7 +154,7 @@ export const ContactForm = () => {
               </div>
             </div>
             <div id="form-group-email" className="sm:col-span-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Email *</Label>
               <div className="mt-2.5">
                 <Input
                   defaultValue={state?.fields?.email}
@@ -154,6 +168,28 @@ export const ContactForm = () => {
                 <ErrorMessage error={state?.errors?.email} />
               </div>
             </div>
+            <div id="form-group-reason-for-enquiry">
+              <Label htmlFor="reason">Reason for Enquiry *</Label>
+              <div className="mt-2.5">
+                <Select
+                  name="reason"
+                  required
+                  defaultValue={state.fields?.reason}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select a reason" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {enquiryReasons.map((reason) => (
+                      <SelectItem key={reason.title} value={reason.title}>
+                        {reason.title}
+                      </SelectItem>
+                    ))}
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
             <div id="form-group-message" className="sm:col-span-2">
               <Label htmlFor="message">Message</Label>
               <div className="mt-2.5">
@@ -163,8 +199,6 @@ export const ContactForm = () => {
                   name="message"
                   rows={4}
                   placeholder="Let's work together!"
-                  required
-                  minLength={10}
                 />
                 <ErrorMessage error={state?.errors?.message} />
               </div>

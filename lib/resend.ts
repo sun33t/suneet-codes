@@ -1,23 +1,17 @@
 import { type JSX } from "react";
 import { type Resend } from "resend";
 
-type Data = {
-  message: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  company?: string | undefined;
-};
+import { type ContactFormFieldSchema } from "@/types";
 
 type SendResendEmail = {
   MAX_ATTEMPTS: number;
   BASE_DELAY_MS: number;
   resend: Resend;
-  Template: (props: Data) => JSX.Element;
+  Template: (props: ContactFormFieldSchema) => JSX.Element;
   from: string;
   to: string;
   subject: string;
-  data: Data;
+  data: ContactFormFieldSchema;
 };
 
 export const sendResendEmail = async ({

@@ -12,13 +12,7 @@ import {
   dracula,
 } from "@react-email/components";
 
-type NewEnquiryEmailProps = {
-  firstname: string;
-  lastname: string;
-  company?: string;
-  email: string;
-  message: string;
-};
+import { type ContactFormFieldSchema } from "@/types";
 
 const { base, ...rest } = dracula;
 
@@ -37,8 +31,9 @@ const NewEnquiryEmail = ({
   lastname,
   company = "N/A",
   message,
-}: NewEnquiryEmailProps) => {
-  const codeBlockContent = `{\nname: '${firstname} ${lastname}',\nemail: '${email}',\ncompany: '${company}',\nmessage: "${message}"\n}`;
+  reason,
+}: ContactFormFieldSchema) => {
+  const codeBlockContent = `{\nname: '${firstname} ${lastname}',\nemail: '${email}',\ncompany: '${company}',\nreason: "${reason}"\nmessage: "${message}"\n}`;
   return (
     <Tailwind>
       <Html>
@@ -82,8 +77,9 @@ NewEnquiryEmail.PreviewProps = {
   lastname: "Turing",
   email: "alan@codebreakers.com",
   company: "codebreakers",
+  reason: "Technical Leadership",
   message:
     "I'm interested in your product and would like to learn more about your services in relation to migrating from tech debt.",
-} as NewEnquiryEmailProps;
+} satisfies ContactFormFieldSchema;
 
 export default NewEnquiryEmail;
