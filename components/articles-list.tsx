@@ -124,6 +124,7 @@ const ArticlesList = async ({
               <Link
                 href="/articles"
                 className={buttonVariants({ variant: "default", size: "sm" })}
+                aria-label="Clear filters"
               >
                 Clear
               </Link>
