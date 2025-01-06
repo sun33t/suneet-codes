@@ -6,8 +6,8 @@ import { Resend } from "resend";
 import { z } from "zod";
 
 import { env } from "@/app/env";
-import { NewEnquiryConfirmationEmail } from "@/emails/NewEnquiryConfirmation";
-import { NewEnquiryEmail } from "@/emails/NewEnquiryEmail";
+import NewEnquiryConfirmationEmail from "@/emails/NewEnquiryConfirmation";
+import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
 import { sendResendEmail } from "@/lib/resend";
 import { validateTurnstile } from "@/lib/turnstile";
 
