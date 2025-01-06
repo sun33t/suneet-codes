@@ -31,7 +31,7 @@ const codeBlockTheme: Theme = {
   },
   ...rest,
 };
-export const NewEnquiryEmail = ({
+const NewEnquiryEmail = ({
   email,
   firstname,
   lastname,
@@ -85,3 +85,5 @@ NewEnquiryEmail.PreviewProps = {
   message:
     "I'm interested in your product and would like to learn more about your services in relation to migrating from tech debt.",
 } as NewEnquiryEmailProps;
+
+export default NewEnquiryEmail;

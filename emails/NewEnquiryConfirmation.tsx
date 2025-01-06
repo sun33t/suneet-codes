@@ -18,10 +18,10 @@ interface NewEnquiryConfirmationEmailProps {
 }
 
 const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}/static`
+  ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
-export const NewEnquiryConfirmationEmail = ({
+const NewEnquiryConfirmationEmail = ({
   firstname,
 }: NewEnquiryConfirmationEmailProps) => (
   <Tailwind>
@@ -68,7 +68,6 @@ export const NewEnquiryConfirmationEmail = ({
     </Html>
   </Tailwind>
 );
-
 NewEnquiryConfirmationEmail.PreviewProps = {
   firstname: "Alan",
 } as NewEnquiryConfirmationEmailProps;
