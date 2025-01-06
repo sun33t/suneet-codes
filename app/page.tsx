@@ -26,7 +26,7 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-accent-foreground dark:fill-zinc-400 dark:group-hover:fill-accent-foreground" />
+      <Icon className="h-6 w-6 fill-accent-foreground transition" />
     </Link>
   );
 }

@@ -71,7 +71,7 @@ export default async function Page({
           <BackButton />
           {article && (
             <article>
-              <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-a:text-accent-foreground prose-strong:text-red-500 prose-code:rounded-3xl prose-pre:rounded-3xl prose-img:rounded-3xl dark:prose-strong:text-red-300">
+              <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-a:text-accent-foreground prose-strong:underline prose-code:rounded-3xl prose-pre:rounded-3xl prose-img:rounded-3xl">
                 <header className="flex flex-col">
                   <h1 className="mt-6 flex">{article.title}</h1>
                   <div className="order-first flex items-center justify-start gap-2 text-sm text-zinc-400 dark:text-zinc-500">
@@ -87,7 +87,7 @@ export default async function Page({
                       return (
                         <div
                           key={category}
-                          className="inline-flex rounded-md border-none bg-secondary px-2.5 py-0.5 text-xs font-semibold text-accent-foreground transition-colors"
+                          className="inline-flex rounded-md border-none bg-secondary px-2.5 py-0.5 text-xs font-semibold"
                         >
                           {category}
                         </div>

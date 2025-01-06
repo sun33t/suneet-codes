@@ -81,7 +81,7 @@ export const ContactForm = () => {
     dispatch(sanitizedFormData);
   };
   return (
-    <Card className="mx-auto max-w-xl bg-transparent shadow-none">
+    <Card className="mx-auto max-w-xl shadow-none">
       <CardContent className="px-12 py-6">
         <form action={formAction} className="max-w-xl">
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">

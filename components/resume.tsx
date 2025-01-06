@@ -61,7 +61,7 @@ const Role = ({ role }: { role: Role }) => {
 
 export const Resume = ({ roles }: { roles: Role[] }) => {
   return (
-    <Card className="bg-transparent p-6 shadow-none">
+    <Card className="p-6 shadow-none">
       <h2 className="flex items-center text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <Briefcase className="h-5 w-5 flex-none fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500" />
         <span className="ml-3">Work</span>
