@@ -28,7 +28,7 @@ const NewEnquiryConfirmationEmail = ({
     <Html>
       <Head />
       <Preview>Confirmation of new enquiry</Preview>
-      <Body className="bg-white font-sans text-[#24292e]">
+      <Body className="bg-white font-sans text-black dark:bg-zinc-900 dark:text-white">
         <Container className="mx-auto max-w-md pb-12 pt-5">
           <Row>
             <Column className="pl-1 text-left">
@@ -47,7 +47,7 @@ const NewEnquiryConfirmationEmail = ({
             </Column>
           </Row>
 
-          <Section className="rounded-md border border-solid border-slate-300 p-6 text-center">
+          <Section className="rounded-md border border-solid border-zinc-300 p-6 text-center dark:border-zinc-600">
             <Text className="mb-2 text-left">
               Hi <strong>{firstname}</strong>!
             </Text>
