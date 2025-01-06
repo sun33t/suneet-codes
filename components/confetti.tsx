@@ -12,7 +12,7 @@ export const Confetti = () => {
         particleCount: 100,
         startVelocity: 30,
         spread: 360,
-        shapes: [unicorn],
+        shapes: [unicorn || "circle"],
         scalar,
 
         origin: {
