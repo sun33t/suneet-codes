@@ -144,7 +144,7 @@ export default function About() {
       </div>
       <div className="mt-4 grid gap-6 duration-1000 animate-in fade-in md:grid-cols-2">
         <div>
-          <h3 className="font-semibold underline">Development Services</h3>
+          <h3 className="pl-6 font-semibold underline">Development Services</h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
             {DEVELOPMENT_SERVICES.map((item) => (
               <Card key={item.title} className="grow shadow-none">
@@ -159,7 +159,9 @@ export default function About() {
           </div>
         </div>
         <div className="mt-12 md:mt-0">
-          <h3 className="font-semibold underline">Professional Services</h3>
+          <h3 className="pl-6 font-semibold underline">
+            Professional Services
+          </h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
             {PROFESSIONAL_SERVICES.map((item) => (
               <Card key={item.title} className="grow shadow-none">
