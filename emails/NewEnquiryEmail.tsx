@@ -33,7 +33,15 @@ const NewEnquiryEmail = ({
   message,
   reason,
 }: ContactFormFieldSchema) => {
-  const codeBlockContent = `{\nname: '${firstname} ${lastname}',\nemail: '${email}',\ncompany: '${company}',\nreason: "${reason}"\nmessage: "${message}"\n}`;
+  const sanitiseContent = (str: string) =>
+    str?.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n") ?? "";
+  const codeBlockContent = `{
+     name: '${firstname} ${lastname}',
+     email: '${email}',
+     company: '${company}',
+     reason: "${sanitiseContent(reason)}",
+     message: "${sanitiseContent(message || "N/A")}"
+   }`;
   return (
     <Tailwind>
       <Html>

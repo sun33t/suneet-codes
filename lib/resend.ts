@@ -42,9 +42,13 @@ export const sendResendEmail = async ({
     if (attempt < MAX_ATTEMPTS) {
       // Exponential backoff delay
       const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
-      console.error(
-        `Retry attempt ${attempt} failed. Retrying in ${delay}ms...`
-      );
+      console.error({
+        message: `Retry attempt ${attempt}/${MAX_ATTEMPTS} failed`,
+        error: error?.message,
+        delay,
+        to,
+        subject,
+      });
       await new Promise((resolve) => setTimeout(resolve, delay));
     } else {
       // All attempts failed
