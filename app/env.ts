@@ -14,6 +14,7 @@ export const env = createEnv({
     PROJECT_EMAIL_ADDRESS: z.string().email(),
     RESEND_EMAIL_ADDRESS: z.string().email(),
     RESEND_API_KEY: z.string(),
+    /** The production URL of the Vercel project - https://vercel.com/docs/projects/environment-variables/system-environment-variables */
     VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
     PORT: z.string().optional(),
     TURNSTILE_SECRET_KEY: z.string(),
