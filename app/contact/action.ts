@@ -3,43 +3,18 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
-import { z } from "zod";
 
 import { env } from "@/app/env";
 import NewEnquiryConfirmationEmail from "@/emails/NewEnquiryConfirmation";
 import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
 import { sendResendEmail } from "@/lib/resend";
 import { validateTurnstile } from "@/lib/turnstile";
-
-const contactFormSchema = z.object({
-  firstname: z
-    .string({
-      required_error: "firstname is required",
-      invalid_type_error: "firstname must be a string",
-    })
-    .min(3)
-    .regex(/^[a-zA-Z]+$/, {
-      message: "Alphabetic characters only",
-    }),
-  lastname: z
-    .string({
-      required_error: "lastname is required",
-      invalid_type_error: "lastname must be a string",
-    })
-    .min(3)
-    .regex(/^[a-zA-Z]+$/, {
-      message: "Alphabetic characters only",
-    }),
-  company: z.string().min(3).optional(),
-  email: z.string().email(),
-  message: z.string().min(10),
-});
-type ContactFormSchema = z.infer<typeof contactFormSchema>;
+import { ContactFormFieldSchema, contactFormFieldSchema } from "@/types";
 
 type ContactFormState = {
   success: boolean;
-  fields?: ContactFormSchema;
-  errors?: Partial<Record<keyof ContactFormSchema, string[]>>;
+  fields?: ContactFormFieldSchema;
+  errors?: Partial<Record<keyof ContactFormFieldSchema, string[]>>;
   errorMessage?: string;
 };
 
@@ -66,7 +41,7 @@ export const createEnquiry = async (
   const fields = {} as ContactFormState["fields"];
 
   for (const key in formData) {
-    fields![key as keyof ContactFormSchema] = formData[key].toString();
+    fields![key as keyof ContactFormFieldSchema] = formData[key].toString();
   }
 
   const { message: turnstileMessage, success: turnstileSuccess } =
@@ -83,7 +58,7 @@ export const createEnquiry = async (
   }
 
   // with turnstil token validated, progress with server-side form validation
-  const parsed = contactFormSchema.safeParse(formData);
+  const parsed = contactFormFieldSchema.safeParse(formData);
 
   // if validation fails, return form state and associated field errors.
   if (!parsed.success) {
