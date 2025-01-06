@@ -6,6 +6,7 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
 import DOMPurify from "dompurify";
+import { RefreshCw } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
 
 import { createEnquiry } from "@/app/contact/action";
@@ -26,9 +27,16 @@ const SubmitButton = ({
       type="submit"
       aria-disabled={pending || disabled}
       disabled={pending || disabled}
-      className="w-full"
+      className="h-fit w-full"
     >
-      {pending ? "Submitting..." : "Submit"}
+      {pending ? (
+        <p className="flex flex-row flex-wrap items-center justify-center gap-x-4 gap-y-2">
+          <span>Submitting</span>
+          <RefreshCw className="animate-spin" />
+        </p>
+      ) : (
+        "Submit"
+      )}
     </Button>
   );
 };

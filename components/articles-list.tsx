@@ -1,9 +1,18 @@
 import { Card } from "./card";
+import { buttonVariants } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
 import { type Article } from "content-collections";
+import Link from "next/link";
 import { Suspense } from "react";
 
+import {
+  Card as ShadcnCard,
+  CardContent as ShadcnCardContent,
+  CardDescription as ShadcnCardDescription,
+  CardHeader as ShadcnCardHeader,
+  CardTitle as ShadcnCardTitle,
+} from "@/components/ui/card";
 import { getArticlesByCategory } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 import { type SearchParams } from "@/types";
@@ -103,7 +112,23 @@ const ArticlesList = async ({
             <Article key={article._meta.path} article={article} />
           ))
         ) : (
-          <div>No articles match this combination of categories.</div>
+          <ShadcnCard className="bg-transparent shadow-none">
+            <ShadcnCardHeader>
+              <ShadcnCardTitle>No matching articles</ShadcnCardTitle>
+              <ShadcnCardDescription>
+                Please try another combination of filters, or clear and try
+                again.
+              </ShadcnCardDescription>
+            </ShadcnCardHeader>
+            <ShadcnCardContent>
+              <Link
+                href="/articles"
+                className={buttonVariants({ variant: "default", size: "sm" })}
+              >
+                Clear
+              </Link>
+            </ShadcnCardContent>
+          </ShadcnCard>
         )}
       </div>
     </div>
