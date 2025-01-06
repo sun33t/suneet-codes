@@ -21,7 +21,7 @@ export const metadata: Metadata = { ...PAGE_METADATA.about };
 
 const SocialLinks = () => {
   return (
-    <Card className="h-fit shadow-none lg:ml-20 lg:block lg:max-w-xs">
+    <Card className="h-fit shadow-none duration-1000 animate-in fade-in lg:ml-20 lg:block lg:max-w-xs">
       <CardContent>
         <ul role="list">
           {/* <SocialLink href="#" icon={XIcon}>
@@ -66,7 +66,7 @@ export default function About() {
     <Container id="about-page-container" className="mt-16 sm:mt-32">
       <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
         <div className="lg:pl-20">
-          <div className="max-w-xs px-2.5 lg:max-w-none">
+          <div className="max-w-xs px-2.5 duration-1000 animate-in fade-in lg:max-w-none">
             <Image
               src={profileWide}
               alt="Side profile photo of Suneet on the coast of Iceland at sunset"
@@ -75,7 +75,7 @@ export default function About() {
             />
           </div>
         </div>
-        <div className="prose dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
+        <div className="prose duration-1000 animate-in fade-in dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             A little bit about me
           </h1>
@@ -139,10 +139,10 @@ export default function About() {
           <SocialLinks />
         </div>
       </div>
-      <div className="mt-8 lg:mt-4">
+      <div className="mt-8 duration-1000 animate-in fade-in lg:mt-4">
         <h2 className="text-2xl font-bold">I&apos;m available for:</h2>
       </div>
-      <div className="mt-4 grid gap-6 md:grid-cols-2">
+      <div className="mt-4 grid gap-6 duration-1000 animate-in fade-in md:grid-cols-2">
         <div>
           <h3 className="font-semibold underline">Development Services</h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
