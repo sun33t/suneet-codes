@@ -47,6 +47,11 @@ export const metadata: Metadata = {
     locale: "en_GB",
     type: "website",
   },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+  },
 };
 
 export default function RootLayout({
