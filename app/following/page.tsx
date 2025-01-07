@@ -1,23 +1,17 @@
 import { Metadata } from "next";
 
 import { Card } from "@/components/card";
-import { Section } from "@/components/section";
 import { SimpleLayout } from "@/components/simple-layout";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { FOLLOWING, FollowingEntry } from "@/content/following";
 import { PAGE_METADATA } from "@/content/pages";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };
-
-const FollowingSection = ({
-  children,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Section>) => {
-  return (
-    <Section {...props}>
-      <div className="space-y-16">{children}</div>
-    </Section>
-  );
-};
 
 const FollowingCard = ({ title, description, cta, href }: FollowingEntry) => {
   return (
@@ -38,18 +32,27 @@ export default function Following() {
       title="Developers and creative professionals whose work I follow."
       intro="This industry is always changing and there's always new challenges to overcome. These are the people who I find inspiring and invaluable to learn from."
     >
-      <div className="space-y-20">
-        {Array.from(
-          FOLLOWING.keys().map((category) => {
-            return (
-              <FollowingSection key={category} title={category}>
-                {FOLLOWING.get(category)?.map((entry) => (
-                  <FollowingCard key={entry.href} {...entry} />
-                ))}
-              </FollowingSection>
-            );
-          })
-        )}
+      <div id="accordion" className="mx-auto max-w-2xl">
+        <Accordion type="single" collapsible>
+          {Array.from(
+            FOLLOWING.keys().map((category) => {
+              return (
+                <AccordionItem key={category} value={category}>
+                  <AccordionTrigger className="text-base">
+                    {category}
+                  </AccordionTrigger>
+                  <AccordionContent title={category} className="p-6">
+                    {FOLLOWING.get(category)?.map((entry) => (
+                      <div key={entry.title} className="mb-10 sm:mb-16">
+                        <FollowingCard key={entry.href} {...entry} />
+                      </div>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })
+          )}
+        </Accordion>
       </div>
     </SimpleLayout>
   );
