@@ -26,7 +26,12 @@ const Tool = ({
 }) => {
   return (
     <Card as="li">
-      <Card.Title as="h4" href={href} isExternal={true}>
+      <Card.Title
+        as="h4"
+        href={href}
+        isExternal={true}
+        className="group-hover:text-accent-foreground"
+      >
         {title}
       </Card.Title>
       <Card.Description>{children}</Card.Description>
