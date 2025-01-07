@@ -30,7 +30,7 @@ const articles = defineCollection({
         [
           rehypePrettyCode,
           {
-            theme: "aurora-x",
+            theme: "dracula",
             grid: false,
           },
         ],
