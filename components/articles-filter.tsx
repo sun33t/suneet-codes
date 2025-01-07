@@ -80,10 +80,10 @@ const ArticlesFilter = () => {
 
   const renderedCategories = useMemo(
     () =>
-      CATEGORYWITHSLUGS?.map((category) => {
-        const selected = category && isSelected(category.slug);
+      CATEGORYWITHSLUGS.map((category) => {
+        const selected = isSelected(category.slug);
 
-        return category !== undefined ? (
+        return (
           <Link
             scroll={false}
             data-selected={selected}
@@ -93,7 +93,7 @@ const ArticlesFilter = () => {
           >
             {category.title}
           </Link>
-        ) : null;
+        );
       }),
     [createQueryString, pathname, isSelected]
   );

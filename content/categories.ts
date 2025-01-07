@@ -6,7 +6,6 @@ export const CATEGORYTITLES = [
   "react",
   "javascript",
   "leadership",
-  "another category",
 ] as const;
 
 type CategorytitleWithSlug = {
@@ -17,7 +16,7 @@ type CategorytitleWithSlug = {
 export const CATEGORYWITHSLUGS: CategorytitleWithSlug[] = CATEGORYTITLES.map(
   (title) => ({
     title,
-    slug: slugify(title, { lower: true }),
+    slug: slugify(title, { lower: true, trim: true, strict: true }),
   })
 );
 
