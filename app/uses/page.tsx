@@ -57,7 +57,11 @@ export default function Uses() {
                   <AccordionContent title={category} className="p-6">
                     {USES.get(category)?.map((item) => {
                       return (
-                        <div key={item.title} id={item.title} className="mb-16">
+                        <div
+                          key={item.title}
+                          id={item.title}
+                          className="mb-10 sm:mb-16"
+                        >
                           <Tool
                             key={item.title}
                             title={item.title}
