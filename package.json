@@ -9,7 +9,7 @@
     "dev": "op run --env-file=.env -- next dev",
     "dev:email": "email dev",
     "build": "next build && npm run sitemap:generate",
-    "sitemap:generate": "dotenv -c -- npx tsx ./scripts/sitemap.ts",
+    "sitemap:generate": "dotenv -c -- npx tsx ./lib/sitemap.ts",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky"
