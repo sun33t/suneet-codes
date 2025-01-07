@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { useMemo } from "react";
 
 import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
@@ -40,6 +41,7 @@ const Tool = ({
 };
 
 export default function Uses() {
+  const usesItems = useMemo(() => Array.from(USES.keys()), []);
   return (
     <SimpleLayout
       title="What I use"
@@ -47,7 +49,7 @@ export default function Uses() {
     >
       <div id="accordion" className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible>
-          {Array.from(USES.keys()).map((category) => {
+          {usesItems.map((category) => {
             return (
               <AccordionItem key={category} value={category}>
                 <AccordionTrigger className="text-base font-bold">

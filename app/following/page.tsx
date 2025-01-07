@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { useMemo } from "react";
 
 import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
@@ -27,6 +28,7 @@ const FollowingCard = ({ title, description, cta, href }: FollowingEntry) => {
 };
 
 export default function Following() {
+  const followingItems = useMemo(() => Array.from(FOLLOWING.keys()), []);
   return (
     <SimpleLayout
       title="Developers and creative professionals whose work I follow."
@@ -34,7 +36,7 @@ export default function Following() {
     >
       <div id="accordion" className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible>
-          {Array.from(FOLLOWING.keys()).map((category) => {
+          {followingItems.map((category) => {
             return (
               <AccordionItem key={category} value={category}>
                 <AccordionTrigger className="text-base font-bold">
