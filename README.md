@@ -85,10 +85,10 @@ NEXT_PUBLIC_TURNSTILE_SITE_KEY="qeq_123..."
 # Secret Key retrieved from the cloudflare turnstile dashboard. Required for turnstile implementation on the contact form. See https://developers.cloudflare.com/turnstile/
 TURNSTILE_SECRET_KEY="re_123..."
 
-# API Key for posthog which can be retreived from your posthog account https://eu.posthog.com
+# Project API Key from PostHog (found in Project Settings > Project API Key)
 NEXT_PUBLIC_POSTHOG_KEY="asd21313..."
 
-# Posthog api url
+# PostHog API URL (varies by region - EU: eu.i.posthog.com, US: app.posthog.com)
 NEXT_PUBLIC_POSTHOG_HOST="https://eu.i.posthog.com"
 ```
 
