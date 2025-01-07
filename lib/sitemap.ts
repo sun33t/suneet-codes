@@ -21,7 +21,11 @@ const APP_DIR = path.join(ROOT_DIR, "app");
 async function main() {
   try {
     const sitemaps = await findSitemapFiles(APP_DIR);
-    const SITEMAP_INDEX_PATH = path.join(ROOT_DIR, "public", "/sitemap.xml");
+    const SITEMAP_INDEX_PATH = path.join(
+      ROOT_DIR,
+      "public",
+      "/sitemap-index.xml"
+    );
 
     const createSitemap = (url: string) => /* XML */ `
       <sitemap>
