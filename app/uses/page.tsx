@@ -47,36 +47,34 @@ export default function Uses() {
     >
       <div id="accordion" className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible>
-          {Array.from(
-            USES.keys().map((category) => {
-              return (
-                <AccordionItem key={category} value={category}>
-                  <AccordionTrigger className="text-base font-bold">
-                    {category}
-                  </AccordionTrigger>
-                  <AccordionContent title={category} className="p-6">
-                    {USES.get(category)?.map((item) => {
-                      return (
-                        <div
+          {Array.from(USES.keys()).map((category) => {
+            return (
+              <AccordionItem key={category} value={category}>
+                <AccordionTrigger className="text-base font-bold">
+                  {category}
+                </AccordionTrigger>
+                <AccordionContent className="p-6">
+                  {USES.get(category)?.map((item) => {
+                    return (
+                      <div
+                        key={item.title}
+                        id={item.title}
+                        className="mb-10 sm:mb-16"
+                      >
+                        <Tool
                           key={item.title}
-                          id={item.title}
-                          className="mb-10 sm:mb-16"
+                          title={item.title}
+                          href={item.href}
                         >
-                          <Tool
-                            key={item.title}
-                            title={item.title}
-                            href={item.href}
-                          >
-                            {item.description}
-                          </Tool>
-                        </div>
-                      );
-                    })}
-                  </AccordionContent>
-                </AccordionItem>
-              );
-            })
-          )}
+                          {item.description}
+                        </Tool>
+                      </div>
+                    );
+                  })}
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
         </Accordion>
       </div>
     </SimpleLayout>

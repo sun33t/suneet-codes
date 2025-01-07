@@ -34,24 +34,22 @@ export default function Following() {
     >
       <div id="accordion" className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible>
-          {Array.from(
-            FOLLOWING.keys().map((category) => {
-              return (
-                <AccordionItem key={category} value={category}>
-                  <AccordionTrigger className="text-base font-bold">
-                    {category}
-                  </AccordionTrigger>
-                  <AccordionContent title={category} className="p-6">
-                    {FOLLOWING.get(category)?.map((entry) => (
-                      <div key={entry.title} className="mb-10 sm:mb-16">
-                        <FollowingCard key={entry.href} {...entry} />
-                      </div>
-                    ))}
-                  </AccordionContent>
-                </AccordionItem>
-              );
-            })
-          )}
+          {Array.from(FOLLOWING.keys()).map((category) => {
+            return (
+              <AccordionItem key={category} value={category}>
+                <AccordionTrigger className="text-base font-bold">
+                  {category}
+                </AccordionTrigger>
+                <AccordionContent className="p-6">
+                  {FOLLOWING.get(category)?.map((entry) => (
+                    <div key={entry.title} className="mb-10 sm:mb-16">
+                      <FollowingCard {...entry} />
+                    </div>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
         </Accordion>
       </div>
     </SimpleLayout>
