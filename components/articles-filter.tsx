@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useMemo } from "react";
 
-import { CATEGORIES, CATEGORY_PARAM_NAME } from "@/content/categories";
+import { CATEGORYWITHSLUGS, CATEGORY_PARAM_NAME } from "@/content/categories";
 
 const SkeletonFilter = () => {
   return (
@@ -80,7 +80,7 @@ const ArticlesFilter = () => {
 
   const renderedCategories = useMemo(
     () =>
-      CATEGORIES?.map((category) => {
+      CATEGORYWITHSLUGS?.map((category) => {
         const selected = category && isSelected(category.slug);
 
         return category !== undefined ? (

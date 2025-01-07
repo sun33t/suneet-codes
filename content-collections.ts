@@ -2,6 +2,8 @@ import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX } from "@content-collections/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
 
+import { CATEGORYTITLES } from "@/content/categories";
+
 const articles = defineCollection({
   name: "articles",
   directory: "./content/articles",
@@ -14,14 +16,7 @@ const articles = defineCollection({
     description: z.string(),
     coverImage: z.string(),
     categories: z
-      .array(
-        z.union([
-          z.literal("aws"),
-          z.literal("react"),
-          z.literal("javascript"),
-          z.literal("leadership"),
-        ])
-      )
+      .array(z.enum(CATEGORYTITLES))
       .min(1, { message: "At least one category is required" }),
   }),
   transform: async (document, context) => {
