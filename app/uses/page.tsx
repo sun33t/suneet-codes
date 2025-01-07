@@ -51,7 +51,7 @@ export default function Uses() {
             USES.keys().map((category) => {
               return (
                 <AccordionItem key={category} value={category}>
-                  <AccordionTrigger className="text-base">
+                  <AccordionTrigger className="text-base font-bold">
                     {category}
                   </AccordionTrigger>
                   <AccordionContent title={category} className="p-6">
