@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { env } from "@/app/env";
 import { Layout } from "@/components/layout";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Providers } from "@/components/providers";
 import { TwSizeIndicator } from "@/components/tw-size-indicator";
 import { baseUrl } from "@/lib/baseUrl";
 import "@/styles/globals.css";
@@ -65,14 +65,9 @@ export default function RootLayout({
     >
       <body className="flex h-full bg-background">
         <TwSizeIndicator />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <Layout>{children}</Layout>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
