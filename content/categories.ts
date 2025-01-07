@@ -1,6 +1,6 @@
 import slugify from "slugify";
 
-// CATEGORYTITLES determines the validation schama for category tags within article frontmatter, as well as forming the source for slugs in the CATEGORYWITHSLUGS array. This is the single source of truth for legal categories throughout the application.
+// CATEGORYTITLES determines the validation schema for category tags within article frontmatter, as well as forming the source for slugs in the CATEGORYWITHSLUGS array. This is the single source of truth for legal categories throughout the application.
 export const CATEGORYTITLES = [
   "aws",
   "react",
@@ -8,12 +8,12 @@ export const CATEGORYTITLES = [
   "leadership",
 ] as const;
 
-type CategorytitleWithSlug = {
+type CategoryTitleWithSlug = {
   title: (typeof CATEGORYTITLES)[number];
   slug: string;
 };
 
-export const CATEGORYWITHSLUGS: CategorytitleWithSlug[] = CATEGORYTITLES.map(
+export const CATEGORYWITHSLUGS: CategoryTitleWithSlug[] = CATEGORYTITLES.map(
   (title) => ({
     title,
     slug: slugify(title, { lower: true, trim: true, strict: true }),
