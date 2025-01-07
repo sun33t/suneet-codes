@@ -48,9 +48,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: "en-GB",
       siteName: env.PROJECT_BASE_TITLE,
     },
-    robots: {
-      nocache: true,
-    },
   };
 }
 
