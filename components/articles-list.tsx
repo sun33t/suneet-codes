@@ -116,7 +116,7 @@ const ArticlesList = async ({
             <ShadcnCardHeader>
               <ShadcnCardTitle>No matching articles</ShadcnCardTitle>
               <ShadcnCardDescription>
-                Please try another combination of filters, or clear and try
+                Please try another combination of categories, or clear and try
                 again.
               </ShadcnCardDescription>
             </ShadcnCardHeader>
