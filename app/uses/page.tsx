@@ -25,7 +25,7 @@ const Tool = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Card as="li" className="mb-4">
+    <Card as="li">
       <Card.Title as="h4" href={href} isExternal={true}>
         {title}
       </Card.Title>
@@ -49,23 +49,21 @@ export default function Uses() {
                   <AccordionTrigger className="text-base">
                     {category}
                   </AccordionTrigger>
-                  {USES.get(category)?.map((item) => {
-                    return (
-                      <AccordionContent
-                        key={item.title}
-                        title={item.title}
-                        className="space-y-20 p-6"
-                      >
-                        <Tool
-                          key={item.title}
-                          title={item.title}
-                          href={item.href}
-                        >
-                          {item.description}
-                        </Tool>
-                      </AccordionContent>
-                    );
-                  })}
+                  <AccordionContent title={category} className="p-6">
+                    {USES.get(category)?.map((item) => {
+                      return (
+                        <div key={item.title} id={item.title} className="mb-16">
+                          <Tool
+                            key={item.title}
+                            title={item.title}
+                            href={item.href}
+                          >
+                            {item.description}
+                          </Tool>
+                        </div>
+                      );
+                    })}
+                  </AccordionContent>
                 </AccordionItem>
               );
             })
