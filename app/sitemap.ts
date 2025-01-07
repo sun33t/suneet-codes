@@ -5,43 +5,43 @@ import { baseUrl } from "@/lib/baseUrl";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${baseUrl}`,
+      url: baseUrl.href,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${baseUrl.href}about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/articles`,
+      url: `${baseUrl.href}articles`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${baseUrl}/projects`,
+      url: `${baseUrl.href}projects`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/following`,
+      url: `${baseUrl.href}following`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/uses`,
+      url: `${baseUrl.href}uses`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: `${baseUrl.href}contact`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,

@@ -29,6 +29,9 @@ export const PAGE_METADATA: Record<Page, Metadata> = {
       title: `articles | ${env.PROJECT_BASE_TITLE}`,
       description: `My notes on programming, leadership and mentoring, product design/development, and more.`,
     },
+    robots: {
+      nocache: true,
+    },
   },
   projects: {
     title: "projects",

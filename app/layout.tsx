@@ -5,6 +5,7 @@ import { env } from "@/app/env";
 import { Layout } from "@/components/layout";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TwSizeIndicator } from "@/components/tw-size-indicator";
+import { baseUrl } from "@/lib/baseUrl";
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -28,11 +29,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    env.NODE_ENV === "production"
-      ? env.PROJECT_CANONICAL_URL
-      : "http://localhost:3000"
-  ),
+  metadataBase: baseUrl,
   title: {
     template: `%s | ${env.PROJECT_BASE_TITLE}`,
     default: env.PROJECT_BASE_TITLE,
@@ -41,16 +38,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: env.PROJECT_BASE_TITLE,
     description: env.PROJECT_BASE_DESCRIPTION,
-    url: env.PROJECT_CANONICAL_URL,
+    url: baseUrl.href,
     siteName: env.PROJECT_BASE_TITLE,
     images: ["/images/avatar.jpg"],
     locale: "en_GB",
     type: "website",
   },
   robots: {
-    index: true,
-    follow: true,
-    nocache: true,
+    ...(baseUrl.hostname === env.PROJECT_DOMAIN
+      ? { index: true, follow: true }
+      : { index: false, follow: false }),
+    nocache: false,
   },
 };
 

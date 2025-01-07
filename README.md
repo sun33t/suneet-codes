@@ -49,8 +49,8 @@ to
 To run this project, you will need to add a number of environment variables.
 
 ```bash
-# The canonical URL for your website
-PROJECT_CANONICAL_URL="https://example.com"
+# The canonical hostname for your website
+PROJECT_DOMAIN="example.com"
 
 # Your name
 PROJECT_AUTHOR="John Smith"
