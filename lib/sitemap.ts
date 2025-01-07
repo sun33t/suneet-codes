@@ -93,10 +93,12 @@ async function findSitemapFiles(dir: string): Promise<string[]> {
         if (sitemapFile.generateSitemaps) {
           const result = await sitemapFile.generateSitemaps();
           result.forEach((item: { id: number }) => {
-            sitemaps.push(`${baseUrl}/${relativePath}/sitemap/${item.id}.xml`);
+            sitemaps.push(
+              `${baseUrl.href}${relativePath}/sitemap/${item.id}.xml`
+            );
           });
         } else {
-          sitemaps.push(`${baseUrl}/sitemap.xml`);
+          sitemaps.push(`${baseUrl.href}sitemap.xml`);
         }
       }
     }

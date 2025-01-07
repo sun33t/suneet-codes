@@ -19,6 +19,7 @@ export default async function sitemap({
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
   const article = await getArticleByFilename(id);
+  const url = new URL(id, baseUrl);
 
   if (!article) {
     return [];
@@ -26,7 +27,7 @@ export default async function sitemap({
 
   return [
     {
-      url: `${baseUrl}/${id}`,
+      url: url.href,
       lastModified: new Date(article.updatedAt),
       changeFrequency: "weekly",
       priority: 1,
