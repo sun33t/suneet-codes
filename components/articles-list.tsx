@@ -1,4 +1,3 @@
-import { Card } from "./card";
 import { buttonVariants } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
@@ -7,11 +6,12 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import {
-  Card as ShadcnCard,
-  CardContent as ShadcnCardContent,
-  CardDescription as ShadcnCardDescription,
-  CardHeader as ShadcnCardHeader,
-  CardTitle as ShadcnCardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { getArticlesByCategory } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
@@ -20,7 +20,7 @@ import { type SearchParams } from "@/types";
 const SkeletonCard = () => {
   return (
     <div
-      className="md:grid md:grid-cols-4 md:items-baseline"
+      className="pt-2 md:grid md:grid-cols-4 md:items-baseline"
       id="skeleton-article-card"
     >
       <div className="group relative flex flex-col items-start md:col-span-3">
@@ -66,34 +66,47 @@ const SkeletonCardList = () => {
   );
 };
 
-function Article({ article }: { article: Article }) {
+const ArticleCard = ({ article }: { article: Article }) => {
+  const formattedDate = formatDate(article.date);
   return (
     <article className="md:grid md:grid-cols-4 md:items-baseline">
-      <Card className="md:col-span-3">
-        <Card.Title href={`/articles/${article._meta.path}`}>
-          {article.title}
-        </Card.Title>
-        <Card.Eyebrow
-          as="time"
-          dateTime={article.date}
-          className="md:hidden"
-          decorate
-        >
-          {formatDate(article.date)}
-        </Card.Eyebrow>
-        <Card.Description>{article.description}</Card.Description>
-        <Card.Cta>Read article</Card.Cta>
+      <div className="mt-1 hidden md:block">
+        <p className="relative pl-3.5 text-sm text-muted-foreground md:pl-0">
+          <time dateTime={formattedDate}>{formattedDate}</time>
+          <span
+            className="absolute inset-y-0 left-0 flex items-center"
+            aria-hidden="true"
+          ></span>
+        </p>
+      </div>
+      <Card className="group relative border-none bg-transparent text-foreground shadow-none md:col-span-3">
+        <div className="absolute -inset-x-4 -bottom-0 -top-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 md:-top-4 dark:bg-zinc-800/50" />
+        <Link href={`/articles/${article._meta.path}`}>
+          <span className="absolute -inset-x-4 -bottom-0 -top-6 z-20 sm:-inset-x-6 sm:rounded-2xl md:-top-4" />
+          <span className="relative z-10"></span>
+        </Link>
+        <CardHeader className="z-10 space-y-3 p-0">
+          <p className="relative pl-3.5 text-sm text-muted-foreground md:hidden">
+            <time dateTime={formattedDate}>{formattedDate}</time>
+            <span
+              className="absolute inset-y-0 left-0 flex items-center"
+              aria-hidden="true"
+            >
+              <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
+            </span>
+          </p>
+          <CardTitle className="z-10">{article.title}</CardTitle>
+          <CardDescription id="card-description" className="z-10">
+            {article.description}
+          </CardDescription>
+        </CardHeader>
+        <CardFooter className="pl-0 pt-4">
+          <p className="z-10 text-sm text-accent-foreground">{`Read article >`}</p>
+        </CardFooter>
       </Card>
-      <Card.Eyebrow
-        as="time"
-        dateTime={article.date}
-        className="mt-1 hidden md:block"
-      >
-        {formatDate(article.date)}
-      </Card.Eyebrow>
     </article>
   );
-}
+};
 
 const ArticlesList = async ({
   searchParams,
@@ -106,21 +119,21 @@ const ArticlesList = async ({
 
   return (
     <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-      <div className="flex max-w-3xl flex-col space-y-16">
+      <div className="flex max-w-3xl flex-col space-y-10">
         {articles.length > 0 ? (
           articles.map((article) => (
-            <Article key={article._meta.path} article={article} />
+            <ArticleCard key={article._meta.path} article={article} />
           ))
         ) : (
-          <ShadcnCard className="bg-transparent shadow-none">
-            <ShadcnCardHeader>
-              <ShadcnCardTitle>No matching articles</ShadcnCardTitle>
-              <ShadcnCardDescription>
+          <Card className="bg-transparent shadow-none">
+            <CardHeader>
+              <CardTitle>No matching articles</CardTitle>
+              <CardDescription>
                 Please try another combination of categories, or clear and try
                 again.
-              </ShadcnCardDescription>
-            </ShadcnCardHeader>
-            <ShadcnCardContent>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
               <Link
                 href="/articles"
                 className={buttonVariants({ variant: "default", size: "sm" })}
@@ -128,8 +141,8 @@ const ArticlesList = async ({
               >
                 Clear
               </Link>
-            </ShadcnCardContent>
-          </ShadcnCard>
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>

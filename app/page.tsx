@@ -9,11 +9,11 @@ import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Heading } from "@/components/typography/heading";
 import { P } from "@/components/typography/paragraph";
 import {
+  Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  Card as SCNCard,
 } from "@/components/ui/card";
 import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
@@ -37,8 +37,9 @@ function SocialLink({
   );
 }
 const ArticleCard = ({ article }: { article: Article }) => {
+  const formattedDate = formatDate(article.date);
   return (
-    <SCNCard className="group relative border-none bg-transparent text-foreground shadow-none">
+    <Card className="group relative border-none bg-transparent text-foreground shadow-none">
       <div className="absolute -inset-x-4 -bottom-0 -top-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
       <Link href={`/articles/${article._meta.path}`}>
         <span className="absolute -inset-x-4 -bottom-0 -top-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
@@ -46,7 +47,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
       </Link>
       <CardHeader className="z-10 space-y-3 p-0">
         <p className="relative pl-3.5 text-sm text-muted-foreground">
-          {formatDate(article.date)}
+          <time dateTime={formattedDate}>{formattedDate}</time>
           <span
             className="absolute inset-y-0 left-0 flex items-center"
             aria-hidden="true"
@@ -62,7 +63,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
       <CardFooter className="pl-0 pt-4">
         <p className="z-10 text-sm text-accent-foreground">{`Read article >`}</p>
       </CardFooter>
-    </SCNCard>
+    </Card>
   );
 };
 
