@@ -2,7 +2,7 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 import onepeterfourLogo from "@/images/logos/onepeterfour.webp";
 
-type Project = {
+export type Project = {
   name: string;
   description: string;
   link: {
