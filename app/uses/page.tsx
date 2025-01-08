@@ -31,7 +31,6 @@ const Tool = ({
     <Card className="group relative border-none bg-transparent text-foreground shadow-none">
       <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
       <Link href={href} target="_blank" rel="noopener noreferrer">
-        <span className="absolute -inset-x-4 -inset-y-6 sm:-inset-x-6 sm:rounded-2xl" />
         <span className="relative z-10">
           <CardHeader className="space-y-3 p-0">
             <CardTitle className="group-hover:text-accent-foreground">
