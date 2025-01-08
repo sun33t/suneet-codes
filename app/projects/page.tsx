@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
-import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { PAGE_METADATA } from "@/content/pages";
-import { PROJECTS } from "@/content/projects";
+import { PROJECTS, Project } from "@/content/projects";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };
 
@@ -19,6 +20,29 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
   );
 }
 
+const ProjectCard = ({ logo, name, description, link }: Project) => {
+  return (
+    <Card className="group relative border-none bg-transparent shadow-none">
+      <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
+      <Link href={link} target="_blank" rel="noopener noreferrer">
+        <span className="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+        <span className="relative z-10"></span>
+      </Link>
+      <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+        <Image src={logo} alt="" className="h-6 w-6" unoptimized />
+      </div>
+      <div className="relative z-10 pt-6">
+        <CardTitle>{name}</CardTitle>
+        <CardDescription className="z-10 pt-4">{description}</CardDescription>
+      </div>
+      <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
+        <LinkIcon className="h-6 w-6 flex-none" />
+        <span className="ml-2">{link.label}</span>
+      </p>
+    </Card>
+  );
+};
+
 export default function Projects() {
   return (
     <SimpleLayout
@@ -31,30 +55,7 @@ export default function Projects() {
         className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
       >
         {PROJECTS.map((project) => (
-          <Card as="li" key={project.name}>
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-              <Image
-                src={project.logo}
-                alt=""
-                className="h-6 w-6"
-                unoptimized
-              />
-            </div>
-            <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-              <Card.Link
-                target="_blank"
-                rel="noopener noreferrer"
-                href={project.link.href}
-              >
-                {project.name}
-              </Card.Link>
-            </h2>
-            <Card.Description>{project.description}</Card.Description>
-            <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-              <LinkIcon className="h-6 w-6 flex-none" />
-              <span className="ml-2">{project.link.label}</span>
-            </p>
-          </Card>
+          <ProjectCard key={project.name} {...project} />
         ))}
       </ul>
     </SimpleLayout>
