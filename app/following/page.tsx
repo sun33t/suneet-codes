@@ -1,7 +1,7 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { useMemo } from "react";
 
-import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
 import {
   Accordion,
@@ -9,6 +9,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { FOLLOWING, FollowingEntry } from "@/content/following";
 import { PAGE_METADATA } from "@/content/pages";
 
@@ -16,13 +23,21 @@ export const metadata: Metadata = { ...PAGE_METADATA.following };
 
 const FollowingCard = ({ title, description, cta, href }: FollowingEntry) => {
   return (
-    <Card as="article">
-      <Card.Title as="h3" href={href} isExternal={true}>
-        {title}
-      </Card.Title>
-      {/* <Card.Eyebrow decorate>{event}</Card.Eyebrow> */}
-      <Card.Description>{description}</Card.Description>
-      <Card.Cta>{cta}</Card.Cta>
+    <Card className="group relative border-none bg-transparent text-foreground shadow-none">
+      <div className="absolute -inset-x-4 -bottom-0 -top-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
+      <Link href={href} target="_blank" rel="noopener noreferrer">
+        <span className="absolute -inset-x-4 -bottom-0 -top-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+        <span className="relative z-10"></span>
+      </Link>
+      <CardHeader className="z-10 space-y-3 p-0">
+        <CardTitle className="z-10">{title}</CardTitle>
+        <CardDescription id="card-description" className="z-10">
+          {description}
+        </CardDescription>
+      </CardHeader>
+      <CardFooter className="pl-0 pt-4">
+        <p className="z-10 text-sm text-accent-foreground">{`${cta} >`}</p>
+      </CardFooter>
     </Card>
   );
 };
