@@ -16,7 +16,7 @@ export interface Role {
   href: LinkProps["href"];
 }
 
-export const ROLES: Array<Role> = [
+export const ROLES: Set<Role> = new Set([
   {
     company: "Pushorigin",
     title: "Founder, Engineer",
@@ -60,4 +60,4 @@ export const ROLES: Array<Role> = [
     end: "2020",
     href: "https://northcoders.com",
   },
-];
+]);

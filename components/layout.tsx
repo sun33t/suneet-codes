@@ -9,7 +9,7 @@ import { PAGE_TITLES } from "@/content/pages";
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
 export const Layout = ({ children }: LayoutProps) => {
-  const memoizedPages = useMemo(() => PAGE_TITLES, []);
+  const memoizedPages = useMemo(() => [...PAGE_TITLES], []);
   return (
     <div id="layout-container" className="flex w-full">
       <PageBackground />

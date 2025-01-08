@@ -146,7 +146,7 @@ export default function About() {
         <div>
           <h3 className="pl-6 font-semibold underline">Development Services</h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
-            {DEVELOPMENT_SERVICES.map((item) => (
+            {Array.from(DEVELOPMENT_SERVICES).map((item) => (
               <Card key={item.title} className="grow shadow-none">
                 <CardHeader className="pb-3">
                   <CardTitle>{item.title}</CardTitle>
@@ -163,7 +163,7 @@ export default function About() {
             Professional Services
           </h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
-            {PROFESSIONAL_SERVICES.map((item) => (
+            {Array.from(PROFESSIONAL_SERVICES).map((item) => (
               <Card key={item.title} className="grow shadow-none">
                 <CardHeader className="pb-3">
                   <CardTitle>{item.title}</CardTitle>

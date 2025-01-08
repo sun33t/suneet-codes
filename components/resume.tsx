@@ -59,7 +59,7 @@ const Role = ({ role }: { role: Role }) => {
   );
 };
 
-export const Resume = ({ roles }: { roles: Role[] }) => {
+export const Resume = ({ roles }: { roles: Set<Role> }) => {
   return (
     <Card className="p-6 shadow-none">
       <h2 className="flex items-center text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -68,7 +68,7 @@ export const Resume = ({ roles }: { roles: Role[] }) => {
       </h2>
       <CardContent className="p-0">
         <ol className="mt-6 space-y-4">
-          {roles.map((role) => (
+          {Array.from(roles).map((role) => (
             <Role key={role.company} role={role} />
           ))}
         </ol>

@@ -12,7 +12,7 @@ export type Project = {
   logo: StaticImport;
 };
 
-export const PROJECTS: Array<Project> = [
+export const PROJECTS: Set<Project> = new Set([
   {
     name: "One Peter Four",
     description:
@@ -20,4 +20,4 @@ export const PROJECTS: Array<Project> = [
     link: { href: "https://1peter4.co.uk", label: "1peter4.co.uk" },
     logo: onepeterfourLogo,
   },
-];
+]);

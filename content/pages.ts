@@ -3,14 +3,14 @@ import { type Metadata } from "next";
 import { env } from "@/app/env";
 import { Page, PageTitle } from "@/types";
 
-export const PAGE_TITLES: PageTitle[] = [
+export const PAGE_TITLES: Set<PageTitle> = new Set([
   { title: "about" },
   { title: "articles" },
   { title: "projects" },
   { title: "following" },
   { title: "uses" },
   { title: "contact" },
-];
+]);
 
 export const PAGE_METADATA: Record<Page, Metadata> = {
   about: {
