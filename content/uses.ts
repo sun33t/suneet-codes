@@ -1,7 +1,7 @@
 type UsesEntry = {
   title: string;
   description: string;
-  href?: string;
+  href: string;
 };
 
 type UsesCategory = "Hardware" | "Development" | "Design" | "Productivity";

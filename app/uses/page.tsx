@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import { useMemo } from "react";
+import Link from "next/link";
+import { PropsWithChildren, useMemo } from "react";
 
-import { Card } from "@/components/card";
 import { SimpleLayout } from "@/components/simple-layout";
 import {
   Accordion,
@@ -9,6 +9,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { PAGE_METADATA } from "@/content/pages";
 import { USES } from "@/content/uses";
 
@@ -20,22 +26,22 @@ const Tool = ({
   title,
   href,
   children,
-}: {
-  title: string;
-  href?: string;
-  children: React.ReactNode;
-}) => {
+}: PropsWithChildren<{ title: string; href: string }>) => {
   return (
-    <Card as="li">
-      <Card.Title
-        as="h4"
-        href={href}
-        isExternal={true}
-        className="group-hover:text-accent-foreground"
-      >
-        {title}
-      </Card.Title>
-      <Card.Description>{children}</Card.Description>
+    <Card className="group relative border-none bg-transparent text-foreground shadow-none">
+      <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
+      <Link href={href} target="_blank" rel="noopener noreferrer">
+        <span className="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+        <span className="relative z-10"></span>
+      </Link>
+      <CardHeader className="z-10 space-y-3 p-0">
+        <CardTitle className="z-10 group-hover:text-accent-foreground">
+          {title}
+        </CardTitle>
+        <CardDescription id="card-description" className="z-10">
+          {children}
+        </CardDescription>
+      </CardHeader>
     </Card>
   );
 };
