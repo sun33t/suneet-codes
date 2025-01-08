@@ -25,10 +25,14 @@ const ProjectCard = ({ logo, name, description, link }: Project) => {
     <Card className="group relative border-none bg-transparent shadow-none">
       <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
       <Link href={link} target="_blank" rel="noopener noreferrer">
-        <span className="absolute -inset-x-4 -inset-y-6 sm:-inset-x-6 sm:rounded-2xl" />
         <span className="relative z-10">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-            <Image src={logo} alt="" className="h-6 w-6" unoptimized />
+            <Image
+              src={logo}
+              alt={`Company logo for ${name}`}
+              className="width={24} height={24} h-6 w-6"
+              unoptimized
+            />
           </div>
           <div className="pt-6">
             <CardTitle>{name}</CardTitle>

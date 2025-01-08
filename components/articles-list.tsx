@@ -82,7 +82,6 @@ const ArticleCard = ({ article }: { article: Article }) => {
       <Card className="group relative border-none bg-transparent text-foreground shadow-none md:col-span-3">
         <div className="absolute -inset-x-4 -bottom-0 -top-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 md:-top-4 dark:bg-zinc-800/50" />
         <Link href={`/articles/${article._meta.path}`}>
-          <span className="absolute -inset-x-4 -bottom-0 -top-6 sm:-inset-x-6 sm:rounded-2xl md:-top-4" />
           <span className="relative z-10">
             <CardHeader className="space-y-3 p-0">
               <p className="relative pl-3.5 text-sm text-muted-foreground md:hidden">
