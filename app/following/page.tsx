@@ -7,6 +7,7 @@ import {
   LinkCardDescription,
   LinkCardFooter,
   LinkCardHeader,
+  LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
 import { SimpleLayout } from "@/components/simple-layout";
@@ -27,7 +28,7 @@ const FollowingCard = ({
   entry: FollowingEntry;
 }) => {
   return (
-    <LinkCard href={href} isExternal={true}>
+    <LinkCard href={href} isExternal={true} className="mb-10 sm:mb-16">
       <LinkCardHeader>
         <LinkCardTitle>{title}</LinkCardTitle>
       </LinkCardHeader>
@@ -35,7 +36,7 @@ const FollowingCard = ({
         <LinkCardDescription>{description}</LinkCardDescription>
       </LinkCardContent>
       <LinkCardFooter>
-        <p className="text-sm text-accent-foreground">{`${cta} >`}</p>
+        <LinkCardLabel label={cta} iconType="external" />
       </LinkCardFooter>
     </LinkCard>
   );
@@ -58,9 +59,7 @@ export default function Following() {
                 </AccordionTrigger>
                 <AccordionContent className="p-6">
                   {FOLLOWING.get(category)?.map((entry) => (
-                    <div key={entry.title} className="mb-10 sm:mb-16">
-                      <FollowingCard entry={entry} />
-                    </div>
+                    <FollowingCard key={entry.title} entry={entry} />
                   ))}
                 </AccordionContent>
               </AccordionItem>

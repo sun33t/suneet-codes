@@ -11,6 +11,7 @@ import {
   LinkCardEyebrow,
   LinkCardFooter,
   LinkCardHeader,
+  LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
 import { Resume } from "@/components/resume";
@@ -55,7 +56,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
           <LinkCardDescription>{article.description}</LinkCardDescription>
         </LinkCardContent>
         <LinkCardFooter>
-          <p>{`Read article >`}</p>
+          <LinkCardLabel label="Read article" />
         </LinkCardFooter>
       </LinkCard>
     </article>

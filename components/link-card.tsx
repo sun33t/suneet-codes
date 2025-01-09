@@ -1,3 +1,4 @@
+import { ExternalLinkIcon, LinkIcon, SquareChevronRight } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -94,7 +95,11 @@ export const LinkCardEyebrow = ({
         className="absolute inset-y-0 left-0 flex items-center"
         aria-hidden="true"
       >
-        <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
+        <span
+          className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"
+          aria-hidden="true"
+          role="presentation"
+        />
       </span>
     </p>
   );
@@ -144,13 +149,47 @@ export const LinkCardFooter = ({
   className,
   ...rest
 }: React.HTMLAttributes<HTMLDivElement>) => {
-  const classes = cn(
-    "mt-4 flex items-center justify-start text-sm text-accent-foreground",
-    className
-  );
+  const classes = cn("mt-4", className);
   return (
     <div {...rest} className={classes}>
       {children}
     </div>
+  );
+};
+
+type LinkCardLabelProps = React.HTMLAttributes<HTMLParagraphElement> & {
+  label: string;
+  iconType?: "internal" | "external" | "link";
+  iconFirst?: boolean;
+  accentColor?: boolean;
+};
+
+export const LinkCardLabel = ({
+  label,
+  iconFirst = false,
+  iconType = "internal",
+  className,
+  accentColor = true,
+}: LinkCardLabelProps) => {
+  const classes = cn(
+    "flex items-center gap-2 text-sm",
+    iconFirst ? "flex-row-reverse justify-end" : "justify-start",
+    { "text-accent-foreground": accentColor },
+    className
+  );
+
+  const iconDict = {
+    internal: () => <SquareChevronRight className="h-4 w-4" />,
+    external: () => <ExternalLinkIcon className="h-4 w-4" />,
+    link: () => <LinkIcon className="h-3 w-3" />,
+  };
+
+  const LabelIcon = iconDict[iconType];
+
+  return (
+    <p className={classes}>
+      {label}
+      <LabelIcon />
+    </p>
   );
 };

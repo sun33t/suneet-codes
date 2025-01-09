@@ -5,6 +5,7 @@ import {
   LinkCardEyebrow,
   LinkCardFooter,
   LinkCardHeader,
+  LinkCardLabel,
   LinkCardTitle,
 } from "./link-card";
 import { buttonVariants } from "./ui/button";
@@ -102,7 +103,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
           <LinkCardDescription>{article.description}</LinkCardDescription>
         </LinkCardContent>
         <LinkCardFooter>
-          <p>{`Read article >`}</p>
+          <LinkCardLabel label="Read article" />
         </LinkCardFooter>
       </LinkCard>
     </article>
