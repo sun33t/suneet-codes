@@ -69,7 +69,6 @@ export const createEnquiry = async (
       success: false,
       errors,
       fields,
-      errorMessage: "Please check all fields are valid and try again",
     };
   }
 
