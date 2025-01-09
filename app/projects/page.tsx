@@ -1,9 +1,15 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
+import {
+  LinkCard,
+  LinkCardContentContainer,
+  LinkCardDescription,
+  LinkCardFooter,
+  LinkCardHeader,
+  LinkCardTitle,
+} from "@/components/link-card";
 import { SimpleLayout } from "@/components/simple-layout";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { PAGE_METADATA } from "@/content/pages";
 import { PROJECTS, Project } from "@/content/projects";
 
@@ -21,32 +27,33 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<"svg">) {
 }
 
 const ProjectCard = ({ logo, name, description, link }: Project) => {
+  console.log(link);
   return (
-    <Card className="group relative border-none bg-transparent shadow-none">
-      <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
-      <Link href={link} target="_blank" rel="noopener noreferrer">
-        <span className="relative z-10">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-            <Image
-              src={logo}
-              alt={`Company logo for ${name}`}
-              className="width={24} height={24} h-6 w-6"
-              unoptimized
-            />
-          </div>
-          <div className="pt-6">
-            <CardTitle>{name}</CardTitle>
-            <CardDescription className="pt-4" aria-label={`About ${name}`}>
-              {description}
-            </CardDescription>
-          </div>
-          <p className="mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-            <LinkIcon className="h-6 w-6 flex-none" />
-            <span className="ml-2">{link.label}</span>
-          </p>
-        </span>
-      </Link>
-    </Card>
+    <LinkCard href={link.href} isExternal={true}>
+      <LinkCardHeader>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+          <Image
+            src={logo}
+            alt={`Company logo for ${name}`}
+            className="width={24} height={24} h-6 w-6"
+            unoptimized
+          />
+        </div>
+
+        <LinkCardTitle className="pt-2">{name}</LinkCardTitle>
+      </LinkCardHeader>
+      <LinkCardContentContainer>
+        <LinkCardDescription aria-label={`About ${name}`}>
+          {description}
+        </LinkCardDescription>
+      </LinkCardContentContainer>
+      <LinkCardFooter>
+        <p className="mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
+          <LinkIcon className="h-6 w-6 flex-none" />
+          <span className="ml-2">{link.label}</span>
+        </p>
+      </LinkCardFooter>
+    </LinkCard>
   );
 };
 
