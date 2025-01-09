@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import {
   LinkCard,
@@ -17,7 +17,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { FOLLOWING, FollowingEntry } from "@/content/following";
+import {
+  FOLLOWING,
+  FollowingCategory,
+  FollowingEntry,
+} from "@/content/following";
 import { PAGE_METADATA } from "@/content/pages";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };
@@ -44,7 +48,8 @@ const FollowingCard = ({
 
 export default function Following() {
   const followingItems = useMemo(() => Array.from(FOLLOWING.keys()), []);
-  const sortEntries = (a: FollowingEntry, b: FollowingEntry) => {
+
+  const sortEntries = useCallback((a: FollowingEntry, b: FollowingEntry) => {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
 
@@ -57,7 +62,13 @@ export default function Following() {
     }
 
     return 0;
-  };
+  }, []);
+
+  const sorted = useMemo(
+    () => (category: FollowingCategory) =>
+      FOLLOWING.get(category)?.sort(sortEntries),
+    [sortEntries]
+  );
   return (
     <SimpleLayout
       title="Developers and creative professionals whose work I follow."
@@ -72,11 +83,9 @@ export default function Following() {
                   {category}
                 </AccordionTrigger>
                 <AccordionContent className="p-6">
-                  {FOLLOWING.get(category)
-                    ?.sort(sortEntries)
-                    .map((entry) => (
-                      <FollowingCard key={entry.title} entry={entry} />
-                    ))}
+                  {sorted(category)?.map((entry) => (
+                    <FollowingCard key={entry.title} entry={entry} />
+                  ))}
                 </AccordionContent>
               </AccordionItem>
             );

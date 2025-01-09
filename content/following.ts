@@ -5,7 +5,7 @@ export type FollowingEntry = {
   cta: string;
 };
 
-type FollowingCategory = "Newsletters + Blogs" | "Podcasts" | "YouTube";
+export type FollowingCategory = "Newsletters + Blogs" | "Podcasts" | "YouTube";
 
 export const FOLLOWING: Map<FollowingCategory, FollowingEntry[]> = new Map([
   [

@@ -107,7 +107,6 @@ const ArticleCard = ({ article }: { article: Article }) => {
         </p>
       </div>
       <LinkCard
-        key={article._meta.fileName}
         href={`/articles/${article._meta.path}`}
         className="md:col-span-3"
       >
