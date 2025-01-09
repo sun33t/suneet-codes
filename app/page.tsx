@@ -6,7 +6,7 @@ import { env } from "@/app/env";
 import { Container } from "@/components/container";
 import {
   LinkCard,
-  LinkCardContentContainer,
+  LinkCardContent,
   LinkCardDescription,
   LinkCardEyebrow,
   LinkCardFooter,
@@ -51,9 +51,9 @@ const ArticleCard = ({ article }: { article: Article }) => {
           </LinkCardEyebrow>
           <LinkCardTitle>{article.title}</LinkCardTitle>
         </LinkCardHeader>
-        <LinkCardContentContainer>
+        <LinkCardContent>
           <LinkCardDescription>{article.description}</LinkCardDescription>
-        </LinkCardContentContainer>
+        </LinkCardContent>
         <LinkCardFooter>
           <p>{`Read article >`}</p>
         </LinkCardFooter>

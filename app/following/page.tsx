@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import {
   LinkCard,
-  LinkCardContentContainer,
+  LinkCardContent,
   LinkCardDescription,
   LinkCardFooter,
   LinkCardHeader,
@@ -21,15 +21,19 @@ import { PAGE_METADATA } from "@/content/pages";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };
 
-const FollowingCard = ({ title, description, cta, href }: FollowingEntry) => {
+const FollowingCard = ({
+  entry: { cta, description, href, title },
+}: {
+  entry: FollowingEntry;
+}) => {
   return (
     <LinkCard href={href} isExternal={true}>
       <LinkCardHeader>
         <LinkCardTitle>{title}</LinkCardTitle>
       </LinkCardHeader>
-      <LinkCardContentContainer>
+      <LinkCardContent>
         <LinkCardDescription>{description}</LinkCardDescription>
-      </LinkCardContentContainer>
+      </LinkCardContent>
       <LinkCardFooter>
         <p className="text-sm text-accent-foreground">{`${cta} >`}</p>
       </LinkCardFooter>
@@ -55,7 +59,7 @@ export default function Following() {
                 <AccordionContent className="p-6">
                   {FOLLOWING.get(category)?.map((entry) => (
                     <div key={entry.title} className="mb-10 sm:mb-16">
-                      <FollowingCard {...entry} />
+                      <FollowingCard entry={entry} />
                     </div>
                   ))}
                 </AccordionContent>
