@@ -47,7 +47,7 @@ const UsesCard = ({
 };
 
 export default function Uses() {
-  const usesItems = useMemo(() => Array.from(USES.keys()), []);
+  const usesEntries = useMemo(() => Array.from(USES.keys()), []);
 
   const sortEntries = useCallback(sortByTitleProperty, []);
 
@@ -62,15 +62,15 @@ export default function Uses() {
     >
       <div id="accordion" className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible>
-          {usesItems.map((category) => {
+          {usesEntries.map((category) => {
             return (
               <AccordionItem key={category} value={category}>
                 <AccordionTrigger className="text-base font-bold">
                   {category}
                 </AccordionTrigger>
                 <AccordionContent className="p-6">
-                  {sortedEntries(category)?.map((item) => {
-                    return <UsesCard entry={item} key={item.title} />;
+                  {sortedEntries(category)?.map((entry) => {
+                    return <UsesCard entry={entry} key={entry.title} />;
                   })}
                 </AccordionContent>
               </AccordionItem>
