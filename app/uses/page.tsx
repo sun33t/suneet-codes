@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/accordion";
 import { PAGE_METADATA } from "@/content/pages";
 import { USES, UsesCategory, UsesEntry } from "@/content/uses";
-import { sortByTitleProperty } from "@/lib/helpers/sortBytitleProperty";
+import { sortByTitleProperty } from "@/lib/utils/sortBytitleProperty";
 
 // https://www.robinwieruch.de/about/ look here for inspo
 
