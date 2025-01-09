@@ -44,6 +44,20 @@ const FollowingCard = ({
 
 export default function Following() {
   const followingItems = useMemo(() => Array.from(FOLLOWING.keys()), []);
+  const sortEntries = (a: FollowingEntry, b: FollowingEntry) => {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+
+    if (titleA < titleB) {
+      return -1;
+    }
+
+    if (titleA > titleB) {
+      return 1;
+    }
+
+    return 0;
+  };
   return (
     <SimpleLayout
       title="Developers and creative professionals whose work I follow."
@@ -58,9 +72,11 @@ export default function Following() {
                   {category}
                 </AccordionTrigger>
                 <AccordionContent className="p-6">
-                  {FOLLOWING.get(category)?.map((entry) => (
-                    <FollowingCard key={entry.title} entry={entry} />
-                  ))}
+                  {FOLLOWING.get(category)
+                    ?.sort(sortEntries)
+                    .map((entry) => (
+                      <FollowingCard key={entry.title} entry={entry} />
+                    ))}
                 </AccordionContent>
               </AccordionItem>
             );
