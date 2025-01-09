@@ -23,6 +23,7 @@ import {
   FollowingEntry,
 } from "@/content/following";
 import { PAGE_METADATA } from "@/content/pages";
+import { sortByTitleProperty } from "@/lib/helpers/sortBytitleProperty";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };
 
@@ -49,20 +50,7 @@ const FollowingCard = ({
 export default function Following() {
   const followingItems = useMemo(() => Array.from(FOLLOWING.keys()), []);
 
-  const sortEntries = useCallback((a: FollowingEntry, b: FollowingEntry) => {
-    const titleA = a.title.toLowerCase();
-    const titleB = b.title.toLowerCase();
-
-    if (titleA < titleB) {
-      return -1;
-    }
-
-    if (titleA > titleB) {
-      return 1;
-    }
-
-    return 0;
-  }, []);
+  const sortEntries = useCallback(sortByTitleProperty, []);
 
   const sorted = useMemo(
     () => (category: FollowingCategory) =>
