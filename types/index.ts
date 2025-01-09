@@ -23,20 +23,20 @@ export const contactFormFieldSchema = z.object({
       required_error: "firstname is required",
       invalid_type_error: "firstname must be a string",
     })
-    .min(3)
-    .regex(/^[a-zA-Z\s'\-]+$/, {
-      message: "Alphabetic characters only",
+    .min(3, {
+      message: "firstname must have at least 3 characters",
     }),
   lastname: z
     .string({
       required_error: "lastname is required",
       invalid_type_error: "lastname must be a string",
     })
-    .min(3)
-    .regex(/^[a-zA-Z\s'\-]+$/, {
-      message: "Alphabetic characters only",
+    .min(3, {
+      message: "lastname must have at least 3 characters",
     }),
-  company: z.string().min(3).optional(),
+  company: z.string().min(3, {
+    message: "company name must have at least 3 characters",
+  }),
   email: z.string().email(),
   message: z.string().optional(),
   reason: z.string(),
