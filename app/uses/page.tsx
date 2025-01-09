@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import {
   LinkCard,
@@ -17,7 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { PAGE_METADATA } from "@/content/pages";
-import { USES, UsesEntry } from "@/content/uses";
+import { USES, UsesCategory, UsesEntry } from "@/content/uses";
 
 // https://www.robinwieruch.de/about/ look here for inspo
 
@@ -48,7 +48,7 @@ const UsesCard = ({
 export default function Uses() {
   const usesItems = useMemo(() => Array.from(USES.keys()), []);
 
-  const sortEntries = (a: UsesEntry, b: UsesEntry) => {
+  const sortEntries = useCallback((a: UsesEntry, b: UsesEntry) => {
     const titleA = a.title.toLowerCase();
     const titleB = b.title.toLowerCase();
 
@@ -61,7 +61,12 @@ export default function Uses() {
     }
 
     return 0;
-  };
+  }, []);
+
+  const sortedEntries = useMemo(
+    () => (category: UsesCategory) => USES.get(category)?.sort(sortEntries),
+    [sortEntries]
+  );
   return (
     <SimpleLayout
       title="What I use"
@@ -76,11 +81,9 @@ export default function Uses() {
                   {category}
                 </AccordionTrigger>
                 <AccordionContent className="p-6">
-                  {USES.get(category)
-                    ?.sort(sortEntries)
-                    .map((item) => {
-                      return <UsesCard entry={item} key={item.title} />;
-                    })}
+                  {sortedEntries(category)?.map((item) => {
+                    return <UsesCard entry={item} key={item.title} />;
+                  })}
                 </AccordionContent>
               </AccordionItem>
             );

@@ -7,7 +7,11 @@ export type UsesEntry = {
   };
 };
 
-type UsesCategory = "Hardware" | "Development" | "Design" | "Productivity";
+export type UsesCategory =
+  | "Hardware"
+  | "Development"
+  | "Design"
+  | "Productivity";
 
 export const USES: Map<UsesCategory, UsesEntry[]> = new Map([
   [
