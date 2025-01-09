@@ -4,7 +4,9 @@ import { useMemo } from "react";
 import {
   LinkCard,
   LinkCardDescription,
+  LinkCardFooter,
   LinkCardHeader,
+  LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
 import { SimpleLayout } from "@/components/simple-layout";
@@ -22,18 +24,23 @@ import { USES, UsesEntry } from "@/content/uses";
 export const metadata: Metadata = { ...PAGE_METADATA.uses };
 
 const UsesCard = ({
-  entry: { description, href, title },
+  entry: { description, link, title },
 }: {
   entry: UsesEntry;
 }) => {
   return (
-    <LinkCard href={href} isExternal={true}>
+    <LinkCard href={link.href} isExternal={true} className="mb-10 sm:mb-16">
       <LinkCardHeader>
-        <LinkCardTitle className="transition-colors group-hover:text-accent-foreground">
-          {title}
-        </LinkCardTitle>
+        <LinkCardTitle>{title}</LinkCardTitle>
         <LinkCardDescription>{description}</LinkCardDescription>
       </LinkCardHeader>
+      <LinkCardFooter>
+        <LinkCardLabel
+          label={link.label}
+          iconType="external"
+          accentColor={true}
+        />
+      </LinkCardFooter>
     </LinkCard>
   );
 };
@@ -55,11 +62,7 @@ export default function Uses() {
                 </AccordionTrigger>
                 <AccordionContent className="p-6">
                   {USES.get(category)?.map((item) => {
-                    return (
-                      <div key={item.title} className="mb-10 sm:mb-16">
-                        <UsesCard entry={item} />
-                      </div>
-                    );
+                    return <UsesCard entry={item} key={item.title} />;
                   })}
                 </AccordionContent>
               </AccordionItem>
