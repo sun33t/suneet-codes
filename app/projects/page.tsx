@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import {
   LinkCard,
-  LinkCardContentContainer,
+  LinkCardContent,
   LinkCardDescription,
   LinkCardFooter,
   LinkCardHeader,
@@ -42,11 +42,11 @@ const ProjectCard = ({ logo, name, description, link }: Project) => {
 
         <LinkCardTitle className="pt-2">{name}</LinkCardTitle>
       </LinkCardHeader>
-      <LinkCardContentContainer>
+      <LinkCardContent>
         <LinkCardDescription aria-label={`About ${name}`}>
           {description}
         </LinkCardDescription>
-      </LinkCardContentContainer>
+      </LinkCardContent>
       <LinkCardFooter>
         <p className="mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
           <LinkIcon className="h-6 w-6 flex-none" />

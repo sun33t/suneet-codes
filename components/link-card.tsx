@@ -126,7 +126,7 @@ export const LinkCardDescription = ({
   );
 };
 
-export const LinkCardContentContainer = ({
+export const LinkCardContent = ({
   children,
   className,
   ...rest

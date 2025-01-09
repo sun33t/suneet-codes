@@ -1,4 +1,4 @@
-type UsesEntry = {
+export type UsesEntry = {
   title: string;
   description: string;
   href: string;
