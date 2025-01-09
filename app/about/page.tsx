@@ -13,7 +13,7 @@ import {
   DEVELOPMENT_SERVICES,
   PROFESSIONAL_SERVICES,
 } from "@/content/services";
-import profileWide from "@/images/profile_wide.jpg";
+import profileWide from "@/public/images/profile_wide.jpg";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspo
 

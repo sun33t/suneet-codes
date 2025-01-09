@@ -1,11 +1,11 @@
 import { ImageProps } from "next/image";
 import { LinkProps } from "next/link";
 
-import ansLogo from "@/images/logos/ans.svg";
-import luminLogo from "@/images/logos/lumin.svg";
-import northcodersLogo from "@/images/logos/northcoders.png";
-import logoPushorigin from "@/images/logos/pushorigin.svg";
-import verseLogo from "@/images/logos/verse.svg";
+import ansLogo from "@/public/logos/ans.svg";
+import luminLogo from "@/public/logos/lumin.svg";
+import northcodersLogo from "@/public/logos/northcoders.png";
+import logoPushorigin from "@/public/logos/pushorigin.svg";
+import verseLogo from "@/public/logos/verse.svg";
 
 export interface Role {
   company: string;

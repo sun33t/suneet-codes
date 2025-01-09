@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description: env.PROJECT_BASE_DESCRIPTION,
     url: baseUrl.href,
     siteName: env.PROJECT_BASE_TITLE,
-    images: ["/images/avatar.jpg"],
+    images: ["/public/images/avatar.jpg"],
     locale: "en_GB",
     type: "website",
   },
