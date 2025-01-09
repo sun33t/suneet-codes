@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/accordion";
 import { PAGE_METADATA } from "@/content/pages";
 import { USES, UsesCategory, UsesEntry } from "@/content/uses";
+import { sortByTitleProperty } from "@/lib/helpers/sortBytitleProperty";
 
 // https://www.robinwieruch.de/about/ look here for inspo
 
@@ -48,20 +49,7 @@ const UsesCard = ({
 export default function Uses() {
   const usesItems = useMemo(() => Array.from(USES.keys()), []);
 
-  const sortEntries = useCallback((a: UsesEntry, b: UsesEntry) => {
-    const titleA = a.title.toLowerCase();
-    const titleB = b.title.toLowerCase();
-
-    if (titleA < titleB) {
-      return -1;
-    }
-
-    if (titleA > titleB) {
-      return 1;
-    }
-
-    return 0;
-  }, []);
+  const sortEntries = useCallback(sortByTitleProperty, []);
 
   const sortedEntries = useMemo(
     () => (category: UsesCategory) => USES.get(category)?.sort(sortEntries),
