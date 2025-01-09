@@ -46,7 +46,7 @@ export const LinkCard = ({
   children,
   className,
   href,
-  isExternal,
+  isExternal = false,
   ...rest
 }: LinkCardProps) => {
   return (

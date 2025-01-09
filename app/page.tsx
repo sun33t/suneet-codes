@@ -40,24 +40,25 @@ function SocialLink({
 }
 const ArticleCard = ({ article }: { article: Article }) => {
   return (
-    <LinkCard
-      key={article._meta.fileName}
-      href={`/articles/${article._meta.path}`}
-      isExternal={true}
-    >
-      <LinkCardHeader>
-        <LinkCardEyebrow>
-          <time dateTime={article.date}>{formatDate(article.date)}</time>
-        </LinkCardEyebrow>
-        <LinkCardTitle>{article.title}</LinkCardTitle>
-      </LinkCardHeader>
-      <LinkCardContentContainer>
-        <LinkCardDescription>{article.description}</LinkCardDescription>
-      </LinkCardContentContainer>
-      <LinkCardFooter>
-        <p>{`Read article >`}</p>
-      </LinkCardFooter>
-    </LinkCard>
+    <article>
+      <LinkCard
+        key={article._meta.fileName}
+        href={`/articles/${article._meta.path}`}
+      >
+        <LinkCardHeader>
+          <LinkCardEyebrow>
+            <time dateTime={article.date}>{formatDate(article.date)}</time>
+          </LinkCardEyebrow>
+          <LinkCardTitle>{article.title}</LinkCardTitle>
+        </LinkCardHeader>
+        <LinkCardContentContainer>
+          <LinkCardDescription>{article.description}</LinkCardDescription>
+        </LinkCardContentContainer>
+        <LinkCardFooter>
+          <p>{`Read article >`}</p>
+        </LinkCardFooter>
+      </LinkCard>
+    </article>
   );
 };
 

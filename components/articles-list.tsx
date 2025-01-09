@@ -1,3 +1,12 @@
+import {
+  LinkCard,
+  LinkCardContentContainer,
+  LinkCardDescription,
+  LinkCardEyebrow,
+  LinkCardFooter,
+  LinkCardHeader,
+  LinkCardTitle,
+} from "./link-card";
 import { buttonVariants } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
@@ -9,7 +18,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -79,34 +87,24 @@ const ArticleCard = ({ article }: { article: Article }) => {
           ></span>
         </p>
       </div>
-      <Card className="group relative border-none bg-transparent text-foreground shadow-none md:col-span-3">
-        <div className="absolute -inset-x-4 -bottom-0 -top-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 md:-top-4 dark:bg-zinc-800/50" />
-        <Link href={`/articles/${article._meta.path}`}>
-          <span className="relative z-10">
-            <CardHeader className="space-y-3 p-0">
-              <p className="relative pl-3.5 text-sm text-muted-foreground md:hidden">
-                <time dateTime={article.date}>{formattedDate}</time>
-                <span
-                  className="absolute inset-y-0 left-0 flex items-center"
-                  aria-hidden="true"
-                >
-                  <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
-                </span>
-              </p>
-              <CardTitle>{article.title}</CardTitle>
-              <CardDescription
-                id="card-description"
-                aria-label={`About ${article.title}`}
-              >
-                {article.description}
-              </CardDescription>
-            </CardHeader>
-            <CardFooter className="pl-0 pt-4">
-              <p className="text-sm text-accent-foreground">{`Read article >`}</p>
-            </CardFooter>
-          </span>
-        </Link>
-      </Card>
+      <LinkCard
+        key={article._meta.fileName}
+        href={`/articles/${article._meta.path}`}
+        className="md:col-span-3"
+      >
+        <LinkCardHeader>
+          <LinkCardEyebrow className="md:hidden">
+            <time dateTime={article.date}>{formatDate(article.date)}</time>
+          </LinkCardEyebrow>
+          <LinkCardTitle>{article.title}</LinkCardTitle>
+        </LinkCardHeader>
+        <LinkCardContentContainer>
+          <LinkCardDescription>{article.description}</LinkCardDescription>
+        </LinkCardContentContainer>
+        <LinkCardFooter>
+          <p>{`Read article >`}</p>
+        </LinkCardFooter>
+      </LinkCard>
     </article>
   );
 };
@@ -122,7 +120,7 @@ const ArticlesList = async ({
 
   return (
     <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-      <div className="flex max-w-3xl flex-col space-y-10">
+      <div className="flex max-w-3xl flex-col space-y-16">
         {articles.length > 0 ? (
           articles.map((article) => (
             <ArticleCard key={article._meta.path} article={article} />
