@@ -23,7 +23,7 @@ import {
   FollowingEntry,
 } from "@/content/following";
 import { PAGE_METADATA } from "@/content/pages";
-import { sortByTitleProperty } from "@/lib/helpers/sortBytitleProperty";
+import { sortByTitleProperty } from "@/lib/utils/sortBytitleProperty";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };
 
