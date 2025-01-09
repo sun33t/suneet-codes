@@ -4,17 +4,19 @@ import { Fragment } from "react";
 
 import { env } from "@/app/env";
 import { Container } from "@/components/container";
+import {
+  LinkCard,
+  LinkCardContentContainer,
+  LinkCardDescription,
+  LinkCardEyebrow,
+  LinkCardFooter,
+  LinkCardHeader,
+  LinkCardTitle,
+} from "@/components/link-card";
 import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Heading } from "@/components/typography/heading";
 import { P } from "@/components/typography/paragraph";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
@@ -38,34 +40,24 @@ function SocialLink({
 }
 const ArticleCard = ({ article }: { article: Article }) => {
   return (
-    <Card className="group relative border-none bg-transparent text-foreground shadow-none">
-      <div className="absolute -inset-x-4 -bottom-0 -top-6 z-0 scale-95 rounded-2xl bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 dark:bg-zinc-800/50" />
-      <Link href={`/articles/${article._meta.path}`}>
-        <span className="relative z-10">
-          <CardHeader className="space-y-3 p-0">
-            <p className="relative pl-3.5 text-sm text-muted-foreground">
-              <time dateTime={article.date}>{formatDate(article.date)}</time>
-              <span
-                className="absolute inset-y-0 left-0 flex items-center"
-                aria-hidden="true"
-              >
-                <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
-              </span>
-            </p>
-            <CardTitle>{article.title}</CardTitle>
-            <CardDescription
-              id="card-description"
-              aria-label={`About ${article.title}`}
-            >
-              {article.description}
-            </CardDescription>
-          </CardHeader>
-          <CardFooter className="pl-0 pt-4">
-            <p className="text-sm text-accent-foreground">{`Read article >`}</p>
-          </CardFooter>
-        </span>
-      </Link>
-    </Card>
+    <LinkCard
+      key={article._meta.fileName}
+      href={`/articles/${article._meta.path}`}
+      isExternal={true}
+    >
+      <LinkCardHeader>
+        <LinkCardEyebrow>
+          <time dateTime={article.date}>{formatDate(article.date)}</time>
+        </LinkCardEyebrow>
+        <LinkCardTitle>{article.title}</LinkCardTitle>
+      </LinkCardHeader>
+      <LinkCardContentContainer>
+        <LinkCardDescription>{article.description}</LinkCardDescription>
+      </LinkCardContentContainer>
+      <LinkCardFooter>
+        <p>{`Read article >`}</p>
+      </LinkCardFooter>
+    </LinkCard>
   );
 };
 
@@ -113,7 +105,7 @@ export default function Home() {
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="duration-1000 animate-in fade-in">
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-16">
               {latestArticles.map((article) => {
                 return (
                   <ArticleCard key={article._meta.fileName} article={article} />
