@@ -47,6 +47,21 @@ const UsesCard = ({
 
 export default function Uses() {
   const usesItems = useMemo(() => Array.from(USES.keys()), []);
+
+  const sortEntries = (a: UsesEntry, b: UsesEntry) => {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+
+    if (titleA < titleB) {
+      return -1;
+    }
+
+    if (titleA > titleB) {
+      return 1;
+    }
+
+    return 0;
+  };
   return (
     <SimpleLayout
       title="What I use"
@@ -61,9 +76,11 @@ export default function Uses() {
                   {category}
                 </AccordionTrigger>
                 <AccordionContent className="p-6">
-                  {USES.get(category)?.map((item) => {
-                    return <UsesCard entry={item} key={item.title} />;
-                  })}
+                  {USES.get(category)
+                    ?.sort(sortEntries)
+                    .map((item) => {
+                      return <UsesCard entry={item} key={item.title} />;
+                    })}
                 </AccordionContent>
               </AccordionItem>
             );

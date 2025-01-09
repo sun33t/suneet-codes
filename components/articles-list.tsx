@@ -15,15 +15,9 @@ import { type Article } from "content-collections";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { getArticlesByCategory } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
+import { cn } from "@/lib/utils";
 import { type SearchParams } from "@/types";
 
 const SkeletonCard = () => {
@@ -75,6 +69,30 @@ const SkeletonCardList = () => {
   );
 };
 
+const NoArticlesCard = () => {
+  return (
+    <LinkCard>
+      <LinkCardHeader>
+        <LinkCardTitle>No matching articles</LinkCardTitle>
+      </LinkCardHeader>
+      <LinkCardContent>
+        <LinkCardDescription>
+          Please try another combination of categories, or clear and try again
+        </LinkCardDescription>
+      </LinkCardContent>
+      <LinkCardFooter>
+        <Link
+          href="/articles"
+          className={buttonVariants({ variant: "default", size: "sm" })}
+          aria-label="Clear filters"
+        >
+          Clear
+        </Link>
+      </LinkCardFooter>
+    </LinkCard>
+  );
+};
+
 const ArticleCard = ({ article }: { article: Article }) => {
   const formattedDate = formatDate(article.date);
   return (
@@ -118,33 +136,21 @@ const ArticlesList = async ({
   const { category } = await searchParams;
 
   const articles = getArticlesByCategory({ category });
+  const classes = cn(
+    "md:pl-6",
+    articles.length > 0 &&
+      "md:border-l md:border-zinc-100  md:dark:border-zinc-700/40"
+  );
 
   return (
-    <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+    <div className={classes}>
       <div className="flex max-w-3xl flex-col space-y-16">
         {articles.length > 0 ? (
           articles.map((article) => (
             <ArticleCard key={article._meta.path} article={article} />
           ))
         ) : (
-          <Card className="bg-transparent shadow-none">
-            <CardHeader>
-              <CardTitle>No matching articles</CardTitle>
-              <CardDescription>
-                Please try another combination of categories, or clear and try
-                again.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link
-                href="/articles"
-                className={buttonVariants({ variant: "default", size: "sm" })}
-                aria-label="Clear filters"
-              >
-                Clear
-              </Link>
-            </CardContent>
-          </Card>
+          <NoArticlesCard />
         )}
       </div>
     </div>
