@@ -1,6 +1,6 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-import onepeterfourLogo from "@/images/logos/onepeterfour.webp";
+import onepeterfourLogo from "@/public/logos/onepeterfour.webp";
 
 export type Project = {
   name: string;
