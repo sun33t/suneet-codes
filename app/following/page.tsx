@@ -48,7 +48,7 @@ const FollowingCard = ({
 };
 
 export default function Following() {
-  const followingItems = useMemo(() => Array.from(FOLLOWING.keys()), []);
+  const followingEntries = useMemo(() => Array.from(FOLLOWING.keys()), []);
 
   const sortEntries = useCallback(sortByTitleProperty, []);
 
@@ -64,7 +64,7 @@ export default function Following() {
     >
       <div id="accordion" className="mx-auto max-w-2xl">
         <Accordion type="single" collapsible>
-          {followingItems.map((category) => {
+          {followingEntries.map((category) => {
             return (
               <AccordionItem key={category} value={category}>
                 <AccordionTrigger className="text-base font-bold">
