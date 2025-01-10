@@ -2,32 +2,29 @@ import { Footer } from "./footer";
 import { Header } from "./header";
 import { Toaster } from "./ui/toaster";
 
-import { useMemo } from "react";
-
 import { env } from "@/app/env";
 import { PAGE_TITLES } from "@/content/pages";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
-const avatarImageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar_small`;
+export const Layout = async ({ children }: LayoutProps) => {
+  const avatarImageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar_small`;
 
-const avatarBlurDataUrl = await getCloudinaryBlurDataUrl({
-  src: avatarImageSrc,
-  width: "64px",
-});
+  const avatarBlurDataUrl = await getCloudinaryBlurDataUrl({
+    src: avatarImageSrc,
+    width: "64px",
+  });
 
-export const Layout = ({ children }: LayoutProps) => {
-  const memoizedPages = useMemo(() => PAGE_TITLES, []);
   return (
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
         {avatarBlurDataUrl && (
-          <Header pages={memoizedPages} avatarBlurDataUrl={avatarBlurDataUrl} />
+          <Header pages={PAGE_TITLES} avatarBlurDataUrl={avatarBlurDataUrl} />
         )}
         <main className="flex-auto">{children}</main>
-        <Footer pages={memoizedPages} />
+        <Footer pages={PAGE_TITLES} />
         <Toaster />
       </div>
     </div>
