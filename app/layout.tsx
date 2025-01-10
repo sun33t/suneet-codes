@@ -9,7 +9,7 @@ import { TwSizeIndicator } from "@/components/tw-size-indicator";
 import { baseUrl } from "@/lib/baseUrl";
 import "@/styles/globals.css";
 
-const ogImageUrl = await getCldImageUrl({
+const ogImageUrl = getCldImageUrl({
   src: `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar`,
 });
 
