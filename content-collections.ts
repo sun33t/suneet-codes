@@ -11,7 +11,7 @@ const articles = defineCollection({
   schema: (z) => ({
     title: z.string(),
     author: z.string(),
-    isPublished: z.boolean(),
+    isPublished: z.boolean().default(false),
     date: z.string().date(),
     updatedAt: z.string().date(),
     description: z.string(),
