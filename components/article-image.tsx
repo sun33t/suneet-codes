@@ -31,10 +31,22 @@ export const ArticleImage = async ({
   aspectRatio = 16 / 9,
 }: ArticleImageProps) => {
   const imageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/articles/${src}`;
-  const blurDataUrl = await getCloudinaryBlurDataUrl({
-    src: imageSrc,
-    width: "672px",
-  });
+
+  let blurDataUrl: string =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+
+  try {
+    const response = await getCloudinaryBlurDataUrl({
+      src: imageSrc,
+      width: "672px",
+    });
+
+    if (response) {
+      blurDataUrl = response;
+    }
+  } catch (error) {
+    console.error("Failed to fetch blurDataUrl for article image", error);
+  }
 
   return (
     <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">
