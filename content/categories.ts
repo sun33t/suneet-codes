@@ -5,7 +5,8 @@ export const CATEGORYTITLES = [
   "aws",
   "react",
   "javascript",
-  "leadership",
+  "setup",
+  "macOS",
 ] as const;
 
 type CategoryTitleWithSlug = {
