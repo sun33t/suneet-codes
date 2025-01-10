@@ -111,6 +111,9 @@ TURNSTILE_SECRET_KEY="2x0000000000000000000000000000000AA"
 #  Yields A Token Already Spent Error:
 TURNSTILE_SECRET_KEY="3x0000000000000000000000000000000AA"
 
+# Your cloudinary cloud name, required for next-cloudinary dependency. See - https://next.cloudinary.dev/installation
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name
+
 ```
 
 This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime validation of variables. When attempting to run the project, the server will error out in the event of a missing required variable, details of which will be printed in the terminal.
@@ -130,6 +133,7 @@ This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime val
 - [Content Collections](https://www.content-collections.dev/)
 - [Favicon generator](https://favicon.io/favicon-converter/)
 - [Resend](https://resend.com)
+- [next-cloudinary](https://next.cloudinary.dev)
 
 ## Authors
 

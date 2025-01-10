@@ -1,11 +1,11 @@
 "use client";
 
+import { CloudinaryImage } from "./cloudinary-image";
 import { Container } from "./container";
 import { ModeToggle } from "./mode-toggle";
 
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -16,6 +16,7 @@ import {
   useState,
 } from "react";
 
+import { env } from "@/app/env";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,7 +24,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import avatarImage from "@/public/images/avatar_small.jpg";
 import { type PageTitle } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
@@ -50,9 +50,11 @@ const AvatarContainer = ({
 const Avatar = ({
   large = false,
   className,
+  blurDataUrl,
   ...rest
 }: Omit<React.ComponentPropsWithoutRef<typeof Link>, "href"> & {
   large?: boolean;
+  blurDataUrl: string;
 }) => {
   return (
     <Link
@@ -61,10 +63,14 @@ const Avatar = ({
       className={clsx(className, "pointer-events-auto")}
       {...rest}
     >
-      <Image
-        src={avatarImage}
-        alt=""
+      <CloudinaryImage
+        src={`${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar_small`}
+        alt="profile picture"
+        width={64}
+        height={64}
         sizes={large ? "4rem" : "2.25rem"}
+        blurDataURL={blurDataUrl}
+        placeholder="blur"
         className={clsx(
           "rounded-full bg-zinc-100 object-cover duration-1000 animate-in fade-in dark:bg-zinc-800",
           large ? "h-16 w-16" : "h-9 w-9"
@@ -180,8 +186,9 @@ const MobileNavigation = ({ pages }: MobileNavigationProps) => {
 
 type HeaderProps = {
   pages: PageTitle[];
+  avatarBlurDataUrl: string;
 };
-export const Header = ({ pages }: HeaderProps) => {
+export const Header = ({ pages, avatarBlurDataUrl }: HeaderProps) => {
   const isHomePage = usePathname() === "/";
 
   const headerRef = useRef<React.ComponentRef<"div">>(null);
@@ -327,6 +334,7 @@ export const Header = ({ pages }: HeaderProps) => {
                     }}
                   />
                   <Avatar
+                    blurDataUrl={avatarBlurDataUrl}
                     large
                     className="block h-16 w-16 origin-left"
                     style={{ transform: "var(--avatar-image-transform)" }}
@@ -355,7 +363,7 @@ export const Header = ({ pages }: HeaderProps) => {
               <div className="flex flex-1">
                 {!isHomePage && (
                   <AvatarContainer>
-                    <Avatar />
+                    <Avatar blurDataUrl={avatarBlurDataUrl} />
                   </AvatarContainer>
                 )}
               </div>
