@@ -30,7 +30,15 @@ export const getArticlesByCategory = ({
 };
 
 export const getArticleByFilename = (filename: Article["_meta"]["path"]) => {
-  return allArticles.find((article) => article._meta.path === filename);
+  const article = allArticles.find(
+    (article) => article._meta.path === filename
+  );
+
+  if (article?.isPublished) {
+    return article;
+  } else {
+    return null;
+  }
 };
 
 export const latestArticles = articlesSortedByDate.slice(0, 3);
