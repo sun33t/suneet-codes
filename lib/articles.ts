@@ -3,10 +3,7 @@ import { type Article, allArticles } from "content-collections";
 const articlesSortedByDate = allArticles
   .filter((article) => article.isPublished)
   .toSorted((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-
-    return dateB.getTime() - dateA.getTime();
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 
 export const getArticlesByCategory = ({
@@ -30,15 +27,11 @@ export const getArticlesByCategory = ({
 };
 
 export const getArticleByFilename = (filename: Article["_meta"]["path"]) => {
-  const article = allArticles.find(
-    (article) => article._meta.path === filename
+  return (
+    allArticles.find(
+      (article) => article._meta.path === filename && article.isPublished
+    ) ?? null
   );
-
-  if (article?.isPublished) {
-    return article;
-  } else {
-    return null;
-  }
 };
 
 export const latestArticles = articlesSortedByDate.slice(0, 3);
