@@ -6,7 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { env } from "@/app/env";
-import { ArticleImage } from "@/components/article-image";
+import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { Pre } from "@/components/pre";
@@ -106,8 +106,8 @@ export default async function Page({
                   code={article.mdx}
                   components={{
                     pre: Pre,
-                    ArticleImage(props) {
-                      return <ArticleImage {...props} />;
+                    SuspendedArticleImage(props) {
+                      return <SuspendedArticleImage {...props} />;
                     },
                   }}
                 />

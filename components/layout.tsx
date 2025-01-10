@@ -12,7 +12,10 @@ type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
 const avatarImageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar_small`;
 
-const avatarBlurDataUrl = await getCloudinaryBlurDataUrl(avatarImageSrc);
+const avatarBlurDataUrl = await getCloudinaryBlurDataUrl({
+  src: avatarImageSrc,
+  width: "64px",
+});
 
 export const Layout = ({ children }: LayoutProps) => {
   const memoizedPages = useMemo(() => PAGE_TITLES, []);
@@ -20,7 +23,9 @@ export const Layout = ({ children }: LayoutProps) => {
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
-        <Header pages={memoizedPages} avatarBlurDataUrl={avatarBlurDataUrl} />
+        {avatarBlurDataUrl && (
+          <Header pages={memoizedPages} avatarBlurDataUrl={avatarBlurDataUrl} />
+        )}
         <main className="flex-auto">{children}</main>
         <Footer pages={memoizedPages} />
         <Toaster />

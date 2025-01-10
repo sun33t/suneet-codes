@@ -19,7 +19,10 @@ import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 const profileImageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/profile_wide`;
 
-const profileImgBlurDataUrl = await getCloudinaryBlurDataUrl(profileImageSrc);
+const profileImgBlurDataUrl = await getCloudinaryBlurDataUrl({
+  src: profileImageSrc,
+  width: "512px",
+});
 
 export const metadata: Metadata = { ...PAGE_METADATA.about };
 
