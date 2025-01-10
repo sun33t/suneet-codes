@@ -10,7 +10,10 @@ import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 const avatarImageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar_small`;
 
-const avatarBlurDataUrl = await getCloudinaryBlurDataUrl(avatarImageSrc);
+const avatarBlurDataUrl = await getCloudinaryBlurDataUrl({
+  src: avatarImageSrc,
+  width: 64,
+});
 
 export const Avatar = async ({
   // large = false,
