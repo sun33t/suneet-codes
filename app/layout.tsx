@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { getCldImageUrl } from "next-cloudinary";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { env } from "@/app/env";
@@ -7,6 +8,10 @@ import { Providers } from "@/components/providers";
 import { TwSizeIndicator } from "@/components/tw-size-indicator";
 import { baseUrl } from "@/lib/baseUrl";
 import "@/styles/globals.css";
+
+const ogImageUrl = await getCldImageUrl({
+  src: `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar`,
+});
 
 const geistSans = Geist({
   weight: "variable",
@@ -40,7 +45,7 @@ export const metadata: Metadata = {
     description: env.PROJECT_BASE_DESCRIPTION,
     url: baseUrl.href,
     siteName: env.PROJECT_BASE_TITLE,
-    images: ["/public/images/avatar.jpg"],
+    images: [ogImageUrl],
     locale: "en_GB",
     type: "website",
   },

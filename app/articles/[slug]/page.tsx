@@ -1,6 +1,7 @@
 import { MDXContent } from "@content-collections/mdx/react";
 import { allArticles } from "content-collections";
 import { Metadata } from "next";
+import { getCldImageUrl } from "next-cloudinary";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -33,12 +34,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article) {
     notFound();
   }
+  const ogImageUrl = await getCldImageUrl({
+    src: article.coverImage,
+  });
 
   return {
     title: `${article.title}`,
     description: article.description,
     openGraph: {
-      images: [article.coverImage],
+      images: [ogImageUrl],
       title: article.title,
       description: article.description,
       url: `/articles/${slug}`,

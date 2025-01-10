@@ -1,4 +1,3 @@
-/* eslint-disable n/no-process-env */
 import {
   Body,
   Column,
@@ -15,22 +14,8 @@ import {
 
 import { type ContactFormFieldSchema } from "@/types";
 
-const isValidUrl = (url: string) => {
-  try {
-    new URL(url);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : `http://localhost:${process.env.PORT || 3000}`;
-
-if (!isValidUrl(baseUrl)) {
-  throw new Error(`Invalid base URL: ${baseUrl}`);
-}
+// eslint-disable-next-line n/no-process-env
+const cloudinaryCloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
 const NewEnquiryConfirmationEmail = ({ firstname }: ContactFormFieldSchema) => (
   <Tailwind>
@@ -43,7 +28,7 @@ const NewEnquiryConfirmationEmail = ({ firstname }: ContactFormFieldSchema) => (
             <Column className="pl-1 text-left">
               <Img
                 className="rounded-full"
-                src={`${baseUrl}/images/avatar_small.jpg`}
+                src={`https://res.cloudinary.com/${cloudinaryCloudName}/image/upload/v1736463033/${cloudinaryCloudName}/profile/avatar_small.jpg`}
                 width="32"
                 height="32"
                 alt="avatar image"
