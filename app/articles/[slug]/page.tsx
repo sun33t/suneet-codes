@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article) {
     notFound();
   }
-  const ogImageUrl = await getCldImageUrl({
+  const ogImageUrl = getCldImageUrl({
     src: article.coverImage,
   });
 
