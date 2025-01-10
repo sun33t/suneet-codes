@@ -112,7 +112,7 @@ TURNSTILE_SECRET_KEY="2x0000000000000000000000000000000AA"
 TURNSTILE_SECRET_KEY="3x0000000000000000000000000000000AA"
 
 # Your cloudinary cloud name, required for next-cloudinary dependency. See - https://next.cloudinary.dev/installation
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name"
 
 ```
 
