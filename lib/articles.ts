@@ -1,11 +1,13 @@
 import { type Article, allArticles } from "content-collections";
 
-const articlesSortedByDate = allArticles.toSorted((a, b) => {
-  const dateA = new Date(a.date);
-  const dateB = new Date(b.date);
+const articlesSortedByDate = allArticles
+  .filter((article) => article.isPublished)
+  .toSorted((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
 
-  return dateB.getTime() - dateA.getTime();
-});
+    return dateB.getTime() - dateA.getTime();
+  });
 
 export const getArticlesByCategory = ({
   category,
