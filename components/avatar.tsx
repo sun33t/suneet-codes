@@ -16,7 +16,7 @@ const avatarBlurDataUrl = await getCloudinaryBlurDataUrl({
 });
 
 export const Avatar = async ({
-  // large = false,
+  large = false,
   className,
   ...rest
 }: Omit<React.ComponentPropsWithoutRef<typeof Link>, "href"> & {
@@ -34,13 +34,13 @@ export const Avatar = async ({
         alt="profile picture"
         width={64}
         height={64}
-        // sizes={large ? "4rem" : "2.25rem"}
+        sizes={large ? "4rem" : "2.25rem"}
         blurDataURL={avatarBlurDataUrl}
         placeholder="blur"
-        // className={clsx(
-        //   "rounded-full bg-zinc-100 object-cover duration-1000 animate-in fade-in dark:bg-zinc-800",
-        //   large ? "h-16 w-16" : "h-9 w-9"
-        // )}
+        className={clsx(
+          "rounded-full bg-zinc-100 object-cover duration-1000 animate-in fade-in dark:bg-zinc-800",
+          large ? "h-16 w-16" : "h-9 w-9"
+        )}
       />
     </Link>
   );
