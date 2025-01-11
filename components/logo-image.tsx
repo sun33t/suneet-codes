@@ -25,7 +25,6 @@ const LogoImage = async ({ filename }: LogoImageProps) => {
       height={20}
       alt={`Company logo for ${filename}`}
       sizes="20px"
-      placeholder="blur"
       blurDataURL={blurDataUrl}
       className="h-5 w-5"
     />
