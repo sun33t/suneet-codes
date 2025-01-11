@@ -14,12 +14,14 @@ type ArticleImageProps = Omit<ImageProps, "src"> & {
 
 const SkeletonArticleImage = ({
   aspectRatio = 16 / 9,
+  hasPulse = true,
 }: {
   aspectRatio?: ArticleImageProps["aspectRatio"];
+  hasPulse?: boolean;
 }) => {
   return (
     <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">
-      <Skeleton className="h-full w-full rounded-3xl" />
+      <Skeleton hasPulse={hasPulse} className="h-full w-full rounded-3xl" />
     </AspectRatio>
   );
 };
@@ -30,13 +32,15 @@ export const ArticleImage = async ({
   aspectRatio = 16 / 9,
 }: ArticleImageProps) => {
   const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
-    src: `/articles/${src}`,
+    src: `articles/${src}`,
     width: "672px",
   });
 
   return (
     <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">
-      {blurDataUrl ? (
+      {blurDataUrl === undefined ? (
+        <SkeletonArticleImage hasPulse={false} />
+      ) : (
         <CloudinaryImage
           src={imageSrc}
           alt={alt}
@@ -48,8 +52,6 @@ export const ArticleImage = async ({
           placeholder="blur"
           blurDataURL={blurDataUrl}
         />
-      ) : (
-        <SkeletonArticleImage />
       )}
     </AspectRatio>
   );

@@ -26,12 +26,13 @@ export const getCloudinaryBlurDataUrl = async (
   // fetch image information from cloudinary
   const cloudinaryResponse = await fetch(imageUrl);
 
-  // if (Object.keys(cloudinaryResponse).length === 0) {
-  //   console.error(
-  //     `Failure to fetch image with name: ${options.src} from cloudinary, please check the imageUrl and try again`
-  //   );
-  //   return null;
-  // }
+  // if fetch fails return early
+  if (!cloudinaryResponse.ok) {
+    console.error(
+      `Failed to fetch image information from cloudinary for image with src: ${options.src}`
+    );
+    return { blurDataUrl: undefined, imageSrc };
+  }
 
   // convert response to arrayBuffer and then to base64 string
   const arrayBuffer = await cloudinaryResponse.arrayBuffer();
