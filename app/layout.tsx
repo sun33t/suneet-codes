@@ -7,10 +7,11 @@ import { Layout } from "@/components/layout";
 import { Providers } from "@/components/providers";
 import { TwSizeIndicator } from "@/components/tw-size-indicator";
 import { baseUrl } from "@/lib/baseUrl";
+import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/globals.css";
 
 const ogImageUrl = getCldImageUrl({
-  src: `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar`,
+  src: withCloudinaryCloudName("profile/avatar"),
 });
 
 const geistSans = Geist({

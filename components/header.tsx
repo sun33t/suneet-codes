@@ -16,7 +16,6 @@ import {
   useState,
 } from "react";
 
-import { env } from "@/app/env";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -24,6 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import { type PageTitle } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
@@ -64,7 +64,7 @@ const Avatar = ({
       {...rest}
     >
       <CloudinaryImage
-        src={`${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar_small`}
+        src={withCloudinaryCloudName("profile/avatar_small")}
         alt="profile picture"
         width={64}
         height={64}
