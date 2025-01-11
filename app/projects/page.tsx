@@ -9,7 +9,7 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
-import { SuspendedProjectLogo } from "@/components/project-logo";
+import { SuspendedLogoImage } from "@/components/logo-image";
 import { SimpleLayout } from "@/components/simple-layout";
 import { PAGE_METADATA } from "@/content/pages";
 import { PROJECTS, Project } from "@/content/projects";
@@ -20,8 +20,8 @@ const ProjectCard = ({ filename, name, description, link }: Project) => {
   return (
     <LinkCard href={link.href} isExternal={true}>
       <LinkCardHeader>
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-          <SuspendedProjectLogo filename={filename} />
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+          <SuspendedLogoImage filename={filename} />
         </div>
 
         <LinkCardTitle className="pt-2">{name}</LinkCardTitle>

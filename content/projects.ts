@@ -5,7 +5,7 @@ export type Project = {
     href: string;
     label: string;
   };
-  filename: string;
+  filename: "onepeterfour";
 };
 
 export const PROJECTS: Array<Project> = [
