@@ -1,27 +1,22 @@
+import { SuspendedAvatar } from "./avatar";
 import { Footer } from "./footer";
 import { Header } from "./header";
 import { Toaster } from "./ui/toaster";
 
 import { PAGE_TITLES } from "@/content/pages";
-import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
 export const Layout = async ({ children }: LayoutProps) => {
-  const avatarImageSrc = `profile/avatar_small`;
-
-  const { blurDataUrl } = await getCloudinaryBlurDataUrl({
-    src: avatarImageSrc,
-    width: "64px",
-  });
-
   return (
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
-        {blurDataUrl && (
-          <Header pages={PAGE_TITLES} avatarBlurDataUrl={blurDataUrl} />
-        )}
+        <Header
+          pages={PAGE_TITLES}
+          headerAvatar={<SuspendedAvatar />}
+          homepageAvatar={<SuspendedAvatar isHomePage={true} />}
+        />
         <main className="flex-auto">{children}</main>
         <Footer pages={PAGE_TITLES} />
         <Toaster />

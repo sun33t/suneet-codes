@@ -1,29 +1,14 @@
 "use client";
 
-import { CloudinaryImage } from "./cloudinary-image";
+import { AvatarContainer } from "./avatar";
 import { Container } from "./container";
+import { DesktopNavigation } from "./header/desktop-navigation";
+import { MobileNavigation } from "./header/mobile-navigation";
 import { ModeToggle } from "./mode-toggle";
 
-import clsx from "clsx";
-import { ChevronDown } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  type Dispatch,
-  type SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import { type PageTitle } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
@@ -32,165 +17,17 @@ function clamp(number: number, a: number, b: number) {
   return Math.min(Math.max(number, min), max);
 }
 
-const AvatarContainer = ({
-  className,
-  ...rest
-}: React.ComponentPropsWithoutRef<"div">) => {
-  return (
-    <div
-      className={clsx(
-        className,
-        "h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
-      )}
-      {...rest}
-    />
-  );
-};
-
-const Avatar = ({
-  large = false,
-  className,
-  blurDataUrl,
-  ...rest
-}: Omit<React.ComponentPropsWithoutRef<typeof Link>, "href"> & {
-  large?: boolean;
-  blurDataUrl: string;
-}) => {
-  return (
-    <Link
-      href="/"
-      aria-label="Home"
-      className={clsx(className, "pointer-events-auto")}
-      {...rest}
-    >
-      <CloudinaryImage
-        src={withCloudinaryCloudName("profile/avatar_small")}
-        alt="profile picture"
-        width={64}
-        height={64}
-        sizes={large ? "4rem" : "2.25rem"}
-        blurDataURL={blurDataUrl}
-        placeholder="blur"
-        className={clsx(
-          "rounded-full bg-zinc-100 object-cover duration-1000 animate-in fade-in dark:bg-zinc-800",
-          large ? "h-16 w-16" : "h-9 w-9"
-        )}
-      />
-    </Link>
-  );
-};
-
-function NavItem({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  const isActive = usePathname() === href;
-
-  return (
-    <li>
-      <Link
-        href={href}
-        className={clsx(
-          "relative block px-3 py-2 capitalize transition",
-          isActive ? "text-accent-foreground" : "hover:text-accent-foreground"
-        )}
-      >
-        {children}
-        {isActive && (
-          <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-accent-foreground/0 via-accent-foreground/40 to-accent-foreground/0" />
-        )}
-      </Link>
-    </li>
-  );
-}
-
-type DesktopNavigationProps = {
+type HeaderProps = ComponentPropsWithoutRef<"header"> & {
   pages: PageTitle[];
-} & React.ComponentPropsWithoutRef<"nav">;
-function DesktopNavigation({ pages, ...rest }: DesktopNavigationProps) {
-  return (
-    <nav {...rest}>
-      <ul className="flex rounded-md bg-white/90 px-3 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10">
-        {pages.map(({ title }) => (
-          <NavItem key={`${title}-dt`} href={`/${title}`}>
-            {title}
-          </NavItem>
-        ))}
-      </ul>
-    </nav>
-  );
-}
-
-const MobileNavItem = ({
-  title,
-  setIsMenuOpen,
-}: {
-  title: string;
-  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const href = `/${title}`;
-  const isActive = usePathname() === href;
-  return (
-    <DropdownMenuItem
-      className={clsx(
-        "text-sm font-medium",
-        isActive && "text-accent-foreground"
-      )}
-      onClick={() => setIsMenuOpen(false)}
-    >
-      <Link href={href} legacyBehavior passHref>
-        {title}
-      </Link>
-    </DropdownMenuItem>
-  );
+  headerAvatar: React.ReactElement;
+  homepageAvatar: React.ReactElement;
 };
-
-type MobileNavigationProps = { pages: PageTitle[] };
-const MobileNavigation = ({ pages }: MobileNavigationProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  return (
-    <DropdownMenu open={isMenuOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="pointer-events-auto rounded-md bg-white/90 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10"
-          variant="outline"
-        >
-          Menu
-          <ChevronDown />
-          <span className="sr-only">Toggle Mobile Menu</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="rounded-md bg-white/90 text-sm font-medium capitalize shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
-        onInteractOutside={() => setIsMenuOpen(false)}
-        onEscapeKeyDown={() => setIsMenuOpen(false)}
-      >
-        {pages.map(({ title }) => {
-          return (
-            <MobileNavItem
-              key={`${title}-mob`}
-              title={title}
-              setIsMenuOpen={setIsMenuOpen}
-            />
-          );
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
-
-type HeaderProps = {
-  pages: PageTitle[];
-  avatarBlurDataUrl: string;
-};
-export const Header = ({ pages, avatarBlurDataUrl }: HeaderProps) => {
+export const Header = ({
+  pages,
+  headerAvatar,
+  homepageAvatar,
+}: HeaderProps) => {
   const isHomePage = usePathname() === "/";
-
   const headerRef = useRef<React.ComponentRef<"div">>(null);
   const avatarRef = useRef<React.ComponentRef<"div">>(null);
   const isInitial = useRef(true);
@@ -312,6 +149,7 @@ export const Header = ({ pages, avatarBlurDataUrl }: HeaderProps) => {
               className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
             />
             <Container
+              id="Poopcontainer"
               className="top-0 order-last -mb-3 pt-3"
               style={{
                 position:
@@ -333,12 +171,7 @@ export const Header = ({ pages, avatarBlurDataUrl }: HeaderProps) => {
                       transform: "var(--avatar-border-transform)",
                     }}
                   />
-                  <Avatar
-                    blurDataUrl={avatarBlurDataUrl}
-                    large
-                    className="block h-16 w-16 origin-left"
-                    style={{ transform: "var(--avatar-image-transform)" }}
-                  />
+                  {homepageAvatar}
                 </div>
               </div>
             </Container>
@@ -362,9 +195,7 @@ export const Header = ({ pages, avatarBlurDataUrl }: HeaderProps) => {
             <div className="relative flex gap-4">
               <div className="flex flex-1">
                 {!isHomePage && (
-                  <AvatarContainer>
-                    <Avatar blurDataUrl={avatarBlurDataUrl} />
-                  </AvatarContainer>
+                  <AvatarContainer>{headerAvatar}</AvatarContainer>
                 )}
               </div>
               <div
