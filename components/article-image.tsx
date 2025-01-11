@@ -39,7 +39,10 @@ export const ArticleImage = async ({
   return (
     <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">
       {blurDataUrl === undefined ? (
-        <SkeletonArticleImage hasPulse={false} />
+        <SkeletonArticleImage
+          hasPulse={false}
+          aria-label="failed to load article image"
+        />
       ) : (
         <CloudinaryImage
           src={imageSrc}
@@ -59,7 +62,9 @@ export const ArticleImage = async ({
 
 export const SuspendedArticleImage = (props: ArticleImageProps) => {
   return (
-    <Suspense fallback={<SkeletonArticleImage />}>
+    <Suspense
+      fallback={<SkeletonArticleImage aria-label="loading article image" />}
+    >
       <ArticleImage {...props} />
     </Suspense>
   );
