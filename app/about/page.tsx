@@ -28,13 +28,12 @@ const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
 
 export const metadata: Metadata = { ...PAGE_METADATA.about };
 
-const ServiceCardSection = ({
-  title,
-  services,
-}: {
+type ServiceCardSectionProps = {
   title: string;
   services: ServiceItem[];
-}) => {
+};
+
+const ServiceCardSection = ({ title, services }: ServiceCardSectionProps) => {
   return (
     <div className="mt-12 md:mt-0">
       <h3 className="pl-6 font-semibold underline">{title}</h3>
@@ -204,7 +203,7 @@ export default function About() {
         />
         <ServiceCardSection
           services={PROFESSIONAL_SERVICES}
-          title="Proffesional Services"
+          title="Professional Services"
         />
       </div>
       <div className="mt-24 lg:hidden">
