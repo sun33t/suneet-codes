@@ -1,7 +1,3 @@
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-
-import onepeterfourLogo from "@/public/logos/onepeterfour.webp";
-
 export type Project = {
   name: string;
   description: string;
@@ -9,7 +5,7 @@ export type Project = {
     href: string;
     label: string;
   };
-  logo: StaticImport;
+  filename: string;
 };
 
 export const PROJECTS: Array<Project> = [
@@ -18,6 +14,6 @@ export const PROJECTS: Array<Project> = [
     description:
       "Branding, newsletter and website build for this organisation design & development consultancy aligned with Christian values",
     link: { href: "https://1peter4.co.uk", label: "1peter4.co.uk" },
-    logo: onepeterfourLogo,
+    filename: "onepeterfour",
   },
 ];

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 
 import {
   LinkCard,
@@ -10,25 +9,19 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
+import { SuspendedProjectLogo } from "@/components/project-logo";
 import { SimpleLayout } from "@/components/simple-layout";
 import { PAGE_METADATA } from "@/content/pages";
 import { PROJECTS, Project } from "@/content/projects";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };
 
-const ProjectCard = ({ logo, name, description, link }: Project) => {
+const ProjectCard = ({ filename, name, description, link }: Project) => {
   return (
     <LinkCard href={link.href} isExternal={true}>
       <LinkCardHeader>
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-          <Image
-            src={logo}
-            alt={`Company logo for ${name}`}
-            className="h-6 w-6"
-            width={24}
-            height={24}
-            unoptimized
-          />
+          <SuspendedProjectLogo filename={filename} />
         </div>
 
         <LinkCardTitle className="pt-2">{name}</LinkCardTitle>

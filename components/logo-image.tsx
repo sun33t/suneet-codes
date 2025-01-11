@@ -1,8 +1,7 @@
-import { CloudinaryImage } from "../cloudinary-image";
-import { Skeleton, SkeletonProps } from "./skeleton";
-
 import { Suspense } from "react";
 
+import { CloudinaryImage } from "@/components/cloudinary-image";
+import { Skeleton, SkeletonProps } from "@/components/ui/skeleton";
 import { Role } from "@/content/roles";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
