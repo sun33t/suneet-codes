@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PageTitle } from "@/types";
 
+const MemoizedNavItem = memo(MobileNavItem);
+
 type MobileNavigationProps = { pages: PageTitle[] };
 
 export const MobileNavigation = ({ pages }: MobileNavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const MemoizedNavItem = memo(MobileNavItem);
   return (
     <DropdownMenu open={isMenuOpen}>
       <DropdownMenuTrigger asChild>
