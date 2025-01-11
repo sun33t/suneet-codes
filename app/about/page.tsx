@@ -26,6 +26,26 @@ const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
 
 export const metadata: Metadata = { ...PAGE_METADATA.about };
 
+type ServiceCardProps = {
+  title: string;
+  description: string;
+};
+const ServiceCard = ({ title, description }: ServiceCardProps) => {
+  return (
+    <Card
+      key={title}
+      className="grow border-none bg-zinc-50 shadow-none dark:bg-zinc-800/50"
+    >
+      <CardHeader className="pb-3">
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent className="text-sm font-extralight">
+        {description}
+      </CardContent>
+    </Card>
+  );
+};
+
 const SocialLinks = () => {
   return (
     <Card className="h-fit shadow-none duration-1000 animate-in fade-in lg:ml-20 lg:block lg:max-w-xs">
@@ -158,14 +178,11 @@ export default function About() {
           <h3 className="pl-6 font-semibold underline">Development Services</h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
             {DEVELOPMENT_SERVICES.map((item) => (
-              <Card key={item.title} className="grow shadow-none">
-                <CardHeader className="pb-3">
-                  <CardTitle>{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm font-extralight">
-                  {item.description}
-                </CardContent>
-              </Card>
+              <ServiceCard
+                key={item.title}
+                title={item.title}
+                description={item.description}
+              />
             ))}
           </div>
         </div>
@@ -175,14 +192,11 @@ export default function About() {
           </h3>
           <div className="mt-4 grid h-full grid-cols-1 gap-4">
             {PROFESSIONAL_SERVICES.map((item) => (
-              <Card key={item.title} className="grow shadow-none">
-                <CardHeader className="pb-3">
-                  <CardTitle>{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm font-extralight">
-                  {item.description}
-                </CardContent>
-              </Card>
+              <ServiceCard
+                key={item.title}
+                title={item.title}
+                description={item.description}
+              />
             ))}
           </div>
         </div>
