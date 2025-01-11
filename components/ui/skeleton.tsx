@@ -2,11 +2,16 @@ import { cn } from "@/lib/utils";
 
 function Skeleton({
   className,
+  hasPulse,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement> & { hasPulse: boolean }) {
   return (
     <div
-      className={cn("animate-pulse rounded-md bg-primary/10", className)}
+      className={cn(
+        hasPulse && "animate-pulse",
+        "rounded-md bg-primary/10",
+        className
+      )}
       {...props}
     />
   );
