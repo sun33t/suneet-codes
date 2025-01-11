@@ -1,8 +1,8 @@
 import { SuspendedAvatar } from "./avatar";
 import { Footer } from "./footer";
-import { Header } from "./header";
 import { Toaster } from "./ui/toaster";
 
+import { Header } from "@/components/header";
 import { PAGE_TITLES } from "@/content/pages";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;

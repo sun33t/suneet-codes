@@ -1,7 +1,7 @@
 import { MobileNavItem } from "./mobile-nav-item";
 
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ type MobileNavigationProps = { pages: PageTitle[] };
 
 export const MobileNavigation = ({ pages }: MobileNavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const MemoizedNavItem = memo(MobileNavItem);
   return (
     <DropdownMenu open={isMenuOpen}>
       <DropdownMenuTrigger asChild>
@@ -36,7 +37,7 @@ export const MobileNavigation = ({ pages }: MobileNavigationProps) => {
       >
         {pages.map(({ title }) => {
           return (
-            <MobileNavItem
+            <MemoizedNavItem
               key={`${title}-mob`}
               title={title}
               setIsMenuOpen={setIsMenuOpen}

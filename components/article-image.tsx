@@ -1,5 +1,5 @@
 import { AspectRatio } from "./ui/aspect-ratio";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton, type SkeletonProps } from "./ui/skeleton";
 
 import { ImageProps } from "next/image";
 import { Suspense } from "react";
@@ -15,9 +15,8 @@ type ArticleImageProps = Omit<ImageProps, "src"> & {
 const SkeletonArticleImage = ({
   aspectRatio = 16 / 9,
   hasPulse,
-}: {
+}: SkeletonProps & {
   aspectRatio?: ArticleImageProps["aspectRatio"];
-  hasPulse?: boolean;
 }) => {
   return (
     <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">

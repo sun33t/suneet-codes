@@ -1,10 +1,9 @@
 import { cn } from "@/lib/utils";
 
-function Skeleton({
-  className,
-  hasPulse = true,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & { hasPulse?: boolean }) {
+export type SkeletonProps = React.HTMLAttributes<HTMLDivElement> & {
+  hasPulse?: boolean;
+};
+function Skeleton({ className, hasPulse = true, ...props }: SkeletonProps) {
   return (
     <div
       className={cn(
