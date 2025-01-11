@@ -1,8 +1,8 @@
 "use server";
 
-import { type GetCldImageUrlOptions, getCldImageUrl } from "next-cloudinary";
+import { withCloudinaryCloudName } from "./withCloudinaryCloudName";
 
-import { env } from "@/app/env";
+import { type GetCldImageUrlOptions, getCldImageUrl } from "next-cloudinary";
 
 const blurDataUrlCache = new Map<string, string>();
 
@@ -10,7 +10,7 @@ export const getCloudinaryBlurDataUrl = async (
   options: GetCldImageUrlOptions
 ): Promise<{ blurDataUrl: string | undefined; imageSrc: string }> => {
   // create cloudinary image path
-  const imageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${options.src}`;
+  const imageSrc = withCloudinaryCloudName(options.src);
 
   // check cache first for existing blurDataUrl
   if (blurDataUrlCache.has(imageSrc)) {
