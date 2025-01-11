@@ -22,9 +22,7 @@ export const MobileNavItem = ({
       )}
       onClick={() => setIsMenuOpen(false)}
     >
-      <Link href={href} legacyBehavior passHref>
-        {title}
-      </Link>
+      <Link href={href}>{title}</Link>
     </DropdownMenuItem>
   );
 };

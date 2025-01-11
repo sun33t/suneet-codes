@@ -1,14 +1,14 @@
 "use client";
 
-import { AvatarContainer } from "./avatar";
-import { Container } from "./container";
-import { DesktopNavigation } from "./header/desktop-navigation";
-import { MobileNavigation } from "./header/mobile-navigation";
-import { ModeToggle } from "./mode-toggle";
+import { DesktopNavigation } from "./desktop-navigation";
+import { MobileNavigation } from "./mobile-navigation";
 
 import { usePathname } from "next/navigation";
 import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
 
+import { AvatarContainer } from "@/components/avatar";
+import { Container } from "@/components/container";
+import { ModeToggle } from "@/components/mode-toggle";
 import { type PageTitle } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
@@ -149,7 +149,6 @@ export const Header = ({
               className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
             />
             <Container
-              id="Poopcontainer"
               className="top-0 order-last -mb-3 pt-3"
               style={{
                 position:

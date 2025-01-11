@@ -1,5 +1,5 @@
 import { CloudinaryImage } from "./cloudinary-image";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton, type SkeletonProps } from "./ui/skeleton";
 
 import clsx from "clsx";
 import Link from "next/link";
@@ -37,6 +37,7 @@ export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
     src: avatarImageSrc,
     width: "64px",
   });
+
   return (
     <Link
       href="/"
@@ -50,27 +51,34 @@ export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
       }
       {...rest}
     >
-      <CloudinaryImage
-        src={withCloudinaryCloudName("profile/avatar_small")}
-        alt="profile picture"
-        width={64}
-        height={64}
-        sizes={isHomePage ? "4rem" : "2.25rem"}
-        blurDataURL={blurDataUrl}
-        placeholder="blur"
-        className={clsx(
-          "rounded-full bg-zinc-100 object-cover duration-1000 animate-in fade-in dark:bg-zinc-800",
-          isHomePage ? "h-16 w-16" : "h-9 w-9"
-        )}
-      />
+      {blurDataUrl ? (
+        <CloudinaryImage
+          src={withCloudinaryCloudName("profile/avatar_small")}
+          alt="profile picture"
+          width={64}
+          height={64}
+          sizes={isHomePage ? "4rem" : "2.25rem"}
+          blurDataURL={blurDataUrl}
+          placeholder="blur"
+          className={clsx(
+            "rounded-full bg-zinc-100 object-cover duration-1000 animate-in fade-in dark:bg-zinc-800",
+            isHomePage ? "h-16 w-16" : "h-9 w-9"
+          )}
+        />
+      ) : (
+        <AvatarSkeleton hasPulse={false} isHomePage={isHomePage} />
+      )}
     </Link>
   );
 };
 
-const AvatarSkeleton = ({ isHomePage }: { isHomePage?: boolean }) => {
+const AvatarSkeleton = ({
+  isHomePage,
+  ...rest
+}: SkeletonProps & { isHomePage?: boolean }) => {
   const classes = clsx("rounded-full", isHomePage ? "h-16 w-16" : "h-9 w-9");
 
-  return <Skeleton className={classes} />;
+  return <Skeleton className={classes} {...rest} />;
 };
 
 export const SuspendedAvatar = ({ isHomePage }: { isHomePage?: boolean }) => {
