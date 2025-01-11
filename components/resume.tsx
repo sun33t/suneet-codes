@@ -1,10 +1,10 @@
 import { buttonVariants } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
-import { SuspendedLogoImage } from "./ui/logo-image";
 
 import { Briefcase, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
+import { SuspendedLogoImage } from "@/components/logo-image";
 import { type Role } from "@/content/roles";
 
 const Role = ({ role }: { role: Role }) => {
