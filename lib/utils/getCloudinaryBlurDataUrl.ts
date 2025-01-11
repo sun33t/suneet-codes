@@ -29,7 +29,7 @@ export const getCloudinaryBlurDataUrl = async (
   // if fetch fails return early
   if (!cloudinaryResponse.ok) {
     console.error(
-      `Failed to fetch image information from cloudinary for image with src: ${options.src}`
+      `Failed to fetch image information from cloudinary for image with src: ${options.src}. Status: ${cloudinaryResponse.status}`
     );
     return { blurDataUrl: undefined, imageSrc };
   }
