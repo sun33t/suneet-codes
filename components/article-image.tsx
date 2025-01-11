@@ -14,7 +14,7 @@ type ArticleImageProps = Omit<ImageProps, "src"> & {
 
 const SkeletonArticleImage = ({
   aspectRatio = 16 / 9,
-  hasPulse = true,
+  hasPulse,
 }: {
   aspectRatio?: ArticleImageProps["aspectRatio"];
   hasPulse?: boolean;
