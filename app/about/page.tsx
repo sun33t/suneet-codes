@@ -1,6 +1,7 @@
 import { MessageCircle } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import { memo } from "react";
 
 import { env } from "@/app/env";
 import { CloudinaryImage } from "@/components/cloudinary-image";
@@ -14,6 +15,7 @@ import {
   PROFESSIONAL_SERVICES,
 } from "@/content/services";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
+import { ServiceItem } from "@/types";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspo
 
@@ -26,16 +28,36 @@ const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
 
 export const metadata: Metadata = { ...PAGE_METADATA.about };
 
+const ServiceCardSection = ({
+  title,
+  services,
+}: {
+  title: string;
+  services: ServiceItem[];
+}) => {
+  return (
+    <div className="mt-12 md:mt-0">
+      <h3 className="pl-6 font-semibold underline">{title}</h3>
+      <div className="mt-4 grid h-full grid-cols-1 gap-4">
+        {services.map((item) => (
+          <ServiceCard
+            key={item.title}
+            title={item.title}
+            description={item.description}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 type ServiceCardProps = {
   title: string;
   description: string;
 };
-const ServiceCard = ({ title, description }: ServiceCardProps) => {
+const ServiceCard = memo(({ title, description }: ServiceCardProps) => {
   return (
-    <Card
-      key={title}
-      className="grow border-none bg-zinc-50 shadow-none dark:bg-zinc-800/50"
-    >
+    <Card className="grow border-none bg-zinc-50 shadow-none dark:bg-zinc-800/50">
       <CardHeader className="pb-3">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -44,7 +66,9 @@ const ServiceCard = ({ title, description }: ServiceCardProps) => {
       </CardContent>
     </Card>
   );
-};
+});
+
+ServiceCard.displayName = "ServiceCard";
 
 const SocialLinks = () => {
   return (
@@ -174,32 +198,14 @@ export default function About() {
         <h2 className="text-2xl font-bold">I&apos;m available for:</h2>
       </div>
       <div className="mt-4 grid gap-6 duration-1000 animate-in fade-in md:grid-cols-2">
-        <div>
-          <h3 className="pl-6 font-semibold underline">Development Services</h3>
-          <div className="mt-4 grid h-full grid-cols-1 gap-4">
-            {DEVELOPMENT_SERVICES.map((item) => (
-              <ServiceCard
-                key={item.title}
-                title={item.title}
-                description={item.description}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="mt-12 md:mt-0">
-          <h3 className="pl-6 font-semibold underline">
-            Professional Services
-          </h3>
-          <div className="mt-4 grid h-full grid-cols-1 gap-4">
-            {PROFESSIONAL_SERVICES.map((item) => (
-              <ServiceCard
-                key={item.title}
-                title={item.title}
-                description={item.description}
-              />
-            ))}
-          </div>
-        </div>
+        <ServiceCardSection
+          services={DEVELOPMENT_SERVICES}
+          title="Development Services"
+        />
+        <ServiceCardSection
+          services={PROFESSIONAL_SERVICES}
+          title="Proffesional Services"
+        />
       </div>
       <div className="mt-24 lg:hidden">
         <SocialLinks />
