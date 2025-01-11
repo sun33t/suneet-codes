@@ -1,8 +1,8 @@
 import { buttonVariants } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
+import { SuspendedLogoImage } from "./ui/logo-image";
 
 import { Briefcase, MessageCircle } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { type Role } from "@/content/roles";
@@ -27,12 +27,7 @@ const Role = ({ role }: { role: Role }) => {
         rel="noopener noreferrer"
       >
         <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-          <Image
-            src={role.logo}
-            alt={`${role.company}-logo`}
-            className="h-5 w-5"
-            unoptimized
-          />
+          <SuspendedLogoImage filename={role.filename} />
         </div>
 
         <dl className="z-10 flex flex-auto flex-wrap gap-x-2">
