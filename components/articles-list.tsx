@@ -28,6 +28,7 @@ const SkeletonCard = () => {
     >
       <div className="group relative flex flex-col items-start md:col-span-3">
         <Skeleton
+          hasPulse
           id="skeleton card title"
           className="h-4 w-[200px] sm:w-[350px]"
         />
@@ -38,18 +39,21 @@ const SkeletonCard = () => {
           <span className="absolute inset-y-0 left-0 flex items-center">
             <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span>
           </span>
-          <Skeleton className="h-4 w-[130px]" />
+          <Skeleton hasPulse className="h-4 w-[130px]" />
         </div>
         <Skeleton
+          hasPulse
           id="skeleton card description"
           className="relative z-10 mt-2 h-4 w-[200px]"
         />
         <Skeleton
+          hasPulse
           id="skeleton card cta"
           className="relative z-10 mt-4 flex h-4 w-[100px] items-center"
         />
       </div>
       <Skeleton
+        hasPulse
         id="first column time"
         className="relative z-10 order-first mb-3 mt-1 hidden h-4 w-[130px] items-center md:block"
       />

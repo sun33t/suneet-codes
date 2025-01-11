@@ -18,9 +18,9 @@ const SkeletonFilter = () => {
         aria-label="Article Categories"
         className="my-4 flex flex-row flex-wrap items-center justify-start gap-4"
       >
-        <Skeleton className="h-[20px] w-[80px]" />
-        <Skeleton className="h-[20px] w-[80px]" />
-        <Skeleton className="h-[20px] w-[80px]" />
+        <Skeleton hasPulse className="h-[20px] w-[80px]" />
+        <Skeleton hasPulse className="h-[20px] w-[80px]" />
+        <Skeleton hasPulse className="h-[20px] w-[80px]" />
       </div>
     </div>
   );
