@@ -6,7 +6,13 @@ export interface Role {
   start: string | { label: string; dateTime: string };
   end: string | { label: string; dateTime: string };
   href: LinkProps["href"];
-  filename: string;
+  filename:
+    | "pushorigin"
+    | "lumin"
+    | "ans"
+    | "verse"
+    | "northcoders"
+    | "onepeterfour";
 }
 
 export const ROLES: Array<Role> = [
