@@ -17,9 +17,9 @@ import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspo
 
-const profileImageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/profile_wide`;
+const profileImageSrc = `profile/profile_wide`;
 
-const profileImgBlurDataUrl = await getCloudinaryBlurDataUrl({
+const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
   src: profileImageSrc,
   width: "512px",
 });
@@ -75,13 +75,13 @@ export default function About() {
         <div className="lg:pl-20">
           <div className="max-w-xs px-2.5 duration-1000 animate-in fade-in lg:max-w-none">
             <CloudinaryImage
-              src={profileImageSrc}
+              src={imageSrc}
               alt="Side profile photo of Suneet on the coast of Iceland at sunset"
               width={512}
               height={512}
               sizes="(min-width: 1024px) 32rem, 20rem"
               className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
-              blurDataURL={profileImgBlurDataUrl}
+              blurDataURL={blurDataUrl}
               placeholder="blur"
             />
           </div>
