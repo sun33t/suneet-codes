@@ -4,7 +4,6 @@ import { Skeleton } from "./ui/skeleton";
 import { ImageProps } from "next/image";
 import { Suspense } from "react";
 
-import { env } from "@/app/env";
 import { CloudinaryImage } from "@/components/cloudinary-image";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
@@ -30,37 +29,28 @@ export const ArticleImage = async ({
   alt,
   aspectRatio = 16 / 9,
 }: ArticleImageProps) => {
-  const imageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/articles/${src}`;
-
-  let blurDataUrl: string =
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
-
-  try {
-    const response = await getCloudinaryBlurDataUrl({
-      src: imageSrc,
-      width: "672px",
-    });
-
-    if (response) {
-      blurDataUrl = response;
-    }
-  } catch (error) {
-    console.error("Failed to fetch blurDataUrl for article image", error);
-  }
+  const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
+    src: `/articles/${src}`,
+    width: "672px",
+  });
 
   return (
     <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">
-      <CloudinaryImage
-        src={imageSrc}
-        alt={alt}
-        fill={true}
-        sizes="672px"
-        style={{
-          objectFit: "cover",
-        }}
-        placeholder="blur"
-        blurDataURL={blurDataUrl}
-      />
+      {blurDataUrl ? (
+        <CloudinaryImage
+          src={imageSrc}
+          alt={alt}
+          fill={true}
+          sizes="672px"
+          style={{
+            objectFit: "cover",
+          }}
+          placeholder="blur"
+          blurDataURL={blurDataUrl}
+        />
+      ) : (
+        <SkeletonArticleImage />
+      )}
     </AspectRatio>
   );
 };

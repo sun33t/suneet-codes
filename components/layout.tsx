@@ -2,16 +2,15 @@ import { Footer } from "./footer";
 import { Header } from "./header";
 import { Toaster } from "./ui/toaster";
 
-import { env } from "@/app/env";
 import { PAGE_TITLES } from "@/content/pages";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
 export const Layout = async ({ children }: LayoutProps) => {
-  const avatarImageSrc = `${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/profile/avatar_small`;
+  const avatarImageSrc = `profile/avatar_small`;
 
-  const avatarBlurDataUrl = await getCloudinaryBlurDataUrl({
+  const { blurDataUrl } = await getCloudinaryBlurDataUrl({
     src: avatarImageSrc,
     width: "64px",
   });
@@ -20,8 +19,8 @@ export const Layout = async ({ children }: LayoutProps) => {
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
-        {avatarBlurDataUrl && (
-          <Header pages={PAGE_TITLES} avatarBlurDataUrl={avatarBlurDataUrl} />
+        {blurDataUrl && (
+          <Header pages={PAGE_TITLES} avatarBlurDataUrl={blurDataUrl} />
         )}
         <main className="flex-auto">{children}</main>
         <Footer pages={PAGE_TITLES} />
