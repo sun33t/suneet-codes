@@ -1,26 +1,20 @@
-import { ImageProps } from "next/image";
 import { LinkProps } from "next/link";
-
-import ansLogo from "@/public/logos/ans.svg";
-import luminLogo from "@/public/logos/lumin.svg";
-import northcodersLogo from "@/public/logos/northcoders.png";
-import logoPushorigin from "@/public/logos/pushorigin.svg";
-import verseLogo from "@/public/logos/verse.svg";
 
 export interface Role {
   company: string;
   title: string;
-  logo: ImageProps["src"];
   start: string | { label: string; dateTime: string };
   end: string | { label: string; dateTime: string };
   href: LinkProps["href"];
+  filename: string;
 }
 
 export const ROLES: Array<Role> = [
   {
     company: "Pushorigin",
     title: "Founder, Engineer",
-    logo: logoPushorigin,
+    filename: "pushorigin",
+
     start: "2024",
     end: {
       label: "Present",
@@ -31,7 +25,8 @@ export const ROLES: Array<Role> = [
   {
     company: "Lumin",
     title: "Fullstack Engineer",
-    logo: luminLogo,
+    filename: "lumin",
+
     start: "2023",
     end: "2024",
     href: "https://www.trustalliancegroup.org/our-companies/lumin",
@@ -39,7 +34,8 @@ export const ROLES: Array<Role> = [
   {
     company: "ANS",
     title: "Senior Fullstack Engineer",
-    logo: ansLogo,
+    filename: "ans",
+
     start: "2021",
     end: "2021",
     href: "https://ans.co.uk",
@@ -47,7 +43,8 @@ export const ROLES: Array<Role> = [
   {
     company: "Verse",
     title: "Senior JavaScript Engineer",
-    logo: verseLogo,
+    filename: "verse",
+
     start: "2020",
     end: "2023",
     href: "https://verse.co.uk",
@@ -55,7 +52,8 @@ export const ROLES: Array<Role> = [
   {
     company: "Northcoders",
     title: "Tutor - Developer Pathway",
-    logo: northcodersLogo,
+    filename: "northcoders",
+
     start: "2019",
     end: "2020",
     href: "https://northcoders.com",
