@@ -80,7 +80,11 @@ export default function Uses() {
         </p>
       </PageIntro>
       <PageSection>
-        <div id="accordion" className="mx-auto max-w-2xl">
+        <div
+          id="accordion"
+          className="mx-auto max-w-2xl"
+          aria-label="List of software and tools I use"
+        >
           <Accordion type="single" collapsible>
             {usesEntries.map((category) => {
               return (
