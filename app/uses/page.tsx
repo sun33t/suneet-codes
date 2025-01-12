@@ -70,6 +70,7 @@ export default function Uses() {
             href="https://github.com/sun33t/install-scripts-v2"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="View my development environment setup scripts on GitHub"
           >
             here&apos;s
           </Link>{" "}

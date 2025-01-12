@@ -69,7 +69,11 @@ export default function Following() {
         </p>
       </PageIntro>
       <PageSection>
-        <div id="accordion" className="mx-auto max-w-2xl">
+        <div
+          id="accordion"
+          className="mx-auto max-w-2xl"
+          aria-label="List of followed developers and creative professionals"
+        >
           <Accordion type="single" collapsible>
             {followingEntries.map((category) => {
               return (
