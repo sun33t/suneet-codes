@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { useCallback, useMemo } from "react";
 
 import {
@@ -9,7 +10,9 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
-import { SimpleLayout } from "@/components/simple-layout";
+import { PageContainer } from "@/components/page-container";
+import { PageHeading } from "@/components/page-heading";
+import { PageSection } from "@/components/page-section";
 import {
   Accordion,
   AccordionContent,
@@ -56,28 +59,45 @@ export default function Uses() {
     [sortEntries]
   );
   return (
-    <SimpleLayout
-      title="What I use"
-      intro="From time to time, I get asked about what I use to work on my projects. I've put this list together to help answer that question and hopefully help you out."
-    >
-      <div id="accordion" className="mx-auto max-w-2xl">
-        <Accordion type="single" collapsible>
-          {usesEntries.map((category) => {
-            return (
-              <AccordionItem key={category} value={category}>
-                <AccordionTrigger className="text-base font-bold">
-                  {category}
-                </AccordionTrigger>
-                <AccordionContent className="p-6">
-                  {sortedEntries(category)?.map((entry) => {
-                    return <UsesCard entry={entry} key={entry.title} />;
-                  })}
-                </AccordionContent>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
-      </div>
-    </SimpleLayout>
+    <PageContainer>
+      <PageHeading title="What I use">
+        <p>
+          From time to time, I get asked about what I use to work on my
+          projects. I&apos;ve tried to list as many of the tools I use below,
+          and{" "}
+          <Link
+            className="font-semibold text-accent-foreground"
+            href="https://github.com/sun33t/install-scripts-v2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            here&apos;s
+          </Link>{" "}
+          a link to my install-scripts repo too which is what I use to set up my
+          dev environment. It&apos;s not the most sophisticated, but it
+          get&apos;s the job done quickly and consistently!
+        </p>
+      </PageHeading>
+      <PageSection>
+        <div id="accordion" className="mx-auto max-w-2xl">
+          <Accordion type="single" collapsible>
+            {usesEntries.map((category) => {
+              return (
+                <AccordionItem key={category} value={category}>
+                  <AccordionTrigger className="text-base font-bold">
+                    {category}
+                  </AccordionTrigger>
+                  <AccordionContent className="p-6">
+                    {sortedEntries(category)?.map((entry) => {
+                      return <UsesCard entry={entry} key={entry.title} />;
+                    })}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
+        </div>
+      </PageSection>
+    </PageContainer>
   );
 }
