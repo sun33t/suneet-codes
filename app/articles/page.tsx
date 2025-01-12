@@ -2,7 +2,9 @@ import { Metadata } from "next";
 
 import { SuspendedArticlesFilter } from "@/components/articles-filter";
 import { SuspendedArticlesList } from "@/components/articles-list";
-import { SimpleLayout } from "@/components/simple-layout";
+import { PageContainer } from "@/components/page-container";
+import { PageHeading } from "@/components/page-heading";
+import { PageSection } from "@/components/page-section";
 import { PAGE_METADATA } from "@/content/pages";
 import { type SearchParams } from "@/types";
 
@@ -14,12 +16,22 @@ export default function Articles({
   searchParams: SearchParams;
 }) {
   return (
-    <SimpleLayout
-      title="Articles"
-      intro="You're probably reading this because you're curious about how other developers do what they do. Congratulations! You're awesome! Learning from each other and sharing what we know is one of the superpowers that we have. We're all in this together! On this page you'll find posts that I've written. They're mostly made up from my own notes, that I wanted to put into the public domain in case any of it might be of help to you."
-    >
-      <SuspendedArticlesFilter />
-      <SuspendedArticlesList searchParams={searchParams} />
-    </SimpleLayout>
+    <PageContainer>
+      <PageHeading title="Articles">
+        <p>
+          You&apos;re probably reading this because you&apos;re curious about
+          how other developers do what they do. Congratulations! You&apos;re
+          awesome! Learning from each other and sharing what we know is one of
+          the superpowers that we have. We&apos;re all in this together! On this
+          page you&apos;ll find posts that I&apos;ve written. They&apos;re
+          mostly made up from my own notes, that I wanted to put into the public
+          domain in case any of it might be of help to you.
+        </p>
+      </PageHeading>
+      <PageSection>
+        <SuspendedArticlesFilter />
+        <SuspendedArticlesList searchParams={searchParams} />
+      </PageSection>
+    </PageContainer>
   );
 }
