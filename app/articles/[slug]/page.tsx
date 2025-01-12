@@ -9,7 +9,6 @@ import { env } from "@/app/env";
 import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
-import { Pre } from "@/components/pre";
 import { getArticleByFilename } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 import "@/styles/markdown.css";
@@ -105,7 +104,6 @@ export default async function Page({
                 <MDXContent
                   code={article.mdx}
                   components={{
-                    pre: Pre,
                     SuspendedArticleImage(props) {
                       return <SuspendedArticleImage {...props} />;
                     },
