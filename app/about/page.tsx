@@ -5,7 +5,7 @@ import { memo } from "react";
 
 import { env } from "@/app/env";
 import { CloudinaryImage } from "@/components/cloudinary-image";
-import { Container } from "@/components/container";
+import { PageContainer } from "@/components/page-container";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -113,10 +113,10 @@ const SocialLinks = () => {
 
 export default function About() {
   return (
-    <Container id="about-page-container" className="mt-16 sm:mt-32">
+    <PageContainer>
       <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
         <div className="lg:pl-20">
-          <div className="max-w-xs px-2.5 duration-1000 animate-in fade-in lg:max-w-none">
+          <div className="max-w-xs px-2.5 lg:max-w-none">
             <CloudinaryImage
               src={imageSrc}
               alt="Side profile photo of Suneet on the coast of Iceland at sunset"
@@ -129,7 +129,7 @@ export default function About() {
             />
           </div>
         </div>
-        <div className="prose duration-1000 animate-in fade-in dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
+        <div className="prose dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             A little bit about me
           </h1>
@@ -193,10 +193,10 @@ export default function About() {
           <SocialLinks />
         </div>
       </div>
-      <div className="mt-8 duration-1000 animate-in fade-in lg:mt-4">
+      <div className="mt-8 lg:mt-4">
         <h2 className="text-2xl font-bold">I&apos;m available for:</h2>
       </div>
-      <div className="mt-4 grid gap-6 duration-1000 animate-in fade-in md:grid-cols-2">
+      <div className="mt-4 grid gap-6 md:grid-cols-2">
         <ServiceCardSection
           services={DEVELOPMENT_SERVICES}
           title="Development Services"
@@ -209,6 +209,6 @@ export default function About() {
       <div className="mt-24 lg:hidden">
         <SocialLinks />
       </div>
-    </Container>
+    </PageContainer>
   );
 }
