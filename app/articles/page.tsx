@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { SuspendedArticlesFilter } from "@/components/articles-filter";
 import { SuspendedArticlesList } from "@/components/articles-list";
 import { PageContainer } from "@/components/page-container";
-import { PageHeading } from "@/components/page-heading";
+import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
 import { PAGE_METADATA } from "@/content/pages";
 import { type SearchParams } from "@/types";
@@ -17,7 +17,7 @@ export default function Articles({
 }) {
   return (
     <PageContainer>
-      <PageHeading title="Articles">
+      <PageIntro title="Articles">
         <p>
           You&apos;re probably reading this because you&apos;re curious about
           how other developers do what they do. Congratulations! You&apos;re
@@ -27,7 +27,7 @@ export default function Articles({
           mostly made up from my own notes, that I wanted to put into the public
           domain in case any of it might be of help to you.
         </p>
-      </PageHeading>
+      </PageIntro>
       <PageSection>
         <SuspendedArticlesFilter />
         <SuspendedArticlesList searchParams={searchParams} />

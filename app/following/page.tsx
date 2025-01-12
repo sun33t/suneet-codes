@@ -11,7 +11,7 @@ import {
   LinkCardTitle,
 } from "@/components/link-card";
 import { PageContainer } from "@/components/page-container";
-import { PageHeading } from "@/components/page-heading";
+import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
 import {
   Accordion,
@@ -61,13 +61,13 @@ export default function Following() {
   );
   return (
     <PageContainer>
-      <PageHeading title="Developers and creative professionals whose work I follow.">
+      <PageIntro title="Developers and creative professionals whose work I follow.">
         <p>
           This industry is always changing and there&apos;s always new
           challenges to overcome. These are the people who I find inspiring and
           invaluable to learn from.
         </p>
-      </PageHeading>
+      </PageIntro>
       <PageSection>
         <div id="accordion" className="mx-auto max-w-2xl">
           <Accordion type="single" collapsible>

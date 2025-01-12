@@ -5,7 +5,7 @@ import Link from "next/link";
 import { env } from "@/app/env";
 import { ContactForm } from "@/components/contact-form";
 import { PageContainer } from "@/components/page-container";
-import { PageHeading } from "@/components/page-heading";
+import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,9 +16,9 @@ export const metadata: Metadata = { ...PAGE_METADATA.contact };
 export default function Contact() {
   return (
     <PageContainer>
-      <PageHeading title="Contact">
+      <PageIntro title="Contact">
         <p>{`Book a time to catch up in my calendar, send me an email or, if you prefer, fill in an enquiry form and I'll come back to you as soon as I can.`}</p>
-      </PageHeading>
+      </PageIntro>
       <PageSection>
         <Card className="mx-auto mb-16 max-w-xl px-6 py-6 shadow-none">
           <CardContent className="pb-0">

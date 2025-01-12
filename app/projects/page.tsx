@@ -11,7 +11,7 @@ import {
 } from "@/components/link-card";
 import { SuspendedLogoImage } from "@/components/logo-image";
 import { PageContainer } from "@/components/page-container";
-import { PageHeading } from "@/components/page-heading";
+import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
 import { PAGE_METADATA } from "@/content/pages";
 import { PROJECTS, Project } from "@/content/projects";
@@ -48,14 +48,14 @@ const ProjectCard = ({ filename, name, description, link }: Project) => {
 export default function Projects() {
   return (
     <PageContainer>
-      <PageHeading title="Projects">
+      <PageIntro title="Projects">
         <p>
           I’ve worked on many projects over the years as an employee but these
           are the projects that I&apos;ve built myself as a freelance and
           self-employed developer. I&apos;ve only just started so the list is
           very small!
         </p>
-      </PageHeading>
+      </PageIntro>
       <PageSection>
         <ul
           role="list"
