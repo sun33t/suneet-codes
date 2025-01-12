@@ -10,7 +10,9 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
-import { SimpleLayout } from "@/components/simple-layout";
+import { PageContainer } from "@/components/page-container";
+import { PageHeading } from "@/components/page-heading";
+import { PageSection } from "@/components/page-section";
 import {
   Accordion,
   AccordionContent,
@@ -58,28 +60,34 @@ export default function Following() {
     [sortEntries]
   );
   return (
-    <SimpleLayout
-      title="Developers and creative professionals whose work I follow."
-      intro="This industry is always changing and there's always new challenges to overcome. These are the people who I find inspiring and invaluable to learn from."
-    >
-      <div id="accordion" className="mx-auto max-w-2xl">
-        <Accordion type="single" collapsible>
-          {followingEntries.map((category) => {
-            return (
-              <AccordionItem key={category} value={category}>
-                <AccordionTrigger className="text-base font-bold">
-                  {category}
-                </AccordionTrigger>
-                <AccordionContent className="p-6">
-                  {sorted(category)?.map((entry) => (
-                    <FollowingCard key={entry.title} entry={entry} />
-                  ))}
-                </AccordionContent>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
-      </div>
-    </SimpleLayout>
+    <PageContainer>
+      <PageHeading title="Developers and creative professionals whose work I follow.">
+        <p>
+          This industry is always changing and there&apos;s always new
+          challenges to overcome. These are the people who I find inspiring and
+          invaluable to learn from.
+        </p>
+      </PageHeading>
+      <PageSection>
+        <div id="accordion" className="mx-auto max-w-2xl">
+          <Accordion type="single" collapsible>
+            {followingEntries.map((category) => {
+              return (
+                <AccordionItem key={category} value={category}>
+                  <AccordionTrigger className="text-base font-bold">
+                    {category}
+                  </AccordionTrigger>
+                  <AccordionContent className="p-6">
+                    {sorted(category)?.map((entry) => (
+                      <FollowingCard key={entry.title} entry={entry} />
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
+        </div>
+      </PageSection>
+    </PageContainer>
   );
 }
