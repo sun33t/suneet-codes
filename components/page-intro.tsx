@@ -4,7 +4,7 @@ type PageHeadingProps = PropsWithChildren<{
   title: string;
 }>;
 
-export const PageHeading = ({ title, children }: PageHeadingProps) => {
+export const PageIntro = ({ title, children }: PageHeadingProps) => {
   return (
     <div>
       <header className="max-w-2xl">

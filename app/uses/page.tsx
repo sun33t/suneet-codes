@@ -11,7 +11,7 @@ import {
   LinkCardTitle,
 } from "@/components/link-card";
 import { PageContainer } from "@/components/page-container";
-import { PageHeading } from "@/components/page-heading";
+import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
 import {
   Accordion,
@@ -60,7 +60,7 @@ export default function Uses() {
   );
   return (
     <PageContainer>
-      <PageHeading title="What I use">
+      <PageIntro title="What I use">
         <p>
           From time to time, I get asked about what I use to work on my
           projects. I&apos;ve tried to list as many of the tools I use below,
@@ -77,7 +77,7 @@ export default function Uses() {
           dev environment. It&apos;s not the most sophisticated, but it
           get&apos;s the job done quickly and consistently!
         </p>
-      </PageHeading>
+      </PageIntro>
       <PageSection>
         <div id="accordion" className="mx-auto max-w-2xl">
           <Accordion type="single" collapsible>

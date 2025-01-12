@@ -14,7 +14,7 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
-import { PageHeading } from "@/components/page-heading";
+import { PageIntro } from "@/components/page-intro";
 import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { P } from "@/components/typography/paragraph";
@@ -68,7 +68,7 @@ export default function Home() {
     <Fragment>
       <Container className="mt-12 duration-1000 animate-in fade-in">
         <div className="max-w-2xl">
-          <PageHeading title={env.PROJECT_AUTHOR}>
+          <PageIntro title={env.PROJECT_AUTHOR}>
             <P className="text-muted-foreground">
               👋, I&apos;m a developer and founder based in the UK. I&apos;ve
               been building software in the{" "}
@@ -102,7 +102,7 @@ export default function Home() {
                 icon={LinkedInIcon}
               />
             </div>
-          </PageHeading>
+          </PageIntro>
         </div>
       </Container>
       <Container className="mt-24 duration-1000 animate-in fade-in md:mt-28">
