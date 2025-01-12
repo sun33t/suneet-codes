@@ -10,7 +10,9 @@ import {
   LinkCardTitle,
 } from "@/components/link-card";
 import { SuspendedLogoImage } from "@/components/logo-image";
-import { SimpleLayout } from "@/components/simple-layout";
+import { PageContainer } from "@/components/page-container";
+import { PageHeading } from "@/components/page-heading";
+import { PageSection } from "@/components/page-section";
 import { PAGE_METADATA } from "@/content/pages";
 import { PROJECTS, Project } from "@/content/projects";
 
@@ -45,19 +47,25 @@ const ProjectCard = ({ filename, name, description, link }: Project) => {
 
 export default function Projects() {
   return (
-    <SimpleLayout
-      title="Projects"
-      intro="I’ve worked on many projects over the years as an employee but these are the projects that I've built myself as a freelance and self-employed developer. I've only just started so the list is very small!
-      "
-    >
-      <ul
-        role="list"
-        className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {PROJECTS.map((project) => (
-          <ProjectCard key={project.name} {...project} />
-        ))}
-      </ul>
-    </SimpleLayout>
+    <PageContainer>
+      <PageHeading title="Projects">
+        <p>
+          I’ve worked on many projects over the years as an employee but these
+          are the projects that I&apos;ve built myself as a freelance and
+          self-employed developer. I&apos;ve only just started so the list is
+          very small!
+        </p>
+      </PageHeading>
+      <PageSection>
+        <ul
+          role="list"
+          className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {PROJECTS.map((project) => (
+            <ProjectCard key={project.name} {...project} />
+          ))}
+        </ul>
+      </PageSection>
+    </PageContainer>
   );
 }
