@@ -18,7 +18,6 @@ import { PageIntro } from "@/components/page-intro";
 import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { Blockquote } from "@/components/typography/blockquote";
-import { P } from "@/components/typography/paragraph";
 import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
@@ -91,21 +90,47 @@ export default function Home() {
       <Container className="mt-12 duration-1000 animate-in fade-in">
         <div className="max-w-2xl">
           <PageIntro title={env.PROJECT_AUTHOR}>
-            <P className="text-muted-foreground">
-              👋, I&apos;m a developer and founder based in the UK. I&apos;ve
-              been building software in the{" "}
-              <span className="font-semibold underline">e-commerce</span>,{" "}
-              <span className="font-semibold underline">retail</span> and{" "}
-              <span className="font-semibold underline">hospitality</span>{" "}
-              spaces as well as for the{" "}
-              <span className="font-semibold underline">
-                energy and comms ombudsman
-              </span>{" "}
-              over a five year period after completing my{" "}
-              <span className="font-semibold underline">MSc in Computing</span>.
-              When I&apos;m not working, I like to cook and travel with my wife
-              and spend time in the outdoors with my friends.
-            </P>
+            <div className="space-y-4 text-muted-foreground">
+              <p>
+                👋, I&apos;m a developer and founder based in the UK. I&apos;ve
+                been building software in the{" "}
+                <span className="font-semibold text-foreground underline">
+                  e-commerce
+                </span>
+                ,{" "}
+                <span className="font-semibold text-foreground underline">
+                  retail
+                </span>{" "}
+                and{" "}
+                <span className="font-semibold text-foreground underline">
+                  hospitality
+                </span>{" "}
+                spaces as well as for the{" "}
+                <span className="font-semibold text-foreground underline">
+                  energy and comms ombudsman
+                </span>{" "}
+                over a five year period after completing my{" "}
+                <span className="font-semibold text-foreground underline">
+                  MSc in Computing
+                </span>
+                .
+              </p>
+              <p>
+                My goal is to create experiences which{" "}
+                <span className="font-semibold text-foreground underline">
+                  build community
+                </span>{" "}
+                and{" "}
+                <span className="font-semibold text-foreground underline">
+                  respect users&apos; privacy
+                </span>
+                .
+              </p>
+              <p>
+                When I&apos;m not working, I like to cook and travel with my
+                wife and spend time in the outdoors with my friends.
+              </p>
+            </div>
             <div className="mt-6 flex gap-2">
               {/* <SocialLink href="#" aria-label="Follow on X" icon={XIcon} /> */}
               {/* <SocialLink
