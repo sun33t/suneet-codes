@@ -133,61 +133,8 @@ export default function About() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             A little bit about me
           </h1>
-          <div className="mt-6 text-base">
-            <p>
-              In <time dateTime="2019">2019</time> after completing an{" "}
-              <strong>MSc in Computing</strong> and a{" "}
-              <strong>PGCE in Computer Science</strong> (Secondary School), I
-              enrolled in the developer pathway, at the{" "}
-              <strong>northcoders</strong> bootcamp in Manchester, after being
-              encouraged to pursue a long-held dream of becoming a software
-              developer.
-            </p>
-            <p>
-              The three months that followed were transformational. I met some
-              amazing people in my fellow students and tutors and shortly after
-              graduating, I was proud to join the tuition team myself where I
-              helped subsequent students on their journey into dev. This was one
-              of the most rewarding experiences in my life.
-            </p>
-            <p>
-              In <time dateTime="2020">2020</time>, I left northcoders for my
-              first production role and I have never looked back. In the 4 years
-              that followed I have enjoyed the opportunity to work on a variety
-              of projects which have included{" "}
-              <strong>fullstack e-commerce</strong> websites for national an
-              international brands, <strong>component libraries</strong> and{" "}
-              <strong>cli tools</strong> for digital agencies and{" "}
-              <strong>microservice backends</strong> and{" "}
-              <strong>cloud infrastructure</strong> for a variety of app
-              development clients.
-            </p>
-            <p>
-              My most recent experience has been as a full stack developer at{" "}
-              <strong>Lumin</strong> where I helped to address technical debt in
-              their legacy react application and to extend their utilisation of
-              aws infrastructure to achieve improved performance and reliability
-              at scale.
-            </p>
-            <p>
-              Along the way I&apos;ve had the opportunity to lead projects and
-              mentor junior developers and apprentices. No two days have been
-              the same and I&apos;ve loved (almost) every minute of it!
-            </p>
-            <p>
-              Although I have experience working in java, ruby, and python,
-              today, I&apos;m a freelance developer specialising in building
-              with node using TypeScript. It&apos;s my prefered ecosystem as the
-              tooling and libraries are constantly being moved forwards and I
-              love building for the web!
-            </p>
-            <p>
-              I also love to learn and am keeping up-to-date with developments
-              within the LLM and LCM spaces to see how these emerging
-              technologies can be applied into the applications and digital
-              experiences of the future.
-            </p>
-          </div>
+          <NewWording />
+          {/* <OriginalWording /> */}
         </div>
         <div className="hidden lg:flex lg:justify-center">
           <SocialLinks />
@@ -212,3 +159,111 @@ export default function About() {
     </PageContainer>
   );
 }
+const NewWording = () => {
+  return (
+    <div className="mt-6 text-base">
+      <p>
+        {`Helping people is great isn’t it? It’s been my primary motivator for as long as I can remember. I’ve tried my hand at a few different things over the years, but the ones that have stuck for the longest time are the experiences where I’ve walked away at the end of the day feeling like I’ve made a difference.`}
+      </p>
+      <p>
+        {`At the end of the long list of `}
+        <strong>
+          <Link href="#" className="text-accent-foreground">
+            Things That I’ve Tried
+          </Link>
+        </strong>
+        <span className="font-semibold text-accent-foreground">™</span>
+        {` is software developer. It’s what I’ve been doing with my time for the last 6(ish) years. That and learning the ways of married life (since 2019) and (forgive me for mentioning it) learning how to cope with the grief of losing my parents. Grief is tough and complex and one of the ways that I try to work through that grief is by (you guessed it) helping people!`}
+      </p>
+      <p>
+        {`On a daily basis I try to do this by solving problems with code, and on any given day, who I'm trying to help changes all the time. Clients, colleagues, end users all need help for different reasons when it comes to digital products and developers are uniquely positioned to assist.`}
+      </p>
+      <p>
+        {`So you might be wondering why is this bonkers guy going on and on about helping people instead of telling me about the applications he's built or the stacks that he works in?`}
+      </p>
+      <p>
+        {`Well, to this fabulous question I would answer that, as important as it is to highlight technical experience, if you're reading this, it might mean that you're interested in working with me which is great!`}
+      </p>
+      <p>
+        {`I want to let you know that my approach to building digital experiences starts and ends with helping people, because at the core of all of these beautiful bits and bytes are the people who come together with ideas for digital services and the people that use them.`}
+      </p>
+      <p>
+        {`Approaching that task with empathy, compassion and the ability to listen to others and to nurture the creative process is absolutely essential to building great digitial experiences that are meaningful and impactful.`}
+      </p>
+      <p>
+        {`But getting back to your fabulous question... shipping code is also damn important and fun!`}
+      </p>
+      <p>
+        {`Below is a brief summary of my experience as a developer. Each project has provided me with the opportunity to further my knowledge and
+        experience of the engineering process, and going forwards, maybe we
+        could put that experience to good use by... let's say it together... `}
+        <strong>helping you</strong>!
+      </p>
+      <p>
+        {`I'm Suneet, I have an `}
+        <strong>MSc in Computing</strong>
+        {` with my dissertation focussing on bringing cultural heritage experiences to those of limited mobility through the use of mixed reality technologies. I'm a graduate of the `}
+        <strong>
+          <Link
+            href="https://northcoders.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent-foreground"
+          >
+            Northcoders
+          </Link>
+        </strong>
+        {` Developer Pathway which I completed in 2019 and also a former member of the tuition team there, where I was proud to help other students on their route into dev.`}
+      </p>
+      <p>
+        {`Following my time at Northcoders, I've worked within both `}
+        <strong>agency</strong>
+        {` and `}
+        <strong>client-side</strong>
+        {` environments, on all aspects of `}
+        <strong>full-stack applications</strong>
+        {` for a variety of national and international brands. My experience includes `}
+        <strong>addressing technical debt</strong>
+        {` in existing projects, building `}
+        <strong>design systems</strong>
+        {` and `}
+        <strong>internal tooling</strong>
+        {`, designing and implementing `}
+        <strong>cloud infrastructure</strong>
+        {` and `}
+        <strong>CI/CD</strong> {` pipelines, `}
+        <strong>writing documentation</strong>
+        {`, `}
+        <strong>leading/mentoring junior developers</strong>
+        {` and setting up `}
+        <strong>greenfield projects</strong>
+      </p>
+      <p>
+        {`Although I have some experience working in java, ruby, and python, I'm most experienced with `}
+        <strong>node and TypeScript</strong>
+        {`. Its a versatile and vibrant stack where the tooling and libraries are constantly being moved forwards. It's also because I love building for the web!`}
+      </p>
+      <p>
+        {`My most recent experience as a team-member has been at `}
+        <strong>Lumin</strong>
+        {` as a fullstack developer where I helped to address technical debt in their legacy react application and to extend their utilisation of aws infrastructure to achieve improved performance and reliability at scale.`}
+      </p>
+      <p>{`Following this experience I have taken a short career break to catch my breath. A lot has happened in the last two years. The passing of my Mum in 2022 following an agressive terminal illness that took us all by surprise, and add to that a severe back injury whic followed on from the same period (which I'm now on the mend from), one change of workplace in 2023 and two house moves in 2024. I felt the need to step back and take a beat.`}</p>
+      <p>
+        {`I've caught my breath now and am hungry for the next step of my dev career, which is `}
+        <Link
+          href="https://pushorigin.co"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-accent-foreground"
+        >
+          Pushorigin ltd
+        </Link>
+        {`, my venture to build cool stuff with people that I love working with.`}
+      </p>
+      <p>
+        Hopefully, that will involve <strong>you</strong>!
+      </p>
+    </div>
+  );
+};
