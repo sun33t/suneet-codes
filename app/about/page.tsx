@@ -188,7 +188,7 @@ const NewWording = () => {
         {`I want to let you know that my approach to building digital experiences starts and ends with helping people, because at the core of all of these beautiful bits and bytes are the people who come together with ideas for digital services and the people that use them.`}
       </p>
       <p>
-        {`Approaching that task with empathy, compassion and the ability to listen to others and to nurture the creative process is absolutely essential to building great digitial experiences that are meaningful and impactful.`}
+        {`Approaching that task with empathy, compassion and the ability to listen to others and to nurture the creative process is absolutely essential to building great digital experiences that are meaningful and impactful.`}
       </p>
       <p>
         {`But getting back to your fabulous question... shipping code is also damn important and fun!`}
@@ -248,7 +248,7 @@ const NewWording = () => {
         <strong>Lumin</strong>
         {` as a fullstack developer where I helped to address technical debt in their legacy react application and to extend their utilisation of aws infrastructure to achieve improved performance and reliability at scale.`}
       </p>
-      <p>{`Following this experience I have taken a short career break to catch my breath. A lot has happened in the last two years. The passing of my Mum in 2022 following an agressive terminal illness that took us all by surprise, and add to that a severe back injury whic followed on from the same period (which I'm now on the mend from), one change of workplace in 2023 and two house moves in 2024. I felt the need to step back and take a beat.`}</p>
+      <p>{`Following this experience I have taken a short career break to catch my breath. A lot has happened in the last two years. The passing of my Mum in 2022 following an agressive terminal illness that took us all by surprise, and add to that a severe back injury which followed on from the same period (and thankfully I'm now on the mend from), one change of workplace in 2023 and two house moves in 2024. I felt the need to step back and take a beat.`}</p>
       <p>
         {`I've caught my breath now and am hungry for the next step of my dev career, which is `}
         <Link
