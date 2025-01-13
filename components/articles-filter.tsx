@@ -98,7 +98,7 @@ const ArticlesFilter = () => {
     [createQueryString, pathname, isSelected]
   );
   return (
-    <div className="mb-8 flex flex-row flex-wrap items-center gap-4">
+    <div className="mb-8 flex max-w-3xl flex-row flex-wrap items-center gap-4">
       <h2 className="flex-none text-base text-muted-foreground">
         Filter by category:
       </h2>
