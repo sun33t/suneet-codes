@@ -61,7 +61,7 @@ export default function Following() {
   );
   return (
     <PageContainer>
-      <PageIntro title="Developers and creative professionals whose work I follow.">
+      <PageIntro title="Creative professionals whose work I follow">
         <p>
           This industry is always changing and there&apos;s always new
           challenges to overcome. These are the people who I find inspiring and
@@ -72,7 +72,7 @@ export default function Following() {
         <div
           id="accordion"
           className="mx-auto max-w-2xl"
-          aria-label="List of followed developers and creative professionals"
+          aria-label="List of followed creative professionals"
         >
           <Accordion type="single" collapsible>
             {followingEntries.map((category) => {
