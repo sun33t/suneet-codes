@@ -50,10 +50,7 @@ export default function Projects() {
     <PageContainer>
       <PageIntro title="Projects">
         <p>
-          I’ve worked on many projects over the years as an employee but these
-          are the projects that I&apos;ve built myself as a freelance and
-          self-employed developer. I&apos;ve only just started so the list is
-          very small!
+          {`I've worked on many projects over the years as an employee but below are the ones that I've built myself as a freelance developer. It's a list of one right now but it's growing...`}
         </p>
       </PageIntro>
       <PageSection>
