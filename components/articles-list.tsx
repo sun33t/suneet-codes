@@ -8,11 +8,9 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "./link-card";
-import { buttonVariants } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
 import { type Article } from "content-collections";
-import Link from "next/link";
 import { Suspense } from "react";
 
 import { getArticlesByCategory } from "@/lib/articles";
@@ -69,29 +67,44 @@ const SkeletonCardList = () => {
   );
 };
 
-const NoArticlesCard = () => {
+const NoArticlesWrittenCard = () => {
   return (
-    <LinkCard>
+    <LinkCard className="h-full">
       <LinkCardHeader>
-        <LinkCardTitle>No matching articles</LinkCardTitle>
+        <LinkCardTitle>Articles Coming Soon</LinkCardTitle>
       </LinkCardHeader>
       <LinkCardContent>
         <LinkCardDescription>
-          Please try another combination of categories, or clear and try again
+          {`They're on the way, I just need to rewrite them so that they make sense to anyone other than myself.`}
         </LinkCardDescription>
       </LinkCardContent>
-      <LinkCardFooter>
-        <Link
-          href="/articles"
-          className={buttonVariants({ variant: "default", size: "sm" })}
-          aria-label="Clear filters"
-        >
-          Clear
-        </Link>
-      </LinkCardFooter>
     </LinkCard>
   );
 };
+
+// const NoArticlesCard = () => {
+//   return (
+//     <LinkCard>
+//       <LinkCardHeader>
+//         <LinkCardTitle>No matching articles</LinkCardTitle>
+//       </LinkCardHeader>
+//       <LinkCardContent>
+//         <LinkCardDescription>
+//           Please try another combination of categories, or clear and try again
+//         </LinkCardDescription>
+//       </LinkCardContent>
+//       <LinkCardFooter>
+//         <Link
+//           href="/articles"
+//           className={buttonVariants({ variant: "default", size: "sm" })}
+//           aria-label="Clear filters"
+//         >
+//           Clear
+//         </Link>
+//       </LinkCardFooter>
+//     </LinkCard>
+//   );
+// };
 
 const ArticleCard = ({ article }: { article: Article }) => {
   const formattedDate = formatDate(article.date);
@@ -149,7 +162,7 @@ const ArticlesList = async ({
             <ArticleCard key={article._meta.path} article={article} />
           ))
         ) : (
-          <NoArticlesCard />
+          <NoArticlesWrittenCard />
         )}
       </div>
     </div>
