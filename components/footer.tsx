@@ -27,7 +27,7 @@ export const Footer = ({ pages }: { pages: PageTitle[] }) => {
       <ContainerOuter>
         <div className="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
           <ContainerInner>
-            <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
               <div
                 className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium capitalize"
                 aria-label="Footer Navigation"
