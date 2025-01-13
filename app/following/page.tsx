@@ -64,7 +64,7 @@ export default function Following() {
       <PageIntro title="Creative professionals whose work I follow">
         <p>
           {`This industry is always changing and there are always new
-          challenges to overcome. These are the people who I find continuillay inspiring and
+          challenges to overcome. These are the people who I find continually inspiring and
           invaluable to learn from.`}
         </p>
       </PageIntro>
