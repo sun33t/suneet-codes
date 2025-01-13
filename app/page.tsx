@@ -78,7 +78,7 @@ const NoArticlesCard = () => {
           <Blockquote>
             “Silence is an empty space. Space is the home of the awakened mind.”
           </Blockquote>
-          <p className="pt-4 text-right">{`I can't believe it's not Buddha - 🧘`}</p>
+          <p className="pt-4 text-right">{`- 🧘 Buddha... maybe?`}</p>
         </LinkCardDescription>
       </LinkCardContent>
     </LinkCard>
