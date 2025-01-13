@@ -7,6 +7,8 @@ export const CATEGORYTITLES = [
   "javascript",
   "setup",
   "macOS",
+  "startups",
+  "inspiration",
 ] as const;
 
 type CategoryTitleWithSlug = {
@@ -14,11 +16,10 @@ type CategoryTitleWithSlug = {
   slug: string;
 };
 
-export const CATEGORYWITHSLUGS: CategoryTitleWithSlug[] = CATEGORYTITLES.map(
-  (title) => ({
+export const CATEGORYWITHSLUGS: CategoryTitleWithSlug[] =
+  CATEGORYTITLES.toSorted().map((title) => ({
     title,
     slug: slugify(title, { lower: true, trim: true, strict: true }),
-  })
-);
+  }));
 
 export const CATEGORY_PARAM_NAME = "category";
