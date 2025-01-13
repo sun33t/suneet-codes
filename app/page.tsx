@@ -17,6 +17,7 @@ import {
 import { PageIntro } from "@/components/page-intro";
 import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
+import { Blockquote } from "@/components/typography/blockquote";
 import { P } from "@/components/typography/paragraph";
 import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
@@ -60,6 +61,27 @@ const ArticleCard = ({ article }: { article: Article }) => {
         </LinkCardFooter>
       </LinkCard>
     </article>
+  );
+};
+
+const NoArticlesCard = () => {
+  return (
+    <LinkCard
+      href="https://fakebuddhaquotes.com/silence-is-an-empty-space-space-is-the-home-of-the-awakened-mind/"
+      isExternal
+    >
+      <LinkCardHeader>
+        <LinkCardTitle>Articles Coming Soon...</LinkCardTitle>
+      </LinkCardHeader>
+      <LinkCardContent>
+        <LinkCardDescription className="text-foreground">
+          <Blockquote>
+            “Silence is an empty space. Space is the home of the awakened mind.”
+          </Blockquote>
+          <p className="pt-4 text-right">{`I can't believe it's not Buddha - 🧘`}</p>
+        </LinkCardDescription>
+      </LinkCardContent>
+    </LinkCard>
   );
 };
 
@@ -107,13 +129,20 @@ export default function Home() {
       </Container>
       <Container className="mt-24 duration-1000 animate-in fade-in md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-          <div className="">
+          <div id="latest-articles-container">
             <div className="flex flex-col gap-16">
-              {latestArticles.map((article) => {
-                return (
-                  <ArticleCard key={article._meta.fileName} article={article} />
-                );
-              })}
+              {latestArticles.length > 0 ? (
+                latestArticles.map((article) => {
+                  return (
+                    <ArticleCard
+                      key={article._meta.fileName}
+                      article={article}
+                    />
+                  );
+                })
+              ) : (
+                <NoArticlesCard />
+              )}
             </div>
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
