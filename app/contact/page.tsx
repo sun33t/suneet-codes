@@ -17,7 +17,7 @@ export default function Contact() {
   return (
     <PageContainer>
       <PageIntro title="Contact">
-        <p>{`Book a time to catch up in my calendar, send me an email or, if you prefer, fill in an enquiry form and I'll come back to you as soon as I can.`}</p>
+        <p>{`You can book some time in my calendar, send me an email, or if you prefer, fill in an enquiry form and I'll come back to you as soon as I can.`}</p>
       </PageIntro>
       <PageSection>
         <Card className="mx-auto mb-16 max-w-xl px-6 py-6 shadow-none">
