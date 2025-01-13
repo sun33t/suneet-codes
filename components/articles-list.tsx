@@ -82,30 +82,6 @@ const NoArticlesWrittenCard = () => {
   );
 };
 
-// const NoArticlesCard = () => {
-//   return (
-//     <LinkCard>
-//       <LinkCardHeader>
-//         <LinkCardTitle>No matching articles</LinkCardTitle>
-//       </LinkCardHeader>
-//       <LinkCardContent>
-//         <LinkCardDescription>
-//           Please try another combination of categories, or clear and try again
-//         </LinkCardDescription>
-//       </LinkCardContent>
-//       <LinkCardFooter>
-//         <Link
-//           href="/articles"
-//           className={buttonVariants({ variant: "default", size: "sm" })}
-//           aria-label="Clear filters"
-//         >
-//           Clear
-//         </Link>
-//       </LinkCardFooter>
-//     </LinkCard>
-//   );
-// };
-
 const ArticleCard = ({ article }: { article: Article }) => {
   const formattedDate = formatDate(article.date);
   return (
