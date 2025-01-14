@@ -250,7 +250,7 @@ const NewWording = () => {
       </p>
       <p>{`Following this experience I have taken a short career break to catch my breath. A lot has happened in the last two years. The passing of my Mum in 2022 following an agressive terminal illness that took us all by surprise, and add to that a severe back injury which followed on from the same period (and thankfully I'm now on the mend from), one change of workplace in 2023 and two house moves in 2024. I felt the need to step back and take a beat.`}</p>
       <p>
-        {`I've caught my breath now and am hungry for futue projects. It's an exciting time to be a developer. LLM's, AI, advances in frontend and backend tooling and browser api's means that we're on a new frontier of how we build for the interactions and interfaces of tomorrow.`}
+        {`I've caught my breath now and am hungry for future projects. It's an exciting time to be a developer. LLM's, AI, advances in frontend and backend tooling and browser api's means that we're on a new frontier of how we build for the interactions and interfaces of tomorrow.`}
       </p>
       <p>
         {`I'm looking forwards to the possibility of building cool stuff with people that I love working with. Hopefully, that will be `}
