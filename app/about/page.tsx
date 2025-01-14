@@ -173,7 +173,7 @@ const NewWording = () => {
           </Link>
         </strong>
         <span className="font-semibold text-accent-foreground">™</span>
-        {` is software developer. It’s what I’ve been doing with my time for the last 6(ish) years. That and learning the ways of married life (since 2019) and (forgive me for mentioning it) learning how to cope with the grief of losing my parents. Grief is tough and complex and one of the ways that I try to work through that grief is by (you guessed it) helping people!`}
+        {` is software developer. It’s what I’ve been doing with my time for the last 6(ish) years. That and learning the ways of married life (since 2019) and (forgive me for mentioning it) learning how to cope with the grief of losing my parents. Grief is tough and complex and one of the ways that I try to work through that grief is by (you guessed it) helping people! I am eternally grateful for the people in my life who are helping me.`}
       </p>
       <p>
         {`On a daily basis I try to do this by solving problems with code, and on any given day, who I'm trying to help changes all the time. Clients, colleagues, end users all need help for different reasons when it comes to digital products and developers are uniquely positioned to assist.`}
@@ -250,19 +250,11 @@ const NewWording = () => {
       </p>
       <p>{`Following this experience I have taken a short career break to catch my breath. A lot has happened in the last two years. The passing of my Mum in 2022 following an agressive terminal illness that took us all by surprise, and add to that a severe back injury which followed on from the same period (and thankfully I'm now on the mend from), one change of workplace in 2023 and two house moves in 2024. I felt the need to step back and take a beat.`}</p>
       <p>
-        {`I've caught my breath now and am hungry for the next step of my dev career, which is `}
-        <Link
-          href="https://pushorigin.co"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-accent-foreground"
-        >
-          Pushorigin ltd
-        </Link>
-        {`, my venture to build cool stuff with people that I love working with.`}
+        {`I've caught my breath now and am hungry for futue projects. It's an exciting time to be a developer. LLM's, AI, advances in frontend and backend tooling and browser api's means that we're on a new frontier of how we build for the interactions and interfaces of tomorrow.`}
       </p>
       <p>
-        Hopefully, that will involve <strong>you</strong>!
+        {`I'm looking forwards to the possibility of building cool stuff with people that I love working with. Hopefully, that will be `}
+        <strong>you</strong>!
       </p>
     </div>
   );
