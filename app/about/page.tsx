@@ -199,8 +199,11 @@ const NewWording = () => {
         could put that experience to good use by... let's say it together... `}
         <strong>helping you</strong>!
       </p>
+      <div className="mt-8 lg:mt-4">
+        <h2 className="text-2xl font-bold">My experience:</h2>
+      </div>
       <p>
-        {`I'm Suneet, I have an `}
+        {`Hi! I'm Suneet, I have an `}
         <strong>MSc in Computing</strong>
         {` with my dissertation focussing on bringing cultural heritage experiences to those of limited mobility through the use of mixed reality technologies. I'm a graduate of the `}
         <strong>
