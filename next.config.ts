@@ -1,6 +1,10 @@
 import { withContentCollections } from "@content-collections/next";
 import createMDX from "@next/mdx";
-import { recmaCodeHike, remarkCodeHike } from "codehike/mdx";
+import {
+  type CodeHikeConfig,
+  recmaCodeHike,
+  remarkCodeHike,
+} from "codehike/mdx";
 import type { NextConfig } from "next";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
@@ -12,7 +16,7 @@ const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-const chConfig = {
+const chConfig: CodeHikeConfig = {
   components: { code: "Code" },
 };
 
