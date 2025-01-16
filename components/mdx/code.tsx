@@ -1,4 +1,5 @@
 import { CopyButton } from "./copy-button";
+import { wordWrap } from "./word-wrap";
 
 import clsx from "clsx";
 import { Pre, RawCode, highlight } from "codehike/code";
@@ -19,7 +20,7 @@ export async function Code({ codeblock }: { codeblock: RawCode }) {
         )}
       </div>
       <CopyButton text={highlighted.code} />
-      <Pre code={highlighted} className={preClasses} />
+      <Pre code={highlighted} className={preClasses} handlers={[wordWrap]} />
     </div>
   );
 }
