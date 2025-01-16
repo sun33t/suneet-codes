@@ -4,6 +4,7 @@ import {
   defineConfig,
 } from "@content-collections/core";
 import { type MDXContent } from "mdx/types";
+import path from "path";
 
 import { CATEGORYTITLES } from "@/content/categories";
 
@@ -27,7 +28,7 @@ const articles = defineCollection({
   }),
   transform: ({ _meta, ...article }) => {
     const mdx = createDefaultImport<MDXContent>(
-      `@/content/articles/${_meta.filePath}`
+      path.join("@/content/articles", _meta.filePath)
     );
     return {
       ...article,
