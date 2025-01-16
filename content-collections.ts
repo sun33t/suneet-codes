@@ -1,6 +1,9 @@
-import { defineCollection, defineConfig } from "@content-collections/core";
-import { compileMDX } from "@content-collections/mdx";
-import rehypePrettyCode from "rehype-pretty-code";
+import {
+  createDefaultImport,
+  defineCollection,
+  defineConfig,
+} from "@content-collections/core";
+import { type MDXContent } from "mdx/types";
 
 import { CATEGORYTITLES } from "@/content/categories";
 
@@ -8,8 +11,10 @@ const articles = defineCollection({
   name: "articles",
   directory: "./content/articles",
   include: "**/*.mdx",
+  parser: "frontmatter",
   schema: (z) => ({
     title: z.string(),
+    slug: z.string(),
     author: z.string(),
     isPublished: z.boolean().default(false),
     date: z.string().date(),
@@ -20,20 +25,12 @@ const articles = defineCollection({
       .array(z.enum(CATEGORYTITLES))
       .min(1, { message: "At least one category is required" }),
   }),
-  transform: async (document, context) => {
-    const mdx = await compileMDX(context, document, {
-      rehypePlugins: [
-        [
-          rehypePrettyCode,
-          {
-            theme: "dracula",
-            grid: false,
-          },
-        ],
-      ],
-    });
+  transform: ({ _meta, ...article }) => {
+    const mdx = createDefaultImport<MDXContent>(
+      `@/content/articles/${_meta.filePath}`
+    );
     return {
-      ...document,
+      ...article,
       mdx,
     };
   },

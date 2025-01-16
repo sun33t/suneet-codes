@@ -42,10 +42,7 @@ function SocialLink({
 const ArticleCard = ({ article }: { article: Article }) => {
   return (
     <article>
-      <LinkCard
-        key={article._meta.fileName}
-        href={`/articles/${article._meta.path}`}
-      >
+      <LinkCard key={article.slug} href={`/articles/${article.slug}`}>
         <LinkCardHeader>
           <LinkCardEyebrow>
             <time dateTime={article.date}>{formatDate(article.date)}</time>
@@ -158,12 +155,7 @@ export default function Home() {
             <div className="flex flex-col gap-16">
               {latestArticles.length > 0 ? (
                 latestArticles.map((article) => {
-                  return (
-                    <ArticleCard
-                      key={article._meta.fileName}
-                      article={article}
-                    />
-                  );
+                  return <ArticleCard key={article.slug} article={article} />;
                 })
               ) : (
                 <NoArticlesCard />

@@ -1,8 +1,32 @@
 import { withContentCollections } from "@content-collections/next";
+import createMDX from "@next/mdx";
+import { recmaCodeHike, remarkCodeHike } from "codehike/mdx";
 import type { NextConfig } from "next";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 import "@/app/env";
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+};
 
-export default withContentCollections(nextConfig);
+const chConfig = {
+  components: { code: "Code" },
+};
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [
+      remarkFrontmatter,
+      remarkMdxFrontmatter,
+      [remarkCodeHike, chConfig],
+    ],
+    rehypePlugins: [],
+    recmaPlugins: [[recmaCodeHike, chConfig]],
+    jsx: true,
+  },
+});
+
+export default withContentCollections(withMDX(nextConfig));

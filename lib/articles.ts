@@ -26,10 +26,10 @@ export const getArticlesByCategory = ({
   return articlesByCategory;
 };
 
-export const getArticleByFilename = (filename: Article["_meta"]["path"]) => {
+export const getArticleBySlug = (slug: Article["slug"]) => {
   return (
     allArticles.find(
-      (article) => article._meta.path === filename && article.isPublished
+      (article) => article.slug === slug && article.isPublished
     ) ?? null
   );
 };
