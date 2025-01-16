@@ -15,12 +15,7 @@ const articles = defineCollection({
   parser: "frontmatter",
   schema: (z) => ({
     title: z.string(),
-    slug: z
-      .string()
-      .regex(
-        /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-        "Slug must only be a series of words seperated by a hyphen"
-      ),
+    slug: z.string(),
     author: z.string(),
     isPublished: z.boolean().default(false),
     date: z.string().date(),
