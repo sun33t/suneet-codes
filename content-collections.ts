@@ -4,7 +4,7 @@ import {
   defineConfig,
 } from "@content-collections/core";
 import { type MDXContent } from "mdx/types";
-import path from "path";
+import path from "node:path";
 
 import { CATEGORYTITLES } from "@/content/categories";
 
