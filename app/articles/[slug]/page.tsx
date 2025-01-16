@@ -5,8 +5,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { env } from "@/app/env";
+import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
+import { Code } from "@/components/mdx/code";
 import { getArticleBySlug } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 
@@ -102,7 +104,7 @@ export default async function Page({
                     })}
                   </div>
                 </header>
-                <MdxContent />
+                <MdxContent components={{ SuspendedArticleImage, Code }} />
               </div>
             </article>
           )}
