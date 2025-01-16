@@ -24,7 +24,12 @@ export default function Error({
         <Alert variant={"default"} className="mx-auto mt-8 max-w-lg text-left">
           <Terminal className="h-4 w-4" />
           <AlertTitle className="font-semibold">Error!</AlertTitle>
-          <AlertDescription>{`message: "${error.message}"`}</AlertDescription>
+          <AlertDescription>
+            {`message: "${error.message}"`}
+            {error.digest && (
+              <p className="mt-2">{`Reference: ${error.digest}`}</p>
+            )}
+          </AlertDescription>
         </Alert>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link href="/" className={buttonVariants({ variant: "default" })}>
