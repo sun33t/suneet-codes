@@ -1,4 +1,3 @@
-import { MDXContent } from "@content-collections/mdx/react";
 import { allArticles } from "content-collections";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
@@ -6,21 +5,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { env } from "@/app/env";
-import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
-import { getArticleByFilename } from "@/lib/articles";
+import { getArticleBySlug } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
-import "@/styles/markdown.css";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  const slugs = allArticles.map((article) => ({
-    slug: article._meta.path,
-  }));
+  const slugs = allArticles
+    .filter((article) => article.isPublished)
+    .map((article) => ({
+      slug: article.slug,
+    }));
 
   return slugs;
 }
@@ -28,7 +27,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const slug = (await params).slug;
-  const article = getArticleByFilename(slug);
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
@@ -61,11 +60,13 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  const article = getArticleByFilename(slug);
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
   }
+
+  const MdxContent = article.mdx;
 
   return (
     <Container
@@ -101,14 +102,7 @@ export default async function Page({
                     })}
                   </div>
                 </header>
-                <MDXContent
-                  code={article.mdx}
-                  components={{
-                    SuspendedArticleImage(props) {
-                      return <SuspendedArticleImage {...props} />;
-                    },
-                  }}
-                />
+                <MdxContent />
               </div>
             </article>
           )}

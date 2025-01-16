@@ -1,11 +1,13 @@
 import { allArticles } from "content-collections";
 import { MetadataRoute } from "next";
 
-import { getArticleByFilename } from "@/lib/articles";
+import { getArticleBySlug } from "@/lib/articles";
 import { baseUrl } from "@/lib/baseUrl";
 
 export async function generateSitemaps() {
-  const ids = allArticles.map((article) => ({ id: article._meta.path }));
+  const ids = allArticles
+    .filter((article) => article.isPublished)
+    .map((article) => ({ id: article.slug }));
 
   if (!ids.length) {
     return [];
@@ -18,7 +20,7 @@ export default async function sitemap({
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
-  const article = await getArticleByFilename(id);
+  const article = await getArticleBySlug(id);
   const url = new URL(id, baseUrl);
 
   if (!article) {

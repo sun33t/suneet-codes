@@ -95,10 +95,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
           ></span>
         </p>
       </div>
-      <LinkCard
-        href={`/articles/${article._meta.path}`}
-        className="md:col-span-3"
-      >
+      <LinkCard href={`/articles/${article.slug}`} className="md:col-span-3">
         <LinkCardHeader>
           <LinkCardEyebrow className="md:hidden">
             <time dateTime={article.date}>{formatDate(article.date)}</time>
@@ -135,7 +132,7 @@ const ArticlesList = async ({
       <div className="flex max-w-3xl flex-col space-y-16">
         {articles.length > 0 ? (
           articles.map((article) => (
-            <ArticleCard key={article._meta.path} article={article} />
+            <ArticleCard key={article.slug} article={article} />
           ))
         ) : (
           <NoArticlesWrittenCard />
