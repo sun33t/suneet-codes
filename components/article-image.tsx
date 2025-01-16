@@ -28,6 +28,7 @@ const SkeletonArticleImage = ({
 export const ArticleImage = async ({
   src,
   alt,
+  title,
   aspectRatio = 16 / 9,
 }: ArticleImageProps) => {
   const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
@@ -44,6 +45,7 @@ export const ArticleImage = async ({
         />
       ) : (
         <CloudinaryImage
+          title={title}
           src={imageSrc}
           alt={alt}
           fill={true}
