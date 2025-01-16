@@ -11,7 +11,7 @@ export async function Code({ codeblock }: { codeblock: RawCode }) {
     highlighted.meta ? "rounded-t-none" : "rounded-t-xl"
   );
   return (
-    <div className="relative my-8">
+    <div className="relative my-8" role="region" aria-label="Code block">
       <div className="rounded-t-xl bg-[var(--tw-prose-pre-bg)] px-4">
         {highlighted.meta && (
           <div className="py-2 text-center text-sm text-zinc-400">
