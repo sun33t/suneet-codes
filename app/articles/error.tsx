@@ -8,7 +8,7 @@ import { Container } from "@/components/container";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { buttonVariants } from "@/components/ui/button";
 
-export default function Error({
+export default function ArticlesError({
   error,
 }: {
   error: Error & { digest?: string };
@@ -20,7 +20,7 @@ export default function Error({
   }, [error]);
   return (
     <Container className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
-      <main role="main" aria-label="404 error page" className="text-center">
+      <main role="main" aria-label="Error page" className="text-center">
         <Alert variant={"default"} className="mx-auto mt-8 max-w-lg text-left">
           <Terminal className="h-4 w-4" />
           <AlertTitle className="font-semibold">Error!</AlertTitle>
