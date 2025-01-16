@@ -5,7 +5,7 @@ import { getArticleBySlug } from "@/lib/articles";
 import { baseUrl } from "@/lib/baseUrl";
 
 export async function generateSitemaps() {
-  const ids = allArticles
+  const ids = await allArticles
     .filter((article) => article.isPublished)
     .map((article) => ({ id: article.slug }));
 
