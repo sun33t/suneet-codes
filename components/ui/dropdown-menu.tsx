@@ -80,17 +80,32 @@ const DropdownMenuItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
     inset?: boolean;
   }
->(({ className, inset, ...props }, ref) => (
-  <DropdownMenuPrimitive.Item
-    ref={ref}
-    className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0",
-      inset && "pl-8",
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, inset, onClick, disabled, ...rest }, ref) => {
+  const memoizedOnClick = React.useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (args: any) => onClick!(args),
+    [onClick]
+  );
+  const computedClassName = React.useMemo(
+    () =>
+      cn(
+        "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0",
+        inset && "pl-8",
+        className
+      ),
+    [className, inset]
+  );
+
+  return (
+    <DropdownMenuPrimitive.Item
+      ref={ref}
+      className={computedClassName}
+      onClick={memoizedOnClick}
+      disabled={disabled}
+      {...rest} // Only spread rest if absolutely necessary
+    />
+  );
+});
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
 
 const DropdownMenuCheckboxItem = React.forwardRef<

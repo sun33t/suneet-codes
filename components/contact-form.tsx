@@ -14,7 +14,13 @@ import { Textarea } from "./ui/textarea";
 
 import DOMPurify from "dompurify";
 import { RefreshCw } from "lucide-react";
-import { useActionState, useEffect, useState } from "react";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { createEnquiry } from "@/app/contact/action";
 import { env } from "@/app/env";
@@ -84,29 +90,33 @@ export const ContactForm = () => {
     }
   }, [state?.errorMessage, state?.success, toast]);
 
-  const formAction = (formData: FormData) => {
-    if (!token) {
-      return;
-    }
-    const data = Object.fromEntries(formData.entries());
-    const sanitizedFormData = new FormData();
-    for (const key in data) {
-      sanitizedFormData.append(
-        key,
-        DOMPurify.sanitize(data[key].toString(), {
-          USE_PROFILES: {
-            html: false,
-            svg: false,
-            mathMl: false,
-            svgFilters: false,
-          },
-        })
-      );
-    }
-    dispatch(sanitizedFormData);
-  };
-  return (
-    <Card className="mx-auto max-w-xl shadow-none">
+  const formAction = useCallback(
+    (formData: FormData) => {
+      if (!token) {
+        return;
+      }
+      const data = Object.fromEntries(formData.entries());
+      const sanitizedFormData = new FormData();
+      for (const key in data) {
+        sanitizedFormData.append(
+          key,
+          DOMPurify.sanitize(data[key].toString(), {
+            USE_PROFILES: {
+              html: false,
+              svg: false,
+              mathMl: false,
+              svgFilters: false,
+            },
+          })
+        );
+      }
+      dispatch(sanitizedFormData);
+    },
+    [dispatch, token]
+  );
+
+  const memoizedCardContent = useMemo(
+    () => (
       <CardContent className="px-12 py-6">
         <form action={formAction} className="max-w-xl" aria-busy={isPending}>
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
@@ -233,6 +243,11 @@ export const ContactForm = () => {
           </p>
         </form>
       </CardContent>
-    </Card>
+    ),
+    [state, isPending, token, formAction]
+  );
+
+  return (
+    <Card className="mx-auto max-w-xl shadow-none">{memoizedCardContent}</Card>
   );
 };

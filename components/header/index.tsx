@@ -4,7 +4,7 @@ import { DesktopNavigation } from "./desktop-navigation";
 import { MobileNavigation } from "./mobile-navigation";
 
 import { usePathname } from "next/navigation";
-import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
+import { ComponentPropsWithoutRef, useEffect, useMemo, useRef } from "react";
 
 import { AvatarContainer } from "@/components/avatar";
 import { Container } from "@/components/container";
@@ -31,6 +31,21 @@ export const Header = ({
   const headerRef = useRef<React.ComponentRef<"div">>(null);
   const avatarRef = useRef<React.ComponentRef<"div">>(null);
   const isInitial = useRef(true);
+
+  const memoizedPages = useMemo(() => pages, [pages]);
+
+  const containerStyle = useMemo<React.CSSProperties>(
+    () => ({
+      position:
+        "var(--header-inner-position)" as React.CSSProperties["position"],
+    }),
+    []
+  );
+
+  const memoizedHeaderAvatar = useMemo(
+    () => <AvatarContainer>{headerAvatar}</AvatarContainer>,
+    [headerAvatar]
+  );
 
   useEffect(() => {
     const downDelay = avatarRef.current?.offsetTop ?? 0;
@@ -157,10 +172,7 @@ export const Header = ({
             >
               <div
                 className="top-[var(--avatar-top,theme(spacing.3))] w-full"
-                style={{
-                  position:
-                    "var(--header-inner-position)" as React.CSSProperties["position"],
-                }}
+                style={containerStyle}
               >
                 <div className="relative">
                   <AvatarContainer
@@ -186,24 +198,19 @@ export const Header = ({
         >
           <Container
             className="top-[var(--header-top,theme(spacing.6))] w-full"
-            style={{
-              position:
-                "var(--header-inner-position)" as React.CSSProperties["position"],
-            }}
+            style={containerStyle}
           >
             <div className="relative flex gap-4">
               <div className="flex flex-1">
-                {!isHomePage && (
-                  <AvatarContainer>{headerAvatar}</AvatarContainer>
-                )}
+                {!isHomePage && memoizedHeaderAvatar}
               </div>
               <div
                 id="mobile-nav-container"
                 className="flex flex-1 justify-end md:justify-center"
               >
-                <MobileNavigation pages={pages} />
+                <MobileNavigation pages={memoizedPages} />
                 <DesktopNavigation
-                  pages={pages}
+                  pages={memoizedPages}
                   className="pointer-events-auto hidden md:block"
                 />
               </div>

@@ -5,7 +5,7 @@ import { Skeleton } from "./ui/skeleton";
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useMemo } from "react";
+import { Suspense, memo, useCallback, useMemo } from "react";
 
 import { CATEGORYWITHSLUGS, CATEGORY_PARAM_NAME } from "@/content/categories";
 
@@ -26,7 +26,7 @@ const SkeletonFilter = () => {
   );
 };
 
-const ArticlesFilter = () => {
+const ArticlesFilter = memo(() => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const categoryParamName = CATEGORY_PARAM_NAME;
@@ -112,7 +112,9 @@ const ArticlesFilter = () => {
       </div>
     </div>
   );
-};
+});
+
+ArticlesFilter.displayName = "ArticlesFilter";
 
 export const SuspendedArticlesFilter = () => {
   return (
