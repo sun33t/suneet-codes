@@ -21,13 +21,19 @@ export default function ArticlesError({
   return (
     <Container className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
       <main role="main" aria-label="Error page" className="text-center">
-        <Alert variant={"default"} className="mx-auto mt-8 max-w-lg text-left">
+        <Alert
+          variant={"default"}
+          className="mx-auto mt-8 max-w-lg text-left"
+          aria-live="polite"
+        >
           <Terminal className="h-4 w-4" />
-          <AlertTitle className="font-semibold">Error!</AlertTitle>
+          <AlertTitle className="font-semibold">
+            An error occurred whilst loading articles
+          </AlertTitle>
           <AlertDescription>
-            {`message: "${error.message}"`}
+            {error.message}
             {error.digest && (
-              <p className="mt-2">{`Reference: ${error.digest}`}</p>
+              <p className="mt-2">{`Reference ID: ${error.digest}`}</p>
             )}
           </AlertDescription>
         </Alert>
