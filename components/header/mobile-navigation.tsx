@@ -1,7 +1,7 @@
 import { MobileNavItem } from "./mobile-nav-item";
 
 import { ChevronDown } from "lucide-react";
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,13 +15,22 @@ const MemoizedNavItem = memo(MobileNavItem);
 
 type MobileNavigationProps = { pages: PageTitle[] };
 
-export const MobileNavigation = ({ pages }: MobileNavigationProps) => {
+export const MobileNavigation = memo(({ pages }: MobileNavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
   return (
     <DropdownMenu open={isMenuOpen}>
       <DropdownMenuTrigger asChild>
         <Button
-          onClick={() => setIsMenuOpen((prev) => !prev)}
+          onClick={toggleMenu}
           className="pointer-events-auto rounded-md bg-white/90 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10"
           variant="outline"
         >
@@ -33,19 +42,19 @@ export const MobileNavigation = ({ pages }: MobileNavigationProps) => {
       <DropdownMenuContent
         align="end"
         className="rounded-md bg-white/90 text-sm font-medium capitalize shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
-        onInteractOutside={() => setIsMenuOpen(false)}
-        onEscapeKeyDown={() => setIsMenuOpen(false)}
+        onInteractOutside={closeMenu}
+        onEscapeKeyDown={closeMenu}
       >
-        {pages.map(({ title }) => {
-          return (
-            <MemoizedNavItem
-              key={`${title}-mob`}
-              title={title}
-              setIsMenuOpen={setIsMenuOpen}
-            />
-          );
-        })}
+        {pages.map(({ title }) => (
+          <MemoizedNavItem
+            key={`${title}-mob`}
+            title={title}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
+});
+
+MobileNavigation.displayName = "MobileNavigation";
