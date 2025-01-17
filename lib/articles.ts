@@ -6,6 +6,16 @@ const articlesSortedByDate = allArticles
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 
+export const getPublishedArticles = async () => {
+  return await allArticles.filter((article) => article.isPublished);
+};
+
+export const getPublishedArticleSlugs = async () => {
+  return (await getPublishedArticles()).map((article) => ({
+    slug: article.slug,
+  }));
+};
+
 export const getArticlesByCategory = ({
   category,
 }: {
@@ -26,12 +36,10 @@ export const getArticlesByCategory = ({
   return articlesByCategory;
 };
 
-export const getArticleBySlug = (slug: Article["slug"]) => {
-  return (
-    allArticles.find(
-      (article) => article.slug === slug && article.isPublished
-    ) ?? null
-  );
+export const getArticleBySlug = async (slug: Article["slug"]) => {
+  return await (allArticles.find(
+    (article) => article.slug === slug && article.isPublished
+  ) ?? null);
 };
 
 export const latestArticles = articlesSortedByDate.slice(0, 3);

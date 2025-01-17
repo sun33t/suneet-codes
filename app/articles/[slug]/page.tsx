@@ -1,4 +1,3 @@
-import { allArticles } from "content-collections";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 import Link from "next/link";
@@ -9,7 +8,7 @@ import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { Code } from "@/components/mdx/code";
-import { getArticleBySlug } from "@/lib/articles";
+import { getArticleBySlug, getPublishedArticleSlugs } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 
 type Props = {
@@ -17,11 +16,7 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const slugs = allArticles
-    .filter((article) => article.isPublished)
-    .map((article) => ({
-      slug: article.slug,
-    }));
+  const slugs = await getPublishedArticleSlugs();
 
   return slugs;
 }
@@ -29,7 +24,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const slug = (await params).slug;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     notFound();
@@ -62,7 +57,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     notFound();
