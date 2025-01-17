@@ -6,10 +6,11 @@ import { useEffect } from "react";
 
 import { Container } from "@/components/container";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function ArticlesError({
   error,
+  reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
@@ -38,8 +39,11 @@ export default function ArticlesError({
           </AlertDescription>
         </Alert>
         <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Link href="/" className={buttonVariants({ variant: "default" })}>
-            Go Back Home
+          <Button variant="default" onClick={reset}>
+            Try Again
+          </Button>
+          <Link href="/" className={buttonVariants({ variant: "secondary" })}>
+            Go Home
           </Link>
         </div>
       </main>
