@@ -8,7 +8,7 @@ import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { Code } from "@/components/mdx/code";
-import { getArticleBySlug, getPublishedArticleSlugs } from "@/lib/articles";
+import { getArticleBySlug, publishedArticleSlugs } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const slugs = await getPublishedArticleSlugs();
+  const slugs = publishedArticleSlugs;
 
   return slugs;
 }
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const slug = (await params).slug;
-  const article = await getArticleBySlug(slug);
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
@@ -57,7 +57,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  const article = await getArticleBySlug(slug);
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
