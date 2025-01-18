@@ -51,13 +51,13 @@ export const Turnstile: React.FC<TurnstileProps> = memo(
 
     const cleanup = useCallback(() => {
       if (widgetRef.current) {
-        window.turnstile?.remove(widgetRef.current);
+        window?.turnstile?.remove(widgetRef.current);
         widgetRef.current = undefined;
       }
     }, []);
 
     const renderWidget = useCallback(() => {
-      if (!containerRef.current || !window.turnstile) return;
+      if (!containerRef.current || !window?.turnstile) return;
 
       const size =
         window && window.matchMedia("(max-width: 440px)").matches
@@ -66,7 +66,7 @@ export const Turnstile: React.FC<TurnstileProps> = memo(
 
       cleanup();
 
-      widgetRef.current = window.turnstile.render(containerRef.current, {
+      widgetRef.current = window?.turnstile.render(containerRef.current, {
         sitekey: sandbox ? "1x00000000000000000000AA" : siteKey,
         callback: onVerify,
         "error-callback": onError,
