@@ -59,7 +59,7 @@ const ArticlesFilter = memo(() => {
     [searchParams, categoryParamName]
   );
 
-  const ClearFilter = () => {
+  const ClearFilter = memo(() => {
     const router = useRouter();
     return (
       <Button
@@ -76,7 +76,9 @@ const ArticlesFilter = memo(() => {
         clear
       </Button>
     );
-  };
+  });
+
+  ClearFilter.displayName = "ClearFilter";
 
   const renderedCategories = useMemo(
     () =>
