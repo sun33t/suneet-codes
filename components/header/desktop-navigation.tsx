@@ -22,6 +22,14 @@ export const DesktopNavigation = memo(
         </ul>
       </nav>
     );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.pages.length === nextProps.pages.length &&
+      prevProps.pages.every((page, index) => {
+        return (page.title = nextProps.pages[index].title);
+      })
+    );
   }
 );
 
