@@ -27,7 +27,7 @@ export const DesktopNavigation = memo(
     return (
       prevProps.pages.length === nextProps.pages.length &&
       prevProps.pages.every((page, index) => {
-        return (page.title = nextProps.pages[index].title);
+        return page.title === nextProps.pages[index].title;
       })
     );
   }
