@@ -82,8 +82,7 @@ const DropdownMenuItem = React.forwardRef<
   }
 >(({ className, inset, onClick, disabled, ...rest }, ref) => {
   const memoizedOnClick = React.useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (args: any) => onClick!(args),
+    (args: React.MouseEvent<HTMLDivElement>) => onClick!(args),
     [onClick]
   );
   const computedClassName = React.useMemo(
