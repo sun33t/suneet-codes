@@ -92,8 +92,8 @@ export default function Home() {
           <PageIntro title={env.PROJECT_AUTHOR}>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                👋, I&apos;m a developer and founder based in the UK. I&apos;ve
-                been building software in the{" "}
+                👋, I&apos;m a developer based in the UK. I&apos;ve been
+                building software in the{" "}
                 <span className="font-semibold text-foreground underline">
                   e-commerce
                 </span>
@@ -116,28 +116,34 @@ export default function Home() {
                 .
               </p>
               <p>
-                My goal is to create experiences which{" "}
+                My aspiration is to create digital services which{" "}
                 <span className="font-semibold text-foreground underline">
                   build community
                 </span>{" "}
-                and{" "}
+                and provide{" "}
                 <span className="font-semibold text-foreground underline">
-                  respect users&apos; privacy
-                </span>
-                .
+                  meaningful value
+                </span>{" "}
+                to those who use them.
               </p>
               <p>
-                When I&apos;m not working, I like to cook and travel with my
-                wife and spend time in the outdoors with my friends.
+                If you would like to learn more about my dev experience, check
+                out my{" "}
+                <Link
+                  className="font-semibold text-accent-foreground"
+                  href="/about"
+                >
+                  about page
+                </Link>
+                , or use the links below.
+              </p>
+              <p>
+                When I&apos;m not working or learning new skills, I like to
+                read, cook, travel with my wife and spend time in the outdoors
+                with my friends.
               </p>
             </div>
             <div className="mt-6 flex gap-2">
-              {/* <SocialLink href="#" aria-label="Follow on X" icon={XIcon} /> */}
-              {/* <SocialLink
-              href="#"
-              aria-label="Follow on Instagram"
-              icon={InstagramIcon}
-            /> */}
               <SocialLink
                 href={env.PROJECT_GITHUB_URL}
                 aria-label="Follow on GitHub"
