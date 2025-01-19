@@ -4,11 +4,11 @@ import { env } from "@/app/env";
 import { Page, PageTitle } from "@/types";
 
 export const PAGE_TITLES: PageTitle[] = [
+  { title: "projects" },
   { title: "about" },
   { title: "articles" },
-  { title: "projects" },
-  { title: "following" },
   { title: "uses" },
+  { title: "following" },
   { title: "contact" },
 ];
 
