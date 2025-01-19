@@ -165,39 +165,15 @@ const NewWording = () => {
       <p>
         {`Helping people is great isn’t it? It’s been my primary motivator for as long as I can remember. I’ve tried my hand at a few different things over the years, but the ones that have stuck for the longest time are the experiences where I’ve walked away at the end of the day feeling like I’ve made a difference.`}
       </p>
-      <p>
-        {`At the end of the long list of `}
-        <strong>
-          <Link href="#" className="text-accent-foreground">
-            Things That I’ve Tried
-          </Link>
-        </strong>
-        <span className="font-semibold text-accent-foreground">™</span>
-        {` is software developer. It’s what I’ve been doing with my time for the last 6(ish) years. That and learning the ways of married life (since 2019) and (forgive me for mentioning it) learning how to cope with the grief of losing my parents. Grief is tough and complex and one of the ways that I try to work through that grief is by (you guessed it) helping people! I am eternally grateful for the people in my life who are helping me.`}
-      </p>
-      <p>
-        {`On a daily basis I try to do this by solving problems with code, and on any given day, who I'm trying to help changes all the time. Clients, colleagues, end users all need help for different reasons when it comes to digital products and developers are uniquely positioned to assist.`}
-      </p>
-      <p>
-        {`So you might be wondering why is this bonkers guy going on and on about helping people instead of telling me about the applications he's built or the stacks that he works in?`}
-      </p>
-      <p>
-        {`Well, to this fabulous question I would answer that, as important as it is to highlight technical experience, if you're reading this, it might mean that you're interested in working with me which is great!`}
-      </p>
-      <p>
-        {`I want to let you know that my approach to building digital experiences starts and ends with helping people, because at the core of all of these beautiful bits and bytes are the people who come together with ideas for digital services and the people that use them.`}
-      </p>
+      <p>{`My approach to building digital services starts and ends with helping people, because at the core of all of those beautiful bits and bytes are the people who come together with an idea for a service, and the people that use them.`}</p>
       <p>
         {`Approaching that task with empathy, compassion and the ability to listen to others and to nurture the creative process is absolutely essential to building great digital experiences that are meaningful and impactful.`}
       </p>
       <p>
-        {`But getting back to your fabulous question... shipping code is also damn important and fun!`}
+        {`On a daily basis I try to do this by solving problems with code, collaborating with teams mates/clients, listening and acting upon feedback from all users and by contributing to a culture of self-improvement and learning. I have to understand the why behind what we're building, before I can best help the team, and myself to achieve the goals that we've set.`}
       </p>
       <p>
-        {`Below is a brief summary of my experience as a developer. Each project has provided me with the opportunity to further my knowledge and
-        experience of the engineering process, and going forwards, maybe we
-        could put that experience to good use by... let's say it together... `}
-        <strong>helping you</strong>!
+        {`With that said, I also love to ship code! Below is a brief summary of my experience as a developer. Each project has provided me with the opportunity to further my knowledge and understanding of the engineering process. The more I build, the more I want to build! (seriously, I think I have a problem...)`}
       </p>
       <div className="mt-8 lg:mt-4">
         <h2 className="text-2xl font-bold">My experience:</h2>
@@ -244,20 +220,17 @@ const NewWording = () => {
       <p>
         {`Although I have some experience working in java, ruby, and python, I'm most experienced with `}
         <strong>node and TypeScript</strong>
-        {`. Its a versatile and vibrant stack where the tooling and libraries are constantly being moved forwards. It's also because I love building for the web!`}
+        {`. Its a versatile and vibrant stack where the tooling and libraries are constantly being moved forwards.`}
       </p>
       <p>
         {`My most recent experience as a team-member has been at `}
-        <strong>Lumin</strong>
-        {` as a fullstack developer where I helped to address technical debt in their legacy react application and to extend their utilisation of aws infrastructure to achieve improved performance and reliability at scale.`}
-      </p>
-      <p>{`Following this experience I have taken a short career break to catch my breath. A lot has happened in the last two years. The passing of my Mum in 2022 following an agressive terminal illness that took us all by surprise, and add to that a severe back injury which followed on from the same period (and thankfully I'm now on the mend from), one change of workplace in 2023 and two house moves in 2024. I felt the need to step back and take a beat.`}</p>
-      <p>
-        {`I've caught my breath now and am hungry for future projects. It's an exciting time to be a developer. LLM's, AI, advances in frontend and backend tooling and browser api's means that we're on a new frontier of how we build for the interactions and interfaces of tomorrow.`}
-      </p>
-      <p>
-        {`I'm looking forwards to the possibility of building cool stuff with people that I love working with. Hopefully, that will be `}
-        <strong>you</strong>!
+        <Link
+          href="https://www.trustalliancegroup.org/our-companies/lumin"
+          className="font-semibold text-accent-foreground"
+        >
+          Lumin
+        </Link>
+        {` as a fullstack developer where I helped to address technical debt in their legacy react application and to extend their utilisation of AWS infrastructure to achieve improved performance and reliability at scale.`}
       </p>
     </div>
   );
