@@ -1,10 +1,12 @@
 import { type Article, allArticles } from "content-collections";
 
-const articlesSortedByDate = allArticles
-  .filter((article) => article.isPublished)
-  .toSorted((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
+export const allPublishedArticles = allArticles.filter(
+  (article) => article.isPublished
+);
+
+const articlesSortedByDate = allPublishedArticles.toSorted((a, b) => {
+  return new Date(b.date).getTime() - new Date(a.date).getTime();
+});
 
 export const getArticlesByCategory = ({
   category,
@@ -28,7 +30,7 @@ export const getArticlesByCategory = ({
 
 export const getArticleByFilename = (filename: Article["_meta"]["path"]) => {
   return (
-    allArticles.find(
+    allPublishedArticles.find(
       (article) => article._meta.path === filename && article.isPublished
     ) ?? null
   );

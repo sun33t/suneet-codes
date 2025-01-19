@@ -1,5 +1,4 @@
 import { MDXContent } from "@content-collections/mdx/react";
-import { allArticles } from "content-collections";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 import Link from "next/link";
@@ -9,7 +8,7 @@ import { env } from "@/app/env";
 import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
-import { getArticleByFilename } from "@/lib/articles";
+import { allPublishedArticles, getArticleByFilename } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 import "@/styles/markdown.css";
 
@@ -18,7 +17,7 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const slugs = allArticles.map((article) => ({
+  const slugs = allPublishedArticles.map((article) => ({
     slug: article._meta.path,
   }));
 
