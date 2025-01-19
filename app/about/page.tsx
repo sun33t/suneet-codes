@@ -165,15 +165,15 @@ const NewWording = () => {
       <p>
         {`Helping people is great isn’t it? It’s been my primary motivator for as long as I can remember. I’ve tried my hand at a few different things over the years, but the ones that have stuck for the longest time are the experiences where I’ve walked away at the end of the day feeling like I’ve made a difference.`}
       </p>
-      <p>{`My approach to building digital services starts and ends with helping people, because at the core of all of those beautiful bits and bytes are the people who come together with an idea for a service, and the people that use them.`}</p>
+      <p>{`My approach to building digital services starts and ends with helping people, because at the core of all of those beautiful bits and bytes, are the people who come together with an idea for a service, and the people that use them.`}</p>
       <p>
-        {`Approaching that task with empathy, compassion and the ability to listen to others and to nurture the creative process is absolutely essential to building great digital experiences that are meaningful and impactful.`}
+        {`Doing this with empathy and compassion helps to nurture the creative process, leading to meaningful and impactful digital experiences.`}
       </p>
       <p>
-        {`On a daily basis I try to do this by solving problems with code, collaborating with teams mates/clients, listening and acting upon feedback from all users and by contributing to a culture of self-improvement and learning. I have to understand the why behind what we're building, before I can best help the team, and myself to achieve the goals that we've set.`}
+        {`Solving problems with code, sharing ideas and contributing to a culture of continuous improvement and learning is how I make a difference. I have to understand the why behind what we're building, before I can best help the team, and myself to achieve our goals.`}
       </p>
       <p>
-        {`With that said, I also love to ship code! Below is a brief summary of my experience as a developer. Each project has provided me with the opportunity to further my knowledge and understanding of the engineering process. The more I build, the more I want to build! (seriously, I think I have a problem...)`}
+        {`Below is a brief summary of my experience as a developer. The more I build, the more I want to build! Seriously, I think I might have a problem...`}
       </p>
       <div className="mt-8 lg:mt-4">
         <h2 className="text-2xl font-bold">My experience:</h2>
