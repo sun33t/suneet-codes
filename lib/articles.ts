@@ -30,9 +30,8 @@ export const getArticlesByCategory = ({
 
 export const getArticleByFilename = (filename: Article["_meta"]["path"]) => {
   return (
-    allPublishedArticles.find(
-      (article) => article._meta.path === filename && article.isPublished
-    ) ?? null
+    allPublishedArticles.find((article) => article._meta.path === filename) ??
+    null
   );
 };
 
