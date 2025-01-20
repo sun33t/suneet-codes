@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { env } from "@/app/env";
 import { ContainerInner, ContainerOuter } from "@/components/container";
-import { PageTitle } from "@/types";
+import { Page, PageData } from "@/types";
 
 const NavLink = ({
   href,
@@ -18,7 +18,12 @@ const NavLink = ({
   );
 };
 
-export const Footer = ({ pages }: { pages: PageTitle[] }) => {
+type FooterProps = {
+  pageNames: Page[];
+  pageData: Map<Page, PageData>;
+};
+
+export const Footer = ({ pageNames, pageData }: FooterProps) => {
   return (
     <footer
       id="footer"
@@ -32,11 +37,14 @@ export const Footer = ({ pages }: { pages: PageTitle[] }) => {
                 className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium capitalize"
                 aria-label="Footer Navigation"
               >
-                {pages.map(({ title }) => (
-                  <NavLink key={`${title}-footer`} href={title}>
-                    {title}
-                  </NavLink>
-                ))}
+                {pageNames.map((title) => {
+                  const item = pageData.get(title);
+                  return item ? (
+                    <NavLink key={`${title}-footer`} href={item.slug}>
+                      {item.title}
+                    </NavLink>
+                  ) : null;
+                })}
               </div>
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
                 &copy; {new Date().getFullYear()} {env.PROJECT_AUTHOR}. All

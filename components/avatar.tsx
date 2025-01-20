@@ -71,6 +71,31 @@ export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
     </Link>
   );
 };
+export const MobileAvatar = async () => {
+  const avatarImageSrc = `profile/avatar_small`;
+
+  const { blurDataUrl } = await getCloudinaryBlurDataUrl({
+    src: avatarImageSrc,
+    width: "64px",
+  });
+
+  return blurDataUrl ? (
+    <CloudinaryImage
+      src={withCloudinaryCloudName("profile/avatar_small")}
+      alt="profile picture"
+      width={64}
+      height={64}
+      sizes="2.25rem"
+      blurDataURL={blurDataUrl}
+      placeholder="blur"
+      className={
+        "h-9 w-9 rounded-full bg-zinc-100 object-cover duration-1000 animate-in fade-in dark:bg-zinc-800"
+      }
+    />
+  ) : (
+    <AvatarSkeleton hasPulse={false} isHomePage={false} />
+  );
+};
 
 const AvatarSkeleton = ({
   isHomePage,

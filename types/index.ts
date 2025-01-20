@@ -10,7 +10,10 @@ export type Page =
   | "contact"
   | "thank-you";
 
-export type PageData = { title: string; slug: string; icon: string };
+export type PageData = {
+  title: Exclude<Page, "thank-you">;
+  slug: `/${Exclude<Page, "thank-you">}`;
+};
 
 export type SearchParams = Promise<{
   category: Article["categories"]["0"] | Article["categories"] | undefined;
