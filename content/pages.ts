@@ -1,16 +1,19 @@
 import { type Metadata } from "next";
 
 import { env } from "@/app/env";
-import { Page, PageTitle } from "@/types";
+import { Page, PageData } from "@/types";
 
-export const PAGE_TITLES: PageTitle[] = [
-  { title: "projects" },
-  { title: "about" },
-  { title: "articles" },
-  { title: "uses" },
-  { title: "following" },
-  { title: "contact" },
-];
+export const PAGE_DATA: Map<Page, PageData> = new Map([
+  ["projects", { slug: "/projects", title: "Projects", icon: "folder-kanban" }],
+  ["about", { slug: "/about", title: "About", icon: "user" }],
+  ["articles", { slug: "/articles", title: "Articles", icon: "newspaper" }],
+  ["uses", { slug: "/uses", title: "Uses", icon: "pocket-knife" }],
+  [
+    "following",
+    { slug: "/following", title: "Following", icon: "badge-check" },
+  ],
+  ["contact", { slug: "/contact", title: "Contact", icon: "mail" }],
+]);
 
 export const PAGE_METADATA: Record<Page, Metadata> = {
   about: {

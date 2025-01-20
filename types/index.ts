@@ -9,7 +9,8 @@ export type Page =
   | "uses"
   | "contact"
   | "thank-you";
-export type PageTitle = Record<"title", Page>;
+
+export type PageData = { title: string; slug: string; icon: string };
 
 export type SearchParams = Promise<{
   category: Article["categories"]["0"] | Article["categories"] | undefined;
