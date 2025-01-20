@@ -1,15 +1,21 @@
 "use client";
 
 import { DesktopNavigation } from "./desktop-navigation";
-import { MobileNavigation } from "./mobile-navigation";
+import { MobileNavigation, MobileNavigationButton } from "./mobile-navigation";
 
 import { usePathname } from "next/navigation";
-import { ComponentPropsWithoutRef, useEffect, useMemo, useRef } from "react";
+import {
+  ComponentPropsWithoutRef,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { AvatarContainer } from "@/components/avatar";
 import { Container } from "@/components/container";
 import { ModeToggle } from "@/components/mode-toggle";
-import { type PageTitle } from "@/types";
+import { type Page, PageData } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b);
@@ -18,21 +24,24 @@ function clamp(number: number, a: number, b: number) {
 }
 
 type HeaderProps = ComponentPropsWithoutRef<"header"> & {
-  pages: PageTitle[];
+  pageNames: Page[];
+  pageData: Map<Page, PageData>;
   headerAvatar: React.ReactElement;
   homepageAvatar: React.ReactElement;
+  mobileAvatar: React.ReactElement;
 };
 export const Header = ({
-  pages,
   headerAvatar,
   homepageAvatar,
+  mobileAvatar,
+  pageNames,
+  pageData,
 }: HeaderProps) => {
   const isHomePage = usePathname() === "/";
   const headerRef = useRef<React.ComponentRef<"div">>(null);
   const avatarRef = useRef<React.ComponentRef<"div">>(null);
   const isInitial = useRef(true);
-
-  const memoizedPages = useMemo(() => pages, [pages]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   const containerStyle = useMemo<React.CSSProperties>(
     () => ({
@@ -208,21 +217,30 @@ export const Header = ({
                 id="mobile-nav-container"
                 className="flex flex-1 justify-end md:justify-center"
               >
-                <MobileNavigation pages={memoizedPages} />
                 <DesktopNavigation
-                  pages={memoizedPages}
+                  pageData={pageData}
+                  pageNames={pageNames}
                   className="pointer-events-auto hidden md:block"
                 />
               </div>
-              <div className="flex justify-end md:flex-1">
-                <div className="pointer-events-auto">
-                  <ModeToggle />
-                </div>
+              <div className="pointer-events-auto flex justify-end gap-1 md:flex-1">
+                <ModeToggle />
+                <MobileNavigationButton
+                  isMenuOpen={isMobileMenuOpen}
+                  onClick={() => setIsMobileMenuOpen((prevState) => !prevState)}
+                />
               </div>
             </div>
           </Container>
         </div>
       </header>
+      <MobileNavigation
+        mobileAvatar={mobileAvatar}
+        open={isMobileMenuOpen}
+        onOpenChange={setIsMobileMenuOpen}
+        pageData={pageData}
+        pageNames={pageNames}
+      />
       {isHomePage && (
         <div
           className="flex-none"

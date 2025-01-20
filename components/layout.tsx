@@ -1,24 +1,30 @@
-import { SuspendedAvatar } from "./avatar";
+import { MobileAvatar, SuspendedAvatar } from "./avatar";
 import { Footer } from "./footer";
 import { Toaster } from "./ui/toaster";
 
+import { useMemo } from "react";
+
 import { Header } from "@/components/header";
-import { PAGE_TITLES } from "@/content/pages";
+import { PAGE_DATA } from "@/content/pages";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
-export const Layout = async ({ children }: LayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
+  const memoizedPageNames = useMemo(() => Array.from(PAGE_DATA.keys()), []);
+
   return (
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
         <Header
-          pages={PAGE_TITLES}
+          pageNames={memoizedPageNames}
+          pageData={PAGE_DATA}
           headerAvatar={<SuspendedAvatar />}
           homepageAvatar={<SuspendedAvatar isHomePage={true} />}
+          mobileAvatar={<MobileAvatar />}
         />
         <main className="flex-auto">{children}</main>
-        <Footer pages={PAGE_TITLES} />
+        <Footer pageNames={memoizedPageNames} pageData={PAGE_DATA} />
         <Toaster />
       </div>
     </div>
