@@ -17,11 +17,15 @@ export const DesktopNavigation = memo(
         <ul className="flex rounded-md bg-white/90 px-3 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10">
           {routeNames.map((title) => {
             const item = ROUTES.get(title);
-            return item ? (
+            if (!item) {
+              console.error(`Route not found: ${title}`);
+              return null;
+            }
+            return (
               <MemoizedNavItem key={`${item.title}-dt`} href={item.slug}>
                 {item.title}
               </MemoizedNavItem>
-            ) : null;
+            );
           })}
         </ul>
       </nav>
@@ -29,10 +33,8 @@ export const DesktopNavigation = memo(
   },
   (prevProps, nextProps) => {
     return (
-      prevProps.routeNames.length === nextProps.routeNames.length &&
-      prevProps.routeNames.every((pageName, index) => {
-        return pageName === nextProps.routeNames[index];
-      })
+      JSON.stringify(prevProps.routeNames) ===
+      JSON.stringify(nextProps.routeNames)
     );
   }
 );
