@@ -12,9 +12,10 @@ import clsx from "clsx";
 import { AlignRight, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithoutRef, memo } from "react";
 
-import { Page, PageData } from "@/types";
+import { ROUTES } from "@/lib/routes";
+import { Route, RouteProperties } from "@/types";
 
 type MobileNavigationButtonProps = ComponentPropsWithoutRef<typeof Button> & {
   isMenuOpen: boolean;
@@ -39,20 +40,95 @@ export const MobileNavigationButton = ({
   );
 };
 
+type MobileNavigationItemProps = {
+  item: RouteProperties;
+  isActive: boolean;
+};
+
+const MobileNavigationItem = ({
+  item,
+  isActive,
+}: MobileNavigationItemProps) => {
+  return (
+    <li
+      key={`${item.title}-mob`}
+      className={clsx(
+        "w-full py-2 pl-4",
+        isActive &&
+          "rounded-xl border-none bg-zinc-50 shadow-none dark:bg-zinc-800/50",
+        isActive && "text-accent-foreground"
+      )}
+    >
+      <SheetClose asChild className="block w-full">
+        <Link href={item.slug}>{item.title}</Link>
+      </SheetClose>
+    </li>
+  );
+};
+
+type MobileNavigationMenuProps = {
+  routeNames: Route[];
+  pathname: string;
+};
+
+const MobileNavigationMenu = memo(
+  ({ routeNames, pathname }: MobileNavigationMenuProps) => {
+    return (
+      <div className="mt-4 flex h-full w-full">
+        <ul className="w-full space-y-4 capitalize">
+          {routeNames.map((title) => {
+            const item = ROUTES.get(title);
+            if (!item) {
+              console.error("Route not found for title:", title);
+              return null;
+            }
+            const isActive = pathname === item.slug;
+            return title !== "contact" ? (
+              <MobileNavigationItem
+                key={`${item.title}-mob`}
+                isActive={isActive}
+                item={item}
+              />
+            ) : (
+              <li key={`${item.title}-mob`}>
+                <SheetClose asChild className="mt-4">
+                  <Link
+                    className={buttonVariants({ variant: "default" })}
+                    href={item.slug}
+                  >
+                    {item.title}
+                  </Link>
+                </SheetClose>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.routeNames.length === nextProps.routeNames.length &&
+      prevProps.routeNames.every((pageName, index) => {
+        return pageName === nextProps.routeNames[index];
+      })
+    );
+  }
+);
+
+MobileNavigationMenu.displayName = "MobileNavigationMenu";
+
 type MobileNavigationProps = ComponentPropsWithoutRef<typeof Sheet> & {
   mobileAvatar: React.ReactElement;
-  pageNames: Page[];
-  pageData: Map<Page, PageData>;
+  routeNames: Route[];
 };
 export const MobileNavigation = ({
   open,
   onOpenChange,
-  pageData,
-  pageNames,
+  routeNames,
   mobileAvatar,
 }: MobileNavigationProps) => {
   const pathname = usePathname();
-  const contactPageData = pageData.get("contact");
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" mobileAvatar={mobileAvatar}>
@@ -62,41 +138,7 @@ export const MobileNavigation = ({
             Mobile navigation menu
           </SheetDescription>
         </SheetHeader>
-        <div className="mt-4 flex h-full w-full">
-          <ul className="w-full space-y-4 capitalize">
-            {pageNames.map((title) => {
-              const item = pageData.get(title);
-              const isActive = pathname === `/${title}`;
-              return title !== "contact" && item ? (
-                <li
-                  key={`${item.title}-mob`}
-                  className={clsx(
-                    "w-full py-2 pl-4",
-                    isActive &&
-                      "rounded-xl border-none bg-zinc-50 shadow-none dark:bg-zinc-800/50",
-                    isActive && "text-accent-foreground"
-                  )}
-                >
-                  <SheetClose asChild className="block w-full">
-                    <Link href={item.slug}>{item.title}</Link>
-                  </SheetClose>
-                </li>
-              ) : null;
-            })}
-            {contactPageData && (
-              <li>
-                <SheetClose asChild className="mt-4">
-                  <Link
-                    className={buttonVariants({ variant: "default" })}
-                    href={contactPageData.slug}
-                  >
-                    {contactPageData.title}
-                  </Link>
-                </SheetClose>
-              </li>
-            )}
-          </ul>
-        </div>
+        <MobileNavigationMenu pathname={pathname} routeNames={routeNames} />
       </SheetContent>
     </Sheet>
   );

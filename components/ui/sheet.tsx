@@ -10,6 +10,10 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * This Sheet component has been customized from the stock shadcn Sheet component to fit the needs of this individual project
+ */
+
 const Sheet = SheetPrimitive.Root;
 
 const SheetTrigger = SheetPrimitive.Trigger;

@@ -1,7 +1,7 @@
 import { type Article } from "content-collections";
 import { z } from "zod";
 
-export type Page =
+export type Route =
   | "about"
   | "articles"
   | "projects"
@@ -10,9 +10,9 @@ export type Page =
   | "contact"
   | "thank-you";
 
-export type PageData = {
-  title: Exclude<Page, "thank-you">;
-  slug: `/${Exclude<Page, "thank-you">}`;
+export type RouteProperties = {
+  title: Exclude<Route, "thank-you">;
+  slug: `/${Exclude<Route, "thank-you">}`;
 };
 
 export type SearchParams = Promise<{

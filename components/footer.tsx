@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import { env } from "@/app/env";
 import { ContainerInner, ContainerOuter } from "@/components/container";
-import { Page, PageData } from "@/types";
+import { ROUTES } from "@/lib/routes";
+import { Route } from "@/types";
 
 const NavLink = ({
   href,
@@ -19,11 +20,10 @@ const NavLink = ({
 };
 
 type FooterProps = {
-  pageNames: Page[];
-  pageData: Map<Page, PageData>;
+  routeNames: Route[];
 };
 
-export const Footer = ({ pageNames, pageData }: FooterProps) => {
+export const Footer = ({ routeNames }: FooterProps) => {
   return (
     <footer
       id="footer"
@@ -37,13 +37,17 @@ export const Footer = ({ pageNames, pageData }: FooterProps) => {
                 className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium capitalize"
                 aria-label="Footer Navigation"
               >
-                {pageNames.map((title) => {
-                  const item = pageData.get(title);
-                  return item ? (
+                {routeNames.map((title) => {
+                  const item = ROUTES.get(title);
+                  if (!item) {
+                    console.error(`No route found for ${title}`);
+                    return null;
+                  }
+                  return (
                     <NavLink key={`${title}-footer`} href={item.slug}>
                       {item.title}
                     </NavLink>
-                  ) : null;
+                  );
                 })}
               </div>
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
