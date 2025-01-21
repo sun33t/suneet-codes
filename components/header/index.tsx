@@ -6,6 +6,7 @@ import { MobileNavigation, MobileNavigationButton } from "./mobile-navigation";
 import { usePathname } from "next/navigation";
 import {
   ComponentPropsWithoutRef,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -15,7 +16,7 @@ import {
 import { AvatarContainer } from "@/components/avatar";
 import { Container } from "@/components/container";
 import { ModeToggle } from "@/components/mode-toggle";
-import { type Page, PageData } from "@/types";
+import { type Route } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b);
@@ -24,8 +25,7 @@ function clamp(number: number, a: number, b: number) {
 }
 
 type HeaderProps = ComponentPropsWithoutRef<"header"> & {
-  pageNames: Page[];
-  pageData: Map<Page, PageData>;
+  routeNames: Route[];
   headerAvatar: React.ReactElement;
   homepageAvatar: React.ReactElement;
   mobileAvatar: React.ReactElement;
@@ -34,8 +34,7 @@ export const Header = ({
   headerAvatar,
   homepageAvatar,
   mobileAvatar,
-  pageNames,
-  pageData,
+  routeNames,
 }: HeaderProps) => {
   const isHomePage = usePathname() === "/";
   const headerRef = useRef<React.ComponentRef<"div">>(null);
@@ -54,6 +53,11 @@ export const Header = ({
   const memoizedHeaderAvatar = useMemo(
     () => <AvatarContainer>{headerAvatar}</AvatarContainer>,
     [headerAvatar]
+  );
+
+  const handleMenuToggle = useCallback(
+    () => setIsMobileMenuOpen((prevState) => !prevState),
+    []
   );
 
   useEffect(() => {
@@ -218,8 +222,7 @@ export const Header = ({
                 className="flex flex-1 justify-end md:justify-center"
               >
                 <DesktopNavigation
-                  pageData={pageData}
-                  pageNames={pageNames}
+                  routeNames={routeNames}
                   className="pointer-events-auto hidden md:block"
                 />
               </div>
@@ -227,7 +230,7 @@ export const Header = ({
                 <ModeToggle />
                 <MobileNavigationButton
                   isMenuOpen={isMobileMenuOpen}
-                  onClick={() => setIsMobileMenuOpen((prevState) => !prevState)}
+                  onClick={handleMenuToggle}
                 />
               </div>
             </div>
@@ -238,8 +241,7 @@ export const Header = ({
         mobileAvatar={mobileAvatar}
         open={isMobileMenuOpen}
         onOpenChange={setIsMobileMenuOpen}
-        pageData={pageData}
-        pageNames={pageNames}
+        routeNames={routeNames}
       />
       {isHomePage && (
         <div

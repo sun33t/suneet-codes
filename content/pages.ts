@@ -1,18 +1,9 @@
 import { type Metadata } from "next";
 
 import { env } from "@/app/env";
-import { Page, PageData } from "@/types";
+import { Route } from "@/types";
 
-export const PAGE_DATA: Map<Page, PageData> = new Map([
-  ["projects", { slug: "/projects", title: "projects" }],
-  ["about", { slug: "/about", title: "about" }],
-  ["articles", { slug: "/articles", title: "articles" }],
-  ["uses", { slug: "/uses", title: "uses" }],
-  ["following", { slug: "/following", title: "following" }],
-  ["contact", { slug: "/contact", title: "contact" }],
-]);
-
-export const PAGE_METADATA: Record<Page, Metadata> = {
+export const PAGE_METADATA: Record<Route, Metadata> = {
   about: {
     title: "about",
     description: `I'm ${env.PROJECT_AUTHOR} - a developer working from ${env.PROJECT_AUTHOR_LOCATION}.`,

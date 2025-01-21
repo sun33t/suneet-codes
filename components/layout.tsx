@@ -5,26 +5,25 @@ import { Toaster } from "./ui/toaster";
 import { useMemo } from "react";
 
 import { Header } from "@/components/header";
-import { PAGE_DATA } from "@/content/pages";
+import { ROUTES } from "@/lib/routes";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
 export const Layout = ({ children }: LayoutProps) => {
-  const memoizedPageNames = useMemo(() => Array.from(PAGE_DATA.keys()), []);
+  const memoizedRouteNames = useMemo(() => Array.from(ROUTES.keys()), []);
 
   return (
     <div id="layout-container" className="flex w-full">
       <PageBackground />
       <div className="relative flex w-full flex-col">
         <Header
-          pageNames={memoizedPageNames}
-          pageData={PAGE_DATA}
+          routeNames={memoizedRouteNames}
           headerAvatar={<SuspendedAvatar />}
           homepageAvatar={<SuspendedAvatar isHomePage={true} />}
           mobileAvatar={<MobileAvatar />}
         />
         <main className="flex-auto">{children}</main>
-        <Footer pageNames={memoizedPageNames} pageData={PAGE_DATA} />
+        <Footer routeNames={memoizedRouteNames} />
         <Toaster />
       </div>
     </div>
