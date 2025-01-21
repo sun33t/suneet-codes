@@ -24,7 +24,7 @@ import {
   FollowingCategory,
   FollowingEntry,
 } from "@/content/following";
-import { PAGE_METADATA } from "@/content/pages";
+import { PAGE_METADATA } from "@/content/pageMetadata";
 import { sortByTitleProperty } from "@/lib/utils/sortBytitleProperty";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };

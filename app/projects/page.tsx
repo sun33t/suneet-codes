@@ -13,7 +13,7 @@ import { SuspendedLogoImage } from "@/components/logo-image";
 import { PageContainer } from "@/components/page-container";
 import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
-import { PAGE_METADATA } from "@/content/pages";
+import { PAGE_METADATA } from "@/content/pageMetadata";
 import { PROJECTS, Project } from "@/content/projects";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };

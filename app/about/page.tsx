@@ -9,7 +9,7 @@ import { PageContainer } from "@/components/page-container";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PAGE_METADATA } from "@/content/pages";
+import { PAGE_METADATA } from "@/content/pageMetadata";
 import {
   DEVELOPMENT_SERVICES,
   PROFESSIONAL_SERVICES,

@@ -9,7 +9,7 @@ import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { PAGE_METADATA } from "@/content/pages";
+import { PAGE_METADATA } from "@/content/pageMetadata";
 
 export const metadata: Metadata = { ...PAGE_METADATA.contact };
 

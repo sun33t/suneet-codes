@@ -19,7 +19,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { PAGE_METADATA } from "@/content/pages";
+import { PAGE_METADATA } from "@/content/pageMetadata";
 import { USES, UsesCategory, UsesEntry } from "@/content/uses";
 import { sortByTitleProperty } from "@/lib/utils/sortBytitleProperty";
 
