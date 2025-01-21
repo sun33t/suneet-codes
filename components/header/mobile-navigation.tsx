@@ -108,10 +108,8 @@ const MobileNavigationMenu = memo(
   },
   (prevProps, nextProps) => {
     return (
-      prevProps.routeNames.length === nextProps.routeNames.length &&
-      prevProps.routeNames.every((pageName, index) => {
-        return pageName === nextProps.routeNames[index];
-      })
+      JSON.stringify(prevProps.routeNames) ===
+      JSON.stringify(nextProps.routeNames)
     );
   }
 );
