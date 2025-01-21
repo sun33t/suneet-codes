@@ -14,6 +14,7 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "@/components/link-card";
+import { NotionIcon } from "@/components/notion-icon";
 import { PageIntro } from "@/components/page-intro";
 import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
@@ -39,6 +40,7 @@ function SocialLink({
     </Link>
   );
 }
+
 const ArticleCard = ({ article }: { article: Article }) => {
   return (
     <article>
@@ -135,6 +137,15 @@ export default function Home() {
                 >
                   about page
                 </Link>
+                , view my{" "}
+                <Link
+                  href={env.PROJECT_NOTION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-accent-foreground"
+                >
+                  cv
+                </Link>
                 , or use the links below.
               </p>
               <p>
@@ -153,6 +164,11 @@ export default function Home() {
                 href={env.PROJECT_LINKEDIN_URL}
                 aria-label="Follow on LinkedIn"
                 icon={LinkedInIcon}
+              />
+              <SocialLink
+                href={env.PROJECT_NOTION_URL}
+                aria-label="Read CV on Notion"
+                icon={NotionIcon}
               />
             </div>
           </PageIntro>

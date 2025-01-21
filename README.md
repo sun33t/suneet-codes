@@ -90,6 +90,9 @@ NEXT_PUBLIC_POSTHOG_KEY="asd21313..."
 
 # PostHog API URL (varies by region - EU: eu.i.posthog.com, US: app.posthog.com)
 NEXT_PUBLIC_POSTHOG_HOST="https://eu.i.posthog.com"
+
+# URL for CV Page served from notion space
+PREOJECT_NOTION_URL="https://..."
 ```
 
 The following credentials are alternatives for the `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` which can be used during development to simulate challenge responses on the client and server:

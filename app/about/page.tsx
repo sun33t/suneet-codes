@@ -5,6 +5,7 @@ import { memo } from "react";
 
 import { env } from "@/app/env";
 import { CloudinaryImage } from "@/components/cloudinary-image";
+import { NotionIcon } from "@/components/notion-icon";
 import { PageContainer } from "@/components/page-container";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { buttonVariants } from "@/components/ui/button";
@@ -97,6 +98,15 @@ const SocialLinks = () => {
           >
             <LinkedInIcon className="h-4 w-4 fill-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
             Follow on LinkedIn
+          </Link>
+          <Link
+            href={env.PROJECT_NOTION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
+          >
+            <NotionIcon className="h-4 w-4 fill-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+            View cv on Notion
           </Link>
           <Link
             href="/contact"
