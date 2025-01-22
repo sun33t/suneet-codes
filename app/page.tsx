@@ -1,5 +1,6 @@
+import clsx from "clsx";
 import { type Article } from "content-collections";
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 import { Fragment } from "react";
 
 import { env } from "@/app/env";
@@ -23,23 +24,21 @@ import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 
-function SocialLink({
+const SocialLink = ({
   icon: Icon,
+  iconClasses,
   ...props
-}: React.ComponentPropsWithoutRef<typeof Link> & {
+}: LinkProps & {
   icon: React.ComponentType<{ className?: string }>;
-}) {
+  iconClasses?: string;
+}) => {
+  const iconClassName = clsx("fill-accent-foreground transition", iconClasses);
   return (
-    <Link
-      className="group -m-1 p-1"
-      {...props}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Icon className="h-6 w-6 fill-accent-foreground transition" />
+    <Link {...props} target="_blank" rel="noopener noreferrer">
+      <Icon className={iconClassName} />
     </Link>
   );
-}
+};
 
 const ArticleCard = ({ article }: { article: Article }) => {
   return (
@@ -154,20 +153,23 @@ export default function Home() {
                 with my friends.
               </p>
             </div>
-            <div className="mt-6 flex gap-2">
+            <div className="mt-6 flex items-center gap-4">
               <SocialLink
+                iconClasses="h-6 w-6"
                 href={env.PROJECT_GITHUB_URL}
                 aria-label="Follow on GitHub"
                 icon={GitHubIcon}
               />
               <SocialLink
+                iconClasses="h-6 w-6"
                 href={env.PROJECT_LINKEDIN_URL}
                 aria-label="Follow on LinkedIn"
                 icon={LinkedInIcon}
               />
               <SocialLink
+                iconClasses="h-5 w-5"
                 href={env.PROJECT_NOTION_URL}
-                aria-label="Read CV on Notion"
+                aria-label="Read my CV on Notion"
                 icon={NotionIcon}
               />
             </div>
