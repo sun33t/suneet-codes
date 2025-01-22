@@ -1,7 +1,7 @@
 import { MessageCircle } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { memo } from "react";
+import Link, { LinkProps } from "next/link";
+import React, { PropsWithChildren, memo } from "react";
 
 import { env } from "@/app/env";
 import { CloudinaryImage } from "@/components/cloudinary-image";
@@ -70,49 +70,68 @@ const ServiceCard = memo(({ title, description }: ServiceCardProps) => {
 
 ServiceCard.displayName = "ServiceCard";
 
+type SocialButtonProps = Omit<LinkProps, "className"> &
+  PropsWithChildren<{
+    isExternal?: boolean;
+    icon: React.ComponentType<{
+      className?: string;
+      style?: React.CSSProperties;
+    }>;
+    iconStyleOverride?: React.CSSProperties;
+  }>;
+
+const SocialButton = ({
+  href,
+  isExternal = true,
+  icon: Icon,
+  children,
+  iconStyleOverride,
+  ...rest
+}: SocialButtonProps) => {
+  return (
+    <Link
+      href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      className={`mt-6 w-full lg:grid lg:grid-cols-4 ${buttonVariants({ variant: "secondary" })}`}
+      {...rest}
+    >
+      <Icon
+        className="fill-accent-foreground transition group-active:stroke-zinc-600 lg:col-span-1 lg:place-self-center dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50"
+        style={iconStyleOverride}
+      />
+      {children}
+    </Link>
+  );
+};
+
 const SocialLinks = () => {
   return (
     <Card className="h-fit shadow-none duration-1000 animate-in fade-in lg:ml-20 lg:block lg:max-w-xs">
       <CardContent>
         <ul role="list">
-          {/* <SocialLink href="#" icon={XIcon}>
-          Follow on X
-        </SocialLink>
-        <SocialLink href="#" icon={InstagramIcon} className="mt-4">
-          Follow on Instagram
-        </SocialLink> */}
-          <Link
+          <SocialButton
             href={env.PROJECT_GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
+            icon={GitHubIcon}
+            iconStyleOverride={{ width: "1.25rem", height: "1.25rem" }}
           >
-            <GitHubIcon className="h-4 w-4 fill-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
             Follow on GitHub
-          </Link>
-          <Link
+          </SocialButton>
+          <SocialButton
             href={env.PROJECT_LINKEDIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
+            icon={LinkedInIcon}
+            iconStyleOverride={{ width: "1.25rem", height: "1.25rem" }}
           >
-            <LinkedInIcon className="h-4 w-4 fill-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
             Follow on LinkedIn
-          </Link>
-          <Link
-            href={env.PROJECT_NOTION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
-          >
-            <NotionIcon className="h-4 w-4 fill-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-            View cv on Notion
-          </Link>
+          </SocialButton>
+          <SocialButton href={env.PROJECT_NOTION_URL} icon={NotionIcon}>
+            View CV on Notion
+          </SocialButton>
           <Link
             href="/contact"
-            className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
+            className={`mt-6 w-full lg:grid lg:grid-cols-4 ${buttonVariants({ variant: "secondary" })}`}
           >
-            <MessageCircle className="h-4 w-4 stroke-accent-foreground transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
+            <MessageCircle className="h-4 w-4 stroke-accent-foreground transition group-active:stroke-zinc-600 lg:col-span-1 lg:place-self-center dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
             Let&apos;s Talk
           </Link>
         </ul>
