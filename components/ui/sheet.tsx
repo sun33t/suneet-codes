@@ -89,8 +89,7 @@ const SheetContent = React.forwardRef<
         </SheetPrimitive.Close>
       </div>
       <div>
-        <h1 className="mt-2 text-2xl font-semibold">Suneet Misra</h1>
-        <p className="text-xs text-muted-foreground">Fullstack Developer</p>
+        <h1 className="mt-4 text-2xl font-semibold">Suneet Misra</h1>
       </div>
       <div className="mt-2">{children}</div>
     </SheetPrimitive.Content>
