@@ -32,7 +32,7 @@ const TestimonialCardAvatar = async ({
       </div>
     );
   }
-  return blurDataUrl ? (
+  return (
     <CloudinaryImage
       src={imageSrc}
       alt={`LinkedIn profile image of ${author.name}`}
@@ -42,8 +42,6 @@ const TestimonialCardAvatar = async ({
       blurDataURL={blurDataUrl}
       placeholder="blur"
     />
-  ) : (
-    <AvatarSkeleton />
   );
 };
 
