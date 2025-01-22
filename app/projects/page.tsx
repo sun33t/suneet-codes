@@ -13,6 +13,7 @@ import { SuspendedLogoImage } from "@/components/logo-image";
 import { PageContainer } from "@/components/page-container";
 import { PageIntro } from "@/components/page-intro";
 import { PageSection } from "@/components/page-section";
+import { Recommendations } from "@/components/recommendations";
 import { PAGE_METADATA } from "@/content/pageMetadata";
 import { PROJECTS, Project } from "@/content/projects";
 
@@ -63,6 +64,7 @@ export default function Projects() {
           ))}
         </ul>
       </PageSection>
+      <Recommendations />
     </PageContainer>
   );
 }

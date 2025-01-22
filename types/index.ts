@@ -46,3 +46,15 @@ export const contactFormFieldSchema = z.object({
   reason: z.string(),
 });
 export type ContactFormFieldSchema = z.infer<typeof contactFormFieldSchema>;
+
+export type Recommendation = {
+  author: {
+    name: string;
+    role: string;
+    imgSrc: string;
+    handle: string;
+    profileUrl: string;
+  };
+  date: string;
+  body: string[];
+};
