@@ -55,7 +55,7 @@ export type Testimonial = {
     handle: string;
     profileUrl: string;
   };
-  date: string;
+  date: Date;
   shortBody: string;
   fullBody: string[];
 };
