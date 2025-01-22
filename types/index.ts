@@ -47,7 +47,7 @@ export const contactFormFieldSchema = z.object({
 });
 export type ContactFormFieldSchema = z.infer<typeof contactFormFieldSchema>;
 
-export type Recommendation = {
+export type Testimonial = {
   author: {
     name: string;
     role: string;
@@ -56,5 +56,6 @@ export type Recommendation = {
     profileUrl: string;
   };
   date: string;
-  body: string[];
+  shortBody: string;
+  fullBody: string[];
 };
