@@ -29,7 +29,7 @@ const SocialLink = ({
   iconClasses,
   ...props
 }: LinkProps & {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: typeof LinkedInIcon | typeof GitHubIcon | typeof NotionIcon;
   iconClasses?: string;
 }) => {
   const iconClassName = clsx("fill-accent-foreground transition", iconClasses);
