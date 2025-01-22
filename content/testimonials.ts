@@ -9,7 +9,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "justsean",
       profileUrl: "https://www.linkedin.com/in/justsean/",
     },
-    date: "2025-01-22",
+    date: new Date("2025-01-22"),
     shortBody:
       "Suneet’s approach to development is both empathetic and strategic. He doesn’t just write code; he ensures that what he builds truly serves its purpose and aligns with broader goals.",
     fullBody: [
@@ -26,7 +26,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "peter-lawrence",
       profileUrl: "https://www.linkedin.com/in/peter-lawrence-1a374786",
     },
-    date: "2025-01-21",
+    date: new Date("2025-01-21"),
     shortBody:
       "I approached Suneet in my search for a blend of technical expertise and innovative ideas to showcase our values and unique approach and was delighted with the support, advice and know how he so generously provided. He listened to what I was looking for and exceeded my expectations",
     fullBody: [
@@ -41,7 +41,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "davehibbitts",
       profileUrl: "https://www.linkedin.com/in/davehibbitts/",
     },
-    date: "2024-09-24",
+    date: new Date("2024-09-24"),
     shortBody:
       "Suneet quickly adapted to the project, demonstrating a deep understanding of Terraform, AWS services, and CircleCI orbs. Together, we overcame automation challenges using CircleCI and orbs, showcasing Suneet's exceptional problem-solving skills and ability to work effectively as part of a team.",
     fullBody: [
@@ -59,7 +59,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "andrew-m-page",
       profileUrl: "https://www.linkedin.com/in/andrew-m-page/",
     },
-    date: "2023-05-18",
+    date: new Date("2023-05-18"),
     shortBody:
       "Suneet is a brilliant developer who was a pleasure to work with. He is passionate about his work and eagerly discusses his projects, new breakthroughs and technologies with the team. His development skill is incredible and he has a unique way of thinking and problem solving which brings massive improvements to anything he is working on.",
     fullBody: [
@@ -75,7 +75,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "mattpostlethwaite",
       profileUrl: "https://www.linkedin.com/in/mattpostlethwaite/",
     },
-    date: "2023-03-07",
+    date: new Date("2023-03-07"),
     shortBody:
       "If there’s something he doesn’t know he’ll make sure he finds out and will take the time to explain that new found information with the team or client in a way which is understandable and energising.",
     fullBody: [
@@ -91,7 +91,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "christianrengers",
       profileUrl: "https://www.linkedin.com/in/christianrengers/",
     },
-    date: "2023-03-01",
+    date: new Date("2023-03-01"),
     shortBody:
       "He's a breath of fresh air in the office (or video call), and is 100% committed to producing the highest quality work to delight customers. His approach to development and interest in new technologies results in a great collaboration that really aids the sales process.",
     fullBody: [
@@ -108,7 +108,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "hayley-gardener",
       profileUrl: "https://www.linkedin.com/in/hayley-gardner-3028a2171/",
     },
-    date: "2023-02-28",
+    date: new Date("2023-02-28"),
     shortBody:
       "Suneet's ability to listen to our clients and deliver an outcome for them that not only meets their requirements but actually exceeds their expectations makes delivering an outstanding client experience easy.",
     fullBody: [
@@ -126,7 +126,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "suleimanleadbitter",
       profileUrl: "https://www.linkedin.com/in/suleimanleadbitter/",
     },
-    date: "2023-02-28",
+    date: new Date("2023-02-28"),
     shortBody:
       "Suneet is a natural team player who excels in collaborative environments. His communication skills are excellent, and he has a unique ability to explain complex concepts to others in a clear and concise way. He is always willing to help others on the team and takes pride in sharing his knowledge with those around him and has a very positive attitude.",
     fullBody: [
@@ -144,7 +144,7 @@ export const TESTIMONIALS: Testimonial[] = [
       handle: "shaquillehobbsdaley",
       profileUrl: "https://www.linkedin.com/in/shaquillehobbsdaley/",
     },
-    date: "2023-03-01",
+    date: new Date("2023-03-01"),
     shortBody:
       "Suneet was a dream to work with. His ability to consume complex concepts and break them down into easily digestible chunks made him an absolutely incredible teacher. Suneet was also just a joy to be around, empathetic, funny and incredibly intelligent, and this was acknowledged and praised by clients and students alike.",
     fullBody: [
