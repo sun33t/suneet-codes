@@ -70,7 +70,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     author: {
       name: "Matt Postlethwaite",
-      role: "Principle Engineer @ Verse",
+      role: "Principal Engineer @ Verse",
       imgSrc: "testimonials/gjz9daybfvnphfwpoood",
       handle: "mattpostlethwaite",
       profileUrl: "https://www.linkedin.com/in/mattpostlethwaite/",
