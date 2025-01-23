@@ -19,7 +19,6 @@ import { NotionIcon } from "@/components/notion-icon";
 import { PageIntro } from "@/components/page-intro";
 import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
-import { Blockquote } from "@/components/typography/blockquote";
 import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
@@ -75,9 +74,9 @@ const NoArticlesCard = () => {
       </LinkCardHeader>
       <LinkCardContent>
         <LinkCardDescription className="text-foreground">
-          <Blockquote>
+          <blockquote className="mt-6 border-l-2 pl-6 italic">
             “Silence is an empty space. Space is the home of the awakened mind.”
-          </Blockquote>
+          </blockquote>
           <p className="pt-4 text-right">{`- 🧘 Buddha... maybe?`}</p>
         </LinkCardDescription>
       </LinkCardContent>
