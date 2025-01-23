@@ -18,7 +18,7 @@ export interface Role {
 export const ROLES: Array<Role> = [
   {
     company: "Pushorigin",
-    title: "Fullstack Engineer",
+    title: "Freelance Fullstack Engineer",
     filename: "pushorigin",
 
     start: "2024",
