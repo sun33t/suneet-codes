@@ -30,6 +30,7 @@ const TestimonialCardAvatar = async ({
           alt={`Company logo for ${author.name}`}
           sizes="28px"
           blurDataURL={blurDataUrl}
+          placeholder="blur"
         />
       </div>
     );
