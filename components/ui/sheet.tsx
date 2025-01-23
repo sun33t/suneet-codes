@@ -20,7 +20,7 @@ const SheetTrigger = SheetPrimitive.Trigger;
 
 const SheetClose = SheetPrimitive.Close;
 
-const SheetPortal = React.memo(SheetPrimitive.Portal);
+const SheetPortal = SheetPrimitive.Portal;
 
 const SheetOverlay = React.memo(
   React.forwardRef<
