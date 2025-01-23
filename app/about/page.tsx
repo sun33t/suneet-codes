@@ -271,6 +271,8 @@ const MyExperience = () => {
         <Link
           href="https://www.trustalliancegroup.org/our-companies/lumin"
           className="font-semibold text-accent-foreground"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Lumin
         </Link>
