@@ -17,7 +17,7 @@ export const TestimonialCard = memo(
           aria-labelledby={`testimonial-${testimonial.author.handle}`}
         >
           <blockquote>
-            <p>{`“${testimonial.shortBody}”`}</p>
+            <p className="italic">{`“${testimonial.shortBody}”`}</p>
           </blockquote>
           <figcaption className="mt-6 flex items-center gap-x-4">
             <SuspendedTestimonialCardAvatar author={testimonial.author} />
