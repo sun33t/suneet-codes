@@ -19,7 +19,6 @@ export const TestimonialCard = memo(
         >
           <figure
             className="rounded-2xl border-none bg-zinc-50 p-8 text-sm/6 shadow-none dark:bg-zinc-800/50"
-            role="article"
             aria-labelledby={`testimonial-${testimonial.author.handle}`}
           >
             <blockquote>
