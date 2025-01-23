@@ -21,14 +21,14 @@ type MobileNavigationButtonProps = ComponentPropsWithoutRef<typeof Button> & {
   isMenuOpen: boolean;
 };
 export const MobileNavigationButton = memo(
-  ({ isMenuOpen, ...rest }: MobileNavigationButtonProps) => {
+  ({ isMenuOpen, onClick }: MobileNavigationButtonProps) => {
     const button = useMemo(
       () => (
         <Button
           variant="outline"
           size="icon"
           className="bg-white/90 shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur hover:bg-white/90 hover:text-accent-foreground aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10 hover:dark:bg-zinc-800/90"
-          {...rest}
+          onClick={onClick}
         >
           {isMenuOpen ? (
             <X className="h-[1.5rem] w-[1.5rem]" />
@@ -37,7 +37,7 @@ export const MobileNavigationButton = memo(
           )}
         </Button>
       ),
-      [isMenuOpen, rest]
+      [isMenuOpen, onClick]
     );
 
     return button;
