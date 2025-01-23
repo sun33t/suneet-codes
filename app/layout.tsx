@@ -11,7 +11,7 @@ import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/globals.css";
 
 const ogImageUrl = getCldImageUrl({
-  src: withCloudinaryCloudName("profile/avatar"),
+  src: withCloudinaryCloudName("profile/avatar_og"),
 });
 
 const geistSans = Geist({
