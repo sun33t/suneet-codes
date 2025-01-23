@@ -28,7 +28,7 @@ export const MobileNavigationButton = ({
     <Button
       variant="outline"
       size="icon"
-      className="bg-white/90 shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur hover:bg-white/90 hover:text-accent-foreground aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10 hover:dark:bg-zinc-800/90"
+      className="bg-white/90 shadow-lg shadow-zinc-800/5 ring-zinc-900/5 hover:bg-white/90 hover:text-accent-foreground aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10 hover:dark:bg-zinc-800/90"
       onClick={onClick}
     >
       {isMenuOpen ? (
