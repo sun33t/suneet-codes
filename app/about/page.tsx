@@ -162,8 +162,10 @@ export default function About() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             A little bit about me
           </h1>
-          <NewWording />
-          {/* <OriginalWording /> */}
+          <div className="mt-6 text-base">
+            <MyValues />
+            <MyExperience />
+          </div>
         </div>
         <div className="hidden lg:flex lg:justify-center">
           <SocialLinks />
@@ -188,9 +190,10 @@ export default function About() {
     </PageContainer>
   );
 }
-const NewWording = () => {
+
+const MyValues = () => {
   return (
-    <div className="mt-6 text-base">
+    <div>
       <p>
         {`Helping people is great isn’t it? It’s been my primary motivator for as long as I can remember. I’ve tried my hand at a few different things over the years, but the ones that have stuck for the longest time are the experiences where I’ve walked away at the end of the day feeling like I’ve made a difference.`}
       </p>
@@ -204,13 +207,22 @@ const NewWording = () => {
       <p>
         {`Below is a brief summary of my experience as a developer. The more I build, the more I want to build! Seriously, I think I might have a problem...`}
       </p>
+    </div>
+  );
+};
+const MyExperience = () => {
+  return (
+    <div>
       <div className="mt-8 lg:mt-4">
         <h2 className="text-2xl font-bold">My experience:</h2>
       </div>
       <p>
         {`Hi! I'm Suneet, I have an `}
         <strong>MSc in Computing</strong>
-        {` with my dissertation focussing on bringing cultural heritage experiences to those of limited mobility through the use of mixed reality technologies. I'm a graduate of the `}
+        {` with my dissertation focussing on bringing cultural heritage experiences to those of limited mobility through the use of mixed reality technologies.`}
+      </p>
+      <p>
+        {`I'm a graduate of the `}
         <strong>
           <Link
             href="https://northcoders.com"
@@ -230,7 +242,10 @@ const NewWording = () => {
         <strong>client-side</strong>
         {` environments, on all aspects of `}
         <strong>full-stack applications</strong>
-        {` for a variety of national and international brands. My experience includes `}
+        {` for a variety of national and international brands.`}
+      </p>
+      <p>
+        {`My experience includes `}
         <strong>addressing technical debt</strong>
         {` in existing projects, building `}
         <strong>design systems</strong>
@@ -244,7 +259,7 @@ const NewWording = () => {
         {`, `}
         <strong>leading/mentoring junior developers</strong>
         {` and setting up `}
-        <strong>greenfield projects</strong>
+        <strong>greenfield projects</strong>.
       </p>
       <p>
         {`Although I have some experience working in java, ruby, and python, I'm most experienced with `}
