@@ -11,6 +11,8 @@ const TestimonialCardAvatar = async ({
 }: {
   author: Testimonial["author"];
 }) => {
+  const isCompanyLogo = author.imgSrc.startsWith("logos/");
+
   const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
     src: `${author.imgSrc}`,
     width: "40px",
@@ -18,7 +20,7 @@ const TestimonialCardAvatar = async ({
   if (!blurDataUrl) {
     return <AvatarSkeleton />;
   }
-  if (author.imgSrc.split("/")[0] === "logos") {
+  if (isCompanyLogo) {
     return (
       <div className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
         <CloudinaryImage
