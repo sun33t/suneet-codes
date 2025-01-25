@@ -1,11 +1,9 @@
-import { MDXContent } from "@content-collections/mdx/react";
 import { Metadata } from "next";
 import { getCldImageUrl } from "next-cloudinary";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { env } from "@/app/env";
-import { SuspendedArticleImage } from "@/components/article-image";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { allPublishedArticles, getArticleByFilename } from "@/lib/articles";
@@ -60,9 +58,13 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  const article = getArticleByFilename(slug);
+  const articlefrontmatter = getArticleByFilename(slug);
+  console.log(articlefrontmatter);
+  const { default: Article } = await import(
+    `@/content/articles/${articlefrontmatter?._meta.fileName}`
+  );
 
-  if (!article) {
+  if (!articlefrontmatter) {
     notFound();
   }
 
@@ -74,21 +76,26 @@ export default async function Page({
       <div className="lg:relative">
         <div className="mx-auto max-w-2xl">
           <BackButton />
-          {article && (
+          {articlefrontmatter && (
             <article>
               <div className="prose prose-lg mx-auto mt-8 dark:prose-invert prose-a:text-accent-foreground prose-a:no-underline prose-strong:underline prose-code:rounded-3xl prose-pre:rounded-3xl prose-img:rounded-3xl">
                 <header className="flex flex-col">
-                  <h1 className="mt-6 flex">{article.title}</h1>
+                  <h1 className="mt-6 flex">{articlefrontmatter.title}</h1>
                   <div className="order-first flex items-center justify-start gap-2 text-sm text-zinc-400 dark:text-zinc-500">
-                    <time dateTime={article.date} className="flex items-center">
+                    <time
+                      dateTime={articlefrontmatter.date}
+                      className="flex items-center"
+                    >
                       <span className="h-4 w-0.5 rounded-full" />
-                      <span className="ml-3">{formatDate(article.date)}</span>
+                      <span className="ml-3">
+                        {formatDate(articlefrontmatter.date)}
+                      </span>
                     </time>
                     <span> - </span>
-                    <Link href="/about">{article.author}</Link>
+                    <Link href="/about">{articlefrontmatter.author}</Link>
                   </div>
                   <div className="mb-4 flex flex-row flex-wrap items-center justify-start gap-4">
-                    {article.categories.map((category) => {
+                    {articlefrontmatter.categories.map((category) => {
                       return (
                         <div
                           key={category}
@@ -100,14 +107,7 @@ export default async function Page({
                     })}
                   </div>
                 </header>
-                <MDXContent
-                  code={article.mdx}
-                  components={{
-                    SuspendedArticleImage(props) {
-                      return <SuspendedArticleImage {...props} />;
-                    },
-                  }}
-                />
+                <Article />
               </div>
             </article>
           )}
