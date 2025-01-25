@@ -115,4 +115,3 @@ export default async function Page({
     </Container>
   );
 }
-export const dynamicParams = false;
