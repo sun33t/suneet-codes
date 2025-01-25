@@ -1,6 +1,4 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
-import { compileMDX } from "@content-collections/mdx";
-import rehypePrettyCode from "rehype-pretty-code";
 
 import { CATEGORYTITLES } from "@/content/categories";
 
@@ -8,6 +6,7 @@ const articles = defineCollection({
   name: "articles",
   directory: "./content/articles",
   include: "**/*.mdx",
+  parser: "frontmatter-only",
   schema: (z) => ({
     title: z.string(),
     author: z.string(),
@@ -20,23 +19,6 @@ const articles = defineCollection({
       .array(z.enum(CATEGORYTITLES))
       .min(1, { message: "At least one category is required" }),
   }),
-  transform: async (document, context) => {
-    const mdx = await compileMDX(context, document, {
-      rehypePlugins: [
-        [
-          rehypePrettyCode,
-          {
-            theme: "dracula",
-            grid: false,
-          },
-        ],
-      ],
-    });
-    return {
-      ...document,
-      mdx,
-    };
-  },
 });
 
 export default defineConfig({
