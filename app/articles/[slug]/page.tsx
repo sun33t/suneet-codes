@@ -59,7 +59,6 @@ export default async function Page({
   const { slug } = await params;
 
   const articlefrontmatter = getArticleByFilename(slug);
-  console.log(articlefrontmatter);
   const { default: Article } = await import(
     `@/content/articles/${articlefrontmatter?._meta.fileName}`
   );
