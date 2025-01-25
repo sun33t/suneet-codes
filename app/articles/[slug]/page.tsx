@@ -59,13 +59,13 @@ export default async function Page({
   const { slug } = await params;
 
   const articlefrontmatter = getArticleByFilename(slug);
-  const { default: Article } = await import(
-    `@/content/articles/${articlefrontmatter?._meta.fileName}`
-  );
 
   if (!articlefrontmatter) {
     notFound();
   }
+  const { default: Article } = await import(
+    `@/content/articles/${articlefrontmatter?._meta.fileName}`
+  );
 
   return (
     <Container
@@ -115,3 +115,4 @@ export default async function Page({
     </Container>
   );
 }
+export const dynamicParams = false;
