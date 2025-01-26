@@ -4,6 +4,7 @@ import Link, { LinkProps } from "next/link";
 import { Fragment } from "react";
 
 import { env } from "@/app/env";
+import { BlueskyIcon } from "@/components/bluesky-icon";
 import { Container } from "@/components/container";
 import {
   LinkCard,
@@ -28,7 +29,11 @@ const SocialLink = ({
   iconClasses,
   ...props
 }: LinkProps & {
-  icon: typeof LinkedInIcon | typeof GitHubIcon | typeof NotionIcon;
+  icon:
+    | typeof LinkedInIcon
+    | typeof GitHubIcon
+    | typeof NotionIcon
+    | typeof BlueskyIcon;
   iconClasses?: string;
 }) => {
   const iconClassName = clsx("fill-accent-foreground transition", iconClasses);
@@ -170,6 +175,12 @@ export default function Home() {
                 href={env.PROJECT_NOTION_URL}
                 aria-label="Read my CV on Notion"
                 icon={NotionIcon}
+              />
+              <SocialLink
+                iconClasses="h-5 w-5"
+                href={env.PROJECT_BLUESKY_URL}
+                aria-label="Follow me on bluesky"
+                icon={BlueskyIcon}
               />
             </div>
           </PageIntro>
