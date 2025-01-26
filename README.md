@@ -1,6 +1,6 @@
 # suneet codes website
 
-This repo holds the source code for https://suneet.codes. It uses NextJS as the front-end framework as well as a few other libraries, all of which are listed below. It uses the tailwind spotlight template as a starter but replaces their use of headless/ui with shadcn/ui.
+This repo holds the source code for https://suneet.codes. It's built with NextJS as well as a few other libraries which are listed below. It's bootstrapped with [tailwindUI's spotlight](https://tailwindui.com/templates/spotlight) template but I've replaced their use of headless/ui with shadcn/ui and customized it to suit my needs.
 
 ## Run Locally
 
@@ -93,6 +93,9 @@ NEXT_PUBLIC_POSTHOG_HOST="https://eu.i.posthog.com"
 
 # URL for CV Page served from notion space
 PROJECT_NOTION_URL="https://..."
+
+# URL for bluesky profile
+PROJECT_BLUESKY_URL="https://bsky.app/profile/..."
 ```
 
 The following credentials are alternatives for the `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` which can be used during development to simulate challenge responses on the client and server:
@@ -137,6 +140,7 @@ This project is using [t3-env](https://github.com/t3-oss/t3-env) for runtime val
 - [Favicon generator](https://favicon.io/favicon-converter/)
 - [Resend](https://resend.com)
 - [next-cloudinary](https://next.cloudinary.dev)
+- [CodeHike](https://codehike.org/)
 
 ## Authors
 
