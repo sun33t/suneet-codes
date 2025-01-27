@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const ModeToggle = memo(function ModeToggle() {
+export const ThemeToggle = memo(function ModeToggle() {
   const { setTheme, theme } = useTheme();
 
   const memoizedSetThemeLight = useCallback(
