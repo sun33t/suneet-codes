@@ -8,9 +8,11 @@ import {
   LinkCardLabel,
   LinkCardTitle,
 } from "./link-card";
+import { buttonVariants } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 
 import { type Article } from "content-collections";
+import Link from "next/link";
 import { Suspense } from "react";
 
 import { getArticlesByCategory } from "@/lib/articles";
@@ -67,17 +69,26 @@ const SkeletonCardList = () => {
   );
 };
 
-const NoArticlesWrittenCard = () => {
+const NoArticlesCard = () => {
   return (
-    <LinkCard className="h-full">
+    <LinkCard>
       <LinkCardHeader>
-        <LinkCardTitle>Articles Coming Soon</LinkCardTitle>
+        <LinkCardTitle>No matching articles</LinkCardTitle>
       </LinkCardHeader>
       <LinkCardContent>
         <LinkCardDescription>
-          {`They're on the way, I just need to rewrite them so that they make sense to anyone other than myself.`}
+          Please try another combination of categories, or clear and try again
         </LinkCardDescription>
       </LinkCardContent>
+      <LinkCardFooter>
+        <Link
+          href="/articles"
+          className={buttonVariants({ variant: "default", size: "sm" })}
+          aria-label="Clear filters"
+        >
+          Clear
+        </Link>
+      </LinkCardFooter>
     </LinkCard>
   );
 };
@@ -135,7 +146,7 @@ const ArticlesList = async ({
             <ArticleCard key={article._meta.path} article={article} />
           ))
         ) : (
-          <NoArticlesWrittenCard />
+          <NoArticlesCard />
         )}
       </div>
     </div>
