@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { env } from "@/app/env";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
-import { allPublishedArticles, getArticleByFilename } from "@/lib/articles";
+import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 import "@/styles/markdown.css";
 
@@ -16,7 +16,7 @@ type Props = {
 
 export async function generateStaticParams() {
   const slugs = allPublishedArticles.map((article) => ({
-    slug: article._meta.path,
+    slug: article.slug,
   }));
 
   return slugs;
@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const slug = (await params).slug;
-  const article = getArticleByFilename(slug);
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
@@ -58,7 +58,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  const articlefrontmatter = getArticleByFilename(slug);
+  const articlefrontmatter = getArticleBySlug(slug);
 
   if (!articlefrontmatter) {
     notFound();

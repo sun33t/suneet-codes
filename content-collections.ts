@@ -19,6 +19,12 @@ const articles = defineCollection({
       .array(z.enum(CATEGORYTITLES))
       .min(1, { message: "At least one category is required" }),
   }),
+  transform: (doc) => {
+    return {
+      ...doc,
+      slug: doc._meta.path.substring(5),
+    };
+  },
 });
 
 export default defineConfig({

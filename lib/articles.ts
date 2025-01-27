@@ -28,11 +28,8 @@ export const getArticlesByCategory = ({
   return articlesByCategory;
 };
 
-export const getArticleByFilename = (filename: Article["_meta"]["path"]) => {
-  return (
-    allPublishedArticles.find((article) => article._meta.path === filename) ??
-    null
-  );
+export const getArticleBySlug = (slug: Article["slug"]) => {
+  return allPublishedArticles.find((article) => article.slug === slug) ?? null;
 };
 
 export const latestArticles = articlesSortedByDate.slice(0, 3);

@@ -47,10 +47,7 @@ const SocialLink = ({
 const ArticleCard = ({ article }: { article: Article }) => {
   return (
     <article>
-      <LinkCard
-        key={article._meta.fileName}
-        href={`/articles/${article._meta.path}`}
-      >
+      <LinkCard key={article._meta.fileName} href={`/articles/${article.slug}`}>
         <LinkCardHeader>
           <LinkCardEyebrow>
             <time dateTime={article.date}>{formatDate(article.date)}</time>
