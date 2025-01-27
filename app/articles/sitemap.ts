@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { allPublishedArticles, getArticleByFilename } from "@/lib/articles";
+import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
 import { baseUrl } from "@/lib/baseUrl";
 
 export async function generateSitemaps() {
@@ -19,7 +19,7 @@ export default async function sitemap({
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
-  const article = getArticleByFilename(id);
+  const article = getArticleBySlug(id);
   const url = new URL(id, baseUrl);
 
   if (!article) {
