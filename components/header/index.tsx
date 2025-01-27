@@ -15,7 +15,7 @@ import {
 
 import { AvatarContainer } from "@/components/avatar";
 import { Container } from "@/components/container";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { type Route } from "@/types";
 
 function clamp(number: number, a: number, b: number) {
@@ -227,7 +227,7 @@ export const Header = ({
                 />
               </div>
               <div className="pointer-events-auto flex justify-end gap-1 md:flex-1">
-                <ModeToggle />
+                <ThemeToggle />
                 <MobileNavigationButton
                   isMenuOpen={isMobileMenuOpen}
                   onClick={handleMenuToggle}
