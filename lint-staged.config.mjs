@@ -7,7 +7,7 @@ const config = {
       .join(" --file ")}`,
     `prettier --write ${stagedFiles.join(" ")}`,
   ],
-  "*.{css,md,json}": (stagedFiles) => [
+  "*.{css,md,mdx,json}": (stagedFiles) => [
     `prettier --write ${stagedFiles.join(" ")}`,
   ],
 };
