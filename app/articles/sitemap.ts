@@ -5,7 +5,7 @@ import { baseUrl } from "@/lib/baseUrl";
 
 export async function generateSitemaps() {
   const ids = allPublishedArticles.map((article) => ({
-    id: article._meta.path,
+    id: article.slug,
   }));
 
   if (!ids.length) {
