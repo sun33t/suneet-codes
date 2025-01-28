@@ -17,6 +17,7 @@ const articles = defineCollection({
     updatedAt: z.string().date(),
     description: z.string(),
     coverImage: z.string(),
+    keywords: z.array(z.string()),
     categories: z
       .array(z.enum(CATEGORYTITLES))
       .min(1, { message: "At least one category is required" }),
