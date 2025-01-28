@@ -8,6 +8,7 @@ import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
+import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/markdown.css";
 
 type Props = {
@@ -31,7 +32,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     notFound();
   }
   const ogImageUrl = getCldImageUrl({
-    src: article.coverImage,
+    width: 960,
+    height: 600,
+    src: withCloudinaryCloudName(`articles/${article.coverImage}`),
   });
 
   return {
