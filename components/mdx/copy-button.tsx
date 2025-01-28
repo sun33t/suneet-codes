@@ -15,7 +15,7 @@ export function CopyButton({ text }: { text: string }) {
 
   return (
     <button
-      className="absolute right-2 top-2 rounded p-1 text-zinc-200 hover:bg-gray-400/20"
+      className="absolute right-2 top-1.5 rounded p-1 text-zinc-950 hover:bg-gray-400/20 dark:text-zinc-200"
       aria-label="Copy to clipboard"
       onClick={async () => {
         try {

@@ -1,5 +1,5 @@
 ---
-isPublished: false
+isPublished: true
 title: Linting + Formatting + Git Setup for Node Projects
 author: Suneet Misra
 date: 2025-01-27
@@ -26,7 +26,7 @@ categories: ["react", "javascript", "code-quality"]
 
 We're going to bootstrap a NextJS project and install an automated workflow which runs during the git life-cycle to lint and format staged files. It will also provide us with an interactive terminal to standardize commit messages using conventional-commit syntax. All we need to do to invoke this workflow is to `git commit`.
 
-## Why are we doing this?
+## Why what's the point?
 
 I'm a bit of a weirdo. I like to ensure that before my work is committed to git locally, staged files comply with my project's linting and formatting rules, there are no TypeScript compilation errors and that the commit messages are formatted with conventional-commit syntax. I stop short of adding a test run locally because I'm just a weirdo, not a masochist.
 
@@ -57,13 +57,14 @@ I love the enthusiasm! Let's get started!
 
 ### 1. Bootstrap Project with NextJS
 
-```shell
+Use `npx create-next-app@latest` to perform the initial setup. The cli will step you through some options. We'll be choosing the configuration in the tab below:
+
+<CodeWithTabs>
+```shell !!tabs 1. install
 npx create-next-app@latest linting-formatting-setup
 ```
 
-Use `npx create-next-app@latest` to perform the initial setup. The cli will step you through some options. We'll be choosing the configuration below:
-
-```shell terminal
+```shell !!tabs 2. configuration
 ✔ Would you like to use TypeScript? … Yes
 ✔ Would you like to use ESLint? … Yes
 ✔ Would you like to use Tailwind CSS? … Yes
@@ -72,6 +73,8 @@ Use `npx create-next-app@latest` to perform the initial setup. The cli will step
 ✔ Would you like to use Turbopack for `next dev`? … No
 ✔ Would you like to customize the import alias (`@/*` by default)? … No
 ```
+
+</CodeWithTabs>
 
 This bootstrap already contains an `eslint` configuration which works great for our purposes so we're not going to implement any changes to that.
 
@@ -159,22 +162,19 @@ If we want to modify this configuration ,we can checkout the docs [here](https:/
 
 Finally, let's setup husky which will bring all our work together.
 
-```shell
+<CodeWithTabs>
+```shell !!tabs 1. initialise husky
 npx husky init
 ```
 
-Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory and add a `prepare` script to the project (see the husky docs for a full explanation). Within the `.husky` directory you'll see a `pre-commit` hook has already been created for you. We're going to replace the contents of this with the following:
-
-```shell .husky/pre-commit
+```shell !!tabs 2. pre-commit.sh
 #!/usr/bin/env sh
 
 npx tsc --noEmit
 npx lint-staged
 ```
 
-Next to this, we're also going to create a new `prepare-commit-msg` hook:
-
-```shell .husky/prepare-commit-msg
+```shell !!tabs 3. prepare-commit-msg.sh
 #!/usr/bin/env sh
 
 if npx -v >&/dev/null
@@ -186,6 +186,12 @@ else
   gitmoji --hook $1 $2
 fi
 ```
+
+</CodeWithTabs>
+
+Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory and add a `prepare` script to the project (see the husky docs for a full explanation). Within the `.husky` directory you'll see a `pre-commit` hook has already been created for you. We're going to replace the contents in the tab above.
+
+Next to this, within the `.husky` directory, we're also going to create a new `prepare-commit-msg` hook as outlined in the tab above.
 
 The git life-cycle has many stages within it and we can execute scripts during those stages by using [git hooks](https://git-scm.com/docs/githooks). When the [pre-commit](https://git-scm.com/docs/githooks#_pre_commit) hook runs, it will check for any typescript errors in the project and then it will invoke our lint-staged configuration. The hook will fail if an error is encountered by either command, thereby interrupting the git process.
 
@@ -199,11 +205,11 @@ Well, all we need to do now is to develop as we normally would! The fruit of our
 
 ## Super Bonus Extra!
 
-For the vscode users reading this, here's some IDE specific configuration to complement our code quality workflow.
+For the vscode users reading this, here's some IDE specific configuration to complement our code quality workflow. Create a `.vscode` directory at project root and create each of the following within:
 
-- **Recommended extensions** for projects using eslint, prettier and tailwindcss
+<CodeWithTabs>
 
-```json .vscode/extensions.json
+```json !!tabs 1. extensions.json
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
@@ -214,9 +220,7 @@ For the vscode users reading this, here's some IDE specific configuration to com
 }
 ```
 
-- A **debugging configuration** for NextJS projects, inspired by the [official docs](https://nextjs.org/docs/app/building-your-application/configuring/debugging).
-
-```json .vscode/launch.json
+```json !!tabs 2. launch.json
 {
   "version": "0.2.0",
   "configurations": [
@@ -251,9 +255,7 @@ For the vscode users reading this, here's some IDE specific configuration to com
 }
 ```
 
-- **project-scoped settings** for invoking the prettier and eslint extensions to do their thing as files are saved.
-
-```json .vscode/settings.json
+```json !!tabs 3. settings.json
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
@@ -265,4 +267,10 @@ For the vscode users reading this, here's some IDE specific configuration to com
 }
 ```
 
-Thanks for taking the time to read this article. I hope it helps you and inspires you to learn and share your knowledge with others!
+</CodeWithTabs>
+
+- **Recommended extensions** for projects using eslint, prettier and tailwindcss
+- A **debugging configuration** for NextJS projects, inspired by the [official docs](https://nextjs.org/docs/app/building-your-application/configuring/debugging).
+- **project-scoped settings** for invoking the prettier and eslint extensions to do their thing as files are saved.
+
+Thanks for taking the time to read this article. I hope it helps and inspires you to learn and share your knowledge with others!

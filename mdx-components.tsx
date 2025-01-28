@@ -1,4 +1,5 @@
 import { SuspendedArticleImage } from "./components/article-image";
+import { CodeWithTabs } from "./components/mdx/code-with-tabs";
 
 import type { MDXComponents } from "mdx/types";
 
@@ -9,5 +10,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
     Code,
     SuspendedArticleImage,
+    CodeWithTabs,
   };
 }
