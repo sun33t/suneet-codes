@@ -37,7 +37,7 @@ export const ArticleImage = async ({
   });
 
   return (
-    <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">
+    <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto mt-8">
       {blurDataUrl === undefined ? (
         <SkeletonArticleImage
           hasPulse={false}
