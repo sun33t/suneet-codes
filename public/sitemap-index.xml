@@ -2,6 +2,9 @@
       <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         
       <sitemap>
+        <loc>http://localhost:3000/articles/sitemap/0001-linting-formatting-setup.xml</loc>
+      </sitemap>
+      <sitemap>
         <loc>http://localhost:3000/sitemap.xml</loc>
       </sitemap>
       </sitemapindex>
