@@ -23,9 +23,16 @@ const articles = defineCollection({
       .min(1, { message: "At least one category is required" }),
   }),
   transform: (doc) => {
+    if (!doc._meta?.path) {
+      throw new Error(`Invalid document metadata: missing _meta.path`);
+    }
+    const slug = doc._meta.path.substring(ARTICLE_FILENAME_PREFIX_LENGTH);
+    if (!slug || slug.length < 1) {
+      throw new Error(`Invalid slug generated from path: ${doc._meta.path}`);
+    }
     return {
       ...doc,
-      slug: doc._meta.path.substring(ARTICLE_FILENAME_PREFIX_LENGTH),
+      slug,
     };
   },
 });
