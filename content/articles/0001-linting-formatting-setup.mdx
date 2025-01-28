@@ -1,5 +1,5 @@
 ---
-isPublished: false
+isPublished: true
 title: Linting + Formatting + Git Setup for Node Projects
 author: Suneet Misra
 date: 2025-01-27
@@ -57,13 +57,13 @@ I love the enthusiasm! Let's get started!
 
 ### 1. Bootstrap Project with NextJS
 
-```bash
+```shell
 npx create-next-app@latest linting-formatting-setup
 ```
 
 Use `npx create-next-app@latest` to perform the initial setup. The cli will step you through some options. We'll be choosing the configuration below:
 
-```bash terminal
+```shell terminal
 ✔ Would you like to use TypeScript? … Yes
 ✔ Would you like to use ESLint? … Yes
 ✔ Would you like to use Tailwind CSS? … Yes
@@ -79,7 +79,7 @@ This bootstrap already contains an `eslint` configuration which works great for 
 
 `cd` into our project and install the remaining libraries that we'll need:
 
-```bash terminal
+```shell terminal
 npm install -D prettier prettier-plugin-tailwindcss husky lint-staged gitmoji-cli @trivago/prettier-plugin-sort-imports
 ```
 
@@ -159,13 +159,13 @@ If we want to modify this configuration ,we can checkout the docs [here](https:/
 
 Finally, let's setup husky which will bring all our work together.
 
-```bash
+```shell
 npx husky init
 ```
 
 Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory and add a `prepare` script to the project (see the husky docs for a full explanation). Within the `.husky` directory you'll see a `pre-commit` hook has already been created for you. We're going to replace the contents of this with the following:
 
-```bash .husky/pre-commit
+```shell .husky/pre-commit
 #!/usr/bin/env sh
 
 npx tsc --noEmit
@@ -174,7 +174,7 @@ npx lint-staged
 
 Next to this, we're also going to create a new `prepare-commit-msg` hook:
 
-```bash .husky/prepare-commit-msg
+```shell .husky/prepare-commit-msg
 #!/usr/bin/env sh
 
 if npx -v >&/dev/null
