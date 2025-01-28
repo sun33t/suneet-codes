@@ -24,7 +24,7 @@ categories: ["react", "javascript", "code-quality"]
 
 ## What are we making?
 
-We're going to bootstrap a NextJS project and install an automated workflow which runs during the git life-cycle to lint and format staged files. It will also provide us with an interactive terminal to standardize commit messages using conventional-commit syntax. All we need to do to invoke this workflow is to `git commit`.
+We're going to bootstrap a Next.js project and install an automated workflow which runs during the git life-cycle to lint and format staged files. It will also provide us with an interactive terminal to standardize commit messages using conventional-commit syntax. All we need to do to invoke this workflow is to `git commit`.
 
 ## Why?
 
@@ -38,7 +38,7 @@ Together with IDE extensions, this workflow makes for a robust toolchain.
 
 We're going to be using the following:
 
-- **[nextJS](https://nextjs.org/docs)**: A react meta-framework for building web applications.
+- **[Next.js](https://Next.js.org/docs)**: A react meta-framework for building web applications.
 - **[eslint](https://eslint.org/)**: A configurable linter that attempts to highlight potential problems that may lead to errors within the runtime environment.
 - **[prettier](https://prettier.io/)**: A formatter which allows us to enforce a specific style for our source code.
 - **[prettier-plugin-tailwindcss](https://www.npmjs.com/package/prettier-plugin-tailwindcss)**: A prettier plugin that provides some added value to using Tailwind CSS (like auto-sorting classes).
@@ -55,7 +55,7 @@ I hear you, life is busy... I haven't made a video yet but [here's a link](https
 
 I love the enthusiasm! Let's get started!
 
-### 1. Bootstrap Project with NextJS
+### 1. Bootstrap Project with Next.js
 
 Use `npx create-next-app@latest` to perform the initial setup. The cli will step you through some options. We'll be choosing the configuration in the tab below:
 
@@ -205,7 +205,7 @@ Well, all we need to do now is to develop as we normally would! The fruit of our
 
 ## Super Bonus Extra!
 
-For the vscode users reading this, here's some IDE specific configuration to complement our code quality workflow. Create a `.vscode` directory at project root and create each of the following within:
+For the vscode users reading this, here's some IDE-specific configuration to complement our code quality workflow. Create a `.vscode` directory at project root and create each of the following within:
 
 <CodeWithTabs>
 
@@ -261,6 +261,7 @@ For the vscode users reading this, here's some IDE specific configuration to com
   "editor.formatOnSave": true,
   "prettier.requireConfig": true,
   "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "files.associations": {
     "*.css": "tailwindcss"
   }
@@ -270,7 +271,7 @@ For the vscode users reading this, here's some IDE specific configuration to com
 </CodeWithTabs>
 
 - **Recommended extensions** for projects using eslint, prettier and tailwindcss
-- A **debugging configuration** for NextJS projects, inspired by the [official docs](https://nextjs.org/docs/app/building-your-application/configuring/debugging).
+- A **debugging configuration** for Next.js projects, inspired by the [official docs](https://Next.js.org/docs/app/building-your-application/configuring/debugging).
 - **project-scoped settings** for invoking the prettier and eslint extensions to do their thing as files are saved.
 
 Thanks for taking the time to read this article. I hope it helps and inspires you to learn and share your knowledge with others!
