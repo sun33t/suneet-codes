@@ -9,23 +9,28 @@ coverImage: space
 categories: ["react", "javascript", "code-quality"]
 ---
 
-I'm a bit of a weirdo. I like to ensure that before my work is committed to git locally, the staged files comply with my project's linting and formatting rules, that there are no TypeScript compilation errors and that the commit messages are formatted with conventional-commit syntax. I stop short of adding a test run locally because I'm just a weirdo, not a masachist.
-
 ## What are we making?
 
-We're going to bootstrap a NextJS project and install an automated workflow which runs during the git lifecycle to lint and format our work and which provides us with an interactive terminal to format our commit messages using a conventional-commit syntax. All we need to do to invoke this workflow is to `git commit`.
+We're going to bootstrap a NextJS project and install an automated workflow which runs during the git life-cycle to lint and format our work. It will also provide us with an interactive terminal to standardize our commit messages using conventional-commit syntax. All we need to do to invoke this workflow is to `git commit`.
 
-## What are these key libraries and what do they do?
+## Why are we doing this?
 
-Glad you asked! here they are:
+I'm a bit of a weirdo. I like to ensure that before my work is committed to git locally, the staged files comply with my project's linting and formatting rules, that there are no TypeScript compilation errors and that the commit messages are formatted with conventional-commit syntax. I stop short of adding a test run locally because I'm just a weirdo, not a masachist.
 
+We could rely upon IDE extensions to automatically format and lint as we progress through our work, but having a setup like this both acts as a fail-safe to ensure only compliant code is being committed, and makes configuration portable within the repo. Collaborators can automatically inherit the setup when the repo is cloned. Together with IDE extensions, this workflow makes for a robust toolchain.
+
+## What are we using?
+
+We're going to be using the following:
+
+- **[nextJS](https://nextjs.org/docs)**: A react meta-framework for building web applications.
 - **[eslint](https://eslint.org/)**: A configurable linter that attempts to highlight potential problems that may lead to errors within the runtime environment.
-- **[prettier](https://prettier.io/)**: A formatter which allows you to enforce a specific style for your source code. Prettier has a plugin architecture allowing developers to extend formatting configurations.
+- **[prettier](https://prettier.io/)**: A formatter which allows us to enforce a specific style for our source code. Prettier has a plugin architecture allowing developers to extend formatting configurations.
 - **[prettier-plugin-tailwindcss](https://www.npmjs.com/package/prettier-plugin-tailwindcss)**: A prettier plugin that provides some added value to using Tailwind CSS (like auto-sorting classes).
-- **[@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports)**: A prettier plugin that provides a way to sort imports within a file in a specifed order. I picked up this little gem from watching [CJ Reynold's](https://bsky.app/profile/w3cj.com) walkthrough of his [next-start](https://github.com/w3cj/next-start) project. It's a fab watch and you can see that [here](https://youtu.be/dLRKV-bajS4?si=9iwAucEekONazrrf).
+- **[@trivago/prettier-plugin-sort-imports](https://github.com/trivago/prettier-plugin-sort-imports)**: A prettier plugin that provides a way to sort imports within a file in a specifed order. I picked up this little gem from watching [CJ Reynold's](https://bsky.app/profile/w3cj.com) walkthrough of his [next-start](https://github.com/w3cj/next-start) project. It's a fab watch and you can see that [here](https://youtu.be/dLRKV-bajS4?si=9iwAucEekONazrrf).
 - **[husky](https://github.com/typicode/husky)**: A tool that allows us to run commands during the `git` lifecycle. We could place scripts directly into the `.git` directory within the project folder but using husky allows us to have our scripts committed so they are portable with the project.
-- **[lint-staged](https://github.com/okonet/lint-staged)**: A library that allows us to run commands against staged files. Itt allows us to differentiate between file types, and run a different set of commands against each.
-- **[gitmoji-cli](https://github.com/carloscuesta/gitmoji)**: An interactive terminal that allows us to format git messages in accordance with [conventional-commit](https://www.conventionalcommits.org/en/v1.0.0/) syntax, but with emojis! Because emojis are great ok.
+- **[lint-staged](https://github.com/okonet/lint-staged)**: A library that allows us to run commands against staged files. It allows us to differentiate between file types, and run a different set of commands against each.
+- **[gitmoji-cli](https://github.com/carloscuesta/gitmoji)**: An interactive terminal that allows us to format git messages in accordance with [conventional-commit](https://www.conventionalcommits.org/en/v1.0.0/) syntax, but with emojis. Because emojis are great ok.
 
 ## I don't have time to read! Is there a video I can watch or a repo I can clone?
 
@@ -35,7 +40,7 @@ I hear you, life is busy... I haven't made a video yet but here's a link to a de
 
 ## What are the steps?
 
-Someone's an eager beaver. I love it! Let's get started!
+I love the enthusiasm! Let's get started!
 
 ### 1. Bootstrap Project with NextJS
 
@@ -43,7 +48,7 @@ Someone's an eager beaver. I love it! Let's get started!
 npx create-next-app@latest linting-formatting-setup
 ```
 
-Use `npx create-next-app@latest` to perform the initial setup. The cli will step you through some options. We’ll be choosing the configuration below:
+Use `npx create-next-app@latest` to perform the initial setup. The cli will step you through some options. We'll be choosing the configuration below:
 
 ```bash terminal
 ✔ Would you like to use TypeScript? … Yes
@@ -59,7 +64,7 @@ This bootstrap already contains an `eslint` configuration which we don't need to
 
 ### 2. Install Dependencies
 
-`cd` into your project and install the remaining libraries that we'll need:
+`cd` into our project and install the remaining libraries that we'll need:
 
 ```bash terminal
 npm install -D prettier prettier-plugin-tailwindcss husky lint-staged gitmoji-cli @trivago/prettier-plugin-sort-imports
@@ -67,7 +72,7 @@ npm install -D prettier prettier-plugin-tailwindcss husky lint-staged gitmoji-cl
 
 ### 3. Configure Prettier
 
-With prettier and our included plugins installed, all we need to do here is to add a configuration file at project root. We're going to use a `prettier.config.mjs` file (there are a few types of configuration files that prettier [offers](https://prettier.io/docs/en/configuration)) as follows:
+With prettier and our included plugins installed, all we need to do is to add a configuration file at project root. We're going to use a `prettier.config.mjs` file (there are a few types of configuration files that prettier [offers](https://prettier.io/docs/en/configuration)) as follows:
 
 ```javascript ./prettier.config.mjs
 /**
@@ -95,11 +100,11 @@ const config = {
 export default config;
 ```
 
-This config can be adjusted to suit your formatting preferences but the important thing to be aware of is that the plugins array must be populated correctly with our plugins name. The last three properties in the config (`importOrder`, `importOrderSeparation` and `importOrderSortSpecifiers`) are provided by `@trivago/prettier-plugin-sort-imports`. Please read their docs for more information on how to configure them.
+This config can be adjusted to suit formatting preferences but the important thing to be aware of is that the plugins array must be populated correctly with our plugin names. The last three properties in the config (`importOrder`, `importOrderSeparation` and `importOrderSortSpecifiers`) are provided by `@trivago/prettier-plugin-sort-imports`. Please read [their docs](https://github.com/trivago/prettier-plugin-sort-imports) for more information on how to configure them.
 
 ### 4. Configure Lint-Staged
 
-Similar to prettier, once installed we just need to add a configuration which again can be accomplished in a [variety of ways](https://github.com/lint-staged/lint-staged?tab=readme-ov-file#configuration) but we're going to use a `lint-staged.config.mjs` file:
+Similar to prettier, once installed we just need to add a configuration file which again can be accomplished in a [variety of ways](https://github.com/lint-staged/lint-staged?tab=readme-ov-file#configuration) but we're going to use a `lint-staged.config.mjs` file:
 
 ```javascript ./lint-staged.config.mjs
 import path from "node:path";
@@ -118,14 +123,13 @@ const config = {
 export default config;
 ```
 
-The above contains two different configurations. Firstly for JS and TS filetypes, it uses `next lint` (which runs eslint under the hood) to fix any linting errors and then invokes `prettier` to format those files. The second configuration is for CSS, Markdown and JSON files and it simply invokes `prettier` to format those files. Again, this is my personal preference and you can reconfigure your lint-staged pipeline to your preference.
+The above contains two different linting flows. Firstly for JS and TS filetypes, it uses `next lint` (which runs eslint under the hood) to fix any linting errors and then invokes `prettier` to format those files. The second configuration is for CSS, Markdown and JSON files and it simply invokes `prettier` to format those files.
 
 ### 5. Configure Gitmoji
 
-We're installing gitmoji as a project dependency rather than a global node dependency. Therefore, lets add some configuration to specify how we would like the interactive terminal to behave once it's invoked. Add the following to your `package.json`:
+We're installing gitmoji as a project dependency rather than a global node dependency. Therefore, lets add some configuration to specify how we would like the interactive terminal to behave once it's invoked. Add the following property to the root of your `package.json`:
 
 ```json ./package.json
-{
   "gitmoji": {
     "autoAdd": false,
     "emojiFormat": "emoji",
@@ -134,10 +138,9 @@ We're installing gitmoji as a project dependency rather than a global node depen
     "capitalizeTitle": true,
     "gitmojisUrl": "https://gitmoji.dev/api/gitmojis"
   }
-}
 ```
 
-Again, this config is my personal preference and I would encourage you to check the [docs](https://github.com/carloscuesta/gitmoji-cli?tab=readme-ov-file#config) and read into how conventional-commit syntax can be used to help standardise your commit messages!
+If we want to modify this configuration ,we can checkout the docs [here](https://github.com/carloscuesta/gitmoji-cli?tab=readme-ov-file#config). It's highly recommended to do a bit of background reading into how conventional-commit syntax can be used to help standardise commit messages! We're using gitmoji in this example as emojis are objectively awesome... fact. They work great for personal projects but if team projects require a less delighful way to standardize commit messages, [commitizen](https://commitizen-tools.github.io/commitizen/) is a great alternative.
 
 ### 6. Configure Husky
 
@@ -147,7 +150,7 @@ Finally, let's setup husky which will bring all our work together.
 npx husky init
 ```
 
-Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory and add a `prepare` script to the project (see the husky docs for a full explanation). Wtihin the `.husky` directory you'll see a `pre-commit` script has already been created for you. We're going to replace the contents with the following:
+Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory and add a `prepare` script to the project (see the husky docs for a full explanation). Within the `.husky` directory you'll see a `pre-commit` script has already been created for you. We're going to replace the contents of this with the following:
 
 ```bash .husky/pre-commit
 #!/usr/bin/env sh
@@ -155,8 +158,6 @@ Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory
 npx tsc --noEmit
 npx lint-staged
 ```
-
-The `pre-commit` script will invoke immediately after we issue `git commit` . It will check for any typescript errors in the project and then it will invoke our lint-staged configuration (which in turn will lint and format any staged files) The script will exit if an error is encountered by either command, thereby interrupting the git process.
 
 Next to this, we're also going to create a new `prepare-commit-msg` script:
 
@@ -173,11 +174,13 @@ else
 fi
 ```
 
-This script will be invoked after the `pre-commit` script completes successfully and will provide us with the interactive gitmoji terminal for formatting our commit message.
+The git life-cycle has many stages within it and we can access those stages by using these scripts which can be reffered to as [git hooks](https://git-scm.com/docs/githooks) using gits nomenclature. When the [pre-commit](https://git-scm.com/docs/githooks#_pre_commit) hook runs, it will check for any typescript errors in the project and then it will invoke our lint-staged configuration. The hook will fail if an error is encountered by either command, thereby interrupting the git process.
+
+The [prepare-commit-msg](https://git-scm.com/docs/githooks#_prepare_commit_msg) hook will be invoked immediatly before the point at which we would normally write our commit message, and will replace the default terminal input with an interactive terminal served by gitmoji-cli.
 
 ## Now What?
 
-Well once we've completed all the setup, all we need to do now is develop and `git commit`! As you commit your work, you should see in the terminal the fruit of our labour! Your staged files will be linted and formatted prior to inputting your commit message and instead of being provided with a terminal prompt to do that, you'll be delivered an interactive experience!
+Well once we've completed all the setup, all we need to do now is develop and `git commit`! As we commit our work, we should see the fruit of our labour within the terminal ! Our staged files will be linted and formatted prior to inputting our commit message and instead of being provided with a terminal prompt to do that, we'll be delivered an interactive experience!
 
 ## Conclusion
 
@@ -186,3 +189,5 @@ What have we learned today? We can use local tooling to help guard against intro
 Whilst it's tempting to have a one-size-fits-all configuration for code quality, it's actually more beneficial that the configuration arrived at is tailored to the needs of the specific project, and the preferences of the team members involved where possible. Putting the extra effort into these considerations actually encourages you to understand the project architecture better!
 
 Keeping an eye on the broad strokes of this setup (a linting/formatting config, a way to invoke commands on staged files, a way to automate those commands without interrupting the dev experience and a structure to adding commit messages to the branch) is much more important than restricting yourself to these particular tools and configurations. Being aware of the **why** empowers you to explore new tools, processes and patterns in future projects.
+
+Add vscode extensions
