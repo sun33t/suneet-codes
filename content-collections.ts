@@ -2,6 +2,8 @@ import { defineCollection, defineConfig } from "@content-collections/core";
 
 import { CATEGORYTITLES } from "@/content/categories";
 
+const ARTICLE_FILENAME_PREFIX_LENGTH = 5; // length of the `XXXX-` prefix in the filename
+
 const articles = defineCollection({
   name: "articles",
   directory: "./content/articles",
@@ -22,7 +24,7 @@ const articles = defineCollection({
   transform: (doc) => {
     return {
       ...doc,
-      slug: doc._meta.path.substring(5),
+      slug: doc._meta.path.substring(ARTICLE_FILENAME_PREFIX_LENGTH),
     };
   },
 });
