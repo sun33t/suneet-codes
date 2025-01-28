@@ -1,8 +1,8 @@
+import { createArticleSlug } from "./lib/utils/createArticleSlug";
+
 import { defineCollection, defineConfig } from "@content-collections/core";
 
 import { CATEGORYTITLES } from "@/content/categories";
-
-const ARTICLE_FILENAME_PREFIX_LENGTH = 5; // length of the `XXXX-` prefix in the filename
 
 const articles = defineCollection({
   name: "articles",
@@ -26,7 +26,7 @@ const articles = defineCollection({
     if (!doc._meta?.path) {
       throw new Error(`Invalid document metadata: missing _meta.path`);
     }
-    const slug = doc._meta.path.substring(ARTICLE_FILENAME_PREFIX_LENGTH);
+    const slug = createArticleSlug(doc._meta.path);
     if (!slug || slug.length < 1) {
       throw new Error(`Invalid slug generated from path: ${doc._meta.path}`);
     }
