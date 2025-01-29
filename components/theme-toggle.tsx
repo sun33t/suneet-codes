@@ -1,80 +1,45 @@
 "use client";
 
-import clsx from "clsx";
+import * as Switch from "@radix-ui/react-switch";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { memo, useCallback, useMemo } from "react";
+import { memo, useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+export const ThemeToggle = memo(() => {
+  const [mounted, setMounted] = useState<boolean>(false);
+  const { setTheme, resolvedTheme } = useTheme();
 
-export const ThemeToggle = memo(function ModeToggle() {
-  const { setTheme, theme } = useTheme();
+  const handleToggle = (e: boolean) => {
+    if (e) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
 
-  const memoizedSetThemeLight = useCallback(
-    () => setTheme("light"),
-    [setTheme]
-  );
-  const memoizedSetThemeDark = useCallback(() => setTheme("dark"), [setTheme]);
-  const memoizedSetThemeSystem = useCallback(
-    () => setTheme("system"),
-    [setTheme]
-  );
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  return useMemo(
-    () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            aria-label="Toggle theme mode"
-            variant="outline"
-            size="icon"
-            className="bg-white/90 shadow-lg shadow-zinc-800/5 ring-zinc-900/5 hover:bg-white/90 hover:text-accent-foreground aria-expanded:text-accent-foreground dark:bg-zinc-800/90 dark:ring-white/10 hover:dark:bg-zinc-800/90"
-          >
-            <Sun className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.5rem] w-[1.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          className="rounded-md bg-white/90 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10"
-        >
-          <DropdownMenuItem
-            onClick={memoizedSetThemeLight}
-            className={clsx(
-              "text-sm font-medium",
-              theme === "light" && "text-accent-foreground"
-            )}
-          >
-            Light
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={memoizedSetThemeDark}
-            className={clsx(
-              "text-sm font-medium",
-              theme === "dark" && "text-accent-foreground"
-            )}
-          >
-            Dark
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={memoizedSetThemeSystem}
-            className={clsx(
-              "text-sm font-medium",
-              theme === "system" && "text-accent-foreground"
-            )}
-          >
-            System
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-    [theme, memoizedSetThemeLight, memoizedSetThemeDark, memoizedSetThemeSystem]
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <div className="flex flex-row items-center justify-center gap-2">
+      <Switch.Root
+        className="peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-input shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50"
+        onCheckedChange={handleToggle}
+        defaultChecked={resolvedTheme === "dark"}
+        checked={resolvedTheme === "dark"}
+      >
+        <Switch.Thumb className="pointer-events-none block h-4 w-4 rounded-full bg-transparent shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0">
+          <Sun className="h-4 w-4 text-zinc-950 dark:hidden dark:text-zinc-50" />
+          <Moon className="hidden h-4 w-4 text-zinc-950 dark:block dark:text-zinc-50" />
+        </Switch.Thumb>
+      </Switch.Root>
+    </div>
   );
 });
+
+ThemeToggle.displayName = "ThemeToggle";
