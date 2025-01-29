@@ -29,11 +29,13 @@ categories: ["react", "javascript", "code-quality"]
 
 ## What are we making?
 
-We're going to bootstrap a Next.js project and install an automated workflow which runs during the git life-cycle to lint and format staged files. It will also provide us with an interactive terminal to standardize commit messages using conventional-commit syntax. All we need to do to invoke this workflow is to `git commit`.
+We're going to setup a Node.js project with a linting and formatting automation that will use `git hooks` to act upon staged file when we `git commit`. Although we're using [**Next.js**](https://Next.js.org/docs) in this article, the automation that we're building is completely applicable to any and all Node.JS projects. In fact, it's not even limited to Node.js. We can use it with deno and bun projects as well by using the corresponding commands provided by their package managers!
+
+As an added extra, we can also use the approach in this article to implement a library that allows us to standardise commit messages using `conventional-commit` syntax. There'll be a future article diving deeper into the concept of conventional commits and the potential it may have to add value to projects, but for now, we'll go through an optional example of how to set it up.
 
 ## Why?
 
-I'm a bit of a weirdo. I like to ensure that before my work is committed to git locally, staged files comply with my project's linting and formatting rules, there are no TypeScript compilation errors and that the commit messages are formatted with conventional-commit syntax. I stop short of adding a test run locally because I'm just a weirdo, not a masochist.
+I'm a bit of a weirdo. I like to ensure that before my work is committed to git locally, staged files comply with my project's linting and formatting rules, there are no TypeScript compilation errors and commit messages are formatted in a consistent manner. I stop short of adding a test run locally because I'm just a weirdo, not a masochist.
 
 We could rely upon IDE extensions to automatically format and lint as we progress through our work, but having a setup like this both acts as a fail-safe to ensure only compliant code is being committed, and makes configuration portable within the repo. Collaborators can automatically inherit the setup when the repo is cloned.
 
@@ -41,9 +43,8 @@ Together with IDE extensions, this workflow makes for a robust toolchain.
 
 ## What are we using?
 
-We're going to be using the following:
+The key libraries are as follows:
 
-- [**Next.js**](https://Next.js.org/docs): A React meta-framework for building web applications.
 - [**eslint**](https://eslint.org/): A configurable linter that attempts to highlight potential problems that may lead to errors within the runtime environment.
 - [**prettier**](https://prettier.io/): A formatter which allows us to enforce a specific style for our source code.
 - [**prettier-plugin-tailwindcss**](https://www.npmjs.com/package/prettier-plugin-tailwindcss): A prettier plugin that provides some added value to using Tailwind CSS (like auto-sorting classes).
@@ -88,7 +89,7 @@ This bootstrap already contains an `eslint` configuration which works great for 
 `cd` into our project and install the remaining libraries that we'll need:
 
 ```shell terminal
-npm install -D prettier prettier-plugin-tailwindcss husky lint-staged gitmoji-cli @trivago/prettier-plugin-sort-imports
+npm install -D prettier prettier-plugin-tailwindcss husky lint-staged @trivago/prettier-plugin-sort-imports
 ```
 
 ### 3. Configure Prettier
@@ -146,24 +147,7 @@ export default config;
 
 The above contains two different linting flows. Firstly for JS and TS filetypes, it uses `next lint` (which runs eslint under the hood) to fix any linting errors and then invokes `prettier` to format those files. The second configuration is for CSS, Markdown and JSON files and it simply invokes `prettier` to format those files.
 
-### 5. Configure Gitmoji
-
-We're installing gitmoji as a project dependency rather than a global node dependency. Therefore, lets add some configuration to specify how we would like the interactive terminal to behave once it's invoked. Add the following property to the root of your `package.json`:
-
-```json ./package.json
-  "gitmoji": {
-    "autoAdd": false,
-    "emojiFormat": "emoji",
-    "scopePrompt": false,
-    "messagePrompt": true,
-    "capitalizeTitle": true,
-    "gitmojisUrl": "https://gitmoji.dev/api/gitmojis"
-  }
-```
-
-If we want to modify this configuration ,we can checkout the docs [here](https://github.com/carloscuesta/gitmoji-cli?tab=readme-ov-file#config). It's highly recommended to do a bit of background reading into how conventional-commit syntax can be used to help standardise commit messages! We're using gitmoji in this example as emojis are objectively awesome... fact. They work great for personal projects but if team projects require a less delighful way to standardize commit messages, [commitizen](https://commitizen-tools.github.io/commitizen/) is a great alternative.
-
-### 6. Configure Husky
+### 5. Configure Husky
 
 Finally, let's setup husky which will bring all our work together.
 
@@ -177,6 +161,48 @@ npx husky init
 
 npx tsc --noEmit
 npx lint-staged
+```
+
+</CodeWithTabs>
+
+Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory and add a `prepare` script to the project (see the husky docs for a full explanation). Within the `.husky` directory you'll see a `pre-commit` hook has already been created for you. We're going to replace its contents with that of the tab above.
+
+The git life-cycle has many stages within it and we can execute scripts during those stages by using [git hooks](https://git-scm.com/docs/githooks). The [pre-commit](https://git-scm.com/docs/githooks#_pre_commit) hook is invoked prior the staged files being merged into the current branch. We're adding into the pre-commit hook, the ability to typecheck our repo and run our lint-staged configuration against those currently staged files. The hook will fail if an error is encountered by either command, thereby interrupting the git process, prompting us to address the errors that were flagged in the terminal.
+
+That's it, all the setup and configuration is complete. Congrats!
+
+## Now What?
+
+Well, all we need to do now is to develop as we normally would! The fruit of our labour should be seen within the terminal when we issue `git commit`! Our staged files will be linted and formatted prior to inputting our commit message and all will be well with the world and we'll be rewarded with coffee and chocolate for the rest of our glorious days!
+
+## Bypassing Git Hooks...
+
+Git hooks are really powerful and really useful and this setup works super well in almost all instances. However, there may come a time where it might be necessary to perform the unspeakable task of committing work that doesn't pass static analysis or typechecking. In those (reckless but necessary) circumstances, the hook can be bypassed by adding the `--no-verify` flag to the `git commit` command. E.g.
+
+```shell
+git commit -m "your commit messsge here" --no-verify"
+```
+
+With great power, comes great yada yada yada. You get it.
+
+## Added Extra!
+
+We touched on conventional commits above in the introduction, but as a reminder, it's a concept for standardising commit messages, which in turn makes it easier to understand the unit of work which was added into the branch with each commit. We're going to use the `prepare-commit-msg` git hook to invoke the `gitmoji` cli which will take over the default terminal experience for adding a commit message, and replave it with an interactive terminal that will guide us through writing a commit message which complies with conventional-commit syntax. But wait, that's not all... This setup will also add emojis to our commit messages, leading to our project earning infinite stars on github, infinite VC investment and more money than even Erlich Bachmann would know what to do with...
+
+<CodeWithTabs>
+```shell !!tabs 1. install gitmoji-cli
+npm install -D gitmoji-cli
+```
+
+```json !!tabs 2. package.json
+  "gitmoji": {
+    "autoAdd": false,
+    "emojiFormat": "emoji",
+    "scopePrompt": false,
+    "messagePrompt": true,
+    "capitalizeTitle": true,
+    "gitmojisUrl": "https://gitmoji.dev/api/gitmojis"
+  }
 ```
 
 ```shell !!tabs 3. prepare-commit-msg.sh
@@ -194,19 +220,13 @@ fi
 
 </CodeWithTabs>
 
-Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory and add a `prepare` script to the project (see the husky docs for a full explanation). Within the `.husky` directory you'll see a `pre-commit` hook has already been created for you. We're going to replace the contents in the tab above.
+Let's start with installing gitmoji-cli as a project devDependency. When installed, lets add some configuration to specify how we would like the interactive terminal to behave once it's invoked by adding teh above into the root of our package.json.
 
-Next to this, within the `.husky` directory, we're also going to create a new `prepare-commit-msg` hook as outlined in the tab above.
+Finally lets add a [prepare-commit-msg](https://git-scm.com/docs/githooks#_prepare_commit_msg) hook with the details above into our .husky directory.
 
-The git life-cycle has many stages within it and we can execute scripts during those stages by using [git hooks](https://git-scm.com/docs/githooks). When the [pre-commit](https://git-scm.com/docs/githooks#_pre_commit) hook runs, it will check for any typescript errors in the project and then it will invoke our lint-staged configuration. The hook will fail if an error is encountered by either command, thereby interrupting the git process.
+Now when you run `git commit` once typchecking, linting and formatting has been completed, we'll be provided an interactive terminal to format our commit message!
 
-The [prepare-commit-msg](https://git-scm.com/docs/githooks#_prepare_commit_msg) hook will be invoked immediatly before the point at which we would normally write our commit message. It will replace the default terminal input experience with an interactive terminal provided by gitmoji-cli.
-
-That's it, all the setup amnd configuration is complete. Congrats!
-
-## Now What?
-
-Well, all we need to do now is to develop as we normally would! The fruit of our labour should be seen within the terminal when we issue `git commit`! Our staged files will be linted and formatted prior to inputting our commit message and instead of being provided with a terminal prompt to do that, we'll be delivered an interactive experience!
+If we want to modify the gitmoji-cli configuration, we can checkout the docs [here](https://github.com/carloscuesta/gitmoji-cli?tab=readme-ov-file#config). It's highly recommended to do a bit of background reading into conventional-commit syntax. We're using gitmoji in this example as emojis are objectively awesome... fact. They work great for personal projects, but if team projects require a less delightful way to standardize commit messages, [commitizen](https://commitizen-tools.github.io/commitizen/) is a great alternative.
 
 ## Super Bonus Extra!
 
