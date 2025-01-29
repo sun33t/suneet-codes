@@ -7,6 +7,7 @@ import { env } from "@/app/env";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
+import { baseUrl } from "@/lib/baseUrl";
 import { formatDate } from "@/lib/formatDate";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/markdown.css";
@@ -52,6 +53,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       tags: article.categories,
       locale: "en-GB",
       siteName: env.PROJECT_BASE_TITLE,
+    },
+    robots: {
+      ...(baseUrl.hostname === env.PROJECT_DOMAIN
+        ? { index: true, follow: true }
+        : { index: false, follow: false }),
+      nocache: true,
     },
   };
 }
