@@ -7,7 +7,6 @@ import { env } from "@/app/env";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
-import { baseUrl } from "@/lib/baseUrl";
 import { formatDate } from "@/lib/formatDate";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/markdown.css";
@@ -54,12 +53,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: "en-GB",
       siteName: env.PROJECT_BASE_TITLE,
     },
-    robots: {
-      ...(baseUrl.hostname === env.PROJECT_DOMAIN
-        ? { index: true, follow: true }
-        : { index: false, follow: false }),
-      nocache: true,
-    },
   };
 }
 
@@ -89,7 +82,7 @@ export default async function Page({
           <BackButton />
           {articlefrontmatter && (
             <article>
-              <div className="prose prose-base mx-auto mt-8 dark:prose-invert prose-a:text-accent-foreground prose-a:no-underline prose-strong:underline prose-img:rounded-3xl">
+              <div className="prose prose-base mx-auto mt-8 dark:prose-invert prose-a:text-accent-foreground prose-a:no-underline prose-code:rounded-sm prose-code:bg-yellow-200/60 prose-code:px-1 prose-code:before:content-none prose-code:after:content-none prose-img:rounded-3xl dark:prose-code:bg-pink-600/50">
                 <header className="flex flex-col">
                   <h1 className="mt-6 flex">{articlefrontmatter.title}</h1>
                   <div className="order-first flex items-center justify-start gap-2 text-sm text-zinc-400 dark:text-zinc-500">
