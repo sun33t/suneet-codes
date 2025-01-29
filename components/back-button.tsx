@@ -21,16 +21,14 @@ export const BackButton = () => {
   const router = useRouter();
 
   return (
-    <div>
-      <Button
-        onClick={() => router.push("/articles")}
-        aria-label="Go back to articles"
-        className="flex items-center justify-center rounded-full bg-white/90 shadow-lg transition focus:bg-white lg:absolute lg:-top-1.5 lg:left-0 lg:mt-0 dark:bg-zinc-800/90 dark:focus:bg-zinc-800/90"
-        size="icon"
-        variant="outline"
-      >
-        <ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400" />
-      </Button>
-    </div>
+    <Button
+      onClick={() => router.push("/articles")}
+      aria-label="Go back to articles"
+      className="flex items-center justify-center rounded-full bg-white/90 shadow-lg transition focus:bg-white lg:absolute lg:-top-1.5 lg:left-0 lg:mt-0 dark:bg-zinc-800/90 dark:focus:bg-zinc-800/90"
+      size="icon"
+      variant="outline"
+    >
+      <ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400" />
+    </Button>
   );
 };
