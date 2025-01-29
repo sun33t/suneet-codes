@@ -24,7 +24,7 @@ export const BackButton = () => {
     <Button
       onClick={() => router.push("/articles")}
       aria-label="Go back to articles"
-      className="flex items-center justify-center rounded-full bg-white/90 shadow-lg transition focus:bg-white lg:absolute lg:-top-1.5 lg:left-0 lg:mt-0 dark:bg-zinc-800/90 dark:focus:bg-zinc-800/90"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg transition focus:bg-white lg:absolute lg:-top-1.5 lg:left-0 lg:mt-0 dark:bg-zinc-800/90 dark:focus:bg-zinc-800/90"
       size="icon"
       variant="outline"
     >
