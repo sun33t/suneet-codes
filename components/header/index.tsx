@@ -226,7 +226,7 @@ export const Header = ({
                   className="pointer-events-auto hidden md:block"
                 />
               </div>
-              <div className="pointer-events-auto flex justify-end gap-1 md:flex-1">
+              <div className="pointer-events-auto flex justify-end gap-4 md:flex-1">
                 <ThemeToggle />
                 <MobileNavigationButton
                   isMenuOpen={isMobileMenuOpen}

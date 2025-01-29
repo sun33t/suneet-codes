@@ -9,7 +9,7 @@ import {
 } from "../ui/sheet";
 
 import clsx from "clsx";
-import { AlignRight, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentPropsWithoutRef, memo } from "react";
@@ -28,13 +28,13 @@ export const MobileNavigationButton = ({
     <Button
       variant="outline"
       size="icon"
-      className="bg-white/90 shadow-lg shadow-zinc-800/5 ring-zinc-900/5 hover:bg-white/90 hover:text-accent-foreground aria-expanded:text-accent-foreground md:hidden dark:bg-zinc-800/90 dark:ring-white/10 hover:dark:bg-zinc-800/90"
+      className="rounded-full bg-white/90 shadow-lg ring-zinc-900/5 md:hidden dark:bg-zinc-800/90 dark:ring-white/10 hover:dark:bg-zinc-800/90"
       onClick={onClick}
     >
       {isMenuOpen ? (
         <X className="h-[1.5rem] w-[1.5rem]" />
       ) : (
-        <AlignRight className="h-[1.5rem] w-[1.5rem]" />
+        <Menu className="h-[1.5rem] w-[1.5rem]" />
       )}
     </Button>
   );
