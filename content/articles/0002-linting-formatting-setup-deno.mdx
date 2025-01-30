@@ -77,7 +77,7 @@ const config = {
 export default config;
 ```
 
-We'll create our lint-staged configuration file as above at the root of our project. It's really similar to the node-based config file that we created in the previous article. The major difference here though is that we're executing the linting and formatting using the built in deno commands.
+We'll create our lint-staged configuration file as above at the root of our project. It's really similar to the node-based config file that we created in the previous article. The major difference here though is that we're executing the linting and formatting using the built-in deno commands.
 
 We're using deno's default linting and formatting rules in this example which can be customised within the deno.json file by following the [docs](https://docs.deno.com/runtime/fundamentals/linting_and_formatting/).
 
@@ -126,7 +126,7 @@ Let's first install gitmoji-cli:
 deno add -D npm:gitmoji-cli
 ```
 
-Then, lets create our `prepare-commit-msg` hook:
+Then, let's create our `prepare-commit-msg` hook:
 
 ```shell ./git-hooks/prepare-commit-msg
 #!/usr/bin/env sh
