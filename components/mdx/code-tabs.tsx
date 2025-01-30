@@ -4,7 +4,7 @@ import { CopyButton } from "./copy-button";
 import { wordWrap } from "./word-wrap";
 
 import { HighlightedCode, Pre, RawCode } from "codehike/code";
-import { Fragment, useMemo } from "react";
+import { useMemo } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -32,22 +32,21 @@ export const CodeTabs = ({
           [tabs]
         )}
       </TabsList>
-      <Fragment>
-        {useMemo(
-          () =>
-            tabs.map((tab, i) => (
-              <TabsContent key={tab.meta} value={tab.meta} className="mt-0">
-                <CopyButton text={highlighted[i].code} />
-                <Pre
-                  code={highlighted[i]}
-                  className="m-0 rounded-b-xl rounded-t-none bg-zinc-950"
-                  handlers={[wordWrap]}
-                />
-              </TabsContent>
-            )),
-          [highlighted, tabs]
-        )}
-      </Fragment>
+
+      {useMemo(
+        () =>
+          tabs.map((tab, i) => (
+            <TabsContent key={tab.meta} value={tab.meta} className="mt-0">
+              <CopyButton text={highlighted[i].code} />
+              <Pre
+                code={highlighted[i]}
+                className="m-0 rounded-b-xl rounded-t-none bg-zinc-950"
+                handlers={[wordWrap]}
+              />
+            </TabsContent>
+          )),
+        [highlighted, tabs]
+      )}
     </Tabs>
   );
 };
