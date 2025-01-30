@@ -2,6 +2,7 @@ import { CodeTabs } from "./code-tabs";
 
 import { Block, CodeBlock, parseProps } from "codehike/blocks";
 import { type RawCode, highlight } from "codehike/code";
+import { memo } from "react";
 import { z } from "zod";
 
 import { Tabs } from "@/components/ui/tabs";
@@ -12,7 +13,7 @@ export async function CodeWithTabs(props: unknown) {
   return <CodeTabsContainer tabs={tabs} />;
 }
 
-async function CodeTabsContainer(props: { tabs: RawCode[] }) {
+const CodeTabsContainer = memo(async (props: { tabs: RawCode[] }) => {
   const { tabs } = props;
   const highlighted = await Promise.all(
     tabs.map((tab) => highlight(tab, "dracula"))
@@ -22,4 +23,6 @@ async function CodeTabsContainer(props: { tabs: RawCode[] }) {
       <CodeTabs highlighted={highlighted} tabs={tabs} />
     </Tabs>
   );
-}
+});
+
+CodeTabsContainer.displayName = "CodeTabsContainer";
