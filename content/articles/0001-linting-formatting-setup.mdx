@@ -29,9 +29,9 @@ categories: ["node", "code-quality", "typescript"]
 
 ## What are we making?
 
-We're going to setup a Node.js project with a linting and formatting automation that will use `git hooks` to act upon staged files when we `git commit`. Although we're using [**Next.js**](https://Next.js.org/docs) in this article, the automation that we're building is completely applicable to any and all Node.JS projects if the main steps are followed and project specific configuration files are used.
+We're going to setup a Node.js project with a linting and formatting automation that will use `git hooks` to act upon staged files when we `git commit`. Although we're using [**Next.js**](https://Next.js.org/docs) and [**TailwindCSS**](https://tailwindcss.com/) in this article, the automation that we're building is completely applicable to any and all Node.JS projects, if the main steps are followed, and project specific configuration files are used. This is by no means, a framework-specific guide.
 
-As an added extra, we can also use the approach in this article to implement a library that allows us to standardise commit messages using `conventional-commit` syntax. There'll be a future article diving deeper into the concept of conventional commits and the potential it may have to add value to projects, but for now, we'll go through an optional example of how to set it up.
+As an added extra, we can also use this approach to standardise commit messages with `conventional-commit` syntax! There'll be a future article diving deeper into the concept of conventional commits and the potential it may have to add value to projects, but for now, we'll go through an optional example of how to set it up.
 
 ## Why?
 
@@ -43,15 +43,15 @@ Together with IDE extensions, this workflow makes for a robust toolchain.
 
 ## What are we using?
 
-The key libraries are as follows:
+The key libraries are:
 
-- [**eslint**](https://eslint.org/): A configurable linter that attempts to highlight potential problems that may lead to errors within the runtime environment.
-- [**prettier**](https://prettier.io/): A formatter which allows us to enforce a specific style for our source code.
-- [**prettier-plugin-tailwindcss**](https://www.npmjs.com/package/prettier-plugin-tailwindcss): A prettier plugin that provides some added value to using Tailwind CSS (like auto-sorting classes).
-- [**@trivago/prettier-plugin-sort-imports**](https://github.com/trivago/prettier-plugin-sort-imports): A prettier plugin that provides a way to sort imports within a file in a specifed order. Inspired by [CJ Reynold's](https://bsky.app/profile/w3cj.com) walkthrough of his [next-start](https://github.com/w3cj/next-start) project. It's a fab video which can be seen [here](https://youtu.be/dLRKV-bajS4?si=9iwAucEekONazrrf)!
-- [**husky**](https://github.com/typicode/husky): A tool that allows us to add git lifecycle hooks to our repo. We could make use of the hooks provided by the `.git` directory within the project folder but using husky allows us to have our hooks committed so that they are portable with the project.
-- [**lint-staged**](https://github.com/okonet/lint-staged): A library that allows us to run commands against staged files. It allows us to differentiate between file types, and run a different set of commands against each.
-- [**gitmoji-cli**](https://github.com/carloscuesta/gitmoji): An interactive terminal that allows us to format git messages in accordance with [conventional-commit](https://www.conventionalcommits.org/en/v1.0.0/) syntax, but with emojis. Because emojis are great ok.
+- [**eslint**](https://eslint.org/): For highlighting potential problems which may lead to errors within the runtime environment.
+- [**prettier**](https://prettier.io/): For enforcing a common style for our source code to aid readability.
+- [**prettier-plugin-tailwindcss**](https://www.npmjs.com/package/prettier-plugin-tailwindcss): A prettier plugin for auto-sorting tailwind classes.
+- [**@trivago/prettier-plugin-sort-imports**](https://github.com/trivago/prettier-plugin-sort-imports): A prettier plugin for sorting imports. Inspired by [CJ Reynold's](https://bsky.app/profile/w3cj.com) walkthrough of his [next-start](https://github.com/w3cj/next-start) project. It's a fab video which can be seen [here](https://youtu.be/dLRKV-bajS4?si=9iwAucEekONazrrf)!
+- [**husky**](https://github.com/typicode/husky): For accessing git hooks.
+- [**lint-staged**](https://github.com/okonet/lint-staged): For running commands against staged files.
+- [**gitmoji-cli**](https://github.com/carloscuesta/gitmoji): An interactive terminal for formatting commits with emojis and [conventional-commit](https://www.conventionalcommits.org/en/v1.0.0/) syntax.
 
 ## I don't have time to read! Is there a video I can watch or a repo I can clone?
 
