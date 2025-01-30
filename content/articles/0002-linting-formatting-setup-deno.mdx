@@ -1,0 +1,154 @@
+---
+isPublished: true
+title: Deno Projects - Linting + Formatting + Conventional Commits
+author: Suneet Misra
+date: 2025-01-30
+updatedAt: 2025-01-30
+description: A guide to setting up automated linting, formatting, and conventional commits in Deno projects using Git hooks.
+coverImage: laptop_screen_with_js_lfvx2i
+keywords:
+  [
+    "javascript",
+    "typescript",
+    "deno",
+    "eslint",
+    "dprint",
+    "lint-staged",
+    "husky",
+    "git-hooks",
+    "conventional-commits",
+    "gitmoji",
+  ]
+categories: ["deno", "code-quality", "typescript"]
+---
+
+This is the second of three articles illustrating how to set up a git automation for linting, and formatting files and for composing commit messages with conventional commits.
+
+In the [first article](/articles/linting-formatting-setup) we implented the workflow within a node project. Here, we're going to recreate the same workflow but within a [deno](https://deno.com/) project.
+
+The steps are pretty similar to those in the previous article, so we're going to wiz through, only drawing attention to the deno-specific differences.
+
+## Is there a video I can watch or a repo I can clone?
+
+No video just yet, but [here's a link](https://github.com/sun33t/0002-linting-formatting-setup-deno) to a demo repo that can be cloned.
+
+## What are we building?
+
+We're going to create an automation that kicks in when we `git commit`. This automation will use deno to type-check, lint and format staged files, and then it will use [gitmoji-cli](https://github.com/carloscuesta/gitmoji) to help format commits with emojis and [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) syntax. If you're allergic to emojis and still want conventional commits, try out [commitizen](https://commitizen-tools.github.io/commitizen/) which is a great alternative!
+
+## What are the steps?
+
+We'll initialise a deno project with git. We'll install and configure lint-staged and git and that's pretty much all there is to it. Let's begin!
+
+### Step 1 - Initialize the project
+
+```shell terminal
+deno init && git init
+```
+
+In your terminal, create a new directory for your project and `cd` into it. Use the `deno init && git init` command to initialise a new deno project with git in the current directory.
+
+### Step 2 - Install Dependencies
+
+Deno's pretty awesome and it gives us the following out of the box:
+
+- [**An eslint compatible linter**](https://docs.deno.com/runtime/fundamentals/linting_and_formatting/#linting)
+- [**A dprint-powered formatter**](https://docs.deno.com/runtime/fundamentals/linting_and_formatting/#formatting)
+- [**Native TypeScript Support**](https://docs.deno.com/runtime/fundamentals/typescript/#type-checking)
+
+All we need to do is install the missing parts of our workflow which is [lint-staged](https://github.com/okonet/lint-staged).
+
+```shell terminal
+deno add -D npm:lint-staged
+```
+
+The above command uses deno to install lint-staged from the npm package registry. We'll then see it listed in the imports section within the `deno.json` file. Read more about how deno handles 3rd party modules [here](https://docs.deno.com/runtime/fundamentals/modules/#adding-dependencies-with-deno-add).
+
+### Step 2 - Configure Lint-Staged
+
+```javascript lint-staged.config.mjs
+const config = {
+  "*.{cjs,mjs,js,ts,jsx,tsx}": (stagedFiles) => [
+    `deno lint ${stagedFiles.join(" ")}`,
+    `deno fmt ${stagedFiles.join(" ")}`,
+  ],
+  "*.{css,md,mdx,json}": (stagedFiles) => [`deno fmt ${stagedFiles.join(" ")}`],
+};
+export default config;
+```
+
+We'll create our lint-staged configuration file as above at the root of our project. It's really similar to the node-based config file that we created in the previous article. The major difference here though is that we're executing the linting and formatting using the built in deno commands.
+
+We're using deno's default linting and formatting rules in this example which can be customised within the deno.json file by following the [docs](https://docs.deno.com/runtime/fundamentals/linting_and_formatting/).
+
+### Step 3 - Configure Git
+
+We're not using husky here as we did in the last article as husky is primarily designed with the structure of a node project in mind. Instead, we're going to use git's native `core.hooksPath` api to tell git where to look for hook scripts.
+
+First we'll create a directory to store our hooks:
+
+```shell terminal
+mkdir git-hooks
+```
+
+Then we'll add a new `pre-commit` hook script into the directory:
+
+```shell .git-hooks/pre-commit
+#!/usr/bin/env sh
+
+deno check .
+deno run -A npm:lint-staged
+```
+
+Next we'll add a new task to our deno.json:
+
+```json deno.json
+{
+  "tasks": {
+    "prepare": "git config --local core.hooksPath git-hooks && cd git-hooks && chmod +x *"
+  }
+}
+```
+
+And finally, we'll run the `prepare` task to update our project's git configuration with the location of our git-hooks directory, and to make all files within the directory executable.
+
+```shell terminal
+deno task prepare
+```
+
+We now have a `pre-commit` hook setup in the repo which will use deno to type-check the whole project, and lint-staged to initiate deno's linting and formatting commands on staged files prior to inputting the commit message.
+
+### Step 4 - Configure Gitmoji (optional)
+
+Let's first install gitmoji-cli:
+
+```shell terminal
+deno add -D npm:gitmoji-cli
+```
+
+Then, lets create our `prepare-commit-msg` hook:
+
+```shell ./git-hooks/prepare-commit-msg
+#!/usr/bin/env sh
+
+exec < /dev/tty
+deno run -A npm:gitmoji-cli --hook $1 $2
+```
+
+Finally let's run `deno task prepare` to make sure all the hook scripts are executable and git is configured correctly.
+
+That's the last setup step completed!
+
+## Is That It? Are We Done?
+
+Yes we're done! As with the node setup, we can go ahead and develop as normal and every time we commit our staged files, this automation will kick in!
+
+## Super Important - Read This or Everything Will Explode!
+
+It's important to note that when we clone a project down which contains this configuration, we'll need to manually run the prepare task in order for the git directory to be configured to use our hooks. This can be done by chaining the task onto the install command:
+
+```shell terminal
+deno install && deno task prepare
+```
+
+I hope this has helped and inspired you to learn more about deno and to share your enthusiasm for building with code!
