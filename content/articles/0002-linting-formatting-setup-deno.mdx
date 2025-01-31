@@ -5,7 +5,7 @@ author: Suneet Misra
 date: 2025-01-30
 updatedAt: 2025-01-30
 description: A guide to setting up automated linting, formatting, and conventional commits in Deno projects using Git hooks.
-coverImage: linting-node_x2g5hj
+coverImage: linting-formatting-deno_z91i9v
 keywords:
   [
     "javascript",
@@ -21,7 +21,7 @@ categories: ["deno", "code-quality", "typescript"]
 ---
 
 <SuspendedArticleImage
-  src="linting-node_x2g5hj"
+  src="linting-formatting-deno_z91i9v"
   alt="Thumbnail image showing the title for the article with the Node.js and git logos"
 />
 
@@ -86,7 +86,7 @@ We're using deno's default linting and formatting rules in this example which ca
 
 ### Step 3 - Configure Git
 
-We're not using husky here as we did in the last article as husky is primarily designed with the structure of a node project in mind. Instead, we're going to use git's native `core.hooksPath` api to tell git where to look for hook scripts.
+We're not using husky here as we did in the last article as it's is primarily designed with the structure of a node project in mind. Instead, we're going to use git's native [core.hooksPath](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath) configuration property which can be used to redefine where hooks are stored. The `core.hooksPath` property was introduced with `git v2.9.5` with the current release being `v2.48.1`. If a more husky-like experience is preferred, please take a look at the [deno-hooks](https://deno.land/x/deno_hooks@0.1.2) library which is inspired by husky (and also uses core.hooksPath under the hood).
 
 First we'll create a directory to store our hooks:
 
