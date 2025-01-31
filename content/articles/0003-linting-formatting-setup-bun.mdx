@@ -28,7 +28,7 @@ categories: ["bun", "code-quality", "typescript"]
 
 This is the last of three articles illustrating how to set up a git automation for linting, and formatting files and for composing commit messages with conventional commits within JS/TS projects.
 
-In the [first article](/articles/linting-formatting-setup) we implented the workflow within a node project and in the [second](/articles/linting-formatting-setup-deno), we used deno. This time its Bun's turn!
+In the [first article](/articles/linting-formatting-setup) we implemented the workflow within a node project and in the [second](/articles/linting-formatting-setup-deno), we used deno. This time its Bun's turn!
 
 The steps are very similar to those taken in the node setup, so we're going to skip a lot of the detail here and only draw attention to the bun-specific differences. Please check out the [node-specific article](/articles/linting-formatting-setup) for a deeper explanation of the workflow
 
@@ -131,7 +131,7 @@ Next, we'll issue `bun create @eslint/config@latest` to install and configure th
 
 ### Step 3 - Configure Git Hooks
 
-We can setup our git hooks in one of two ways. In the node example, we used **husky** and in the deno example we used git's own **core.hooksPath** configuration property. In this example we'll use the husky option as it illustrates the use of some of bun's cli commands, but if the core.hooksPath method is preffered, please refer to the [deno article](/articles/lint-formatting-setup-deno) for the process.
+We can set up our git hooks in one of two ways. In the node example, we used **husky** and in the deno example we used git's own **core.hooksPath** configuration property. In this example we'll use the husky option as it illustrates the use of some of bun's cli commands, but if the core.hooksPath method is preffered, please refer to the [deno article](/articles/lint-formatting-setup-deno) for the process.
 
 The only departure from that method is that bun does respect package.json lifecycle scripts so after the `prepare` script is added, it will be automatically executed when you run `bun install` after cloning a project down that contains this workflow.
 
