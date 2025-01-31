@@ -6,6 +6,7 @@ export const CATEGORYTITLES = [
   "code-quality",
   "typescript",
   "deno",
+  "bun",
 ] as const;
 
 type CategoryTitleWithSlug = {

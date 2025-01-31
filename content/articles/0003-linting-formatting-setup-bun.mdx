@@ -1,0 +1,177 @@
+---
+isPublished: true
+title: "Bun Projects: Linting + Formatting + Conventional Commits"
+author: Suneet Misra
+date: 2025-01-31
+updatedAt: 2025-01-31
+description: A guide to setting up automated linting, formatting, and conventional commits in Bun projects using Git hooks.
+coverImage: linting-formatting-bun_eezdjg
+keywords:
+  [
+    "javascript",
+    "typescript",
+    "bun",
+    "prettier",
+    "lint-staged",
+    "git-hooks",
+    "husky",
+    "conventional-commits",
+    "gitmoji",
+  ]
+categories: ["bun", "code-quality", "typescript"]
+---
+
+<SuspendedArticleImage
+  src="linting-formatting-bun_eezdjg"
+  alt="Thumbnail image showing the title for the article with the bun and git logos"
+/>
+
+This is the last of three articles illustrating how to set up a git automation for linting, and formatting files and for composing commit messages with conventional commits within JS/TS projects.
+
+In the [first article](/articles/linting-formatting-setup) we implented the workflow within a node project and in the [second](/articles/linting-formatting-setup-deno), we used deno. This time its Bun's turn!
+
+The steps are very similar to those taken in the node setup, so we're going to skip a lot of the detail here and only draw attention to the bun-specific differences. Please check out the [node-specific article](/articles/linting-formatting-setup) for a deeper explanation of the workflow
+
+## Is there a video I can watch or a repo I can clone?
+
+No video just yet, but [here's a link](https://github.com/sun33t/0003-linting-formatting-setup-bun) to a demo repo that can be cloned.
+
+## What are we building?
+
+We're going to create an automation that kicks in when we `git commit`. It'll use TypeScript to type-check the source code, eslint, prettier and lint-staged to lint and format staged files, and then it will use [gitmoji-cli](https://github.com/carloscuesta/gitmoji) to help format commits with emojis and [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) syntax. If emojis are a bit extra, but conventional commits sound like a great idea, check out [commitizen](https://commitizen-tools.github.io/commitizen/) which is a great alternative!
+
+## What are the steps?
+
+We'll initialise a bun project with git, install and configure our dependencies and then we'll add our git hooks and that's pretty much all there is to it. Let's begin!
+
+### Step 1 - Initialise the project
+
+```shell terminal
+bun init
+```
+
+In your terminal, create a new directory for your project and `cd` into it. Use the `bun init` command to initialise a new bun project. We can stick with the cli defaults so just hit enter as the options progress.
+
+```shell terminal
+git init
+```
+
+Next we'll add git to our project by issuing the `git init` command.
+
+### Step 2 - Install Dependencies
+
+Next lets install our dependencies. Unlike Deno, Bun doesn’t come with any built-in linter or formatter so this process will be very similar to how we set up our workflow in node with one exception. New bun projects come pre-configured with typescript so we don't need to do any work to get that setup.
+
+<CodeWithTabs>
+```shell !!tabs 1. install
+bun add -d prettier gitmoji-cli lint-staged
+```
+```javascript !!tabs 2. prettier.config.mjs
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
+
+const config = {
+printWidth: 80,
+tabWidth: 2,
+semi: true,
+singleQuote: false,
+trailingComma: "es5",
+bracketSpacing: true,
+proseWrap: "preserve",
+};
+
+export default config;
+```
+```javascript !!tabs 3. lint-staged.config.mjs
+const config = {
+  "*.{cjs,mjs,js,ts,jsx,tsx}": (stagedFiles) => [
+    `eslint --fix ${stagedFiles.join(" ")}`,
+    `prettier --write ${stagedFiles.join(" ")}`,
+  ],
+  "*.{css,md,mdx,json}": (stagedFiles) => [
+    `prettier --write ${stagedFiles.join(" ")}`,
+  ],
+};
+export default config;
+```
+
+```json !!tabs 3. package.json
+"gitmoji": {
+    "autoAdd": false,
+    "emojiFormat": "emoji",
+    "scopePrompt": false,
+    "messagePrompt": true,
+    "capitalizeTitle": true,
+    "gitmojisUrl": "https://gitmoji.dev/api/gitmojis"
+  }
+```
+
+</CodeWithTabs>
+
+We'll issue the above command to install prettier, gitmoji-cli and lint-staged, followed by creating config files for each of them as above.
+
+```shell terminal
+bun create @eslint/config@latest
+```
+
+Next, we'll issue `bun create @eslint/config@latest` to install and configure the latest version of eslint, specifying the options below:
+
+```shell terminal
+✔ How would you like to use ESLint? · problems
+✔ What type of modules does your project use? · esm
+✔ Which framework does your project use? · none
+✔ Does your project use TypeScript? · typescript
+✔ Where does your code run? · node
+✔ Would you like to install them now? · No / Yes
+✔ Which package manager do you want to use? · bun
+
+```
+
+### Step 3 - Configure Git Hooks
+
+We can setup our git hooks in one of two ways. In the node example, we used **husky** and in the deno example we used git's own **core.hooksPath** configuration property. In this example we'll use the husky option as it illustrates the use of some of bun's cli commands, but if the core.hooksPath method is preffered, please refer to the [deno article](/articles/lint-formatting-setup-deno) for the process.
+
+The only departure from that method is that bun does respect package.json lifecycle scripts so after the `prepare` script is added, it will be automatically executed when you run `bun install` after cloning a project down that contains this workflow.
+
+With that said, let's continue.
+
+<CodeWithTabs>
+  ```shell !!tabs 1. install
+  bun add -d husky
+  ```
+  ```shell !!tabs 2. initialise
+  bunx husky init
+  ```
+
+```shell !!tabs 3. pre-commit
+#!/usr/bin/env sh
+
+bunx tsc --noEmit
+bunx lint-staged
+```
+
+```shell !!tabs 4. prepare-commit-msg
+#!/usr/bin/env sh
+
+  exec < /dev/tty
+  gitmoji --hook $1 $2
+```
+
+</CodeWithTabs>
+Let's begin with adding husky as a project devDependency, followed by using the `husky init` command to initialise our hooks directory and add a prepare script to our package.json.
+
+Then within the `./.husky` directory, create a `pre-commit` and `prepare-commit-msg` hook script as above.
+
+## We're Done! Wasn't That Easy?
+
+We now have the same code quality automation configured as we did with node and deno and all we have to do going forwards is `git commit` as we normally would to benefit from it.
+
+## What's Next?
+
+Thanks for taking the time to read through to the end. It's been a really interesting process to learn how to repeat this setup in each of the JS/TS runtimes. It's an exciting time to be a JS/TS developer as the tooling is improving rapidly and the ergonomics of implementing and using these types of workflows are getting better all the time.
+
+Maybe in the future, there'll be another article to come on implementing [biome](https://biomejs.dev/) or [oxc](https://oxc.rs/) and perhaps a comparison of all of the toolchains against each other.
+
+If that sounds like a good idea, please let me know!
