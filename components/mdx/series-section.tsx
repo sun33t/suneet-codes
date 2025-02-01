@@ -46,9 +46,7 @@ export const SeriesSection = ({
                     />
                   ) : null}
                   <div className="relative flex items-start space-x-3 sm:items-center">
-                    {/* <div> */}
                     <span className={entryIconClasses}>{id}</span>
-                    {/* </div> */}
                     <div className="flex min-w-0 flex-1 items-start justify-between space-x-4 sm:items-center">
                       <div>
                         <p className={entryTitleClasses}>
