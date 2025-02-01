@@ -27,6 +27,31 @@ categories: ["node", "code-quality", "typescript"]
   alt="laptop screen displaying source code"
 />
 
+<SeriesSection
+  seriesDescription="This atirlce is part of a series which covers the setup of automated linting, formatting, and conventional commits in various JavaScript runtimes using git hooks."
+  seriesEntries={[
+    {
+      id: 1,
+      title: "Node Projects: Linting + Formatting + Conventional Commits",
+      href: "/articles/linting-formatting-setup",
+      publishedAt: "Jan 27",
+      isCurrent: true,
+    },
+    {
+      id: 2,
+      title: "Deno Projects: Linting + Formatting + Conventional Commits",
+      href: "/articles/linting-formatting-setup-deno",
+      publishedAt: "Jan 30",
+    },
+    {
+      id: 3,
+      title: "Bun Projects: Linting + Formatting + Conventional Commits",
+      href: "/articles/linting-formatting-setup-bun",
+      publishedAt: "Jan 31",
+    },
+  ]}
+/>
+
 ## What are we making?
 
 We're going to setup a Node.js project with a linting and formatting automation that will use `git hooks` to act upon staged files when we `git commit`. Although we're using [**Next.js**](https://Next.js.org/docs) and [**TailwindCSS**](https://tailwindcss.com/) in this article, the automation that we're building is completely applicable to any and all Node.JS projects, if the main steps are followed, and project specific configuration files are used. This is by no means, a framework-specific guide.
