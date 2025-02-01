@@ -16,7 +16,7 @@ export const SeriesSection = ({
   seriesEntries: SeriesEntry[];
   seriesDescription: string;
 }) => {
-  return (
+  return seriesEntries?.length > 0 ? (
     <div className="mx-auto mb-8 mt-12 flow-root">
       <p className="mt-4 text-sm italic">{seriesDescription}</p>
       <ul role="list" className="not-prose my-6 sm:px-4">
@@ -71,5 +71,5 @@ export const SeriesSection = ({
         )}
       </ul>
     </div>
-  );
+  ) : null;
 };
