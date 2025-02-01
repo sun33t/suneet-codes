@@ -25,6 +25,31 @@ categories: ["deno", "code-quality", "typescript"]
   alt="Thumbnail image showing the title for the article with the deno and git logos"
 />
 
+<SeriesSection
+  seriesDescription="This atirlce is part of a series which covers the setup of automated linting, formatting, and conventional commits in various JavaScript runtimes using git hooks."
+  seriesEntries={[
+    {
+      id: 1,
+      title: "Node Projects: Linting + Formatting + Conventional Commits",
+      href: "/articles/linting-formatting-setup",
+      publishedAt: "Jan 27",
+    },
+    {
+      id: 2,
+      title: "Deno Projects: Linting + Formatting + Conventional Commits",
+      href: "/articles/linting-formatting-setup-deno",
+      publishedAt: "Jan 30",
+      isCurrent: true,
+    },
+    {
+      id: 3,
+      title: "Bun Projects: Linting + Formatting + Conventional Commits",
+      href: "/articles/linting-formatting-setup-bun",
+      publishedAt: "Jan 31",
+    },
+  ]}
+/>
+
 This is the second of three articles illustrating how to set up a git automation for linting, and formatting files and for composing commit messages with conventional commits.
 
 In the [first article](/articles/linting-formatting-setup) we implented the workflow within a node project. Here, we're going to recreate the same workflow but within a [deno](https://deno.com/) project.
