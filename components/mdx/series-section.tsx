@@ -1,11 +1,13 @@
 import clsx from "clsx";
 import Link from "next/link";
 
+import { getArticleBySlug } from "@/lib/articles";
+import { formatDateRelativeToCurrentYear } from "@/lib/utils/formatDateRelativeToCurrentYear";
+
 type SeriesEntry = {
   id: number;
   title: string;
-  href: string;
-  publishedAt: string;
+  slug: string;
   isCurrent?: boolean;
 };
 
@@ -21,7 +23,15 @@ export const SeriesSection = ({
       <p className="mt-4 text-sm italic">{seriesDescription}</p>
       <ul role="list" className="not-prose my-6 sm:px-4">
         {seriesEntries.map(
-          ({ href, id, publishedAt, isCurrent = false, title }, entryIdx) => {
+          ({ id, isCurrent = false, title, slug }, entryIdx) => {
+            const articleFrontMatter = getArticleBySlug(slug);
+
+            if (!articleFrontMatter) {
+              return null;
+            }
+            const formattedDate = formatDateRelativeToCurrentYear(
+              articleFrontMatter.date
+            );
             const entryContainerClasses = clsx(
               "relative",
               entryIdx !== seriesEntries.length - 1 ? "pb-4" : "pb-0"
@@ -53,14 +63,14 @@ export const SeriesSection = ({
                           {isCurrent ? (
                             title
                           ) : (
-                            <Link href={href} className={entryTitleClasses}>
+                            <Link href={slug} className={entryTitleClasses}>
                               {title}
                             </Link>
                           )}
                         </p>
                       </div>
                       <div className="whitespace-nowrap text-right text-xs text-muted-foreground">
-                        <time dateTime={publishedAt}>{publishedAt}</time>
+                        <time dateTime={formattedDate}>{formattedDate}</time>
                       </div>
                     </div>
                   </div>
