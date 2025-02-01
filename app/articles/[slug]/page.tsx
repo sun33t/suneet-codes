@@ -9,7 +9,6 @@ import { Container } from "@/components/container";
 import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
 import { formatDate } from "@/lib/formatDate";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
-import "@/styles/markdown.css";
 
 type Props = {
   params: Promise<{ slug: string }>;
