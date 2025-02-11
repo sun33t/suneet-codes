@@ -4,6 +4,8 @@ import slugify from "slugify";
 export const CATEGORYTITLES = [
   "node",
   "code-quality",
+  "git",
+  "fun",
   "typescript",
   "deno",
   "bun",
