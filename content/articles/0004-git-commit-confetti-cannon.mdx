@@ -1,0 +1,54 @@
+---
+isPublished: true
+title: "Git Commit Confetti Cannon"
+author: Suneet Misra
+date: 2025-02-11
+updatedAt: 2025-02-11
+description: A guide to setting up automated linting, formatting, and conventional commits in Bun projects using Git hooks.
+coverImage: git-commit-confetti-cannon_gvoczv
+keywords: ["macos", "git", "git-hooks", "raycast", "nodeJS"]
+categories: ["node", "git", "fun"]
+---
+
+<SuspendedArticleImage
+  src="git-commit-confetti-cannon_gvoczv"
+  alt="Thumbnail image showing the title for the article with the raycast and git logos"
+/>
+
+It's silly but it's so much fun! What every developer needs is a bit of levity to break up the day! Enter the git push confetti cannon! Marvel in wonder as your mac (sorry linux and windows users) rewards your efforts with a virtual pat on the back in the form of confetti and cheers! You're awesome!!!
+
+[Put gif here]
+
+## What are we building?
+
+A git hook to invoke a raycast extension to fire confetti and applause upon a successful commit.
+
+## Is there a video I can watch or a repo I can clone?
+
+No video just yet, but [here's a link]() to a demo repo that can be cloned.
+
+## What are the steps?
+
+In the immortal words of mario... "Letsa go!"
+
+### Step 1 - Install raycast
+
+What do you mean you don't have Raycast installed already? It's amazing, let's do that by downloading it [here](https://www.raycast.com/) or if you use homebrew by issuing `brew install raycast --cask` from the terminal.
+
+### Step 2 - Install 1-Click Confetti
+
+This is an extension for Raycast. You can either install it from within Raycast itself by searching for it on the store - instructions on how to do that [here](https://manual.raycast.com/store). You can also visit the [extension's page](https://www.raycast.com/peduarte/1-click-confetti) directly and install it from there by clicking the `install extension button`.
+
+### Step 3 - Create a Deep-Link
+
+[Deep-links](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app) are a macos feature that allow developers of macos apps to provide users with a custom url to target a feature of their application. They're excellent and the wonderful team at Raycast have built wonderful support for them. Follow the instructions [here](https://manual.raycast.com/deeplinks) to generate a deep link that targets the 1-click confetti `Confetti Command` option (not the `Confetti in Menu Bar option`) and ensure to follow the process to select `Always open command`.
+
+### Step 4 - Add the Deep-Link into the Git Hook
+
+The quickest way to get this up and running is to clone down the linked example repo. It's a node project so that'll need to be installed on your system first. Follow the instructions in the `Readme.md` to install dependencies and then double check that the deep link in the `.husky/post-commit` hook matches the one that you created. If not, replace it.
+
+If you'd rather learn how to build the repo yourself, you can find articles on this site which go through the process of setting up git hooks with [node](/linting-formatting-setup), [deno](linting-formatting-setup-deno) and [bun](linting-formatting-setup-bun) projects.
+
+### Step 5 - Launch the Cannon
+
+Make a change in the repo and `git commit`! Did you ever think git could be so much fun? I'm a dork! I know but I don't care. Life's too short and this makes me smile! Hopefully it made you smile a little bit too!
