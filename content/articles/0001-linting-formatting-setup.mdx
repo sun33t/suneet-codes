@@ -3,7 +3,7 @@ isPublished: true
 title: "Node Projects: Linting + Formatting + Conventional Commits"
 author: Suneet Misra
 date: 2025-01-27
-updatedAt: 2025-01-30
+updatedAt: 2025-02-11
 description: A guide to setting up automated linting, formatting, and conventional commits in Node.js projects using Git hooks.
 coverImage: linting-formatting-node_dsdot4
 keywords:
@@ -51,9 +51,9 @@ categories: ["node", "code-quality", "typescript"]
 
 ## What are we making?
 
-We're going to setup a Node.js project with a linting and formatting automation that will use `git hooks` to act upon staged files when we `git commit`. Although we're using [**Next.js**](https://Next.js.org/docs) and [**TailwindCSS**](https://tailwindcss.com/) in this article, the automation that we're building is completely applicable to any and all Node.JS projects, if the main steps are followed, and project specific configuration files are used. This is by no means, a framework-specific guide.
+We're going to setup a basic Node.js project with a linting and formatting automation that will use `git hooks` to act upon staged files when we `git commit`. We won't be installing any frameworks here as the purpose of this project is to illustrate the ease at which linting and formatting automations can be setup. As projects become more complex in their architecture, the need to extend the linting and formatting configurations may arise and this can be accomplished by ammending configuration rules or by importing preset configurations and plugins.
 
-As an added extra, we can also use this approach to standardise commit messages with `conventional-commit` syntax! There'll be a future article diving deeper into the concept of conventional commits and the potential it may have to add value to projects, but for now, we'll go through an optional example of how to set it up.
+As an added extra, we can also use the same approach of git lifecycle automations to standardise commit messages with `conventional-commit` syntax! There'll be a future article diving deeper into the concept of conventional commits and the potential it may have to add value to projects, but for now, we'll go through an optional example of how to set it up.
 
 ## Why?
 
@@ -67,10 +67,9 @@ Together with IDE extensions, this workflow makes for a robust toolchain.
 
 The key libraries are:
 
+- [**typescript**](https://www.typescriptlang.org/): Type-safe way of writing JavaScript
 - [**eslint**](https://eslint.org/): For highlighting potential problems which may lead to errors within the runtime environment.
 - [**prettier**](https://prettier.io/): For enforcing a common style for our source code to aid readability.
-- [**prettier-plugin-tailwindcss**](https://www.npmjs.com/package/prettier-plugin-tailwindcss): A prettier plugin for auto-sorting tailwind classes.
-- [**@trivago/prettier-plugin-sort-imports**](https://github.com/trivago/prettier-plugin-sort-imports): A prettier plugin for sorting imports. Inspired by [CJ Reynold's](https://bsky.app/profile/w3cj.com) walkthrough of his [next-start](https://github.com/w3cj/next-start) project. It's a fab video which can be seen [here](https://youtu.be/dLRKV-bajS4?si=9iwAucEekONazrrf)!
 - [**husky**](https://github.com/typicode/husky): For accessing git hooks.
 - [**lint-staged**](https://github.com/okonet/lint-staged): For running commands against staged files.
 - [**gitmoji-cli**](https://github.com/carloscuesta/gitmoji): An interactive terminal for formatting commits with emojis and [conventional-commit](https://www.conventionalcommits.org/en/v1.0.0/) syntax.
@@ -83,40 +82,70 @@ I hear you, life is busy... I haven't made a video yet but [here's a link](https
 
 I love the enthusiasm! Let's get started!
 
-### 1. Bootstrap Project with Next.js
+### 1. Initialise the project
 
-Use `npx create-next-app@latest` to perform the initial setup. The cli will step you through some options. We'll be choosing the configuration in the tab below:
-
-<CodeWithTabs>
-```shell !!tabs 1. install
-npx create-next-app@latest linting-formatting-setup
+```shell terminal
+node init -y && git init
 ```
 
-```shell !!tabs 2. configuration
-✔ Would you like to use TypeScript? … Yes
-✔ Would you like to use ESLint? … Yes
-✔ Would you like to use Tailwind CSS? … Yes
-✔ Would you like your code inside a `src/` directory? … No
-✔ Would you like to use App Router? (recommended) … Yes
-✔ Would you like to use Turbopack for `next dev`? … No
-✔ Would you like to customize the import alias (`@/*` by default)? … No
+In your terminal, create a new directory for your project and `cd` into it. Use the `node init -y && git init` command to initialise a new node project with git in the current directory.
+
+### Step 2 - Install Dependencies
+
+Node doesn't ship with any linting or formatting libraries so we'll be installing the following as development dependencies:
+
+```shell terminal
+npm install -D husky lint-staged prettier typescript @types/node
+```
+
+When you issue the above you may find your IDE indicated that a few hundred files have changed. Panic not! We just need to create a `.gitignore` file and add our `node_modules` directory to it. This can be done with the following command.
+
+```shell terminal
+echo "node_modules" > .gitignore
+```
+
+A more robust way of creating a .gitignore for your project is to use the open source tool provided by [Toptal](https://www.toptal.com/developers/gitignore/) which we can also use on the command line with the [`add-gitignore`](https://www.npmjs.com/package/add-gitignore) package as follows:
+
+```shell terminal
+npx add-gitignore node macos
+```
+
+We're using the `node` template here because we're creating a node project. We're also using the `macos` template here becuase this is the system being developed on. can be modified based upon the system being developed on. Linux and windows templatese are also available.
+
+### 3. Initialise TypeScript
+
+There's a few ways that we can configure `TypeScript` within our project. The first is to initialise it using the `tsc` cli by issuing `npx tsc --init`.
+
+This will generate a default `tsconfig.json` configuration file, with some options chosen. See [here](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for more information about these options.
+
+Another way is to make use of [preset base configurations](https://github.com/tsconfig/bases/) which we can extend from. This is a great choice for those who aren't familiar with all of TypeScript's compiler options, and require some sensible defaults to start with.
+
+We're going to use this second option and set up our TypeScript configuration to extend from the `node-lts` base configuration.
+
+<CodeWithTabs>
+```shell !!tabs 1. download base tsconfig
+npm install -D @tsconfig/node-lts
+```
+
+```json !!tabs 2. tsconfig.json
+{
+  "extends": "@tsconfig/node-lts/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"]
+}
 ```
 
 </CodeWithTabs>
 
-This bootstrap already contains an `eslint` configuration which works great for our purposes so we're not going to implement any changes to that.
+We can start by installing the base configuration as a development dependency, and then create a `tsconfig.json` file with the above configuration.
 
-### 2. Install Dependencies
+Our tsconfig.json file brings in the base configuration and instructs typescript to only include files located within the `src` directory for type-checking and compilation to JavaScript. Additionally, it sets the directory to output the compiled `JavaScript` to a `./dist/` directory.
 
-`cd` into our project and install the remaining libraries that we'll need:
+### 4. Configure Prettier
 
-```shell terminal
-npm install -D prettier prettier-plugin-tailwindcss husky lint-staged @trivago/prettier-plugin-sort-imports
-```
-
-### 3. Configure Prettier
-
-With prettier and our included plugins installed, all we need to do is to add a configuration file at project root. We're going to use a `prettier.config.mjs` file (there are a few types of configuration files that prettier [offers](https://prettier.io/docs/en/configuration)) as follows:
+With prettier installed, all we need to do is to add a configuration file at project root. We're going to use a `prettier.config.mjs` file (there are a few types of configuration files that prettier [offers](https://prettier.io/docs/en/configuration)) as follows:
 
 ```javascript ./prettier.config.mjs
 /**
@@ -132,21 +161,14 @@ const config = {
   trailingComma: "es5",
   bracketSpacing: true,
   proseWrap: "preserve",
-  plugins: [
-    "@trivago/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss",
-  ],
-  importOrder: ["^[./]", "<THIRD_PARTY_MODULES>", "^@/(.*)$"],
-  importOrderSeparation: true,
-  importOrderSortSpecifiers: true,
 };
 
 export default config;
 ```
 
-This config can be adjusted to suit formatting preferences but the important thing to be aware of is that the plugins array must be populated correctly with our plugin names. The last three properties in the config (`importOrder`, `importOrderSeparation` and `importOrderSortSpecifiers`) are provided by `@trivago/prettier-plugin-sort-imports`. Please read [their docs](https://github.com/trivago/prettier-plugin-sort-imports) for more information on how to configure them.
+This config can be adjusted to suit formatting preferences, these are just some basic choices to get started with.
 
-### 4. Configure Lint-Staged
+### 5. Configure Lint-Staged
 
 Similar to prettier, once installed we just need to add a configuration file which again can be accomplished in a [variety of ways](https://github.com/lint-staged/lint-staged?tab=readme-ov-file#configuration) but we're going to use a `lint-staged.config.mjs` file:
 
@@ -155,9 +177,7 @@ import path from "node:path";
 
 const config = {
   "*.{cjs,mjs,js,ts,jsx,tsx}": (stagedFiles) => [
-    `next lint --fix --file ${stagedFiles
-      .map((f) => path.relative(process.cwd(), f))
-      .join(" --file ")}`,
+    `eslint --fix ${stagedFiles.join(" ")}`,
     `prettier --write ${stagedFiles.join(" ")}`,
   ],
   "*.{css,md,mdx,json}": (stagedFiles) => [
@@ -167,9 +187,9 @@ const config = {
 export default config;
 ```
 
-The above contains two different linting flows. Firstly for JS and TS filetypes, it uses `next lint` (which runs eslint under the hood) to fix any linting errors and then invokes `prettier` to format those files. The second configuration is for CSS, Markdown and JSON files and it simply invokes `prettier` to format those files.
+The above contains two different linting/formatting flows. Firstly for JS and TS filetypes, it uses `eslint` to fix any linting errors and then invokes `prettier` to format those files. The second configuration is for CSS, Markdown and JSON files and it simply invokes `prettier` to format those files.
 
-### 5. Configure Husky
+### 6. Configure Husky
 
 Finally, let's setup husky which will bring all our work together.
 
@@ -191,11 +211,46 @@ Initialise husky with `npx husky init`. This will bootstrap a `.husky` directory
 
 The git life-cycle has many stages within it and we can execute scripts during those stages by using [git hooks](https://git-scm.com/docs/githooks). The [pre-commit](https://git-scm.com/docs/githooks#_pre_commit) hook is invoked prior the staged files being merged into the current branch. We're adding into the pre-commit hook, the ability to typecheck our repo and run our lint-staged configuration against those currently staged files. The hook will fail if an error is encountered by either command, thereby interrupting the git process, prompting us to address the errors that were flagged in the terminal.
 
+### 7. Configure eslint
+
+```shell terminal
+npm init @eslint/config@latest
+```
+
+The final step to take is to install and configure eslint, which we can do with the `npm init @eslint/config@latest` command, choosing the following cli options:
+
+```shell terminal
+✔ How would you like to use ESLint? · problems
+✔ What type of modules does your project use? · esm
+✔ Which framework does your project use? · none
+✔ Does your project use TypeScript? · typescript
+✔ Where does your code run? · node
+The config that you've selected requires the following dependencies:
+
+eslint, globals, @eslint/js, typescript-eslint
+✔ Would you like to install them now? · No / Yes
+✔ Which package manager do you want to use? · npm
+```
+
+When the cli completes, we should now have eslint and its dependencies installed as well as new `eslint.config.mjs` file with the selected configuration applied.
+
 That's it, all the setup and configuration is complete. Congrats!
 
 ## Now What?
 
 Well, all we need to do now is to develop as we normally would! The fruit of our labour should be seen within the terminal when we issue `git commit`! Our staged files will be linted and formatted prior to inputting our commit message and all will be well with the world and we'll be rewarded with coffee and chocolate for the rest of our glorious days!
+
+Why not start by adding the following method into the project:
+
+```typescript src/index.ts
+export const main = () => {
+  console.log("Hello, world!");
+};
+
+main();
+```
+
+With this we can test whether compilation to javascript works correctly with `npx tsc` and we can also commit the method to test the code quality configuration.
 
 ## Bypassing Git Hooks...
 
@@ -267,66 +322,28 @@ For the vscode users reading this, here's some IDE-specific configuration to com
 ```json !!tabs 1. extensions.json
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
+    "mylesmurphy.prettify-ts",
+    "orta.vscode-twoslash-queries",
+    "yoavbls.pretty-ts-errors",
     "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss"
-  ],
-  "unwantedRecommendations": []
-}
-```
-
-```json !!tabs 2. launch.json
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Next.js: debug server-side",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "npm run dev"
-    },
-    {
-      "name": "Next.js: debug client-side",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:3000"
-    },
-    {
-      "name": "Next.js: debug full stack",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/node_modules/.bin/next",
-      "runtimeArgs": ["--inspect"],
-      "skipFiles": ["<node_internals>/**"],
-      "serverReadyAction": {
-        "action": "debugWithChrome",
-        "killOnServerStop": true,
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
-        "webRoot": "${workspaceFolder}"
-      }
-    }
+    "dbaeumer.vscode-eslint"
   ]
 }
 ```
 
-```json !!tabs 3. settings.json
+```json !!tabs 2. settings.json
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "prettier.requireConfig": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "files.associations": {
-    "*.css": "tailwindcss"
-  }
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
 ```
 
 </CodeWithTabs>
 
-- **Recommended extensions** for projects using eslint, prettier and tailwindcss
-- A **debugging configuration** for Next.js projects, inspired by the [official docs](https://Next.js.org/docs/app/building-your-application/configuring/debugging).
+- **Recommended extensions** for projects using eslint, prettier and typescript
 - **project-scoped settings** for invoking the prettier and eslint extensions to do their thing as files are saved.
 
 Thanks for taking the time to read this article. I hope it helps and inspires you to learn and share your knowledge with others!
