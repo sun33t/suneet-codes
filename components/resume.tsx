@@ -27,7 +27,10 @@ const Role = ({ role }: { role: Role }) => {
         rel="noopener noreferrer"
       >
         <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-          <SuspendedLogoImage filename={role.filename} />
+          <SuspendedLogoImage
+            logoDetails={role.logoDetails}
+            company={role.company}
+          />
         </div>
 
         <dl className="z-10 flex flex-auto flex-wrap gap-x-2">

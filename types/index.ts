@@ -59,3 +59,11 @@ export type Testimonial = {
   shortBody: string;
   fullBody: string[];
 };
+
+export type LogoDetails = {
+  src: string;
+  pixelWidth: string;
+  imageWidth: number;
+  imageHeight: number;
+  className: string;
+};
