@@ -118,7 +118,7 @@ export default function Home() {
                 .
               </p>
               <p>
-                My aspiration is to create digital services which{" "}
+                I love to create digital experiences which{" "}
                 <span className="font-semibold text-foreground underline">
                   build community
                 </span>{" "}
@@ -126,18 +126,19 @@ export default function Home() {
                 <span className="font-semibold text-foreground underline">
                   meaningful value
                 </span>{" "}
-                to those who use them.
+                .
               </p>
               <p>
-                If you would like to learn more about my dev experience, check
-                out my{" "}
+                If you&apos;d like to learn more about my journey into dev,
+                here&apos;s my{" "}
                 <Link
                   className="font-semibold text-accent-foreground"
                   href="/about"
                 >
                   about page
                 </Link>
-                , view my{" "}
+                , or if you&apos;re interested in working together here&apos;s
+                my{" "}
                 <Link
                   href={env.PROJECT_NOTION_URL}
                   target="_blank"
