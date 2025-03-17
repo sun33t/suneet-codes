@@ -19,18 +19,18 @@ import { PROJECTS, Project } from "@/content/projects";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };
 
-const ProjectCard = ({ filename, name, description, link }: Project) => {
+const ProjectCard = ({ logoDetails, company, description, link }: Project) => {
   return (
     <LinkCard href={link.href} isExternal={true}>
       <LinkCardHeader>
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-          <SuspendedLogoImage filename={filename} />
+          <SuspendedLogoImage company={company} logoDetails={logoDetails} />
         </div>
 
-        <LinkCardTitle className="pt-2">{name}</LinkCardTitle>
+        <LinkCardTitle className="pt-2">{company}</LinkCardTitle>
       </LinkCardHeader>
       <LinkCardContent>
-        <LinkCardDescription aria-label={`About ${name}`}>
+        <LinkCardDescription aria-label={`About ${company}`}>
           {description}
         </LinkCardDescription>
       </LinkCardContent>
@@ -60,7 +60,7 @@ export default function Projects() {
           className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
         >
           {PROJECTS.map((project) => (
-            <ProjectCard key={project.name} {...project} />
+            <ProjectCard key={project.company} {...project} />
           ))}
         </ul>
       </PageSection>
