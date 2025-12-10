@@ -14,12 +14,6 @@ import React, { memo, useCallback, useEffect, useRef } from "react";
 
 declare global {
   interface Window {
-    turnstile: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (container: string | HTMLElement, options: any) => string;
-      reset: (widgetId: string) => void;
-      remove: (widgetId: string) => void;
-    };
     onloadTurnstileCallback?: () => void;
   }
 }
