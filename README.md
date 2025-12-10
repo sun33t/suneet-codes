@@ -32,7 +32,7 @@ If you're not using the 1Password CLI locally to store environment variables, mo
 
 ```json
 {
-  "dev": "op run --env-file=.env -- next dev"
+  "dev": "op run --env-file=.env.local -- next dev"
 }
 ```
 
