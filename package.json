@@ -2,13 +2,14 @@
   "name": "suneet-codes",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.25.0",
   "engines": {
     "node": ">=24.11.1"
   },
   "scripts": {
     "dev": "next dev",
     "dev:email": "dotenv -e .env -- email dev",
-    "build": "next build && npm run sitemap:generate",
+    "build": "next build && pnpm run sitemap:generate",
     "sitemap:generate": "dotenv -c -- tsx ./lib/sitemap-index.ts",
     "start": "next start",
     "lint": "next lint",
