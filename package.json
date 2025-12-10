@@ -9,10 +9,9 @@
     "dev": "next dev",
     "dev:email": "dotenv -e .env -- email dev",
     "build": "next build && npm run sitemap:generate",
-    "sitemap:generate": "dotenv -c -- npx tsx ./lib/sitemap-index.ts",
+    "sitemap:generate": "dotenv -c -- tsx ./lib/sitemap-index.ts",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -66,9 +65,6 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.0",
     "eslint-plugin-n": "^17.15.0",
-    "gitmoji-cli": "^9.5.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.2.11",
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
@@ -77,16 +73,8 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "tsx": "^4.19.2",
+    "tsx": "4.21.0",
     "typescript": "5.9.2",
     "vercel": "49.1.2"
-  },
-  "gitmoji": {
-    "autoAdd": false,
-    "emojiFormat": "emoji",
-    "scopePrompt": false,
-    "messagePrompt": true,
-    "capitalizeTitle": true,
-    "gitmojisUrl": "https://gitmoji.dev/api/gitmojis"
   }
 }
