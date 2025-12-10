@@ -13,6 +13,23 @@ export interface Role {
 
 export const ROLES: Array<Role> = [
 	{
+		company: "Halobase",
+		title: "Co-Founder",
+		logoDetails: {
+			src: "halobase",
+			pixelWidth: "20px",
+			imageWidth: 20,
+			imageHeight: 20,
+			className: "h-6 w-6 rounded-full",
+		},
+		start: "2025",
+		end: {
+			label: "Present",
+			dateTime: new Date().getFullYear().toString(),
+		},
+		href: "https://halobase.com",
+	},
+	{
 		company: "Juro",
 		title: "Senior Software Engineer",
 		logoDetails: {
@@ -23,10 +40,7 @@ export const ROLES: Array<Role> = [
 			className: "h-5 w-5 rounded-full",
 		},
 		start: "2025",
-		end: {
-			label: "Present",
-			dateTime: new Date().getFullYear().toString(),
-		},
+		end: "2025",
 		href: "https://juro.com",
 	},
 	{
@@ -40,7 +54,10 @@ export const ROLES: Array<Role> = [
 			className: "h-5 w-5",
 		},
 		start: "2024",
-		end: "2025",
+		end: {
+			label: "Present",
+			dateTime: new Date().getFullYear().toString(),
+		},
 		href: "https://pushorigin.co",
 	},
 	{
