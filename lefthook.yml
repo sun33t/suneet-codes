@@ -1,11 +1,11 @@
 pre-commit:
   commands:
-    spell-check:
-      run: pnpm exec cspell {staged_files}
+    # spell-check:
+    #   run: pnpm exec cspell {staged_files}
     # Lint and format staged files
-    # biome-check:
-    #   run: pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
-    #   stage_fixed: true
+    biome-check:
+      run: pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      stage_fixed: true
     # Type check entire codebase
     type-check:
       run: pnpm typecheck

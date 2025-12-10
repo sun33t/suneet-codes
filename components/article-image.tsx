@@ -1,72 +1,70 @@
+import type { ImageProps } from "next/image";
+import { Suspense } from "react";
+import { CloudinaryImage } from "@/components/cloudinary-image";
+import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import { AspectRatio } from "./ui/aspect-ratio";
 import { Skeleton, type SkeletonProps } from "./ui/skeleton";
 
-import { ImageProps } from "next/image";
-import { Suspense } from "react";
-
-import { CloudinaryImage } from "@/components/cloudinary-image";
-import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
-
 type ArticleImageProps = Omit<ImageProps, "src"> & {
-  aspectRatio?: number;
-  src: string;
+	aspectRatio?: number;
+	src: string;
 };
 
 const SkeletonArticleImage = ({
-  aspectRatio = 16 / 9,
-  hasPulse,
+	aspectRatio = 16 / 9,
+	hasPulse,
 }: SkeletonProps & {
-  aspectRatio?: ArticleImageProps["aspectRatio"];
+	aspectRatio?: ArticleImageProps["aspectRatio"];
 }) => {
-  return (
-    <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto">
-      <Skeleton hasPulse={hasPulse} className="h-full w-full rounded-3xl" />
-    </AspectRatio>
-  );
+	return (
+		<AspectRatio className="prose prose-lg mx-auto" ratio={aspectRatio}>
+			<Skeleton className="h-full w-full rounded-3xl" hasPulse={hasPulse} />
+		</AspectRatio>
+	);
 };
 
 export const ArticleImage = async ({
-  src,
-  alt,
-  title,
-  aspectRatio = 16 / 9,
+	src,
+	alt,
+	title,
+	aspectRatio = 16 / 9,
 }: ArticleImageProps) => {
-  const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
-    src: `articles/${src}`,
-    width: "672px",
-  });
+	const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
+		src: `articles/${src}`,
+		width: "672px",
+	});
 
-  return (
-    <AspectRatio ratio={aspectRatio} className="prose prose-lg mx-auto mt-8">
-      {blurDataUrl === undefined ? (
-        <SkeletonArticleImage
-          hasPulse={false}
-          aria-label="failed to load article image"
-        />
-      ) : (
-        <CloudinaryImage
-          title={title}
-          src={imageSrc}
-          alt={alt}
-          fill={true}
-          sizes="672px"
-          style={{
-            objectFit: "cover",
-          }}
-          placeholder="blur"
-          blurDataURL={blurDataUrl}
-        />
-      )}
-    </AspectRatio>
-  );
+	return (
+		<AspectRatio className="prose prose-lg mx-auto mt-8" ratio={aspectRatio}>
+			{blurDataUrl === undefined ? (
+				<SkeletonArticleImage
+					aria-label="failed to load article image"
+					hasPulse={false}
+				/>
+			) : (
+				<CloudinaryImage
+					alt={alt}
+					blurDataURL={blurDataUrl}
+					fill={true}
+					placeholder="blur"
+					sizes="672px"
+					src={imageSrc}
+					style={{
+						objectFit: "cover",
+					}}
+					title={title}
+				/>
+			)}
+		</AspectRatio>
+	);
 };
 
 export const SuspendedArticleImage = (props: ArticleImageProps) => {
-  return (
-    <Suspense
-      fallback={<SkeletonArticleImage aria-label="loading article image" />}
-    >
-      <ArticleImage {...props} />
-    </Suspense>
-  );
+	return (
+		<Suspense
+			fallback={<SkeletonArticleImage aria-label="loading article image" />}
+		>
+			<ArticleImage {...props} />
+		</Suspense>
+	);
 };

@@ -8,13 +8,13 @@ import { CodeWithTabs } from "@/components/mdx/code-with-tabs";
 import { SeriesSection } from "@/components/mdx/series-section";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
-  return {
-    ...components,
-    Code,
-    SuspendedArticleImage,
-    CodeWithTabs,
-    Image,
-    a: Link,
-    SeriesSection,
-  };
+	return {
+		...components,
+		Code,
+		SuspendedArticleImage,
+		CodeWithTabs,
+		Image,
+		a: Link,
+		SeriesSection,
+	};
 }

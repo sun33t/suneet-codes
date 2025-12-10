@@ -1,18 +1,18 @@
 {
-  "version": "0.2",
-  "language": "en-GB",
-  "dictionaries": ["typescript", "node", "npm", "html", "css"],
-  "ignorePaths": [
-    "**/node_modules/**",
-    "**/.gitignore",
-    "**/dist/**",
-    ".next/**",
-    "**/build/**",
-    "**/.turbo/**",
-    "**/pnpm-*",
-    "**/*.log",
-    "**/tsconfig.tsbuildinfo",
-    ".vscode/**"
-  ],
-  "words": ["suneet", "frontmatter", "unrs", "trivago", "codehike"]
+	"version": "0.2",
+	"language": "en-GB",
+	"dictionaries": ["typescript", "node", "npm", "html", "css"],
+	"ignorePaths": [
+		"**/node_modules/**",
+		"**/.gitignore",
+		"**/dist/**",
+		".next/**",
+		"**/build/**",
+		"**/.turbo/**",
+		"**/pnpm-*",
+		"**/*.log",
+		"**/tsconfig.tsbuildinfo",
+		".vscode/**"
+	],
+	"words": ["suneet", "frontmatter", "unrs", "trivago", "codehike", "posthog"]
 }

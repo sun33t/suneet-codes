@@ -1,11 +1,11 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 import { Container } from "@/components/container";
 
 export const PageContainer = ({ children }: PropsWithChildren) => {
-  return (
-    <Container className="mt-16 duration-1000 animate-in fade-in sm:mt-32">
-      {children}
-    </Container>
-  );
+	return (
+		<Container className="fade-in mt-16 animate-in duration-1000 sm:mt-32">
+			{children}
+		</Container>
+	);
 };
