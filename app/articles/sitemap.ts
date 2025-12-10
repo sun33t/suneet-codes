@@ -1,37 +1,37 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
 import { baseUrl } from "@/lib/baseUrl";
 
 export async function generateSitemaps() {
-  const ids = allPublishedArticles.map((article) => ({
-    id: article.slug,
-  }));
+	const ids = allPublishedArticles.map((article) => ({
+		id: article.slug,
+	}));
 
-  if (!ids.length) {
-    return [];
-  }
-  return ids;
+	if (!ids.length) {
+		return [];
+	}
+	return ids;
 }
 
 export default async function sitemap({
-  id,
+	id,
 }: {
-  id: string;
+	id: string;
 }): Promise<MetadataRoute.Sitemap> {
-  const article = getArticleBySlug(id);
-  const url = new URL(id, baseUrl);
+	const article = getArticleBySlug(id);
+	const url = new URL(id, baseUrl);
 
-  if (!article) {
-    return [];
-  }
+	if (!article) {
+		return [];
+	}
 
-  return [
-    {
-      url: url.href,
-      lastModified: new Date(article.updatedAt),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-  ];
+	return [
+		{
+			url: url.href,
+			lastModified: new Date(article.updatedAt),
+			changeFrequency: "weekly",
+			priority: 1,
+		},
+	];
 }

@@ -1,5 +1,6 @@
-import { type TurnstileProps } from "next-turnstile";
-import React, { memo, useCallback, useEffect, useRef } from "react";
+import type { TurnstileProps } from "next-turnstile";
+import type React from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 
 /**
  * This implementation has been adapted from the next-turnstile package to address an issue in non-development environments where the widget would not render upon page load. It would only render upon navigating away and back to the page.
@@ -13,118 +14,117 @@ import React, { memo, useCallback, useEffect, useRef } from "react";
  */
 
 declare global {
-  interface Window {
-    onloadTurnstileCallback?: () => void;
-  }
+	interface Window {
+		onloadTurnstileCallback?: () => void;
+	}
 }
 
 export const Turnstile: React.FC<TurnstileProps> = memo(
-  ({
-    siteKey,
-    onVerify,
-    onError,
-    onExpire,
-    onLoad,
-    id = "turnstile-widget",
-    className,
-    theme = "auto",
-    tabIndex,
-    responseField = true,
-    responseFieldName = "cf-turnstile-response",
-    retry = "auto",
-    retryInterval = 8000,
-    refreshExpired = "auto",
-    appearance = "always",
-    execution = "render",
-    cData,
-    language,
-    sandbox = false,
-  }) => {
-    const widgetRef = useRef<string | undefined>(undefined);
-    const containerRef = useRef<HTMLDivElement>(null);
+	({
+		siteKey,
+		onVerify,
+		onError,
+		onExpire,
+		onLoad,
+		id = "turnstile-widget",
+		className,
+		theme = "auto",
+		tabIndex,
+		responseField = true,
+		responseFieldName = "cf-turnstile-response",
+		retry = "auto",
+		retryInterval = 8000,
+		refreshExpired = "auto",
+		appearance = "always",
+		execution = "render",
+		cData,
+		language,
+		sandbox = false,
+	}) => {
+		const widgetRef = useRef<string | undefined>(undefined);
+		const containerRef = useRef<HTMLDivElement>(null);
 
-    const cleanup = useCallback(() => {
-      if (widgetRef.current) {
-        window?.turnstile?.remove(widgetRef.current);
-        widgetRef.current = undefined;
-      }
-    }, []);
+		const cleanup = useCallback(() => {
+			if (widgetRef.current) {
+				window?.turnstile?.remove(widgetRef.current);
+				widgetRef.current = undefined;
+			}
+		}, []);
 
-    const renderWidget = useCallback(() => {
-      if (!containerRef.current || !window?.turnstile) return;
+		const renderWidget = useCallback(() => {
+			if (!containerRef.current || !window?.turnstile) return;
 
-      const size =
-        window && window.matchMedia("(max-width: 440px)").matches
-          ? "compact"
-          : "flexible";
+			const size = window?.matchMedia("(max-width: 440px)").matches
+				? "compact"
+				: "flexible";
 
-      cleanup();
+			cleanup();
 
-      widgetRef.current = window?.turnstile.render(containerRef.current, {
-        sitekey: sandbox ? "1x00000000000000000000AA" : siteKey,
-        callback: onVerify,
-        "error-callback": onError,
-        "expired-callback": onExpire,
-        theme,
-        tabindex: tabIndex,
-        "response-field": responseField,
-        "response-field-name": responseFieldName,
-        size,
-        retry,
-        "retry-interval": retryInterval,
-        "refresh-expired": refreshExpired,
-        appearance,
-        execution,
-        cdata: cData,
-        language,
-      });
-    }, [
-      appearance,
-      cData,
-      cleanup,
-      execution,
-      language,
-      onError,
-      onExpire,
-      onVerify,
-      refreshExpired,
-      responseField,
-      responseFieldName,
-      retry,
-      retryInterval,
-      sandbox,
-      siteKey,
-      tabIndex,
-      theme,
-    ]);
-    useEffect(() => {
-      const scriptId = "cf-turnstile-script";
-      const existingScript = document.getElementById(scriptId);
+			widgetRef.current = window?.turnstile.render(containerRef.current, {
+				sitekey: sandbox ? "1x00000000000000000000AA" : siteKey,
+				callback: onVerify,
+				"error-callback": onError,
+				"expired-callback": onExpire,
+				theme,
+				tabindex: tabIndex,
+				"response-field": responseField,
+				"response-field-name": responseFieldName,
+				size,
+				retry,
+				"retry-interval": retryInterval,
+				"refresh-expired": refreshExpired,
+				appearance,
+				execution,
+				cdata: cData,
+				language,
+			});
+		}, [
+			appearance,
+			cData,
+			cleanup,
+			execution,
+			language,
+			onError,
+			onExpire,
+			onVerify,
+			refreshExpired,
+			responseField,
+			responseFieldName,
+			retry,
+			retryInterval,
+			sandbox,
+			siteKey,
+			tabIndex,
+			theme,
+		]);
+		useEffect(() => {
+			const scriptId = "cf-turnstile-script";
+			const existingScript = document.getElementById(scriptId);
 
-      if (!existingScript) {
-        const script = document.createElement("script");
-        script.id = scriptId;
-        script.src =
-          "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback";
-        script.async = true;
-        script.defer = true;
+			if (!existingScript) {
+				const script = document.createElement("script");
+				script.id = scriptId;
+				script.src =
+					"https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback";
+				script.async = true;
+				script.defer = true;
 
-        window.onloadTurnstileCallback = () => {
-          renderWidget();
-          onLoad?.();
-        };
+				window.onloadTurnstileCallback = () => {
+					renderWidget();
+					onLoad?.();
+				};
 
-        document.head.appendChild(script);
-      } else if (window.turnstile) {
-        renderWidget();
-        onLoad?.();
-      }
+				document.head.appendChild(script);
+			} else if (window.turnstile) {
+				renderWidget();
+				onLoad?.();
+			}
 
-      return cleanup;
-    }, [siteKey, sandbox, cleanup, onLoad, renderWidget]);
+			return cleanup;
+		}, [cleanup, onLoad, renderWidget]);
 
-    return <div ref={containerRef} id={id} className={className} />;
-  }
+		return <div className={className} id={id} ref={containerRef} />;
+	},
 );
 
 Turnstile.displayName = "Turnstile";
