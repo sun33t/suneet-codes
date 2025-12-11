@@ -131,6 +131,42 @@ it("returns today", () => {
 });
 ```
 
+## Dependency injection (preferred over fake timers)
+
+Add optional parameter for test control instead of mocking globals:
+
+```typescript
+// Implementation - add optional referenceDate parameter
+export const formatDate = (dateString: string, referenceDate: Date = new Date()) => {
+  const currentYear = referenceDate.getFullYear();
+  // ...
+};
+
+// Tests - no mocking needed, pass reference directly
+const REFERENCE_DATE = new Date("2025-06-15");
+
+it("formats current year", () => {
+  expect(formatDate("2025-01-15", REFERENCE_DATE)).toBe("Jan 15");
+});
+
+it("formats other year", () => {
+  expect(formatDate("2024-01-15", REFERENCE_DATE)).toBe("15 Jan 24");
+});
+```
+
+Prefer dependency injection when: function uses `new Date()`, `Date.now()`, or other runtime values.
+
+## Locale/timezone-dependent output
+
+Use `toMatch` for outputs that vary by environment:
+
+```typescript
+it("handles timezone variation", () => {
+  // Non-ISO formats parsed in local time - day may shift
+  expect(formatDate("June 15, 2024")).toMatch(/^\d{1,2} Jun 24$/);
+});
+```
+
 ## Environment variables
 
 ```typescript
