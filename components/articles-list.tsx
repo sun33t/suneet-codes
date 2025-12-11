@@ -1,7 +1,7 @@
 import type { Article } from "content-collections";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getArticlesByCategory } from "@/lib/articles";
+import { getArticlesByCategory } from "@/lib/content/articles";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils/formatDate";
 import type { SearchParams } from "@/types";

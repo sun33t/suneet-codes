@@ -1,7 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/lib/config/baseUrl";
 
 /**
  * Script and accompanying package.json script sourced from - https://github.com/vercel/next.js/discussions/61025#discussioncomment-11326522

@@ -6,7 +6,7 @@ import { env } from "@/app/env";
 import { Layout } from "@/components/layout";
 import { Providers } from "@/components/providers";
 import { TwSizeIndicator } from "@/components/tw-size-indicator";
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/lib/config/baseUrl";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/globals.css";
 

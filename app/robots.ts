@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/lib/config/baseUrl";
 
 export default function robots(): MetadataRoute.Robots {
 	const sitemapUrl = new URL("sitemap-index.xml", baseUrl);

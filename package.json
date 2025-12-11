@@ -10,7 +10,7 @@
 		"dev": "next dev",
 		"dev:email": "dotenv -e .env.local -- email dev",
 		"build": "next build && pnpm run sitemap:generate",
-		"sitemap:generate": "dotenv -c -- tsx ./lib/sitemap-index.ts",
+		"sitemap:generate": "dotenv -c -- tsx ./lib/scripts/sitemap-index.ts",
 		"start": "next start",
 		"check": "biome check",
 		"check:fix": "biome check --fix",
