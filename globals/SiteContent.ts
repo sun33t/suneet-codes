@@ -1,7 +1,11 @@
 import type { GlobalConfig } from "payload";
+import { triggerDeployHook } from "@/lib/payload/deploy-hook";
 
 export const SiteContent: GlobalConfig = {
 	slug: "site-content",
+	hooks: {
+		afterChange: [() => triggerDeployHook()],
+	},
 	admin: {
 		description: "Editable site copy and UI strings",
 	},

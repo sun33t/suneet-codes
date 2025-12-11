@@ -1,7 +1,12 @@
 import type { CollectionConfig } from "payload";
+import { triggerDeployHook } from "@/lib/payload/deploy-hook";
 
 export const Uses: CollectionConfig = {
 	slug: "uses",
+	hooks: {
+		afterChange: [() => triggerDeployHook()],
+		afterDelete: [() => triggerDeployHook()],
+	},
 	admin: {
 		useAsTitle: "title",
 		defaultColumns: ["title", "category"],

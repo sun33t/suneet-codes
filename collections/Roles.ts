@@ -1,7 +1,12 @@
 import type { CollectionConfig } from "payload";
+import { triggerDeployHook } from "@/lib/payload/deploy-hook";
 
 export const Roles: CollectionConfig = {
 	slug: "roles",
+	hooks: {
+		afterChange: [() => triggerDeployHook()],
+		afterDelete: [() => triggerDeployHook()],
+	},
 	admin: {
 		useAsTitle: "company",
 		defaultColumns: ["company", "title", "start", "end"],
