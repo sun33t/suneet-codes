@@ -9,7 +9,7 @@ import {
 	useMemo,
 	useState,
 } from "react";
-import { createEnquiry } from "@/app/contact/action";
+import { createEnquiry } from "@/app/(frontend)/contact/action";
 import { Turnstile } from "@/components/shared/turnstile";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

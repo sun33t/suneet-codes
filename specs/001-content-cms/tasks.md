@@ -28,14 +28,14 @@ This is a Next.js 15 App Router project with:
 
 **Purpose**: Install Payload CMS packages and configure the project
 
-- [ ] T001 Install Payload CMS packages: `pnpm i payload @payloadcms/next @payloadcms/richtext-lexical graphql`
-- [ ] T002 Install database adapters: `pnpm i @payloadcms/db-postgres @payloadcms/db-sqlite`
-- [ ] T003 [P] Add `@payload-config` path alias to tsconfig.json
-- [ ] T004 [P] Add environment variables to .env.local: PAYLOAD_SECRET, DATABASE_URI
-- [ ] T005 Update next.config.ts with `withPayload` wrapper
-- [ ] T006 Create payload.config.ts at project root with base configuration
-- [ ] T007 Copy Payload app files to app/(payload)/ from Payload blank template
-- [ ] T008 Move existing routes from app/ to app/(frontend)/ route group
+- [x] T001 Install Payload CMS packages: `pnpm i payload @payloadcms/next @payloadcms/richtext-lexical graphql`
+- [x] T002 Install database adapters: `pnpm i @payloadcms/db-postgres @payloadcms/db-sqlite`
+- [x] T003 [P] Add `@payload-config` path alias to tsconfig.json
+- [x] T004 [P] Add environment variables to .env.local: PAYLOAD_SECRET, DATABASE_URI
+- [x] T005 Update next.config.ts with `withPayload` wrapper
+- [x] T006 Create payload.config.ts at project root with base configuration
+- [x] T007 Copy Payload app files to app/(payload)/ from Payload blank template
+- [x] T008 Move existing routes from app/ to app/(frontend)/ route group
 
 **Checkpoint**: Payload admin panel accessible at /admin, existing routes unchanged
 
