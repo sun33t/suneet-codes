@@ -1,71 +1,53 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Next.js 15 + React 19 portfolio/blog site using App Router, MDX articles, and content-collections.
 
-## Project Overview
+## Critical Rules
 
-Personal portfolio and blog website for suneet.codes, built with Next.js 15 and React 19. Uses the App Router, MDX for blog articles, and content-collections for content management.
+- Invoke `unit-testing` skill BEFORE writing any test code
+- Use conventional commits (enforced by commitlint)
+- Pre-commit hook runs: typecheck, Biome checks, unit tests
 
 ## Commands
 
 ```bash
-pnpm dev             # Start development server
-pnpm build           # Build for production (also generates sitemap)
-pnpm check           # Run Biome linter and formatter checks
-pnpm check:fix       # Run Biome with auto-fix
-pnpm format          # Format code with Biome
-pnpm typecheck       # Run TypeScript type checking
-pnpm dev:email       # Preview email templates locally
+pnpm dev          # Dev server
+pnpm build        # Production build + sitemap
+pnpm check        # Biome lint/format check
+pnpm check:fix    # Biome with auto-fix
+pnpm format       # Format with Biome
+pnpm typecheck    # TypeScript check
+pnpm test         # Vitest watch mode
+pnpm test:run     # Vitest single run
+pnpm dev:email    # Email template preview
 ```
 
-## Architecture
+## File Locations
 
-### Content System
-
-- **Content Collections** (`content-collections.ts`): Defines schema for articles with frontmatter validation using Zod
-- **Articles**: MDX files in `content/articles/` with numeric prefix naming (e.g., `0001-article-name.mdx`)
-- **Static content**: TypeScript files in `content/` for projects, roles, testimonials, categories, etc.
-
-### Key Integrations
-
-- **CodeHike**: Syntax highlighting for code blocks in MDX, configured in `next.config.ts`
-- **Cloudinary**: Image hosting via next-cloudinary
-- **Resend**: Email sending with React Email templates in `emails/`
-- **Turnstile**: Cloudflare bot protection on contact form
-- **PostHog**: Analytics integration
-
-### Environment Variables
-
-Uses t3-env (`app/env.ts`) for runtime validation. Server will error on missing required variables. See README.md for full list.
-
-### Path Aliases
-
-- `@/*` maps to project root
-- `content-collections` maps to generated types
-
-### UI Components
-
-- Radix UI primitives wrapped with shadcn/ui patterns in `components/ui/`
-- Custom MDX components in `components/mdx/`
-
-## Code Style
-
-### Biome
-
-Uses Biome for linting and formatting. Configuration in `biome.json`.
-
-### Git Hooks (Lefthook)
-
-- **pre-commit**: Runs typecheck and Biome checks
-- **commit-msg**: Runs commitlint for conventional commit messages
-
-## Key Files
-
-- `app/env.ts` - Environment variable definitions and validation
-- `content-collections.ts` - Article schema and transformations
-- `next.config.ts` - MDX and CodeHike configuration
+- `content/articles/*.mdx` - Blog articles (numeric prefix: `0001-article-name.mdx`)
+- `content/*.ts` - Static content (projects, roles, testimonials, categories)
+- `content-collections.ts` - Article schema with Zod validation
+- `app/env.ts` - Environment variables (t3-env, errors on missing required vars)
+- `components/ui/` - shadcn/ui components (Radix primitives)
+- `components/mdx/` - Custom MDX components
+- `emails/` - React Email templates
 - `lib/articles.ts` - Article fetching utilities
+- `next.config.ts` - MDX + CodeHike config
+- `biome.json` - Linter/formatter config
 
-## Skills
+## Path Aliases
 
-When writing unit tests, invoke the `unit-testing` skill first before writing any test code.
+- `@/*` → project root
+- `content-collections` → generated types
+
+## Testing
+
+Vitest for unit tests. Co-locate test files with source: `*.test.ts`.
+
+## Integrations
+
+- CodeHike: MDX syntax highlighting
+- Cloudinary: Images (next-cloudinary)
+- Resend: Email sending
+- Turnstile: Contact form bot protection
+- PostHog: Analytics
