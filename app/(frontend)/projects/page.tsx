@@ -15,11 +15,33 @@ import {
 } from "@/components/shared/link-card";
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
 import { PAGE_METADATA } from "@/content/data/pageMetadata";
-import { PROJECTS, type Project } from "@/content/data/projects";
+import type { Project } from "@/content/data/projects";
+import {
+	getAllProjects,
+	type PayloadProject,
+} from "@/lib/payload/queries/projects";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };
 
 export const dynamic = "force-static";
+
+function transformToProject(payload: PayloadProject): Project {
+	return {
+		company: payload.company,
+		description: payload.description,
+		logoDetails: {
+			src: payload.logoDetails?.src ?? "",
+			pixelWidth: payload.logoDetails?.pixelWidth ?? "20px",
+			imageWidth: payload.logoDetails?.imageWidth ?? 20,
+			imageHeight: payload.logoDetails?.imageHeight ?? 20,
+			className: payload.logoDetails?.className ?? "h-5 w-5",
+		},
+		link: {
+			href: payload.link?.href ?? "",
+			label: payload.link?.label ?? "",
+		},
+	};
+}
 
 const ProjectCard = ({ logoDetails, company, description, link }: Project) => {
 	return (
@@ -48,7 +70,10 @@ const ProjectCard = ({ logoDetails, company, description, link }: Project) => {
 	);
 };
 
-export default function Projects() {
+export default async function Projects() {
+	const payloadProjects = await getAllProjects();
+	const projects = payloadProjects.map(transformToProject);
+
 	return (
 		<PageContainer>
 			<PageIntro title="Projects">
@@ -58,7 +83,7 @@ export default function Projects() {
 			</PageIntro>
 			<PageSection>
 				<ul className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-					{PROJECTS.map((project) => (
+					{projects.map((project) => (
 						<ProjectCard key={project.company} {...project} />
 					))}
 				</ul>

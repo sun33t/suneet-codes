@@ -110,13 +110,13 @@ This is a Next.js 15 App Router project with:
 
 ### Implementation for User Story 3
 
-- [ ] T033 [US3] Create Projects collection in collections/Projects.ts per data-model.md
-- [ ] T034 [US3] Add Projects to collections array in payload.config.ts
-- [ ] T035 [US3] Create getAllProjects query function in lib/payload/queries/projects.ts
-- [ ] T036 [US3] Add projects migration to scripts/seed-payload.ts
-- [ ] T037 [US3] Run seed script to migrate existing projects from content/data/projects.ts
-- [ ] T038 [US3] Update app/(frontend)/projects/page.tsx to use getAllProjects()
-- [ ] T039 [US3] Verify projects CRUD in admin panel and display on projects page
+- [x] T033 [US3] Create Projects collection in collections/Projects.ts per data-model.md
+- [x] T034 [US3] Add Projects to collections array in payload.config.ts
+- [x] T035 [US3] Create getAllProjects query function in lib/payload/queries/projects.ts
+- [x] T036 [US3] Add projects migration to scripts/seed-payload.ts
+- [x] T037 [US3] Run seed script to migrate existing projects from content/data/projects.ts
+- [x] T038 [US3] Update app/(frontend)/projects/page.tsx to use getAllProjects()
+- [x] T039 [US3] Verify projects CRUD in admin panel and display on projects page
 
 **Checkpoint**: Projects fully managed via CMS
 
