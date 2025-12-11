@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 
+import { Testimonials } from "@/components/features/testimonials";
+import { PageContainer } from "@/components/layout/page-container";
+import { PageIntro } from "@/components/layout/page-intro";
+import { PageSection } from "@/components/layout/page-section";
 import {
 	LinkCard,
 	LinkCardContent,
@@ -8,12 +12,8 @@ import {
 	LinkCardHeader,
 	LinkCardLabel,
 	LinkCardTitle,
-} from "@/components/link-card";
-import { SuspendedLogoImage } from "@/components/logo-image";
-import { PageContainer } from "@/components/page-container";
-import { PageIntro } from "@/components/page-intro";
-import { PageSection } from "@/components/page-section";
-import { Testimonials } from "@/components/testimonials";
+} from "@/components/shared/link-card";
+import { SuspendedLogoImage } from "@/components/shared/logo-image";
 import { PAGE_METADATA } from "@/content/pageMetadata";
 import { PROJECTS, type Project } from "@/content/projects";
 

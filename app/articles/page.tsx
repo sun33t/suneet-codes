@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-import { SuspendedArticlesFilter } from "@/components/articles-filter";
-import { SuspendedArticlesList } from "@/components/articles-list";
-import { PageContainer } from "@/components/page-container";
-import { PageIntro } from "@/components/page-intro";
-import { PageSection } from "@/components/page-section";
+import { SuspendedArticlesFilter } from "@/components/features/articles-filter";
+import { SuspendedArticlesList } from "@/components/features/articles-list";
+import { PageContainer } from "@/components/layout/page-container";
+import { PageIntro } from "@/components/layout/page-intro";
+import { PageSection } from "@/components/layout/page-section";
 import { PAGE_METADATA } from "@/content/pageMetadata";
 import type { SearchParams } from "@/types";
 

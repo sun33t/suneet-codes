@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { NotFound } from "@/components/not-found";
+import { NotFound } from "@/components/shared/not-found";
 
 export const metadata: Metadata = {
 	title: `404`,

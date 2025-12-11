@@ -6,10 +6,10 @@ import type React from "react";
 import { memo, type PropsWithChildren } from "react";
 
 import { env } from "@/app/env";
-import { CloudinaryImage } from "@/components/cloudinary-image";
-import { NotionIcon } from "@/components/notion-icon";
-import { PageContainer } from "@/components/page-container";
-import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
+import { PageContainer } from "@/components/layout/page-container";
+import { CloudinaryImage } from "@/components/shared/cloudinary-image";
+import { NotionIcon } from "@/components/shared/notion-icon";
+import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PAGE_METADATA } from "@/content/pageMetadata";

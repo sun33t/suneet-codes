@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { type ComponentPropsWithoutRef, Suspense } from "react";
+import { Skeleton, type SkeletonProps } from "@/components/ui/skeleton";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import { CloudinaryImage } from "./cloudinary-image";
-import { Skeleton, type SkeletonProps } from "./ui/skeleton";
 
 export const AvatarContainer = ({
 	className,

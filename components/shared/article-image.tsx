@@ -1,9 +1,9 @@
 import type { ImageProps } from "next/image";
 import { Suspense } from "react";
-import { CloudinaryImage } from "@/components/cloudinary-image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Skeleton, type SkeletonProps } from "@/components/ui/skeleton";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
-import { AspectRatio } from "./ui/aspect-ratio";
-import { Skeleton, type SkeletonProps } from "./ui/skeleton";
+import { CloudinaryImage } from "./cloudinary-image";
 
 type ArticleImageProps = Omit<ImageProps, "src"> & {
 	aspectRatio?: number;

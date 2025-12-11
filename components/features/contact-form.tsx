@@ -11,25 +11,25 @@ import {
 } from "react";
 import { createEnquiry } from "@/app/contact/action";
 import { env } from "@/app/env";
-import { Turnstile } from "@/components/turnstile";
+import { Turnstile } from "@/components/shared/turnstile";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-	DEVELOPMENT_SERVICES,
-	PROFESSIONAL_SERVICES,
-} from "@/content/services";
-import { useToast } from "@/hooks/use-toast";
-import type { ServiceItem } from "@/types";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "./ui/select";
-import { Textarea } from "./ui/textarea";
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import {
+	DEVELOPMENT_SERVICES,
+	PROFESSIONAL_SERVICES,
+} from "@/content/services";
+import { useToast } from "@/hooks/use-toast";
+import type { ServiceItem } from "@/types";
 
 const enquiryReasons: ServiceItem[] = [
 	...DEVELOPMENT_SERVICES,

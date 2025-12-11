@@ -1,9 +1,9 @@
 import { memo, Suspense } from "react";
 
-import { CloudinaryImage } from "@/components/cloudinary-image";
 import { Skeleton, type SkeletonProps } from "@/components/ui/skeleton";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import type { LogoDetails } from "@/types";
+import { CloudinaryImage } from "./cloudinary-image";
 
 const LogoSkeleton = (props: SkeletonProps) => {
 	return <Skeleton {...props} className="h-5 w-5 rounded-full" />;

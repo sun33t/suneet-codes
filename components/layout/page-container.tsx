@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 
-import { Container } from "@/components/container";
+import { Container } from "./container";
 
 export const PageContainer = ({ children }: PropsWithChildren) => {
 	return (
