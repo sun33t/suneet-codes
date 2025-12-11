@@ -10,7 +10,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"dev:email": "dotenv -e .env.local -- email dev --dir lib/services/email/templates",
-		"build": "next build && pnpm run sitemap:generate",
+		"build": "payload generate:types && next build && pnpm run sitemap:generate",
 		"sitemap:generate": "dotenv -c -- tsx ./lib/scripts/sitemap-index.ts",
 		"start": "next start",
 		"check": "biome check",
