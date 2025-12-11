@@ -30,6 +30,23 @@ export const ROLES: Array<Role> = [
 		href: "https://halobase.com",
 	},
 	{
+		company: "Human+",
+		title: "Co-Founder",
+		logoDetails: {
+			src: "human_plus",
+			pixelWidth: "20px",
+			imageWidth: 20,
+			imageHeight: 20,
+			className: "h-5 w-5 rounded-full",
+		},
+		start: "2025",
+		end: {
+			label: "Present",
+			dateTime: new Date().getFullYear().toString(),
+		},
+		href: "https://human.plus",
+	},
+	{
 		company: "Juro",
 		title: "Senior Software Engineer",
 		logoDetails: {
