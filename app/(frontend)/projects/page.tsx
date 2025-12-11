@@ -16,10 +16,7 @@ import {
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
 import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import type { Project } from "@/content/data/projects";
-import {
-	getAllProjects,
-	type PayloadProject,
-} from "@/lib/payload/queries/projects";
+import { getAllProjects, type PayloadProject } from "@/lib/payload/queries";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };
 

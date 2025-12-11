@@ -2,7 +2,7 @@ import { PageSection } from "@/components/layout/page-section";
 import {
 	getAllTestimonials,
 	type PayloadTestimonial,
-} from "@/lib/payload/queries/testimonials";
+} from "@/lib/payload/queries";
 import type { Testimonial } from "@/types";
 import { TestimonialCard } from "./testimonial-card";
 
