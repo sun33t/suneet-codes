@@ -17,7 +17,9 @@ function transformToTestimonial(payload: PayloadTestimonial): Testimonial {
 		},
 		date: new Date(payload.date),
 		shortBody: payload.shortBody,
-		fullBody: payload.fullBody.map((item) => item.paragraph),
+		fullBody: payload.fullBody.map(
+			(item: { paragraph: string }) => item.paragraph,
+		),
 	};
 }
 
