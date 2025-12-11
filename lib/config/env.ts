@@ -21,6 +21,8 @@ export const env = createEnv({
 		VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
 		PORT: z.string().optional(),
 		TURNSTILE_SECRET_KEY: z.string(),
+		/** Vercel deploy hook URL for triggering rebuilds after CMS content changes */
+		VERCEL_DEPLOY_HOOK_URL: z.string().url().optional(),
 		NODE_ENV: z.union([
 			z.literal("development"),
 			z.literal("production"),

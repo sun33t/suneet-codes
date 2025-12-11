@@ -171,12 +171,12 @@ This is a Next.js 15 App Router project with:
 
 ### Implementation for User Story 6
 
-- [ ] T055 [US6] Add VERCEL_DEPLOY_HOOK_URL environment variable to .env.local
-- [ ] T056 [US6] Create deploy hook helper in lib/payload/deploy-hook.ts
-- [ ] T057 [US6] Add afterChange hooks to all collections to trigger deploy (Testimonials, Roles, Projects, Uses)
-- [ ] T058 [US6] Add afterChange hook to SiteContent global
-- [ ] T059 [US6] Configure Vercel deploy hook URL in production environment
-- [ ] T060 [US6] Test rebuild trigger by making a content change and verifying deployment
+- [x] T055 [US6] Add VERCEL_DEPLOY_HOOK_URL environment variable to .env.local
+- [x] T056 [US6] Create deploy hook helper in lib/payload/deploy-hook.ts
+- [x] T057 [US6] Add afterChange hooks to all collections to trigger deploy (Testimonials, Roles, Projects, Uses)
+- [x] T058 [US6] Add afterChange hook to SiteContent global
+- [x] T059 [US6] Configure Vercel deploy hook URL in production environment
+- [x] T060 [US6] Test rebuild trigger by making a content change and verifying deployment
 
 **Checkpoint**: Content changes automatically trigger site rebuilds
 
