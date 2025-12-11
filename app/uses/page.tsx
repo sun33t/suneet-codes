@@ -19,8 +19,8 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { PAGE_METADATA } from "@/content/pageMetadata";
-import { USES, type UsesCategory, type UsesEntry } from "@/content/uses";
+import { PAGE_METADATA } from "@/content/data/pageMetadata";
+import { USES, type UsesCategory, type UsesEntry } from "@/content/data/uses";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
 // https://www.robinwieruch.de/about/ look here for inspo

@@ -18,7 +18,7 @@ import {
 } from "@/components/shared/link-card";
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
-import { ROLES } from "@/content/roles";
+import { ROLES } from "@/content/data/roles";
 import { env } from "@/lib/config/env";
 import { latestArticles } from "@/lib/content/articles";
 import { formatDate } from "@/lib/utils/formatDate";

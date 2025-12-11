@@ -1,5 +1,5 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
-import { CATEGORYTITLES } from "@/content/categories";
+import { CATEGORYTITLES } from "@/content/data/categories";
 import { createArticleSlug } from "./lib/utils/createArticleSlug";
 
 const articles = defineCollection({

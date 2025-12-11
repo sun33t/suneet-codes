@@ -10,11 +10,11 @@ import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PAGE_METADATA } from "@/content/pageMetadata";
+import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import {
 	DEVELOPMENT_SERVICES,
 	PROFESSIONAL_SERVICES,
-} from "@/content/services";
+} from "@/content/data/services";
 import { env } from "@/lib/config/env";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import type { ServiceItem } from "@/types";
