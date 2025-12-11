@@ -53,48 +53,73 @@ This document serves as the primary reference for implementing test-driven devel
 
 ### Recommended Tools
 
-| Layer | Tool | Version | Purpose |
-|-------|------|---------|---------|
-| Unit/Integration | Vitest | ^3.x | Fast, ESM-native test runner |
-| Component Testing | React Testing Library | ^16.x | DOM testing for React |
-| User Interactions | @testing-library/user-event | ^14.x | Simulating user events |
-| DOM Matchers | @testing-library/jest-dom | ^6.x | Extended DOM assertions |
-| E2E Testing | Playwright | ^1.x | Browser automation |
-| Mocking (optional) | MSW | ^2.x | Network request mocking |
+| Layer | Tool | Purpose |
+|-------|------|---------|
+| **Unit Tests** | Vitest | Fast, ESM-native test runner for pure functions |
+| **Component Tests** | Vitest Browser Mode + `vitest-browser-react` | Real browser testing for React components |
+| **Browser Provider** | `@vitest/browser-playwright` | Runs tests in real Chromium/Firefox/WebKit |
+| **E2E Tests** | Playwright | Full application end-to-end testing |
+| **Network Mocking** | MSW (Mock Service Worker) | API request interception |
 
-### Why Vitest?
+### Why Vitest Browser Mode?
 
-1. **Native ESM Support**: Works seamlessly with Next.js 15's ESM-first architecture
-2. **Speed**: Uses Vite's transform pipeline, significantly faster than Jest
-3. **Jest-Compatible API**: Familiar syntax, easy migration path
-4. **TypeScript First**: No additional configuration needed
-5. **Built-in Features**: Coverage, UI mode, watch mode out of the box
-6. **Next.js Official Support**: Recommended in Next.js 15 documentation
+Vitest Browser Mode is the **recommended approach** for component testing because it runs tests in real browsers rather than simulating the DOM in Node.js:
 
-### Why Not Jest?
+| Aspect | jsdom (old approach) | Browser Mode (recommended) |
+|--------|---------------------|---------------------------|
+| **Environment** | Simulated DOM in Node.js | Real browser (Chromium, Firefox, WebKit) |
+| **CSS** | Not rendered | Actual CSS rendering and layout |
+| **Events** | Simulated via JavaScript | Real events via Chrome DevTools Protocol |
+| **Browser APIs** | Polyfilled or missing | Native browser APIs |
+| **Accessibility** | Limited testing capability | Full accessibility testing |
+| **Debugging** | Console only | Full browser DevTools |
+| **Accuracy** | May miss real-world issues | Catches CSS, focus, and event bugs |
 
-- Requires additional ESM configuration for Next.js 15
-- Slower test execution
-- More complex setup with TypeScript path aliases
+### Why Not jsdom?
+
+The traditional `jsdom` approach simulates the DOM in Node.js, which can miss:
+
+- CSS layout and styling problems
+- Real browser API behavior differences
+- Accurate event handling and propagation
+- Proper focus management and accessibility features
+
+**Use jsdom only for**:
+- Pure unit tests (utilities, Zod schemas, server actions)
+- Legacy test migration scenarios
+- Environments where browser testing isn't feasible
 
 ---
 
 ## Installation
 
-### Core Testing Dependencies
+### Quick Setup (Recommended)
 
 ```bash
-# Vitest and React Testing Library
-pnpm add -D vitest @vitejs/plugin-react jsdom vite-tsconfig-paths
-
-# Testing Library ecosystem
-pnpm add -D @testing-library/react @testing-library/dom @testing-library/user-event @testing-library/jest-dom
-
-# Types (if needed)
-pnpm add -D @types/testing-library__jest-dom
+# Initialize Vitest with browser mode
+npx vitest init browser
 ```
 
-### E2E Testing (Playwright)
+### Manual Installation
+
+#### Core Dependencies (Unit Tests)
+
+```bash
+# Vitest core
+pnpm add -D vitest vite-tsconfig-paths
+```
+
+#### Browser Mode Dependencies (Component Tests)
+
+```bash
+# Browser mode with Playwright provider
+pnpm add -D @vitest/browser-playwright vitest-browser-react
+
+# Install Playwright browsers
+npx playwright install chromium
+```
+
+#### E2E Testing (Playwright)
 
 ```bash
 # Interactive setup
@@ -105,7 +130,7 @@ pnpm add -D @playwright/test
 npx playwright install
 ```
 
-### Optional: Network Mocking with MSW
+#### Optional: Network Mocking with MSW
 
 ```bash
 pnpm add -D msw
@@ -115,26 +140,21 @@ pnpm add -D msw
 
 ## Configuration
 
-### Vitest Configuration
+### Vitest Configuration (with Browser Mode)
 
 Create `vitest.config.mts` in project root:
 
 ```typescript
 import react from "@vitejs/plugin-react";
+import { playwright } from "@vitest/browser-playwright";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
-    // Environment
-    environment: "jsdom",
-
     // Global test APIs (describe, it, expect)
     globals: true,
-
-    // Setup file for custom matchers and cleanup
-    setupFiles: ["./vitest.setup.ts"],
 
     // Test file patterns
     include: ["**/*.test.{ts,tsx}"],
@@ -147,6 +167,14 @@ export default defineConfig({
       "e2e",
       "dist",
     ],
+
+    // Browser mode configuration for component tests
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      instances: [{ browser: "chromium" }],
+      headless: true, // Set to false for debugging
+    },
 
     // Coverage configuration
     coverage: {
@@ -161,13 +189,6 @@ export default defineConfig({
         "**/types/**",
         "e2e/**",
       ],
-      thresholds: {
-        // Enforce minimum coverage (adjust as tests are added)
-        // lines: 80,
-        // functions: 80,
-        // branches: 80,
-        // statements: 80,
-      },
     },
 
     // Reporter configuration
@@ -175,54 +196,55 @@ export default defineConfig({
 
     // Timeout for async tests
     testTimeout: 10000,
-
-    // Retry flaky tests (optional)
-    // retry: 2,
   },
 });
 ```
 
-### Vitest Setup File
+### Project-Based Configuration (Unit + Component Tests)
 
-Create `vitest.setup.ts` in project root:
+For projects that need both Node.js unit tests and browser component tests:
 
 ```typescript
-import "@testing-library/jest-dom/vitest";
-import { cleanup } from "@testing-library/react";
-import { afterEach, vi } from "vitest";
+import react from "@vitejs/plugin-react";
+import { playwright } from "@vitest/browser-playwright";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "vitest/config";
 
-// Cleanup DOM after each test
-afterEach(() => {
-  cleanup();
-});
-
-// Mock Next.js router (commonly needed)
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    prefetch: vi.fn(),
-    back: vi.fn(),
-    forward: vi.fn(),
-  }),
-  useSearchParams: () => new URLSearchParams(),
-  usePathname: () => "/",
-  redirect: vi.fn(),
-}));
-
-// Mock next/headers (for server component tests)
-vi.mock("next/headers", () => ({
-  cookies: () => ({
-    get: vi.fn(),
-    set: vi.fn(),
-    delete: vi.fn(),
-  }),
-  headers: () => new Headers(),
-}));
-
-// Reset mocks between tests
-afterEach(() => {
-  vi.clearAllMocks();
+export default defineConfig({
+  plugins: [tsconfigPaths(), react()],
+  test: {
+    globals: true,
+    projects: [
+      // Unit tests (Node.js environment)
+      {
+        test: {
+          name: "unit",
+          include: [
+            "lib/**/*.test.ts",
+            "types/**/*.test.ts",
+            "app/**/action.test.ts",
+          ],
+          environment: "node",
+        },
+      },
+      // Component tests (Browser environment)
+      {
+        test: {
+          name: "browser",
+          include: [
+            "components/**/*.test.tsx",
+            "hooks/**/*.test.ts",
+          ],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            instances: [{ browser: "chromium" }],
+            headless: true,
+          },
+        },
+      },
+    ],
+  },
 });
 ```
 
@@ -233,12 +255,10 @@ Add Vitest types to `tsconfig.json`:
 ```json
 {
   "compilerOptions": {
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals"]
   }
 }
 ```
-
-Or create a separate `tsconfig.test.json` if you prefer isolation.
 
 ### Package.json Scripts
 
@@ -258,7 +278,7 @@ Add to `package.json`:
 }
 ```
 
-### Playwright Configuration
+### Playwright Configuration (E2E)
 
 Create `playwright.config.ts` in project root:
 
@@ -318,7 +338,6 @@ pre-commit:
       run: pnpm check
     test:
       run: pnpm test:run --reporter=dot
-      # Use dot reporter for cleaner pre-commit output
 ```
 
 ---
@@ -333,7 +352,7 @@ Place test files alongside the code they test:
 lib/
 ├── utils/
 │   ├── createArticleSlug.ts
-│   ├── createArticleSlug.test.ts        # ← Colocated
+│   ├── createArticleSlug.test.ts        # ← Unit test (Node.js)
 │   ├── sortByTitleProperty.ts
 │   ├── sortByTitleProperty.test.ts
 │   ├── formatDateRelativeToCurrentYear.ts
@@ -349,11 +368,11 @@ lib/
 
 types/
 ├── index.ts
-└── index.test.ts                        # ← Schema validation tests
+└── index.test.ts                        # ← Unit test (Node.js)
 
 components/
 ├── contact-form.tsx
-├── contact-form.test.tsx
+├── contact-form.test.tsx                # ← Browser test
 ├── articles-filter.tsx
 ├── articles-filter.test.tsx
 ├── theme-toggle.tsx
@@ -362,13 +381,13 @@ components/
 app/
 └── contact/
     ├── action.ts
-    └── action.test.ts
+    └── action.test.ts                   # ← Unit test (Node.js)
 
 hooks/
 ├── use-toast.ts
-└── use-toast.test.ts
+└── use-toast.test.ts                    # ← Browser test
 
-e2e/                                     # ← E2E tests separate
+e2e/                                     # ← E2E tests (Playwright)
 ├── contact-form.spec.ts
 ├── articles.spec.ts
 └── navigation.spec.ts
@@ -387,15 +406,15 @@ e2e/                                     # ← E2E tests separate
 
 ### Testing Priority Matrix
 
-| Priority | Type | Files | Rationale |
-|----------|------|-------|-----------|
-| **P0** | Utility Functions | `lib/utils/*.ts` | Pure functions, easy to test, high ROI |
-| **P0** | Zod Schemas | `types/index.ts` | Validates user input, critical for security |
-| **P1** | Server Actions | `app/contact/action.ts` | Core business logic |
-| **P1** | Data Fetching | `lib/articles.ts` | Content retrieval logic |
-| **P2** | Client Components | `components/*.tsx` | User interactions |
-| **P2** | Hooks | `hooks/*.ts` | Reusable stateful logic |
-| **P3** | E2E Flows | Critical user journeys | Integration verification |
+| Priority | Type | Files | Test Environment |
+|----------|------|-------|------------------|
+| **P0** | Utility Functions | `lib/utils/*.ts` | Node.js (unit) |
+| **P0** | Zod Schemas | `types/index.ts` | Node.js (unit) |
+| **P1** | Server Actions | `app/contact/action.ts` | Node.js (unit) |
+| **P1** | Data Fetching | `lib/articles.ts` | Node.js (unit) |
+| **P2** | Client Components | `components/*.tsx` | Browser Mode |
+| **P2** | Hooks | `hooks/*.ts` | Browser Mode |
+| **P3** | E2E Flows | Critical user journeys | Playwright |
 
 ### Test Coverage Goals
 
@@ -504,7 +523,7 @@ Run tests again - should still pass.
 
 ## Test Patterns & Examples
 
-### Pattern 1: Pure Utility Functions
+### Pattern 1: Pure Utility Functions (Node.js)
 
 ```typescript
 // lib/utils/createArticleSlug.test.ts
@@ -546,7 +565,7 @@ describe("createArticleSlug", () => {
 });
 ```
 
-### Pattern 2: Zod Schema Validation
+### Pattern 2: Zod Schema Validation (Node.js)
 
 ```typescript
 // types/index.test.ts
@@ -585,9 +604,6 @@ describe("ContactFormFieldSchema", () => {
         name: "",
       });
       expect(result.success).toBe(false);
-      if (!result.success) {
-        expect(result.error.issues[0].message).toContain("name");
-      }
     });
 
     it("rejects name with only whitespace", () => {
@@ -637,7 +653,7 @@ describe("ContactFormFieldSchema", () => {
 });
 ```
 
-### Pattern 3: Server Actions with Mocking
+### Pattern 3: Server Actions with Mocking (Node.js)
 
 ```typescript
 // app/contact/action.test.ts
@@ -745,12 +761,14 @@ describe("createEnquiry", () => {
 });
 ```
 
-### Pattern 4: React Component Testing
+### Pattern 4: React Component Testing (Browser Mode)
+
+Using `vitest-browser-react` with the new Browser Mode API:
 
 ```typescript
 // components/theme-toggle.test.tsx
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render } from "vitest-browser-react";
+import { page } from "vitest/browser";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock next-themes
@@ -770,35 +788,34 @@ describe("ThemeToggle", () => {
     vi.clearAllMocks();
   });
 
-  it("renders toggle button", () => {
-    render(<ThemeToggle />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
+  it("renders toggle button", async () => {
+    const screen = render(<ThemeToggle />);
+    await expect.element(screen.getByRole("button")).toBeInTheDocument();
   });
 
-  it("has accessible label", () => {
-    render(<ThemeToggle />);
-    expect(
-      screen.getByRole("button", { name: /toggle theme/i })
-    ).toBeInTheDocument();
+  it("has accessible label", async () => {
+    const screen = render(<ThemeToggle />);
+    await expect
+      .element(screen.getByRole("button", { name: /toggle theme/i }))
+      .toBeInTheDocument();
   });
 
   it("calls setTheme when clicked", async () => {
-    const user = userEvent.setup();
-    render(<ThemeToggle />);
+    const screen = render(<ThemeToggle />);
 
-    await user.click(screen.getByRole("button"));
+    await screen.getByRole("button").click();
 
     expect(mockSetTheme).toHaveBeenCalled();
   });
 });
 ```
 
-### Pattern 5: Component with Form State
+### Pattern 5: Component with Form State (Browser Mode)
 
 ```typescript
 // components/contact-form.test.tsx
-import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
 import { describe, expect, it, vi } from "vitest";
 
 // Mock the server action
@@ -822,17 +839,18 @@ import { ContactForm } from "./contact-form";
 import { createEnquiry } from "@/app/contact/action";
 
 describe("ContactForm", () => {
-  it("renders all form fields", () => {
-    render(<ContactForm />);
+  it("renders all form fields", async () => {
+    const screen = render(<ContactForm />);
 
-    expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/message/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /send/i })).toBeInTheDocument();
+    await expect.element(screen.getByLabelText(/name/i)).toBeInTheDocument();
+    await expect.element(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    await expect.element(screen.getByLabelText(/message/i)).toBeInTheDocument();
+    await expect
+      .element(screen.getByRole("button", { name: /send/i }))
+      .toBeInTheDocument();
   });
 
   it("shows validation errors for empty submission", async () => {
-    const user = userEvent.setup();
     vi.mocked(createEnquiry).mockResolvedValue({
       success: false,
       errors: {
@@ -842,88 +860,147 @@ describe("ContactForm", () => {
       },
     });
 
-    render(<ContactForm />);
+    const screen = render(<ContactForm />);
 
     // Complete turnstile
-    await user.click(screen.getByTestId("turnstile-mock"));
+    await screen.getByTestId("turnstile-mock").click();
 
     // Submit empty form
-    await user.click(screen.getByRole("button", { name: /send/i }));
+    await screen.getByRole("button", { name: /send/i }).click();
 
-    await waitFor(() => {
-      expect(screen.getByText(/name is required/i)).toBeInTheDocument();
-    });
+    // expect.element auto-retries until element is found
+    await expect
+      .element(screen.getByText(/name is required/i))
+      .toBeInTheDocument();
   });
 
   it("submits form with valid data", async () => {
-    const user = userEvent.setup();
     vi.mocked(createEnquiry).mockResolvedValue({ success: true });
 
-    render(<ContactForm />);
+    const screen = render(<ContactForm />);
 
-    await user.type(screen.getByLabelText(/name/i), "John Doe");
-    await user.type(screen.getByLabelText(/email/i), "john@example.com");
-    await user.type(
-      screen.getByLabelText(/message/i),
-      "This is a test message"
-    );
-    await user.click(screen.getByTestId("turnstile-mock"));
-    await user.click(screen.getByRole("button", { name: /send/i }));
+    // Fill form using locator methods
+    await screen.getByLabelText(/name/i).fill("John Doe");
+    await screen.getByLabelText(/email/i).fill("john@example.com");
+    await screen.getByLabelText(/message/i).fill("This is a test message");
 
-    await waitFor(() => {
-      expect(createEnquiry).toHaveBeenCalled();
-    });
+    // Complete turnstile and submit
+    await screen.getByTestId("turnstile-mock").click();
+    await screen.getByRole("button", { name: /send/i }).click();
+
+    expect(createEnquiry).toHaveBeenCalled();
   });
 });
 ```
 
-### Pattern 6: Testing Custom Hooks
+### Pattern 6: Testing Custom Hooks (Browser Mode)
 
 ```typescript
 // hooks/use-toast.test.ts
-import { act, renderHook } from "@testing-library/react";
+import { renderHook } from "vitest-browser-react";
 import { describe, expect, it } from "vitest";
 import { useToast } from "./use-toast";
 
 describe("useToast", () => {
-  it("initially has no toasts", () => {
+  it("initially has no toasts", async () => {
     const { result } = renderHook(() => useToast());
     expect(result.current.toasts).toHaveLength(0);
   });
 
-  it("adds a toast when toast() is called", () => {
+  it("adds a toast when toast() is called", async () => {
     const { result } = renderHook(() => useToast());
 
-    act(() => {
-      result.current.toast({
-        title: "Test Toast",
-        description: "Test description",
-      });
+    result.current.toast({
+      title: "Test Toast",
+      description: "Test description",
     });
 
-    expect(result.current.toasts).toHaveLength(1);
+    // Browser mode may need a small wait for state updates
+    await expect.poll(() => result.current.toasts).toHaveLength(1);
     expect(result.current.toasts[0].title).toBe("Test Toast");
   });
 
-  it("removes a toast when dismiss() is called", () => {
+  it("removes a toast when dismiss() is called", async () => {
     const { result } = renderHook(() => useToast());
 
-    act(() => {
-      result.current.toast({ title: "Test Toast" });
-    });
+    result.current.toast({ title: "Test Toast" });
+
+    await expect.poll(() => result.current.toasts).toHaveLength(1);
 
     const toastId = result.current.toasts[0].id;
+    result.current.dismiss(toastId);
 
-    act(() => {
-      result.current.dismiss(toastId);
-    });
-
-    expect(result.current.toasts).toHaveLength(0);
+    await expect.poll(() => result.current.toasts).toHaveLength(0);
   });
 });
 ```
 
-### Pattern 7: E2E Tests with Playwright
+### Pattern 7: Advanced Component Testing (Browser Mode)
+
+Testing complex interactions, accessibility, and state management:
+
+```typescript
+// components/articles-filter.test.tsx
+import { render } from "vitest-browser-react";
+import { page, userEvent } from "vitest/browser";
+import { describe, expect, it, vi } from "vitest";
+
+// Mock Next.js navigation
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+  }),
+  useSearchParams: () => new URLSearchParams(),
+  usePathname: () => "/articles",
+}));
+
+import { ArticlesFilter } from "./articles-filter";
+
+describe("ArticlesFilter", () => {
+  const mockCategories = [
+    { id: "1", name: "Engineering", slug: "engineering" },
+    { id: "2", name: "Leadership", slug: "leadership" },
+  ];
+
+  it("renders all category options", async () => {
+    const screen = render(<ArticlesFilter categories={mockCategories} />);
+
+    await expect
+      .element(screen.getByRole("button", { name: /engineering/i }))
+      .toBeInTheDocument();
+    await expect
+      .element(screen.getByRole("button", { name: /leadership/i }))
+      .toBeInTheDocument();
+  });
+
+  it("highlights active category", async () => {
+    const screen = render(
+      <ArticlesFilter categories={mockCategories} activeCategory="engineering" />
+    );
+
+    const engineeringButton = screen.getByRole("button", { name: /engineering/i });
+    await expect.element(engineeringButton).toHaveAttribute("data-active", "true");
+  });
+
+  it("handles keyboard navigation", async () => {
+    const screen = render(<ArticlesFilter categories={mockCategories} />);
+
+    // Focus first button
+    await screen.getByRole("button", { name: /engineering/i }).focus();
+
+    // Tab to next button
+    await userEvent.keyboard("{Tab}");
+
+    // Verify focus moved
+    await expect
+      .element(screen.getByRole("button", { name: /leadership/i }))
+      .toHaveFocus();
+  });
+});
+```
+
+### Pattern 8: E2E Tests with Playwright
 
 ```typescript
 // e2e/contact-form.spec.ts
@@ -970,7 +1047,6 @@ test.describe("Articles", () => {
   test("displays article list", async ({ page }) => {
     await page.goto("/articles");
     await expect(page.getByRole("heading", { name: /articles/i })).toBeVisible();
-    await expect(page.getByRole("article")).toHaveCount.greaterThan(0);
   });
 
   test("filters articles by category", async ({ page }) => {
@@ -981,22 +1057,17 @@ test.describe("Articles", () => {
 
     // URL should update
     await expect(page).toHaveURL(/category=engineering/);
-
-    // Articles should be filtered
-    const articles = page.getByRole("article");
-    await expect(articles).toHaveCount.greaterThan(0);
   });
 
   test("navigates to article detail page", async ({ page }) => {
     await page.goto("/articles");
 
-    // Click first article
+    // Click first article link
     const firstArticle = page.getByRole("article").first();
-    const articleTitle = await firstArticle.getByRole("heading").textContent();
     await firstArticle.click();
 
-    // Should navigate to article page
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(articleTitle!);
+    // Should navigate to article page with heading
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 });
 ```
@@ -1015,14 +1086,14 @@ vi.mock("@/lib/resend", () => ({
   sendResendEmail: vi.fn(),
 }));
 
+// Mock with spy (Browser Mode limitation workaround)
+vi.mock("./module.js", { spy: true });
+
 // Mock a specific function
 const mockFn = vi.fn();
 mockFn.mockReturnValue("mocked value");
 mockFn.mockResolvedValue("async mocked value");
 mockFn.mockImplementation((arg) => arg * 2);
-
-// Spy on a method
-const spy = vi.spyOn(object, "method");
 
 // Mock timers
 vi.useFakeTimers();
@@ -1045,6 +1116,7 @@ vi.mock("next/navigation", () => ({
   }),
   useSearchParams: () => new URLSearchParams("?category=test"),
   usePathname: () => "/articles",
+  redirect: vi.fn(),
 }));
 
 // Mock next/image
@@ -1060,7 +1132,9 @@ vi.mock("next/link", () => ({
 }));
 ```
 
-### MSW for Network Mocking (Optional)
+### MSW for Network Mocking (Browser Mode)
+
+MSW is the recommended approach for mocking API requests in Browser Mode:
 
 ```typescript
 // mocks/handlers.ts
@@ -1079,20 +1153,46 @@ export const handlers = [
 
     return HttpResponse.json({ success: true });
   }),
-];
 
-// mocks/server.ts
-import { setupServer } from "msw/node";
+  http.get("/api/users/:id", ({ params }) => {
+    return HttpResponse.json({
+      id: params.id,
+      name: "John Doe",
+      email: "john@example.com",
+    });
+  }),
+];
+```
+
+```typescript
+// Setup for Browser Mode tests
+import { http, HttpResponse } from "msw";
+import { setupWorker } from "msw/browser";
 import { handlers } from "./handlers";
 
-export const server = setupServer(...handlers);
+const worker = setupWorker(...handlers);
 
-// vitest.setup.ts
-import { server } from "./mocks/server";
+// In your test setup
+beforeAll(() => worker.start());
+afterEach(() => worker.resetHandlers());
+afterAll(() => worker.stop());
+```
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+### Browser Mode Spying Limitation
+
+In Browser Mode, you cannot use `vi.spyOn` on imported module exports due to ESM module sealing. Use `vi.mock` with `{ spy: true }` instead:
+
+```typescript
+// ❌ This won't work in Browser Mode
+import * as module from "./module.js";
+vi.spyOn(module, "method");
+
+// ✅ Use this instead
+vi.mock("./module.js", { spy: true });
+import { method } from "./module.js";
+vi.mocked(method).mockImplementation(() => {
+  // ...
+});
 ```
 
 ---
@@ -1154,7 +1254,7 @@ on:
     branches: [main]
 
 jobs:
-  unit-tests:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -1170,7 +1270,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Run unit tests
+      - name: Install Playwright browsers (for Vitest Browser Mode)
+        run: npx playwright install chromium
+
+      - name: Run tests
         run: pnpm test:run --coverage
 
       - name: Upload coverage
@@ -1200,7 +1303,6 @@ jobs:
       - name: Run E2E tests
         run: pnpm test:e2e
         env:
-          # Add required env vars for E2E
           TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
 
       - uses: actions/upload-artifact@v4
@@ -1212,40 +1314,75 @@ jobs:
 
 ---
 
+## Debugging
+
+### Browser Mode Debugging
+
+Browser Mode provides access to full browser DevTools:
+
+1. **Run in headed mode**: Set `headless: false` in config or use `--browser.headless=false`
+2. **Open DevTools**: Press F12 or right-click → Inspect during test execution
+3. **Set breakpoints**: Add breakpoints in test or component code
+4. **Inspect DOM**: View actual rendered output
+5. **Check console**: See JavaScript errors or warnings
+
+```typescript
+// Debug form validation
+test("debug form validation", async () => {
+  const screen = render(<ContactForm />);
+
+  await screen.getByRole("button", { name: /submit/i }).click();
+
+  // Debug: Log element state
+  const errorElement = screen.getByText("Email is required");
+  console.log("Error element found:", await errorElement.isVisible());
+
+  await expect.element(errorElement).toBeInTheDocument();
+});
+```
+
+### Common Debugging Patterns
+
+```typescript
+// Check if element exists with different query
+const button = screen.getByRole("button", { name: /submit/i });
+console.log("Button visible:", await button.isVisible());
+
+// Use expect.poll for async state changes
+await expect.poll(() => result.current.value).toBe(expectedValue);
+```
+
+---
+
 ## Implementation Checklist
 
-### Phase 1: Setup (Day 1)
+### Phase 1: Setup
 
-- [ ] Install Vitest and dependencies
-- [ ] Create `vitest.config.mts`
-- [ ] Create `vitest.setup.ts`
-- [ ] Update `tsconfig.json` with Vitest types
+- [ ] Install Vitest and `@vitest/browser-playwright`
+- [ ] Install `vitest-browser-react`
+- [ ] Create `vitest.config.mts` with Browser Mode
+- [ ] Install Playwright browsers (`npx playwright install chromium`)
 - [ ] Add test scripts to `package.json`
 - [ ] Update `lefthook.yml` to run tests
 
-### Phase 2: Utility Tests (Day 1-2)
+### Phase 2: Unit Tests (Node.js)
 
 - [ ] `lib/utils/createArticleSlug.test.ts`
 - [ ] `lib/utils/sortByTitleProperty.test.ts`
 - [ ] `lib/utils/formatDateRelativeToCurrentYear.test.ts`
 - [ ] `lib/formatDate.test.ts`
 - [ ] `lib/articles.test.ts`
-
-### Phase 3: Schema & Action Tests (Day 2-3)
-
 - [ ] `types/index.test.ts` (Zod schemas)
 - [ ] `app/contact/action.test.ts`
-- [ ] `lib/turnstile.test.ts`
-- [ ] `lib/resend.test.ts`
 
-### Phase 4: Component Tests (Day 3-4)
+### Phase 3: Component Tests (Browser Mode)
 
 - [ ] `components/theme-toggle.test.tsx`
 - [ ] `components/contact-form.test.tsx`
 - [ ] `components/articles-filter.test.tsx`
 - [ ] `hooks/use-toast.test.ts`
 
-### Phase 5: E2E Setup (Day 4-5)
+### Phase 4: E2E Setup (Playwright)
 
 - [ ] Install and configure Playwright
 - [ ] Create `playwright.config.ts`
@@ -1253,7 +1390,7 @@ jobs:
 - [ ] `e2e/contact-form.spec.ts`
 - [ ] `e2e/articles.spec.ts`
 
-### Phase 6: CI/CD Integration (Day 5)
+### Phase 5: CI/CD Integration
 
 - [ ] Create GitHub Actions workflow
 - [ ] Configure coverage reporting
@@ -1263,10 +1400,10 @@ jobs:
 
 ## References
 
+- [Vitest Browser Mode Documentation](https://vitest.dev/guide/browser/)
+- [Vitest Component Testing Guide](https://vitest.dev/guide/browser/component-testing)
+- [vitest-browser-react Package](https://github.com/vitest-dev/vitest-browser-react)
 - [Next.js 15 Testing Documentation](https://nextjs.org/docs/15/app/guides/testing)
-- [Vitest Documentation](https://vitest.dev/)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [Playwright Documentation](https://playwright.dev/)
 - [MSW Documentation](https://mswjs.io/)
-- [Next.js with Vitest Example](https://github.com/vercel/next.js/tree/canary/examples/with-vitest)
-- [Next.js with Playwright Example](https://github.com/vercel/next.js/tree/canary/examples/with-playwright)
+- [Vitest Browser Examples Repository](https://github.com/vitest-tests/browser-examples)
