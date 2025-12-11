@@ -21,6 +21,10 @@ export const env = createEnv({
 		VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
 		PORT: z.string().optional(),
 		TURNSTILE_SECRET_KEY: z.string(),
+		/** Payload CMS secret for authentication (minimum 32 characters) */
+		PAYLOAD_SECRET: z.string().min(32),
+		/** Database connection string (SQLite file:// or PostgreSQL postgres://) */
+		DATABASE_URI: z.string(),
 		/** Vercel deploy hook URL for triggering rebuilds after CMS content changes */
 		VERCEL_DEPLOY_HOOK_URL: z.string().url().optional(),
 		NODE_ENV: z.union([
