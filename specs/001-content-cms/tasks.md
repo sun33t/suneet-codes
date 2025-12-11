@@ -150,14 +150,14 @@ This is a Next.js 15 App Router project with:
 
 ### Implementation for User Story 5
 
-- [ ] T047 [US5] Create SiteContent global in globals/SiteContent.ts per data-model.md
-- [ ] T048 [US5] Add SiteContent to globals array in payload.config.ts
-- [ ] T049 [US5] Create getSiteContent query function in lib/payload/queries/site-content.ts
-- [ ] T050 [US5] Seed initial site content values from existing hardcoded strings
-- [ ] T051 [US5] Update app/(frontend)/page.tsx to use getSiteContent() for bio text
-- [ ] T052 [US5] Update app/(frontend)/about/page.tsx to use getSiteContent() for about content
-- [ ] T053 [US5] Update components using UI labels to pull from SiteContent global
-- [ ] T054 [US5] Verify site copy editing in admin panel and display on public pages
+- [x] T047 [US5] Create SiteContent global in globals/SiteContent.ts per data-model.md
+- [x] T048 [US5] Add SiteContent to globals array in payload.config.ts
+- [x] T049 [US5] Create getSiteContent query function in lib/payload/queries/site-content.ts
+- [x] T050 [US5] Seed initial site content values from existing hardcoded strings
+- [x] T051 [US5] Update app/(frontend)/page.tsx to use getSiteContent() for bio text
+- [x] T052 [US5] Update app/(frontend)/about/page.tsx to use getSiteContent() for about content
+- [x] T053 [US5] Update components using UI labels to pull from SiteContent global
+- [x] T054 [US5] Verify site copy editing in admin panel and display on public pages
 
 **Checkpoint**: Site copy editable via CMS without code changes
 

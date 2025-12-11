@@ -22,6 +22,7 @@ import type { Role } from "@/content/data/roles";
 import { env } from "@/lib/config/env";
 import { latestArticles } from "@/lib/content/articles";
 import { getAllRoles, type PayloadRole } from "@/lib/payload/queries/roles";
+import { getSiteContent } from "@/lib/payload/queries/site-content";
 import { formatDate } from "@/lib/utils/formatDate";
 
 export const dynamic = "force-static";
@@ -109,8 +110,13 @@ const NoArticlesCard = () => {
 };
 
 export default async function Home() {
-	const payloadRoles = await getAllRoles();
+	const [payloadRoles, siteContent] = await Promise.all([
+		getAllRoles(),
+		getSiteContent(),
+	]);
 	const roles = payloadRoles.map(transformToRole);
+	const resumeSectionTitle = siteContent.ui?.resumeSectionTitle ?? "Work";
+	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
 
 	return (
 		<Fragment>
@@ -230,7 +236,11 @@ export default async function Home() {
 					<div className="space-y-10 lg:pl-16 xl:pl-24">
 						{/* <Newsletter /> */}
 						<div>
-							<Resume roles={roles} />
+							<Resume
+								ctaButtonText={ctaButtonText}
+								roles={roles}
+								sectionTitle={resumeSectionTitle}
+							/>
 						</div>
 					</div>
 				</div>

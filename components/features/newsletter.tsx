@@ -2,7 +2,17 @@ import { MailIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-export const Newsletter = () => {
+type NewsletterProps = {
+	title?: string;
+	description?: string;
+	buttonText?: string;
+};
+
+export const Newsletter = ({
+	title = "Stay up to date",
+	description = "Get notified when I publish something new, and unsubscribe at any time.",
+	buttonText = "Join",
+}: NewsletterProps) => {
 	return (
 		<form
 			action="/thank-you"
@@ -10,10 +20,10 @@ export const Newsletter = () => {
 		>
 			<h2 className="flex items-center font-semibold text-sm text-zinc-900 dark:text-zinc-100">
 				<MailIcon className="h-5 w-5 flex-none fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500" />
-				<span className="ml-3">Stay up to date</span>
+				<span className="ml-3">{title}</span>
 			</h2>
 			<p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-				Get notified when I publish something new, and unsubscribe at any time.
+				{description}
 			</p>
 			<div className="mt-6 flex">
 				<input
@@ -24,7 +34,7 @@ export const Newsletter = () => {
 					type="email"
 				/>
 				<Button className="ml-4 flex-none" type="submit">
-					Join
+					{buttonText}
 				</Button>
 			</div>
 		</form>

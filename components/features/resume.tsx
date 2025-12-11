@@ -52,12 +52,22 @@ const RoleComp = ({ role }: { role: Role }) => {
 	);
 };
 
-export const Resume = ({ roles }: { roles: Role[] }) => {
+type ResumeProps = {
+	roles: Role[];
+	sectionTitle?: string;
+	ctaButtonText?: string;
+};
+
+export const Resume = ({
+	roles,
+	sectionTitle = "Work",
+	ctaButtonText = "Let's Talk",
+}: ResumeProps) => {
 	return (
 		<Card className="p-6 shadow-none">
 			<h2 className="flex items-center font-semibold text-sm text-zinc-900 dark:text-zinc-100">
 				<Briefcase className="h-5 w-5 flex-none fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500" />
-				<span className="ml-3">Work</span>
+				<span className="ml-3">{sectionTitle}</span>
 			</h2>
 			<CardContent className="p-0">
 				<ol className="mt-6 space-y-4">
@@ -69,7 +79,7 @@ export const Resume = ({ roles }: { roles: Role[] }) => {
 					className={`mt-6 w-full ${buttonVariants({ variant: "secondary" })}`}
 					href="/contact"
 				>
-					Let&apos;s Talk
+					{ctaButtonText}
 					<MessageCircle className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-active:stroke-zinc-50 dark:group-hover:stroke-zinc-50" />
 				</Link>
 			</CardContent>
