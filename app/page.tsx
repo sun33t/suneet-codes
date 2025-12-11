@@ -22,7 +22,7 @@ import { Resume } from "@/components/resume";
 import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
 import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/articles";
-import { formatDate } from "@/lib/formatDate";
+import { formatDate } from "@/lib/utils/formatDate";
 
 const SocialLink = ({
 	icon: Icon,
