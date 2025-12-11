@@ -186,18 +186,18 @@ This is a Next.js 15 App Router project with:
 
 **Purpose**: Final cleanup and verification
 
-- [ ] T061 Create lib/payload/queries/index.ts to export all query functions
-- [ ] T062 [P] Add payload-types.ts to .gitignore (auto-generated)
-- [ ] T063 [P] Add payload.db to .gitignore (SQLite local dev)
-- [ ] T064 [P] Add media/ directory to .gitignore (uploaded files)
-- [ ] T065 Remove or archive old content/data/*.ts files after migration verified
-- [ ] T066 Verify all public pages have `export const dynamic = 'force-static'`
-- [ ] T067 Run `pnpm build` to verify static generation works with Payload
-- [ ] T068 Run `pnpm typecheck` to verify no TypeScript errors
-- [ ] T069 Run `pnpm check` to verify no Biome linting errors
-- [ ] T070 Run page-layer validation script on modified pages in app/(frontend)/
-- [ ] T071 Test admin panel on mobile device for responsive design
-- [ ] T072 Document environment variables needed for production in README or docs
+- [x] T061 Create lib/payload/queries/index.ts to export all query functions
+- [x] T062 [P] Add payload-types.ts to .gitignore (auto-generated)
+- [x] T063 [P] Add payload.db to .gitignore (SQLite local dev)
+- [x] T064 [P] Add media/ directory to .gitignore (uploaded files)
+- [x] T065 Remove or archive old content/data/*.ts files after migration verified
+- [x] T066 Verify all public pages have `export const dynamic = 'force-static'`
+- [x] T067 Run `pnpm build` to verify static generation works with Payload
+- [x] T068 Run `pnpm typecheck` to verify no TypeScript errors
+- [x] T069 Run `pnpm check` to verify no Biome linting errors
+- [x] T070 Run page-layer validation script on modified pages in app/(frontend)/
+- [x] T071 Test admin panel on mobile device for responsive design
+- [x] T072 Document environment variables needed for production in README or docs
 
 ---
 

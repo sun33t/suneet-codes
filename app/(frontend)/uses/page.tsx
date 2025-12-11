@@ -24,7 +24,7 @@ import {
 	getUsesByCategory,
 	type PayloadUse,
 	type UsesCategory,
-} from "@/lib/payload/queries/uses";
+} from "@/lib/payload/queries";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
 // https://www.robinwieruch.de/about/ look here for inspo

@@ -21,8 +21,11 @@ import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import type { Role } from "@/content/data/roles";
 import { env } from "@/lib/config/env";
 import { latestArticles } from "@/lib/content/articles";
-import { getAllRoles, type PayloadRole } from "@/lib/payload/queries/roles";
-import { getSiteContent } from "@/lib/payload/queries/site-content";
+import {
+	getAllRoles,
+	getSiteContent,
+	type PayloadRole,
+} from "@/lib/payload/queries";
 import { formatDate } from "@/lib/utils/formatDate";
 
 export const dynamic = "force-static";

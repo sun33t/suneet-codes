@@ -16,7 +16,7 @@ import {
 	PROFESSIONAL_SERVICES,
 } from "@/content/data/services";
 import { env } from "@/lib/config/env";
-import { getSiteContent } from "@/lib/payload/queries/site-content";
+import { getSiteContent } from "@/lib/payload/queries";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import type { ServiceItem } from "@/types";
 
