@@ -19,6 +19,8 @@ import { PROJECTS, type Project } from "@/content/data/projects";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };
 
+export const dynamic = "force-static";
+
 const ProjectCard = ({ logoDetails, company, description, link }: Project) => {
 	return (
 		<LinkCard href={link.href} isExternal={true}>

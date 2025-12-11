@@ -1,9 +1,30 @@
-import { memo } from "react";
 import { PageSection } from "@/components/layout/page-section";
-import { TESTIMONIALS } from "@/content/data/testimonials";
+import {
+	getAllTestimonials,
+	type PayloadTestimonial,
+} from "@/lib/payload/queries/testimonials";
+import type { Testimonial } from "@/types";
 import { TestimonialCard } from "./testimonial-card";
 
-export const Testimonials = memo(() => {
+function transformToTestimonial(payload: PayloadTestimonial): Testimonial {
+	return {
+		author: {
+			name: payload.authorName,
+			role: payload.authorRole,
+			imgSrc: payload.authorImgSrc ?? "",
+			handle: payload.authorHandle ?? "",
+			profileUrl: payload.authorProfileUrl ?? "",
+		},
+		date: new Date(payload.date),
+		shortBody: payload.shortBody,
+		fullBody: payload.fullBody.map((item) => item.paragraph),
+	};
+}
+
+export async function Testimonials() {
+	const payloadTestimonials = await getAllTestimonials();
+	const testimonials = payloadTestimonials.map(transformToTestimonial);
+
 	return (
 		<PageSection>
 			<div className="mx-auto max-w-7xl">
@@ -20,7 +41,7 @@ export const Testimonials = memo(() => {
 				</div>
 				<div className="mx-auto mt-16 flow-root max-w-2xl sm:mt-20 lg:mx-0 lg:max-w-none">
 					<div className="-mt-8 sm:-mx-4 sm:columns-2 sm:text-[0] lg:columns-3">
-						{TESTIMONIALS.map((testimonial) => {
+						{testimonials.map((testimonial) => {
 							return (
 								<TestimonialCard
 									key={testimonial.author.handle}
@@ -33,6 +54,4 @@ export const Testimonials = memo(() => {
 			</div>
 		</PageSection>
 	);
-});
-
-Testimonials.displayName = "Testimonials";
+}

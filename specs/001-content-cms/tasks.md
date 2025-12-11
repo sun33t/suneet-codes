@@ -67,15 +67,15 @@ This is a Next.js 15 App Router project with:
 
 ### Implementation for User Story 1
 
-- [ ] T016 [US1] Create Testimonials collection in collections/Testimonials.ts per data-model.md
-- [ ] T017 [US1] Add Testimonials to collections array in payload.config.ts
-- [ ] T018 [US1] Create getAllTestimonials query function in lib/payload/queries/testimonials.ts
-- [ ] T019 [US1] Create seed script for testimonials in scripts/seed-payload.ts (testimonials section)
-- [ ] T020 [US1] Run seed script to migrate existing testimonials from content/data/testimonials.ts
-- [ ] T021 [US1] Update app/(frontend)/page.tsx to use getAllTestimonials() instead of TESTIMONIALS
-- [ ] T022 [US1] Update components/features/testimonials.tsx to use Payload data shape
-- [ ] T023 [US1] Add `export const dynamic = 'force-static'` to pages using testimonials
-- [ ] T024 [US1] Verify testimonials CRUD in admin panel and display on public site
+- [x] T016 [US1] Create Testimonials collection in collections/Testimonials.ts per data-model.md
+- [x] T017 [US1] Add Testimonials to collections array in payload.config.ts
+- [x] T018 [US1] Create getAllTestimonials query function in lib/payload/queries/testimonials.ts
+- [x] T019 [US1] Create seed script for testimonials in scripts/seed-payload.ts (testimonials section)
+- [x] T020 [US1] Run seed script to migrate existing testimonials from content/data/testimonials.ts
+- [x] T021 [US1] Update app/(frontend)/projects/page.tsx to use getAllTestimonials() (testimonials are on projects page)
+- [x] T022 [US1] Update components/features/testimonials.tsx to use Payload data shape
+- [x] T023 [US1] Add `export const dynamic = 'force-static'` to pages using testimonials
+- [x] T024 [US1] Verify testimonials CRUD in admin panel and display on public site
 
 **Checkpoint**: Testimonials fully managed via CMS, existing content preserved
 
