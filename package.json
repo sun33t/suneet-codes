@@ -2,6 +2,7 @@
 	"name": "suneet-codes",
 	"version": "0.1.0",
 	"private": true,
+	"type": "module",
 	"packageManager": "pnpm@10.25.0",
 	"engines": {
 		"node": ">=24.11.1"
@@ -17,7 +18,9 @@
 		"format": "biome format --write",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest",
-		"test:run": "vitest run"
+		"test:run": "vitest run",
+		"generate:types": "dotenv -e .env.local -- payload generate:types",
+		"seed": "dotenv -e .env.local -- pnpm tsx scripts/seed-payload.ts"
 	},
 	"dependencies": {
 		"@mdx-js/loader": "3.1.1",

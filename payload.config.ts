@@ -6,12 +6,19 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 
 import { Media } from "@/collections/Media";
+import { Testimonials } from "@/collections/Testimonials";
 import { Users } from "@/collections/Users";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-const isDev = process.env.NODE_ENV === "development";
+// Use SQLite for local development and builds
+// PostgreSQL is only used in production when DATABASE_URI starts with postgres://
+const databaseUri = process.env.DATABASE_URI ?? "";
+const useSqlite =
+	process.env.USE_SQLITE === "true" ||
+	!databaseUri ||
+	databaseUri.startsWith("file:");
 
 export default buildConfig({
 	admin: {
@@ -20,13 +27,13 @@ export default buildConfig({
 			baseDir: path.resolve(dirname),
 		},
 	},
-	collections: [Media, Users],
+	collections: [Media, Testimonials, Users],
 	globals: [],
 	secret: process.env.PAYLOAD_SECRET ?? "",
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),
 	},
-	db: isDev
+	db: useSqlite
 		? sqliteAdapter({
 				client: {
 					url: process.env.DATABASE_URI ?? "file:./payload.db",
