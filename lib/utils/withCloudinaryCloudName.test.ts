@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ZodError } from "zod";
 
-vi.mock("@/app/env", () => ({
+vi.mock("@/lib/config/env", () => ({
 	env: {
 		NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: "test-cloud-name",
 	},

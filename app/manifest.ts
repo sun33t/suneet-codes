@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
-
-import { env } from "@/app/env";
 import { baseUrl } from "@/lib/config/baseUrl";
+import { env } from "@/lib/config/env";
 
 export default function manifest(): MetadataRoute.Manifest {
 	return {

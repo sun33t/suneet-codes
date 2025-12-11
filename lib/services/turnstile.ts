@@ -1,6 +1,6 @@
 import { validateTurnstileToken } from "next-turnstile";
 
-import { env } from "@/app/env";
+import { env } from "@/lib/config/env";
 
 export const validateTurnstile = async ({
 	token,

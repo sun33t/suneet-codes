@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { env } from "@/app/env";
+import { env } from "@/lib/config/env";
 import type { Route } from "@/types";
 
 export const PAGE_METADATA: Record<Route, Metadata> = {

@@ -4,8 +4,6 @@ import type { Metadata } from "next";
 import Link, { type LinkProps } from "next/link";
 import type React from "react";
 import { memo, type PropsWithChildren } from "react";
-
-import { env } from "@/app/env";
 import { PageContainer } from "@/components/layout/page-container";
 import { CloudinaryImage } from "@/components/shared/cloudinary-image";
 import { NotionIcon } from "@/components/shared/notion-icon";
@@ -17,6 +15,7 @@ import {
 	DEVELOPMENT_SERVICES,
 	PROFESSIONAL_SERVICES,
 } from "@/content/services";
+import { env } from "@/lib/config/env";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import type { ServiceItem } from "@/types";
 

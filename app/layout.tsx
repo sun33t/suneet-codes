@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getCldImageUrl } from "next-cloudinary";
-
-import { env } from "@/app/env";
 import { Layout } from "@/components/layout";
 import { Providers } from "@/components/providers";
 import { TwSizeIndicator } from "@/components/shared/tw-size-indicator";
 import { baseUrl } from "@/lib/config/baseUrl";
+import { env } from "@/lib/config/env";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/globals.css";
 

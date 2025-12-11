@@ -1,8 +1,6 @@
 import { CalendarPlus2, MailIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-
-import { env } from "@/app/env";
 import { ContactForm } from "@/components/features/contact-form";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
@@ -10,6 +8,7 @@ import { PageSection } from "@/components/layout/page-section";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PAGE_METADATA } from "@/content/pageMetadata";
+import { env } from "@/lib/config/env";
 
 export const metadata: Metadata = { ...PAGE_METADATA.contact };
 

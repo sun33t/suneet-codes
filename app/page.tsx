@@ -2,8 +2,6 @@ import clsx from "clsx";
 import type { Article } from "content-collections";
 import Link, { type LinkProps } from "next/link";
 import { Fragment } from "react";
-
-import { env } from "@/app/env";
 import { Resume } from "@/components/features/resume";
 import { Container } from "@/components/layout/container";
 import { PageIntro } from "@/components/layout/page-intro";
@@ -21,6 +19,7 @@ import {
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { ROLES } from "@/content/roles";
+import { env } from "@/lib/config/env";
 import { latestArticles } from "@/lib/content/articles";
 import { formatDate } from "@/lib/utils/formatDate";
 
