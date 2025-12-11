@@ -1,0 +1,14 @@
+{
+	"hooks": {
+		"SessionStart": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "echo '## Project Dependencies (package.json)' && cat \"$CLAUDE_PROJECT_DIR\"/package.json"
+					}
+				]
+			}
+		]
+	}
+}
