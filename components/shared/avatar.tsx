@@ -29,7 +29,7 @@ type AvatarProps = Omit<
 };
 
 export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
-	const avatarImageSrc = `profile/avatar_small`;
+	const avatarImageSrc = `profile/avatar_front`;
 
 	const { blurDataUrl } = await getCloudinaryBlurDataUrl({
 		src: avatarImageSrc,
@@ -60,7 +60,7 @@ export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
 					height={64}
 					placeholder="blur"
 					sizes={isHomePage ? "4rem" : "2.25rem"}
-					src={withCloudinaryCloudName("profile/avatar_small")}
+					src={withCloudinaryCloudName(avatarImageSrc)}
 					width={64}
 				/>
 			) : (
@@ -87,7 +87,7 @@ export const MobileAvatar = async () => {
 			height={64}
 			placeholder="blur"
 			sizes="2.25rem"
-			src={withCloudinaryCloudName("profile/avatar_small")}
+			src={withCloudinaryCloudName(avatarImageSrc)}
 			width={64}
 		/>
 	) : (
