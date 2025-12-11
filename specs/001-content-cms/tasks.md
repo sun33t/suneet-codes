@@ -89,14 +89,14 @@ This is a Next.js 15 App Router project with:
 
 ### Implementation for User Story 2
 
-- [ ] T025 [US2] Create Roles collection in collections/Roles.ts per data-model.md
-- [ ] T026 [US2] Add Roles to collections array in payload.config.ts
-- [ ] T027 [US2] Create getAllRoles query function in lib/payload/queries/roles.ts
-- [ ] T028 [US2] Add roles migration to scripts/seed-payload.ts
-- [ ] T029 [US2] Run seed script to migrate existing roles from content/data/roles.ts
-- [ ] T030 [US2] Update components/features/resume.tsx to use getAllRoles()
-- [ ] T031 [US2] Handle logo display from Media collection (map to existing component patterns)
-- [ ] T032 [US2] Verify roles CRUD in admin panel and display in resume section
+- [x] T025 [US2] Create Roles collection in collections/Roles.ts per data-model.md
+- [x] T026 [US2] Add Roles to collections array in payload.config.ts
+- [x] T027 [US2] Create getAllRoles query function in lib/payload/queries/roles.ts
+- [x] T028 [US2] Add roles migration to scripts/seed-payload.ts
+- [x] T029 [US2] Run seed script to migrate existing roles from content/data/roles.ts
+- [x] T030 [US2] Update app/(frontend)/page.tsx to use getAllRoles() (Resume receives roles as props)
+- [x] T031 [US2] Handle logo display - stored all logoDetails attributes (src, pixelWidth, imageWidth, imageHeight, className) in CMS
+- [x] T032 [US2] Verify roles CRUD in admin panel and display in resume section
 
 **Checkpoint**: Work history fully managed via CMS, display order working
 
