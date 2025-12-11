@@ -1,4 +1,5 @@
 // Import existing data
+import { PROJECTS } from "../content/data/projects";
 import { ROLES } from "../content/data/roles";
 import { TESTIMONIALS } from "../content/data/testimonials";
 import { getPayloadClient } from "../lib/payload/get-payload";
@@ -73,11 +74,48 @@ async function seedRoles() {
 	console.log("Roles seeding complete!");
 }
 
+async function seedProjects() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding projects...");
+
+	for (let i = 0; i < PROJECTS.length; i++) {
+		const project = PROJECTS[i];
+		try {
+			await payload.create({
+				collection: "projects",
+				data: {
+					company: project.company,
+					description: project.description,
+					logoDetails: {
+						src: project.logoDetails.src,
+						pixelWidth: project.logoDetails.pixelWidth,
+						imageWidth: project.logoDetails.imageWidth,
+						imageHeight: project.logoDetails.imageHeight,
+						className: project.logoDetails.className,
+					},
+					link: {
+						href: project.link.href,
+						label: project.link.label,
+					},
+					sortOrder: i,
+				},
+			});
+			console.log(`  ✓ Created project: ${project.company}`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create project ${project.company}:`, error);
+		}
+	}
+
+	console.log("Projects seeding complete!");
+}
+
 async function main() {
 	console.log("Starting Payload CMS seed...\n");
 
 	await seedTestimonials();
 	await seedRoles();
+	await seedProjects();
 
 	console.log("\nSeed complete!");
 	process.exit(0);
