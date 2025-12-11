@@ -26,7 +26,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
 	DEVELOPMENT_SERVICES,
 	PROFESSIONAL_SERVICES,
-} from "@/content/services";
+} from "@/content/data/services";
 import { useToast } from "@/hooks/use-toast";
 import { env } from "@/lib/config/env";
 import type { ServiceItem } from "@/types";

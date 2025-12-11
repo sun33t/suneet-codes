@@ -5,7 +5,7 @@ import { SuspendedArticlesList } from "@/components/features/articles-list";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
 import { PageSection } from "@/components/layout/page-section";
-import { PAGE_METADATA } from "@/content/pageMetadata";
+import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import type { SearchParams } from "@/types";
 
 export const metadata: Metadata = { ...PAGE_METADATA.articles };

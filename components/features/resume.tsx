@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Role } from "@/content/roles";
+import type { Role } from "@/content/data/roles";
 
 const RoleComp = ({ role }: { role: Role }) => {
 	const startLabel =

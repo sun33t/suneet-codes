@@ -14,8 +14,8 @@ import {
 	LinkCardTitle,
 } from "@/components/shared/link-card";
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
-import { PAGE_METADATA } from "@/content/pageMetadata";
-import { PROJECTS, type Project } from "@/content/projects";
+import { PAGE_METADATA } from "@/content/data/pageMetadata";
+import { PROJECTS, type Project } from "@/content/data/projects";
 
 export const metadata: Metadata = { ...PAGE_METADATA.projects };
 

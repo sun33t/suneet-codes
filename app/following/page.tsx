@@ -23,8 +23,8 @@ import {
 	FOLLOWING,
 	type FollowingCategory,
 	type FollowingEntry,
-} from "@/content/following";
-import { PAGE_METADATA } from "@/content/pageMetadata";
+} from "@/content/data/following";
+import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };

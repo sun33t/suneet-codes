@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SimpleLayout } from "@/components/layout/simple-layout";
 import { Confetti } from "@/components/shared/confetti";
 import { buttonVariants } from "@/components/ui/button";
-import { PAGE_METADATA } from "@/content/pageMetadata";
+import { PAGE_METADATA } from "@/content/data/pageMetadata";
 
 export const metadata: Metadata = { ...PAGE_METADATA["thank-you"] };
 export default function ThankYouPage() {
