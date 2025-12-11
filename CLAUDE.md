@@ -65,3 +65,7 @@ Uses Biome for linting and formatting. Configuration in `biome.json`.
 - `content-collections.ts` - Article schema and transformations
 - `next.config.ts` - MDX and CodeHike configuration
 - `lib/articles.ts` - Article fetching utilities
+
+## Skills
+
+When writing unit tests, invoke the `unit-testing` skill first before writing any test code.
