@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { useCallback, useMemo } from "react";
 
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
@@ -20,12 +19,30 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { PAGE_METADATA } from "@/content/data/pageMetadata";
-import { USES, type UsesCategory, type UsesEntry } from "@/content/data/uses";
+import type { UsesEntry } from "@/content/data/uses";
+import {
+	getUsesByCategory,
+	type PayloadUse,
+	type UsesCategory,
+} from "@/lib/payload/queries/uses";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
 // https://www.robinwieruch.de/about/ look here for inspo
 
 export const metadata: Metadata = { ...PAGE_METADATA.uses };
+
+export const dynamic = "force-static";
+
+function transformToUsesEntry(payload: PayloadUse): UsesEntry {
+	return {
+		title: payload.title,
+		description: payload.description,
+		link: {
+			href: payload.link?.href ?? "",
+			label: payload.link?.label ?? "",
+		},
+	};
+}
 
 const UsesCard = ({
 	entry: { description, link, title },
@@ -49,15 +66,26 @@ const UsesCard = ({
 	);
 };
 
-export default function Uses() {
-	const usesEntries = useMemo(() => Array.from(USES.keys()), []);
+export default async function Uses() {
+	const usesByCategory = await getUsesByCategory();
 
-	const sortEntries = useCallback(sortByTitleProperty, []);
+	// Get categories in order and transform entries
+	const categories: UsesCategory[] = [
+		"Hardware",
+		"Development",
+		"Design",
+		"Productivity",
+	];
 
-	const sortedEntries = useMemo(
-		() => (category: UsesCategory) => USES.get(category)?.sort(sortEntries),
-		[sortEntries],
-	);
+	const transformedUses = new Map<UsesCategory, UsesEntry[]>();
+	for (const category of categories) {
+		const payloadEntries = usesByCategory.get(category) ?? [];
+		const entries = payloadEntries
+			.map(transformToUsesEntry)
+			.sort(sortByTitleProperty);
+		transformedUses.set(category, entries);
+	}
+
 	return (
 		<PageContainer>
 			<PageIntro title="What I use">
@@ -82,14 +110,15 @@ export default function Uses() {
 			<PageSection>
 				<div className="mx-auto max-w-2xl" id="accordion">
 					<Accordion collapsible type="single">
-						{usesEntries.map((category) => {
+						{categories.map((category) => {
+							const entries = transformedUses.get(category) ?? [];
 							return (
 								<AccordionItem key={category} value={category}>
 									<AccordionTrigger className="font-bold text-base">
 										{category}
 									</AccordionTrigger>
 									<AccordionContent className="p-6">
-										{sortedEntries(category)?.map((entry) => {
+										{entries.map((entry) => {
 											return <UsesCard entry={entry} key={entry.title} />;
 										})}
 									</AccordionContent>
