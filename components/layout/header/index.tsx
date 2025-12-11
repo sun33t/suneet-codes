@@ -9,8 +9,8 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { ThemeToggle } from "@/components/providers/theme-toggle";
 import { AvatarContainer } from "@/components/shared/avatar";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import type { Route } from "@/types";
 import { Container } from "../container";
 import { DesktopNavigation } from "./desktop-navigation";
