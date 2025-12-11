@@ -1,6 +1,6 @@
 import { memo } from "react";
+import { PageSection } from "@/components/layout/page-section";
 import { TESTIMONIALS } from "@/content/testimonials";
-import { PageSection } from "./page-section";
 import { TestimonialCard } from "./testimonial-card";
 
 export const Testimonials = memo(() => {

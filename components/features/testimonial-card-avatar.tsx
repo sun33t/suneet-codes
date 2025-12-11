@@ -1,8 +1,8 @@
 import { Suspense } from "react";
+import { CloudinaryImage } from "@/components/shared/cloudinary-image";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import type { Testimonial } from "@/types";
-import { CloudinaryImage } from "./cloudinary-image";
-import { Skeleton } from "./ui/skeleton";
 
 const TestimonialCardAvatar = async ({
 	author,

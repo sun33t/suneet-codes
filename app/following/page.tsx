@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { useCallback, useMemo } from "react";
 
+import { PageContainer } from "@/components/layout/page-container";
+import { PageIntro } from "@/components/layout/page-intro";
+import { PageSection } from "@/components/layout/page-section";
 import {
 	LinkCard,
 	LinkCardContent,
@@ -9,10 +12,7 @@ import {
 	LinkCardHeader,
 	LinkCardLabel,
 	LinkCardTitle,
-} from "@/components/link-card";
-import { PageContainer } from "@/components/page-container";
-import { PageIntro } from "@/components/page-intro";
-import { PageSection } from "@/components/page-section";
+} from "@/components/shared/link-card";
 import {
 	Accordion,
 	AccordionContent,

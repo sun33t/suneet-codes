@@ -9,10 +9,10 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { AvatarContainer } from "@/components/avatar";
-import { Container } from "@/components/container";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/providers/theme-toggle";
+import { AvatarContainer } from "@/components/shared/avatar";
 import type { Route } from "@/types";
+import { Container } from "../container";
 import { DesktopNavigation } from "./desktop-navigation";
 import { MobileNavigation, MobileNavigationButton } from "./mobile-navigation";
 

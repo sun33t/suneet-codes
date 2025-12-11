@@ -1,9 +1,9 @@
 import { Briefcase, MessageCircle } from "lucide-react";
 import Link from "next/link";
-import { SuspendedLogoImage } from "@/components/logo-image";
+import { SuspendedLogoImage } from "@/components/shared/logo-image";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import type { Role } from "@/content/roles";
-import { buttonVariants } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
 
 const RoleComp = ({ role }: { role: Role }) => {
 	const startLabel =

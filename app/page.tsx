@@ -4,8 +4,10 @@ import Link, { type LinkProps } from "next/link";
 import { Fragment } from "react";
 
 import { env } from "@/app/env";
-import { BlueskyIcon } from "@/components/bluesky-icon";
-import { Container } from "@/components/container";
+import { Resume } from "@/components/features/resume";
+import { Container } from "@/components/layout/container";
+import { PageIntro } from "@/components/layout/page-intro";
+import { BlueskyIcon } from "@/components/shared/bluesky-icon";
 import {
 	LinkCard,
 	LinkCardContent,
@@ -15,11 +17,9 @@ import {
 	LinkCardHeader,
 	LinkCardLabel,
 	LinkCardTitle,
-} from "@/components/link-card";
-import { NotionIcon } from "@/components/notion-icon";
-import { PageIntro } from "@/components/page-intro";
-import { Resume } from "@/components/resume";
-import { GitHubIcon, LinkedInIcon } from "@/components/social-icons";
+} from "@/components/shared/link-card";
+import { NotionIcon } from "@/components/shared/notion-icon";
+import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { ROLES } from "@/content/roles";
 import { latestArticles } from "@/lib/content/articles";
 import { formatDate } from "@/lib/utils/formatDate";

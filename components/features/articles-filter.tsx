@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { memo, Suspense, useCallback, useMemo } from "react";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { CATEGORY_PARAM_NAME, CATEGORYWITHSLUGS } from "@/content/categories";
-import { Button } from "./ui/button";
-import { Skeleton } from "./ui/skeleton";
 
 const SkeletonFilter = () => {
 	return (

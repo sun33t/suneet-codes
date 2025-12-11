@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Confetti } from "@/components/confetti";
-import { SimpleLayout } from "@/components/simple-layout";
+import { SimpleLayout } from "@/components/layout/simple-layout";
+import { Confetti } from "@/components/shared/confetti";
 import { buttonVariants } from "@/components/ui/button";
 import { PAGE_METADATA } from "@/content/pageMetadata";
 

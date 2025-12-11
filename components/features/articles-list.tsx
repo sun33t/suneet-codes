@@ -1,10 +1,6 @@
 import type { Article } from "content-collections";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getArticlesByCategory } from "@/lib/content/articles";
-import { cn } from "@/lib/utils";
-import { formatDate } from "@/lib/utils/formatDate";
-import type { SearchParams } from "@/types";
 import {
 	LinkCard,
 	LinkCardContent,
@@ -14,9 +10,13 @@ import {
 	LinkCardHeader,
 	LinkCardLabel,
 	LinkCardTitle,
-} from "./link-card";
-import { buttonVariants } from "./ui/button";
-import { Skeleton } from "./ui/skeleton";
+} from "@/components/shared/link-card";
+import { buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getArticlesByCategory } from "@/lib/content/articles";
+import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/utils/formatDate";
+import type { SearchParams } from "@/types";
 
 const SkeletonCard = () => {
 	return (

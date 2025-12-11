@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { Header } from "@/components/header";
+import { MobileAvatar, SuspendedAvatar } from "@/components/shared/avatar";
+import { Toaster } from "@/components/ui/toaster";
 import { ROUTES } from "@/lib/config/routes";
-import { MobileAvatar, SuspendedAvatar } from "./avatar";
 import { Footer } from "./footer";
-import { Toaster } from "./ui/toaster";
+import { Header } from "./header";
 
 type LayoutProps = React.ComponentPropsWithoutRef<"div">;
 
