@@ -9,6 +9,25 @@
 					}
 				]
 			}
+		],
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write",
+				"hooks": [
+					{
+						"type": "command",
+						"command": ".claude/skills/content-layer/scripts/validate-content-patterns.sh \"$CLAUDE_FILE_PATH\""
+					},
+					{
+						"type": "command",
+						"command": ".claude/skills/component-layer/scripts/validate-component-patterns.sh \"$CLAUDE_FILE_PATH\""
+					},
+					{
+						"type": "command",
+						"command": ".claude/skills/page-layer/scripts/validate-page-patterns.sh \"$CLAUDE_FILE_PATH\""
+					}
+				]
+			}
 		]
 	}
 }

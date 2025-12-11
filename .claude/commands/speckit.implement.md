@@ -1,6 +1,11 @@
 ---
-description: Execute the implementation plan by processing and executing all tasks defined in tasks.md
+description: Execute tasks from tasks.md using layer-specific skills for pattern-compliant implementation
 ---
+
+## Overview
+
+This command orchestrates implementation by delegating tasks to layer-specific skills.
+It does NOT implement code directly for layer-specific work - it invokes skills that understand project patterns.
 
 ## User Input
 
@@ -9,6 +14,27 @@ $ARGUMENTS
 ```
 
 You **MUST** consider the user input before proceeding (if not empty).
+
+## Layer Delegation Rules
+
+**IMPORTANT**: This project uses skill-based implementation. Delegate tasks to appropriate layer skills.
+
+### Task Classification by Keywords
+
+| Task Keywords | Layer | Skill to Invoke |
+|---------------|-------|-----------------|
+| article, mdx, frontmatter, content, category, blog | Content | `content-layer` |
+| component, button, card, form, ui, radix, shadcn | Component | `component-layer` |
+| page, route, layout, metadata, generateMetadata | Page | `page-layer` |
+| setup, config, dependencies, environment | Setup | Direct implementation (no skill) |
+
+### Implementation Order (from Constitution)
+
+```
+Content → Component → Page
+```
+
+Always complete lower layers before dependent layers.
 
 ## Outline
 
@@ -103,19 +129,42 @@ You **MUST** consider the user input before proceeding (if not empty).
    - **Task details**: ID, description, file paths, parallel markers [P]
    - **Execution flow**: Order and dependency requirements
 
-6. Execute implementation following the task plan:
-   - **Phase-by-phase execution**: Complete each phase before moving to the next
-   - **Respect dependencies**: Run sequential tasks in order, parallel tasks [P] can run together  
-   - **Follow TDD approach**: Execute test tasks before their corresponding implementation tasks
-   - **File-based coordination**: Tasks affecting the same files must run sequentially
-   - **Validation checkpoints**: Verify each phase completion before proceeding
+6. Execute implementation using layer skills:
+
+   ```
+   FOR each task in phase:
+     1. Identify task layer(s) from keywords (see Task Classification table)
+     2. IF setup/config task:
+        - Execute directly (no skill needed)
+     3. ELSE:
+        - Invoke appropriate skill: skill: "{layer}-layer"
+        - Provide task context to the skill
+     4. Run validation script after completion:
+        .claude/skills/{layer}-layer/scripts/validate-{layer}-patterns.sh <file>
+     5. IF validation fails:
+        - Fix issues per skill guidance
+        - Re-run validation
+     6. Mark task [X] in tasks.md only after validation passes
+   ```
+
+   ### Phase Checkpoint (REQUIRED)
+
+   After completing ALL tasks in a phase, pause and ask the user:
+
+   ```
+   Question: "Phase [N]: [Name] is complete. [X] tasks finished. Ready to proceed?"
+   Options:
+     - "Continue to next phase"
+     - "Stop here" (can resume later)
+     - "Review changes first"
+   ```
 
 7. Implementation execution rules:
    - **Setup first**: Initialize project structure, dependencies, configuration
-   - **Tests before code**: If you need to write tests for contracts, entities, and integration scenarios
-   - **Core development**: Implement models, services, CLI commands, endpoints
-   - **Integration work**: Database connections, middleware, logging, external services
-   - **Polish and validation**: Unit tests, performance optimization, documentation
+   - **Content before Components**: Content schema/data before UI that displays it
+   - **Components before Pages**: UI components before pages that use them
+   - **Validation after each file**: Run layer validation scripts
+   - **Tests where applicable**: Follow TDD if tests are part of tasks
 
 8. Progress tracking and error handling:
    - Report progress after each completed task
@@ -133,3 +182,12 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Report final status with summary of completed work
 
 Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `/speckit.tasks` first to regenerate the task list.
+
+## Completion Validation
+
+Before marking implementation complete:
+- [ ] All tasks marked [X] in tasks.md
+- [ ] All layer validation scripts pass
+- [ ] `pnpm typecheck` passes
+- [ ] `pnpm check` passes (Biome lint/format)
+- [ ] `pnpm build` succeeds
