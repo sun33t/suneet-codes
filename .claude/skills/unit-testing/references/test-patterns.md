@@ -13,14 +13,18 @@ describe("formatSlug", () => {
 });
 ```
 
-## Zod schemas
+## Zod validation
 
-Use `safeParse` for non-throwing tests:
+Test Zod schemas using `safeParse` for non-throwing assertions and `parse` when testing error throwing:
 
 ```typescript
+import { ZodError } from "zod";
+import { MySchema } from "./mySchema";
+
 describe("MySchema", () => {
   const valid = { name: "Test", email: "test@example.com" };
 
+  // Use safeParse for validation checks
   it("accepts valid data", () => {
     expect(MySchema.safeParse(valid).success).toBe(true);
   });
@@ -29,15 +33,60 @@ describe("MySchema", () => {
     expect(MySchema.safeParse({ ...valid, email: "bad" }).success).toBe(false);
   });
 
-  it("checks error message", () => {
+  // Check transformed output
+  it("transforms input correctly", () => {
+    const result = MySchema.safeParse(valid);
+    if (result.success) {
+      expect(result.data.name).toBe("test"); // assuming toLowerCase transform
+    }
+  });
+
+  // Check error messages
+  it("provides descriptive error message", () => {
     const result = MySchema.safeParse({ ...valid, email: "bad" });
     if (!result.success) {
       expect(result.error.errors[0].message).toContain("email");
     }
   });
 
+  // Test throwing behavior for functions that use parse()
   it("throws ZodError with parse()", () => {
     expect(() => MySchema.parse({ ...valid, email: "bad" })).toThrow(ZodError);
+  });
+});
+```
+
+When a utility function uses Zod internally, test both the function behavior and the schema:
+
+```typescript
+import { ZodError } from "zod";
+import { MySchema, processInput } from "./processInput";
+
+// Test the function's behavior
+describe("processInput", () => {
+  it("processes valid input", () => {
+    expect(processInput("  HELLO  ")).toBe("processed: hello");
+  });
+
+  it("throws ZodError for invalid input", () => {
+    expect(() => processInput(null as unknown as string)).toThrow(ZodError);
+  });
+});
+
+// Test the schema directly for validation/transformation details
+describe("MySchema", () => {
+  it("trims and lowercases input", () => {
+    const result = MySchema.safeParse("  HELLO  ");
+    if (result.success) {
+      expect(result.data).toBe("hello");
+    }
+  });
+
+  it("provides custom error message for invalid type", () => {
+    const result = MySchema.safeParse(123);
+    if (!result.success) {
+      expect(result.error.errors[0].message).toBe("Input must be a string");
+    }
   });
 });
 ```
@@ -117,21 +166,7 @@ it.each(["invalid", "@bad", "user@"])("rejects %s", (email) => {
 });
 ```
 
-## Fake timers
-
-```typescript
-beforeEach(() => {
-  vi.useFakeTimers();
-  vi.setSystemTime(new Date("2024-06-15"));
-});
-afterEach(() => vi.useRealTimers());
-
-it("returns today", () => {
-  expect(getRelativeDate(new Date("2024-06-15"))).toBe("today");
-});
-```
-
-## Dependency injection (preferred over fake timers)
+## Dependency injection for dates
 
 Add optional parameter for test control instead of mocking globals:
 
@@ -154,7 +189,7 @@ it("formats other year", () => {
 });
 ```
 
-Prefer dependency injection when: function uses `new Date()`, `Date.now()`, or other runtime values.
+Use this pattern when functions use `new Date()`, `Date.now()`, or other runtime values.
 
 ## Locale/timezone-dependent output
 
