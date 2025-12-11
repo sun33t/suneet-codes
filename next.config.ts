@@ -1,5 +1,6 @@
 import { withContentCollections } from "@content-collections/next";
 import createMDX from "@next/mdx";
+import { withPayload } from "@payloadcms/next/withPayload";
 import {
 	type CodeHikeConfig,
 	recmaCodeHike,
@@ -41,4 +42,4 @@ const withMDX = createMDX({
 	},
 });
 
-export default withContentCollections(withMDX(nextConfig));
+export default withContentCollections(withMDX(withPayload(nextConfig)));
