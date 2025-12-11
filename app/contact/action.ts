@@ -3,10 +3,10 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
-import NewEnquiryConfirmationEmail from "@/emails/NewEnquiryConfirmation";
-import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
 import { env } from "@/lib/config/env";
-import { sendResendEmail } from "@/lib/services/resend";
+import { sendResendEmail } from "@/lib/services/email/resend";
+import NewEnquiryConfirmationEmail from "@/lib/services/email/templates/NewEnquiryConfirmation";
+import NewEnquiryEmail from "@/lib/services/email/templates/NewEnquiryEmail";
 import { validateTurnstile } from "@/lib/services/turnstile";
 import { type ContactFormFieldSchema, contactFormFieldSchema } from "@/types";
 
