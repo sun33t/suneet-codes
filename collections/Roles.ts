@@ -1,0 +1,117 @@
+import type { CollectionConfig } from "payload";
+
+export const Roles: CollectionConfig = {
+	slug: "roles",
+	admin: {
+		useAsTitle: "company",
+		defaultColumns: ["company", "title", "start", "end"],
+		description: "Work history / resume entries",
+	},
+	access: {
+		read: () => true,
+		create: ({ req }) => !!req.user,
+		update: ({ req }) => !!req.user,
+		delete: ({ req }) => !!req.user,
+	},
+	defaultSort: "sortOrder",
+	fields: [
+		{
+			name: "company",
+			type: "text",
+			required: true,
+			minLength: 2,
+			label: "Company Name",
+		},
+		{
+			name: "title",
+			type: "text",
+			required: true,
+			minLength: 2,
+			label: "Job Title",
+		},
+		{
+			name: "logoDetails",
+			type: "group",
+			label: "Logo Details",
+			fields: [
+				{
+					name: "src",
+					type: "text",
+					label: "Logo (Cloudinary path)",
+					admin: {
+						description: "Cloudinary image path, e.g. halobase, juro_d0dccs",
+					},
+				},
+				{
+					name: "pixelWidth",
+					type: "text",
+					label: "Pixel Width",
+					defaultValue: "20px",
+					admin: {
+						description: 'CSS pixel width, e.g. "20px"',
+					},
+				},
+				{
+					name: "imageWidth",
+					type: "number",
+					label: "Image Width",
+					defaultValue: 20,
+					admin: {
+						description: "Image width in pixels",
+					},
+				},
+				{
+					name: "imageHeight",
+					type: "number",
+					label: "Image Height",
+					defaultValue: 20,
+					admin: {
+						description: "Image height in pixels",
+					},
+				},
+				{
+					name: "className",
+					type: "text",
+					label: "CSS Class",
+					defaultValue: "h-5 w-5 rounded-full",
+					admin: {
+						description: 'Tailwind classes, e.g. "h-5 w-5 rounded-full"',
+					},
+				},
+			],
+		},
+		{
+			name: "href",
+			type: "text",
+			required: true,
+			label: "Company Website URL",
+		},
+		{
+			name: "start",
+			type: "text",
+			required: true,
+			label: "Start Year",
+			admin: {
+				description: 'e.g., "2023"',
+			},
+		},
+		{
+			name: "end",
+			type: "text",
+			required: true,
+			label: "End Year",
+			admin: {
+				description: 'e.g., "2024" or "Present"',
+			},
+		},
+		{
+			name: "sortOrder",
+			type: "number",
+			label: "Display Order",
+			defaultValue: 0,
+			admin: {
+				description: "Lower numbers appear first",
+			},
+		},
+	],
+};

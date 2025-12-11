@@ -18,10 +18,33 @@ import {
 } from "@/components/shared/link-card";
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
-import { ROLES } from "@/content/data/roles";
+import type { Role } from "@/content/data/roles";
 import { env } from "@/lib/config/env";
 import { latestArticles } from "@/lib/content/articles";
+import { getAllRoles, type PayloadRole } from "@/lib/payload/queries/roles";
 import { formatDate } from "@/lib/utils/formatDate";
+
+export const dynamic = "force-static";
+
+function transformToRole(payload: PayloadRole): Role {
+	return {
+		company: payload.company,
+		title: payload.title,
+		logoDetails: {
+			src: payload.logoDetails?.src ?? "",
+			pixelWidth: payload.logoDetails?.pixelWidth ?? "20px",
+			imageWidth: payload.logoDetails?.imageWidth ?? 20,
+			imageHeight: payload.logoDetails?.imageHeight ?? 20,
+			className: payload.logoDetails?.className ?? "h-5 w-5 rounded-full",
+		},
+		href: payload.href,
+		start: payload.start,
+		end:
+			payload.end === "Present"
+				? { label: "Present", dateTime: new Date().getFullYear().toString() }
+				: payload.end,
+	};
+}
 
 const SocialLink = ({
 	icon: Icon,
@@ -85,7 +108,10 @@ const NoArticlesCard = () => {
 	);
 };
 
-export default function Home() {
+export default async function Home() {
+	const payloadRoles = await getAllRoles();
+	const roles = payloadRoles.map(transformToRole);
+
 	return (
 		<Fragment>
 			<Container className="fade-in mt-12 animate-in duration-1000">
@@ -204,7 +230,7 @@ export default function Home() {
 					<div className="space-y-10 lg:pl-16 xl:pl-24">
 						{/* <Newsletter /> */}
 						<div>
-							<Resume roles={ROLES} />
+							<Resume roles={roles} />
 						</div>
 					</div>
 				</div>
