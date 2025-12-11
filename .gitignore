@@ -43,5 +43,9 @@ next-env.d.ts
 # content collections
 .content-collections
 
+# payload cms
+payload-types.ts
+payload.db
+/media/
 
 public/sitemap-index.xml

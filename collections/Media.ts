@@ -1,0 +1,47 @@
+import type { CollectionConfig } from "payload";
+
+export const Media: CollectionConfig = {
+	slug: "media",
+	access: {
+		read: () => true,
+		create: ({ req }) => !!req.user,
+		update: ({ req }) => !!req.user,
+		delete: ({ req }) => !!req.user,
+	},
+	upload: {
+		staticDir: "media",
+		imageSizes: [
+			{
+				name: "thumbnail",
+				width: 400,
+				height: 300,
+				position: "centre",
+			},
+			{
+				name: "card",
+				width: 768,
+				height: undefined,
+				position: "centre",
+			},
+			{
+				name: "full",
+				width: 1920,
+				height: undefined,
+				position: "centre",
+			},
+		],
+		adminThumbnail: "thumbnail",
+		mimeTypes: ["image/*"],
+	},
+	fields: [
+		{
+			name: "alt",
+			type: "text",
+			required: true,
+			label: "Alt Text",
+			admin: {
+				description: "Alternative text for accessibility",
+			},
+		},
+	],
+};
