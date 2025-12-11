@@ -9,11 +9,13 @@ Personal portfolio and blog website for suneet.codes, built with Next.js 15 and 
 ## Commands
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production (also generates sitemap)
-npm run lint         # Run ESLint
-npm run typecheck    # Run TypeScript type checking
-npm run dev:email    # Preview email templates locally
+pnpm dev             # Start development server
+pnpm build           # Build for production (also generates sitemap)
+pnpm check           # Run Biome linter and formatter checks
+pnpm check:fix       # Run Biome with auto-fix
+pnpm format          # Format code with Biome
+pnpm typecheck       # Run TypeScript type checking
+pnpm dev:email       # Preview email templates locally
 ```
 
 ## Architecture
@@ -48,21 +50,14 @@ Uses t3-env (`app/env.ts`) for runtime validation. Server will error on missing 
 
 ## Code Style
 
-### Import Order (enforced by Prettier)
+### Biome
 
-1. Relative imports (`./`, `../`)
-2. Third-party modules
-3. Aliased imports (`@/...`)
+Uses Biome for linting and formatting. Configuration in `biome.json`.
 
-### Git Hooks (Husky)
+### Git Hooks (Lefthook)
 
-- **pre-commit**: Runs `tsc --noEmit` then lint-staged (ESLint + Prettier)
-- **prepare-commit-msg**: Runs gitmoji for emoji-prefixed commits
-
-### ESLint Rules
-
-- Warns on direct `process.env` access (use `env` from `@/app/env` instead)
-- Next.js core-web-vitals and TypeScript strict mode
+- **pre-commit**: Runs typecheck and Biome checks
+- **commit-msg**: Runs commitlint for conventional commit messages
 
 ## Key Files
 
