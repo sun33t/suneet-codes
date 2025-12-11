@@ -6,7 +6,7 @@ import { getCldImageUrl } from "next-cloudinary";
 import { env } from "@/app/env";
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
-import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
+import { allPublishedArticles, getArticleBySlug } from "@/lib/content/articles";
 import { formatDate } from "@/lib/utils/formatDate";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 

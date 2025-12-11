@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { env } from "@/app/env";
 import { ContainerInner, ContainerOuter } from "@/components/container";
-import { ROUTES } from "@/lib/routes";
+import { ROUTES } from "@/lib/config/routes";
 import type { Route } from "@/types";
 
 const NavLink = ({

@@ -7,8 +7,8 @@ import { Resend } from "resend";
 import { env } from "@/app/env";
 import NewEnquiryConfirmationEmail from "@/emails/NewEnquiryConfirmation";
 import NewEnquiryEmail from "@/emails/NewEnquiryEmail";
-import { sendResendEmail } from "@/lib/resend";
-import { validateTurnstile } from "@/lib/turnstile";
+import { sendResendEmail } from "@/lib/services/resend";
+import { validateTurnstile } from "@/lib/services/turnstile";
 import { type ContactFormFieldSchema, contactFormFieldSchema } from "@/types";
 
 type ContactFormState = {

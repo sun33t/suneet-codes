@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 
-import { getArticleBySlug } from "@/lib/articles";
+import { getArticleBySlug } from "@/lib/content/articles";
 import { formatDateRelativeToCurrentYear } from "@/lib/utils/formatDateRelativeToCurrentYear";
 
 type SeriesEntry = {

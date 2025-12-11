@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { ROUTES } from "@/lib/routes";
+import { ROUTES } from "@/lib/config/routes";
 import type { Route } from "@/types";
 import { NavItem } from "./navigation-item";
 

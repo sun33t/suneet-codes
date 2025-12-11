@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type ComponentPropsWithoutRef, memo } from "react";
-import { ROUTES } from "@/lib/routes";
+import { ROUTES } from "@/lib/config/routes";
 import type { Route, RouteProperties } from "@/types";
 import { Button, buttonVariants } from "../ui/button";
 import {

@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
-
-import { allPublishedArticles, getArticleBySlug } from "@/lib/articles";
-import { baseUrl } from "@/lib/baseUrl";
+import { baseUrl } from "@/lib/config/baseUrl";
+import { allPublishedArticles, getArticleBySlug } from "@/lib/content/articles";
 
 export async function generateSitemaps() {
 	const ids = allPublishedArticles.map((article) => ({

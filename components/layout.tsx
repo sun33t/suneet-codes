@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Header } from "@/components/header";
-import { ROUTES } from "@/lib/routes";
+import { ROUTES } from "@/lib/config/routes";
 import { MobileAvatar, SuspendedAvatar } from "./avatar";
 import { Footer } from "./footer";
 import { Toaster } from "./ui/toaster";
