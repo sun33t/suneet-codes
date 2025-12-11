@@ -130,13 +130,13 @@ This is a Next.js 15 App Router project with:
 
 ### Implementation for User Story 4
 
-- [ ] T040 [US4] Create Uses collection in collections/Uses.ts per data-model.md with category select
-- [ ] T041 [US4] Add Uses to collections array in payload.config.ts
-- [ ] T042 [US4] Create getAllUses and getUsesByCategory query functions in lib/payload/queries/uses.ts
-- [ ] T043 [US4] Add uses migration to scripts/seed-payload.ts (handle Map to category field)
-- [ ] T044 [US4] Run seed script to migrate existing uses from content/data/uses.ts
-- [ ] T045 [US4] Update app/(frontend)/uses/page.tsx to use getUsesByCategory()
-- [ ] T046 [US4] Verify uses CRUD in admin panel with category grouping
+- [x] T040 [US4] Create Uses collection in collections/Uses.ts per data-model.md with category select
+- [x] T041 [US4] Add Uses to collections array in payload.config.ts
+- [x] T042 [US4] Create getAllUses and getUsesByCategory query functions in lib/payload/queries/uses.ts
+- [x] T043 [US4] Add uses migration to scripts/seed-payload.ts (handle Map to category field)
+- [x] T044 [US4] Run seed script to migrate existing uses from content/data/uses.ts
+- [x] T045 [US4] Update app/(frontend)/uses/page.tsx to use getUsesByCategory()
+- [x] T046 [US4] Verify uses CRUD in admin panel with category grouping
 
 **Checkpoint**: Uses page fully managed via CMS with proper category grouping
 

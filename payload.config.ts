@@ -10,6 +10,7 @@ import { Projects } from "@/collections/Projects";
 import { Roles } from "@/collections/Roles";
 import { Testimonials } from "@/collections/Testimonials";
 import { Users } from "@/collections/Users";
+import { Uses } from "@/collections/Uses";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -29,7 +30,7 @@ export default buildConfig({
 			baseDir: path.resolve(dirname),
 		},
 	},
-	collections: [Media, Projects, Roles, Testimonials, Users],
+	collections: [Media, Projects, Roles, Testimonials, Uses, Users],
 	globals: [],
 	secret: process.env.PAYLOAD_SECRET ?? "",
 	typescript: {

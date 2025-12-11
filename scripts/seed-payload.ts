@@ -2,6 +2,7 @@
 import { PROJECTS } from "../content/data/projects";
 import { ROLES } from "../content/data/roles";
 import { TESTIMONIALS } from "../content/data/testimonials";
+import { USES } from "../content/data/uses";
 import { getPayloadClient } from "../lib/payload/get-payload";
 
 async function seedTestimonials() {
@@ -110,12 +111,46 @@ async function seedProjects() {
 	console.log("Projects seeding complete!");
 }
 
+async function seedUses() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding uses...");
+
+	// Iterate over the Map entries
+	for (const [category, entries] of USES.entries()) {
+		for (let i = 0; i < entries.length; i++) {
+			const entry = entries[i];
+			try {
+				await payload.create({
+					collection: "uses",
+					data: {
+						title: entry.title,
+						description: entry.description,
+						category: category,
+						link: {
+							href: entry.link.href,
+							label: entry.link.label,
+						},
+						sortOrder: i,
+					},
+				});
+				console.log(`  ✓ Created use: ${entry.title} (${category})`);
+			} catch (error) {
+				console.error(`  ✗ Failed to create use ${entry.title}:`, error);
+			}
+		}
+	}
+
+	console.log("Uses seeding complete!");
+}
+
 async function main() {
 	console.log("Starting Payload CMS seed...\n");
 
 	await seedTestimonials();
 	await seedRoles();
 	await seedProjects();
+	await seedUses();
 
 	console.log("\nSeed complete!");
 	process.exit(0);
