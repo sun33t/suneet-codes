@@ -5,6 +5,9 @@ import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 
+import { Media } from "@/collections/Media";
+import { Users } from "@/collections/Users";
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -17,7 +20,7 @@ export default buildConfig({
 			baseDir: path.resolve(dirname),
 		},
 	},
-	collections: [],
+	collections: [Media, Users],
 	globals: [],
 	secret: process.env.PAYLOAD_SECRET ?? "",
 	typescript: {

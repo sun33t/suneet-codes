@@ -47,13 +47,13 @@ This is a Next.js 15 App Router project with:
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 Create Media collection in collections/Media.ts with upload config and image sizes
-- [ ] T010 Create Users collection config in collections/Users.ts (Payload built-in auth)
-- [ ] T011 [P] Create lib/payload/get-payload.ts with singleton getPayload helper
-- [ ] T012 Add collections and globals arrays to payload.config.ts
-- [ ] T013 Run `pnpm dev` to verify Payload initializes and generates payload-types.ts
-- [ ] T014 Create first admin user via /admin interface
-- [ ] T015 Verify admin authentication: test login, session persistence, and logout at /admin
+- [x] T009 Create Media collection in collections/Media.ts with upload config and image sizes
+- [x] T010 Create Users collection config in collections/Users.ts (Payload built-in auth)
+- [x] T011 [P] Create lib/payload/get-payload.ts with singleton getPayload helper
+- [x] T012 Add collections and globals arrays to payload.config.ts
+- [x] T013 Run `pnpm dev` to verify Payload initializes and generates payload-types.ts
+- [x] T014 Create first admin user via /admin interface
+- [x] T015 Verify admin authentication: test login, session persistence, and logout at /admin
 
 **Checkpoint**: Foundation ready - admin panel works, Media uploads functional, user stories can begin
 
