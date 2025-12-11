@@ -16,6 +16,7 @@ import {
 	PROFESSIONAL_SERVICES,
 } from "@/content/data/services";
 import { env } from "@/lib/config/env";
+import { getSiteContent } from "@/lib/payload/queries/site-content";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 import type { ServiceItem } from "@/types";
 
@@ -29,6 +30,8 @@ const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
 });
 
 export const metadata: Metadata = { ...PAGE_METADATA.about };
+
+export const dynamic = "force-static";
 
 type ServiceCardSectionProps = {
 	title: string;
@@ -106,7 +109,7 @@ const SocialButton = ({
 	);
 };
 
-const SocialLinks = () => {
+const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
 	return (
 		<Card className="fade-in h-fit animate-in shadow-none duration-1000 lg:ml-20 lg:block lg:max-w-xs">
 			<CardContent>
@@ -133,7 +136,7 @@ const SocialLinks = () => {
 						href="/contact"
 					>
 						<MessageCircle className="h-4 w-4 stroke-accent-foreground transition group-active:stroke-zinc-600 lg:col-span-1 lg:place-self-center dark:group-active:stroke-zinc-50 dark:group-hover:stroke-zinc-50" />
-						Let&apos;s Talk
+						{ctaButtonText}
 					</Link>
 				</ul>
 			</CardContent>
@@ -141,14 +144,21 @@ const SocialLinks = () => {
 	);
 };
 
-export default function About() {
+export default async function About() {
+	const siteContent = await getSiteContent();
+	const pageTitle = siteContent.about?.pageTitle ?? "A little bit about me";
+	const profileImageAlt =
+		siteContent.about?.profileImageAlt ??
+		"Side profile photo of Suneet on the coast of Iceland at sunset";
+	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
+
 	return (
 		<PageContainer>
 			<div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
 				<div className="lg:pl-20">
 					<div className="max-w-xs px-2.5 lg:max-w-none">
 						<CloudinaryImage
-							alt="Side profile photo of Suneet on the coast of Iceland at sunset"
+							alt={profileImageAlt}
 							blurDataURL={blurDataUrl}
 							className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
 							height={512}
@@ -161,7 +171,7 @@ export default function About() {
 				</div>
 				<div className="prose dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
 					<h1 className="font-bold text-4xl tracking-tight sm:text-5xl">
-						A little bit about me
+						{pageTitle}
 					</h1>
 					<div className="mt-6 text-base">
 						<MyValues />
@@ -169,7 +179,7 @@ export default function About() {
 					</div>
 				</div>
 				<div className="hidden lg:flex lg:justify-center">
-					<SocialLinks />
+					<SocialLinks ctaButtonText={ctaButtonText} />
 				</div>
 			</div>
 			<div className="mt-8 lg:mt-4">
@@ -186,7 +196,7 @@ export default function About() {
 				/>
 			</div>
 			<div className="mt-24 lg:hidden">
-				<SocialLinks />
+				<SocialLinks ctaButtonText={ctaButtonText} />
 			</div>
 		</PageContainer>
 	);

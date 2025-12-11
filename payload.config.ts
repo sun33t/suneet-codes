@@ -11,6 +11,7 @@ import { Roles } from "@/collections/Roles";
 import { Testimonials } from "@/collections/Testimonials";
 import { Users } from "@/collections/Users";
 import { Uses } from "@/collections/Uses";
+import { SiteContent } from "@/globals/SiteContent";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -31,7 +32,7 @@ export default buildConfig({
 		},
 	},
 	collections: [Media, Projects, Roles, Testimonials, Uses, Users],
-	globals: [],
+	globals: [SiteContent],
 	secret: process.env.PAYLOAD_SECRET ?? "",
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),

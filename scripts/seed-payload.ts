@@ -144,6 +144,49 @@ async function seedUses() {
 	console.log("Uses seeding complete!");
 }
 
+async function seedSiteContent() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding site content...");
+
+	try {
+		// Update the global with default values
+		// Note: richText fields (bio, myValues, myExperience) require manual entry
+		// through the admin panel as they need Lexical editor format
+		await payload.updateGlobal({
+			slug: "site-content",
+			data: {
+				homepage: {
+					shortBio: "Developer based in the UK",
+				},
+				about: {
+					pageTitle: "A little bit about me",
+					profileImageAlt:
+						"Side profile photo of Suneet on the coast of Iceland at sunset",
+				},
+				newsletter: {
+					title: "Stay up to date",
+					description:
+						"Get notified when I publish something new, and unsubscribe at any time.",
+					buttonText: "Join",
+				},
+				ui: {
+					ctaButtonText: "Let's Talk",
+					resumeSectionTitle: "Work",
+				},
+			},
+		});
+		console.log("  ✓ Site content initialized with defaults");
+		console.log(
+			"  ℹ Note: Rich text fields (bio, myValues, myExperience) require manual entry via /admin",
+		);
+	} catch (error) {
+		console.error("  ✗ Failed to seed site content:", error);
+	}
+
+	console.log("Site content seeding complete!");
+}
+
 async function main() {
 	console.log("Starting Payload CMS seed...\n");
 
@@ -151,6 +194,7 @@ async function main() {
 	await seedRoles();
 	await seedProjects();
 	await seedUses();
+	await seedSiteContent();
 
 	console.log("\nSeed complete!");
 	process.exit(0);
