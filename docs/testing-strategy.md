@@ -105,9 +105,18 @@ npx vitest init browser
 #### Core Dependencies (Unit Tests)
 
 ```bash
-# Vitest core
-pnpm add -D vitest vite-tsconfig-paths
+# Vitest core (minimum required)
+pnpm add -D vitest
+
+# Optional: Path alias support (for imports like @/lib/utils)
+# Only needed if your tests use TypeScript path aliases instead of relative imports
+pnpm add -D vite-tsconfig-paths
 ```
+
+> **Note**: `vite-tsconfig-paths` resolves TypeScript path aliases (e.g., `@/*` → project root)
+> defined in `tsconfig.json`. If your tests use relative imports (e.g., `./createArticleSlug`),
+> you can skip this dependency. It's recommended for tests that import across directories
+> or when you want consistency with your application code's import style.
 
 #### Browser Mode Dependencies (Component Tests)
 
@@ -140,11 +149,48 @@ pnpm add -D msw
 
 ## Configuration
 
-### Vitest Configuration (with Browser Mode)
+### Unit Tests Only (Simplest Setup)
 
-Create `vitest.config.mts` in project root:
+For projects that only need unit tests for utilities, schemas, and server actions:
 
 ```typescript
+// vitest.config.mts
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: "node",
+    include: ["**/*.test.ts"],
+    exclude: ["node_modules", ".next", ".content-collections", "e2e"],
+  },
+});
+```
+
+If you need TypeScript path alias support (e.g., `@/lib/utils`), add the plugin:
+
+```typescript
+// vitest.config.mts
+import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  plugins: [tsconfigPaths()],
+  test: {
+    globals: true,
+    environment: "node",
+    include: ["**/*.test.ts"],
+    exclude: ["node_modules", ".next", ".content-collections", "e2e"],
+  },
+});
+```
+
+### Browser Mode Configuration (Component Tests)
+
+For component testing in real browsers, use Browser Mode:
+
+```typescript
+// vitest.config.mts
 import react from "@vitejs/plugin-react";
 import { playwright } from "@vitest/browser-playwright";
 import tsconfigPaths from "vite-tsconfig-paths";
