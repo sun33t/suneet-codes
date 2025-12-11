@@ -7,6 +7,29 @@ Next.js 15 + React 19 portfolio/blog site using App Router, MDX articles, and co
 - Invoke `unit-testing` skill BEFORE writing any test code
 - Use conventional commits (enforced by commitlint)
 - Pre-commit hook runs: typecheck, Biome checks, unit tests
+- **Invoke layer skills** when working on layer-specific code (see table below)
+
+## When to Use Skills
+
+This project has layer-specific skills. When working on code in these areas,
+**invoke the corresponding skill** to ensure patterns are followed.
+
+| When Working On | Invoke This Skill | Files Affected |
+|-----------------|-------------------|----------------|
+| MDX articles, content schema | `skill: content-layer` | `content/articles/`, `content/data/`, `content-collections.ts` |
+| React components, UI | `skill: component-layer` | `components/**/*.tsx` |
+| Pages, routes, layouts | `skill: page-layer` | `app/**/*.tsx` |
+
+**Why use skills:**
+- Skills contain project-specific patterns that must be followed
+- Skills include decision trees for common scenarios
+- Skills have validation scripts to check compliance
+- PostToolUse hooks automatically validate after file changes
+
+**Skill locations:**
+- `.claude/skills/content-layer/` - Content patterns and validation
+- `.claude/skills/component-layer/` - Component patterns and validation
+- `.claude/skills/page-layer/` - Page patterns and validation
 
 ## Commands
 
