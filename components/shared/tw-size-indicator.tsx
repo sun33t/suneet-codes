@@ -1,4 +1,4 @@
-import { env } from "@/app/env";
+import { env } from "@/lib/config/env";
 
 /**
  * Displays the current Tailwind CSS breakpoint in development environment.

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { env } from "@/app/env";
+import { env } from "@/lib/config/env";
 
 /**
  * Zod schema for validating and transforming Cloudinary resource paths.

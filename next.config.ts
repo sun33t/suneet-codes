@@ -9,7 +9,7 @@ import type { NextConfig } from "next";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
-import { env } from "@/app/env";
+import { env } from "@/lib/config/env";
 
 const nextConfig: NextConfig = {
 	pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],

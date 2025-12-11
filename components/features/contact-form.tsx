@@ -10,7 +10,6 @@ import {
 	useState,
 } from "react";
 import { createEnquiry } from "@/app/contact/action";
-import { env } from "@/app/env";
 import { Turnstile } from "@/components/shared/turnstile";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,6 +28,7 @@ import {
 	PROFESSIONAL_SERVICES,
 } from "@/content/services";
 import { useToast } from "@/hooks/use-toast";
+import { env } from "@/lib/config/env";
 import type { ServiceItem } from "@/types";
 
 const enquiryReasons: ServiceItem[] = [

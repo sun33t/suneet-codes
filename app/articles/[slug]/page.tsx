@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCldImageUrl } from "next-cloudinary";
-
-import { env } from "@/app/env";
 import { Container } from "@/components/layout/container";
 import { BackButton } from "@/components/shared/back-button";
+import { env } from "@/lib/config/env";
 import { allPublishedArticles, getArticleBySlug } from "@/lib/content/articles";
 import { formatDate } from "@/lib/utils/formatDate";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";

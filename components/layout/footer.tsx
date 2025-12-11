@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { env } from "@/app/env";
+import { env } from "@/lib/config/env";
 import { ROUTES } from "@/lib/config/routes";
 import type { Route } from "@/types";
 import { ContainerInner, ContainerOuter } from "./container";
