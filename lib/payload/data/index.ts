@@ -1,6 +1,7 @@
 // Types
 
 // Seed data
+export { CATEGORIES_SEED, CATEGORYTITLES } from "./categories.seed";
 export { FOLLOWING_SEED } from "./following.seed";
 export {
 	ABOUT_PAGE_SEED,
@@ -19,6 +20,7 @@ export { TESTIMONIALS_SEED } from "./testimonials.seed";
 export type {
 	AboutPageSeed,
 	ArticlesPageSeed,
+	CategorySeed,
 	ContactPageSeed,
 	FollowingPageSeed,
 	FollowingSeed,

@@ -1,15 +1,9 @@
 import slugify from "slugify";
+import { CATEGORYTITLES } from "@/lib/payload/data";
 
-// CATEGORYTITLES determines the validation schema for category tags within article frontmatter, as well as forming the source for slugs in the CATEGORYWITHSLUGS array. This is the single source of truth for legal categories throughout the application.
-export const CATEGORYTITLES = [
-	"node",
-	"code-quality",
-	"git",
-	"fun",
-	"typescript",
-	"deno",
-	"bun",
-] as const;
+// Re-export CATEGORYTITLES for backwards compatibility
+// The source of truth is now lib/payload/data/categories.seed.ts
+export { CATEGORYTITLES };
 
 type CategoryTitleWithSlug = {
 	title: (typeof CATEGORYTITLES)[number];
