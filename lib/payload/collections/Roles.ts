@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { triggerDeployHook } from "@/lib/payload/deploy-hook";
+import { triggerDeployHook } from "../deploy-hook";
 
 export const Roles: CollectionConfig = {
 	slug: "roles",

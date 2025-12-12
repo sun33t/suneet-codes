@@ -1,7 +1,7 @@
-import type { SiteContent } from "@/payload-types";
 import { getPayloadClient } from "../get-payload";
+import type { SiteContent } from "../payload-types";
 
-export type { SiteContent as PayloadSiteContent } from "@/payload-types";
+export type { SiteContent as PayloadSiteContent } from "../payload-types";
 
 export async function getSiteContent(): Promise<SiteContent> {
 	const payload = await getPayloadClient();

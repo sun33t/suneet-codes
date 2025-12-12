@@ -1,9 +1,9 @@
 // Import existing data
-import { PROJECTS } from "../content/data/projects";
-import { ROLES } from "../content/data/roles";
-import { TESTIMONIALS } from "../content/data/testimonials";
-import { USES } from "../content/data/uses";
-import { getPayloadClient } from "../lib/payload/get-payload";
+import { PROJECTS } from "@/content/data/projects";
+import { ROLES } from "@/content/data/roles";
+import { TESTIMONIALS } from "@/content/data/testimonials";
+import { USES } from "@/content/data/uses";
+import { getPayloadClient } from "../get-payload";
 
 async function seedTestimonials() {
 	const payload = await getPayloadClient();

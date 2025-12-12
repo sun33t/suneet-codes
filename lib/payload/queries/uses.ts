@@ -1,7 +1,7 @@
-import type { Use } from "@/payload-types";
 import { getPayloadClient } from "../get-payload";
+import type { Use } from "../payload-types";
 
-export type { Use as PayloadUse } from "@/payload-types";
+export type { Use as PayloadUse } from "../payload-types";
 
 export type UsesCategory =
 	| "Hardware"
