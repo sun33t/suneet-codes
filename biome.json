@@ -14,7 +14,8 @@
 			"!dist",
 			"!build",
 			"!.claude",
-			"!app/(payload)/admin/importMap.js"
+			"!app/(payload)/admin/importMap.js",
+			"!lib/payload/migrations"
 		]
 	},
 	"formatter": {

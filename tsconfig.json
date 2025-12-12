@@ -21,7 +21,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
-			"@payload-config": ["./payload.config.ts"],
+			"@payload-config": ["./lib/payload/payload.config.ts"],
 			"content-collections": ["./.content-collections/generated"]
 		},
 		"types": ["vitest/globals"]

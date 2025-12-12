@@ -20,7 +20,7 @@
 		"test": "vitest",
 		"test:run": "vitest run",
 		"generate:types": "dotenv -e .env.local -- payload generate:types",
-		"seed": "dotenv -e .env.local -- pnpm tsx scripts/seed-payload.ts"
+		"seed": "dotenv -e .env.local -- pnpm tsx lib/payload/scripts/seed-payload.ts"
 	},
 	"dependencies": {
 		"@mdx-js/loader": "3.1.1",

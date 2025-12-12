@@ -1,5 +1,5 @@
 import type { GlobalConfig } from "payload";
-import { triggerDeployHook } from "@/lib/payload/deploy-hook";
+import { triggerDeployHook } from "../deploy-hook";
 
 export const SiteContent: GlobalConfig = {
 	slug: "site-content",

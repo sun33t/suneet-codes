@@ -5,13 +5,15 @@ import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 
-import { Media } from "@/collections/Media";
-import { Projects } from "@/collections/Projects";
-import { Roles } from "@/collections/Roles";
-import { Testimonials } from "@/collections/Testimonials";
-import { Users } from "@/collections/Users";
-import { Uses } from "@/collections/Uses";
-import { SiteContent } from "@/globals/SiteContent";
+import {
+	Media,
+	Projects,
+	Roles,
+	Testimonials,
+	Users,
+	Uses,
+} from "./collections";
+import { SiteContent } from "./globals";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -42,11 +44,13 @@ export default buildConfig({
 				client: {
 					url: process.env.DATABASE_URI ?? "file:./payload.db",
 				},
+				migrationDir: path.resolve(dirname, "migrations"),
 			})
 		: postgresAdapter({
 				pool: {
 					connectionString: process.env.DATABASE_URI ?? "",
 				},
+				migrationDir: path.resolve(dirname, "migrations"),
 			}),
 	editor: lexicalEditor(),
 });
