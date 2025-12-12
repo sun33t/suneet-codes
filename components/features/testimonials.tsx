@@ -1,31 +1,9 @@
 import { PageSection } from "@/components/layout/page-section";
-import {
-	getAllTestimonials,
-	type PayloadTestimonial,
-} from "@/lib/payload/queries";
-import type { Testimonial } from "@/types";
+import { getAllTestimonials } from "@/lib/payload/queries";
 import { TestimonialCard } from "./testimonial-card";
 
-function transformToTestimonial(payload: PayloadTestimonial): Testimonial {
-	return {
-		author: {
-			name: payload.authorName,
-			role: payload.authorRole,
-			imgSrc: payload.authorImgSrc ?? "",
-			handle: payload.authorHandle ?? "",
-			profileUrl: payload.authorProfileUrl ?? "",
-		},
-		date: new Date(payload.date),
-		shortBody: payload.shortBody,
-		fullBody: payload.fullBody.map(
-			(item: { paragraph: string }) => item.paragraph,
-		),
-	};
-}
-
 export async function Testimonials() {
-	const payloadTestimonials = await getAllTestimonials();
-	const testimonials = payloadTestimonials.map(transformToTestimonial);
+	const testimonials = await getAllTestimonials();
 
 	return (
 		<PageSection>
@@ -46,7 +24,7 @@ export async function Testimonials() {
 						{testimonials.map((testimonial) => {
 							return (
 								<TestimonialCard
-									key={testimonial.author.handle}
+									key={testimonial.authorHandle}
 									testimonial={testimonial}
 								/>
 							);

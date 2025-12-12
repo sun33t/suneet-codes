@@ -46,24 +46,3 @@ export const contactFormFieldSchema = z.object({
 	reason: z.string(),
 });
 export type ContactFormFieldSchema = z.infer<typeof contactFormFieldSchema>;
-
-export type Testimonial = {
-	author: {
-		name: string;
-		role: string;
-		imgSrc: string;
-		handle: string;
-		profileUrl: string;
-	};
-	date: Date;
-	shortBody: string;
-	fullBody: string[];
-};
-
-export type LogoDetails = {
-	src: string;
-	pixelWidth: string;
-	imageWidth: number;
-	imageHeight: number;
-	className: string;
-};

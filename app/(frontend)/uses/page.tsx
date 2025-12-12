@@ -19,36 +19,17 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { PAGE_METADATA } from "@/content/data/pageMetadata";
-import type { UsesEntry } from "@/content/data/uses";
-import {
-	getUsesByCategory,
-	type PayloadUse,
-	type UsesCategory,
-} from "@/lib/payload/queries";
+import type { Use } from "@/lib/payload/payload-types";
+import { getUsesByCategory, type UsesCategory } from "@/lib/payload/queries";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
-// https://www.robinwieruch.de/about/ look here for inspo
+// https://www.robinwieruch.de/about/ look here for inspiration
 
 export const metadata: Metadata = { ...PAGE_METADATA.uses };
 
 export const dynamic = "force-static";
 
-function transformToUsesEntry(payload: PayloadUse): UsesEntry {
-	return {
-		title: payload.title,
-		description: payload.description,
-		link: {
-			href: payload.link?.href ?? "",
-			label: payload.link?.label ?? "",
-		},
-	};
-}
-
-const UsesCard = ({
-	entry: { description, link, title },
-}: {
-	entry: UsesEntry;
-}) => {
+const UsesCard = ({ entry: { description, link, title } }: { entry: Use }) => {
 	return (
 		<LinkCard className="mb-10 sm:mb-16" href={link.href} isExternal={true}>
 			<LinkCardHeader>
@@ -69,7 +50,7 @@ const UsesCard = ({
 export default async function Uses() {
 	const usesByCategory = await getUsesByCategory();
 
-	// Get categories in order and transform entries
+	// Get categories in order
 	const categories: UsesCategory[] = [
 		"Hardware",
 		"Development",
@@ -77,13 +58,10 @@ export default async function Uses() {
 		"Productivity",
 	];
 
-	const transformedUses = new Map<UsesCategory, UsesEntry[]>();
+	const sortedUses = new Map<UsesCategory, Use[]>();
 	for (const category of categories) {
-		const payloadEntries = usesByCategory.get(category) ?? [];
-		const entries = payloadEntries
-			.map(transformToUsesEntry)
-			.sort(sortByTitleProperty);
-		transformedUses.set(category, entries);
+		const entries = usesByCategory.get(category) ?? [];
+		sortedUses.set(category, entries.sort(sortByTitleProperty));
 	}
 
 	return (
@@ -111,7 +89,7 @@ export default async function Uses() {
 				<div className="mx-auto max-w-2xl" id="accordion">
 					<Accordion collapsible type="single">
 						{categories.map((category) => {
-							const entries = transformedUses.get(category) ?? [];
+							const entries = sortedUses.get(category) ?? [];
 							return (
 								<AccordionItem key={category} value={category}>
 									<AccordionTrigger className="font-bold text-base">
