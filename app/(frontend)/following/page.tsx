@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { useCallback, useMemo } from "react";
 
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
@@ -19,20 +18,22 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-	FOLLOWING,
-	type FollowingCategory,
-	type FollowingEntry,
-} from "@/content/data/following";
 import { PAGE_METADATA } from "@/content/data/pageMetadata";
+import {
+	type FollowingCategory,
+	getFollowingByCategory,
+	type PayloadFollowing,
+} from "@/lib/payload/queries";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
 export const metadata: Metadata = { ...PAGE_METADATA.following };
 
+export const dynamic = "force-static";
+
 const FollowingCard = ({
 	entry: { cta, description, href, title },
 }: {
-	entry: FollowingEntry;
+	entry: PayloadFollowing;
 }) => {
 	return (
 		<LinkCard className="mb-10 sm:mb-16" href={href} isExternal={true}>
@@ -49,16 +50,15 @@ const FollowingCard = ({
 	);
 };
 
-export default function Following() {
-	const followingEntries = useMemo(() => Array.from(FOLLOWING.keys()), []);
+export default async function Following() {
+	const followingByCategory = await getFollowingByCategory();
+	const categories = Array.from(followingByCategory.keys());
 
-	const sortEntries = useCallback(sortByTitleProperty, []);
+	const getSortedEntries = (category: FollowingCategory) => {
+		const entries = followingByCategory.get(category) ?? [];
+		return [...entries].sort(sortByTitleProperty);
+	};
 
-	const sorted = useMemo(
-		() => (category: FollowingCategory) =>
-			FOLLOWING.get(category)?.sort(sortEntries),
-		[sortEntries],
-	);
 	return (
 		<PageContainer>
 			<PageIntro title="Creative professionals whose work I follow">
@@ -71,15 +71,15 @@ export default function Following() {
 			<PageSection>
 				<div className="mx-auto max-w-2xl" id="accordion">
 					<Accordion collapsible type="single">
-						{followingEntries.map((category) => {
+						{categories.map((category) => {
 							return (
 								<AccordionItem key={category} value={category}>
 									<AccordionTrigger className="font-bold text-base">
 										{category}
 									</AccordionTrigger>
 									<AccordionContent className="p-6">
-										{sorted(category)?.map((entry) => (
-											<FollowingCard entry={entry} key={entry.title} />
+										{getSortedEntries(category).map((entry) => (
+											<FollowingCard entry={entry} key={entry.id} />
 										))}
 									</AccordionContent>
 								</AccordionItem>
