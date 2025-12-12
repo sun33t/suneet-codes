@@ -5,6 +5,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 
 import {
+	Following,
 	Media,
 	Projects,
 	Roles,
@@ -25,7 +26,16 @@ export default buildConfig({
 			baseDir: path.resolve(dirname),
 		},
 	},
-	collections: [Media, Projects, Roles, Services, Testimonials, Uses, Users],
+	collections: [
+		Following,
+		Media,
+		Projects,
+		Roles,
+		Services,
+		Testimonials,
+		Uses,
+		Users,
+	],
 	globals: [SiteContent],
 	secret: process.env.PAYLOAD_SECRET ?? "",
 	typescript: {

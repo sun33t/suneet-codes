@@ -1,4 +1,10 @@
 // Query functions for fetching data from Payload CMS
+export {
+	type FollowingCategory,
+	getAllFollowing,
+	getFollowingByCategory,
+	type PayloadFollowing,
+} from "./following";
 export { getAllProjects, type PayloadProject } from "./projects";
 export { getAllRoles, type PayloadRole } from "./roles";
 export {

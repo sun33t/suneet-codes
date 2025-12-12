@@ -1,4 +1,5 @@
 import {
+	FOLLOWING_SEED,
 	PROJECTS_SEED,
 	ROLES_SEED,
 	SERVICES_SEED,
@@ -113,6 +114,26 @@ async function seedServices() {
 	console.log("Services seeding complete!");
 }
 
+async function seedFollowing() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding following...");
+
+	for (const entry of FOLLOWING_SEED) {
+		try {
+			await payload.create({
+				collection: "following",
+				data: entry,
+			});
+			console.log(`  ✓ Created following: ${entry.title} (${entry.category})`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create following ${entry.title}:`, error);
+		}
+	}
+
+	console.log("Following seeding complete!");
+}
+
 async function seedSiteContent() {
 	const payload = await getPayloadClient();
 
@@ -142,6 +163,7 @@ async function main() {
 	await seedProjects();
 	await seedUses();
 	await seedServices();
+	await seedFollowing();
 	await seedSiteContent();
 
 	console.log("\nSeed complete!");
