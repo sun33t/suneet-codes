@@ -4,6 +4,7 @@ import { z } from "zod";
 
 export const env = createEnv({
 	server: {
+		PAYLOAD_CONFIG_PATH: z.string(),
 		PROJECT_DOMAIN: z.string(),
 		PROJECT_GITHUB_URL: z.string().url(),
 		PROJECT_LINKEDIN_URL: z.string().url(),
@@ -23,8 +24,8 @@ export const env = createEnv({
 		TURNSTILE_SECRET_KEY: z.string(),
 		/** Payload CMS secret for authentication (minimum 32 characters) */
 		PAYLOAD_SECRET: z.string().min(32),
-		/** Database connection string (SQLite file:// or PostgreSQL postgres://) */
-		DATABASE_URI: z.string(),
+		/** Database connection string (Neon PostgreSQL - dev branch locally, production branch in production) */
+		DATABASE_URI: z.string().url(),
 		/** Vercel deploy hook URL for triggering rebuilds after CMS content changes */
 		VERCEL_DEPLOY_HOOK_URL: z.string().url().optional(),
 		NODE_ENV: z.union([
