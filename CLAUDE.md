@@ -85,7 +85,7 @@ Vitest for unit tests. Co-locate test files with source: `*.test.ts`.
 
 ## Active Technologies
 - TypeScript 5.9.x / Node.js 24.11.1+ (001-content-cms)
-- PostgreSQL via Neon (production) / SQLite (local development) (001-content-cms)
+- PostgreSQL via Neon (dev branch locally, production branch in production)
 
 ## Recent Changes
 - 001-content-cms: Added TypeScript 5.9.x / Node.js 24.11.1+
