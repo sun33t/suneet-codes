@@ -10,12 +10,13 @@ import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import { env } from "@/lib/config/env";
 import {
+	getAboutPage,
 	getServicesByCategory,
 	getSiteContent,
 	type PayloadService,
+	toNextMetadata,
 } from "@/lib/payload/queries";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
@@ -28,7 +29,10 @@ const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
 	width: "512px",
 });
 
-export const metadata: Metadata = { ...PAGE_METADATA.about };
+export async function generateMetadata(): Promise<Metadata> {
+	const page = await getAboutPage();
+	return toNextMetadata(page.metadata);
+}
 
 export const dynamic = "force-static";
 

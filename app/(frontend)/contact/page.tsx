@@ -7,11 +7,17 @@ import { PageIntro } from "@/components/layout/page-intro";
 import { PageSection } from "@/components/layout/page-section";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import { env } from "@/lib/config/env";
-import { getAllServices } from "@/lib/payload/queries";
+import {
+	getAllServices,
+	getContactPage,
+	toNextMetadata,
+} from "@/lib/payload/queries";
 
-export const metadata: Metadata = { ...PAGE_METADATA.contact };
+export async function generateMetadata(): Promise<Metadata> {
+	const page = await getContactPage();
+	return toNextMetadata(page.metadata);
+}
 
 export default async function Contact() {
 	const services = await getAllServices();

@@ -18,15 +18,19 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import {
 	type FollowingCategory,
 	getFollowingByCategory,
+	getFollowingPage,
 	type PayloadFollowing,
+	toNextMetadata,
 } from "@/lib/payload/queries";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
-export const metadata: Metadata = { ...PAGE_METADATA.following };
+export async function generateMetadata(): Promise<Metadata> {
+	const page = await getFollowingPage();
+	return toNextMetadata(page.metadata);
+}
 
 export const dynamic = "force-static";
 

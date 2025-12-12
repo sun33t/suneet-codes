@@ -1,13 +1,55 @@
 import {
+	ABOUT_PAGE_SEED,
+	ARTICLES_PAGE_SEED,
+	CONTACT_PAGE_SEED,
+	FOLLOWING_PAGE_SEED,
 	FOLLOWING_SEED,
+	PROJECTS_PAGE_SEED,
 	PROJECTS_SEED,
 	ROLES_SEED,
 	SERVICES_SEED,
 	SITE_CONTENT_SEED,
 	TESTIMONIALS_SEED,
+	THANK_YOU_PAGE_SEED,
+	USES_PAGE_SEED,
 	USES_SEED,
 } from "../data";
 import { getPayloadClient } from "../get-payload";
+
+/** Collections that get seeded and should be cleared before re-seeding */
+const SEEDED_COLLECTIONS = [
+	"testimonials",
+	"roles",
+	"projects",
+	"uses",
+	"services",
+	"following",
+] as const;
+
+/**
+ * Clears all documents from seeded collections.
+ * Run this before seeding to avoid duplicates.
+ */
+async function clearCollections() {
+	const payload = await getPayloadClient();
+
+	console.log("Clearing existing data from collections...");
+
+	for (const collection of SEEDED_COLLECTIONS) {
+		try {
+			const result = await payload.delete({
+				collection,
+				where: { id: { exists: true } },
+			});
+			const count = Array.isArray(result.docs) ? result.docs.length : 0;
+			console.log(`  ✓ Cleared ${count} documents from ${collection}`);
+		} catch (error) {
+			console.error(`  ✗ Failed to clear ${collection}:`, error);
+		}
+	}
+
+	console.log("Collections cleared!\n");
+}
 
 async function seedTestimonials() {
 	const payload = await getPayloadClient();
@@ -134,6 +176,36 @@ async function seedFollowing() {
 	console.log("Following seeding complete!");
 }
 
+async function seedPageMetadata() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding page metadata...");
+
+	const pages = [
+		{ slug: "about-page", data: ABOUT_PAGE_SEED, name: "About" },
+		{ slug: "articles-page", data: ARTICLES_PAGE_SEED, name: "Articles" },
+		{ slug: "contact-page", data: CONTACT_PAGE_SEED, name: "Contact" },
+		{ slug: "following-page", data: FOLLOWING_PAGE_SEED, name: "Following" },
+		{ slug: "projects-page", data: PROJECTS_PAGE_SEED, name: "Projects" },
+		{ slug: "thank-you-page", data: THANK_YOU_PAGE_SEED, name: "Thank You" },
+		{ slug: "uses-page", data: USES_PAGE_SEED, name: "Uses" },
+	] as const;
+
+	for (const page of pages) {
+		try {
+			await payload.updateGlobal({
+				slug: page.slug,
+				data: page.data,
+			});
+			console.log(`  ✓ ${page.name} page metadata initialized`);
+		} catch (error) {
+			console.error(`  ✗ Failed to seed ${page.name} page metadata:`, error);
+		}
+	}
+
+	console.log("Page metadata seeding complete!");
+}
+
 async function seedSiteContent() {
 	const payload = await getPayloadClient();
 
@@ -158,12 +230,19 @@ async function seedSiteContent() {
 async function main() {
 	console.log("Starting Payload CMS seed...\n");
 
+	// Clear existing data to avoid duplicates
+	await clearCollections();
+
+	// Seed collections
 	await seedTestimonials();
 	await seedRoles();
 	await seedProjects();
 	await seedUses();
 	await seedServices();
 	await seedFollowing();
+
+	// Seed globals (these use updateGlobal, so no duplicates)
+	await seedPageMetadata();
 	await seedSiteContent();
 
 	console.log("\nSeed complete!");
