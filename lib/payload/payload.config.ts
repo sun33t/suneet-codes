@@ -14,7 +14,16 @@ import {
 	Users,
 	Uses,
 } from "./collections";
-import { SiteContent } from "./globals";
+import {
+	AboutPage,
+	ArticlesPage,
+	ContactPage,
+	FollowingPage,
+	ProjectsPage,
+	SiteContent,
+	ThankYouPage,
+	UsesPage,
+} from "./globals";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -36,7 +45,16 @@ export default buildConfig({
 		Uses,
 		Users,
 	],
-	globals: [SiteContent],
+	globals: [
+		AboutPage,
+		ArticlesPage,
+		ContactPage,
+		FollowingPage,
+		ProjectsPage,
+		SiteContent,
+		ThankYouPage,
+		UsesPage,
+	],
 	secret: process.env.PAYLOAD_SECRET ?? "",
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),

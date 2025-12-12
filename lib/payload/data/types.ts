@@ -3,7 +3,16 @@ import type {
 	RequiredDataFromCollectionSlug,
 } from "payload";
 
-import type { SiteContent } from "../payload-types";
+import type {
+	AboutPage,
+	ArticlesPage,
+	ContactPage,
+	FollowingPage,
+	ProjectsPage,
+	SiteContent,
+	ThankYouPage,
+	UsesPage,
+} from "../payload-types";
 
 /** Seed type for projects - makes id, createdAt, updatedAt optional */
 export type ProjectSeed = RequiredDataFromCollectionSlug<"projects">;
@@ -25,3 +34,24 @@ export type FollowingSeed = RequiredDataFromCollectionSlug<"following">;
 
 /** Seed type for site content global - makes id, createdAt, updatedAt optional */
 export type SiteContentSeed = RequiredDataFromCollection<SiteContent>;
+
+/** Seed type for about page global */
+export type AboutPageSeed = RequiredDataFromCollection<AboutPage>;
+
+/** Seed type for articles page global */
+export type ArticlesPageSeed = RequiredDataFromCollection<ArticlesPage>;
+
+/** Seed type for contact page global */
+export type ContactPageSeed = RequiredDataFromCollection<ContactPage>;
+
+/** Seed type for following page global */
+export type FollowingPageSeed = RequiredDataFromCollection<FollowingPage>;
+
+/** Seed type for projects page global */
+export type ProjectsPageSeed = RequiredDataFromCollection<ProjectsPage>;
+
+/** Seed type for thank you page global */
+export type ThankYouPageSeed = RequiredDataFromCollection<ThankYouPage>;
+
+/** Seed type for uses page global */
+export type UsesPageSeed = RequiredDataFromCollection<UsesPage>;

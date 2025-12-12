@@ -5,10 +5,13 @@ import { SuspendedArticlesList } from "@/components/features/articles-list";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
 import { PageSection } from "@/components/layout/page-section";
-import { PAGE_METADATA } from "@/content/data/pageMetadata";
+import { getArticlesPage, toNextMetadata } from "@/lib/payload/queries";
 import type { SearchParams } from "@/types";
 
-export const metadata: Metadata = { ...PAGE_METADATA.articles };
+export async function generateMetadata(): Promise<Metadata> {
+	const page = await getArticlesPage();
+	return toNextMetadata(page.metadata);
+}
 
 export default function Articles({
 	searchParams,

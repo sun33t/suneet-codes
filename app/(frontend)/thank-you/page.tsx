@@ -4,9 +4,12 @@ import Link from "next/link";
 import { SimpleLayout } from "@/components/layout/simple-layout";
 import { Confetti } from "@/components/shared/confetti";
 import { buttonVariants } from "@/components/ui/button";
-import { PAGE_METADATA } from "@/content/data/pageMetadata";
+import { getThankYouPage, toNextMetadata } from "@/lib/payload/queries";
 
-export const metadata: Metadata = { ...PAGE_METADATA["thank-you"] };
+export async function generateMetadata(): Promise<Metadata> {
+	const page = await getThankYouPage();
+	return toNextMetadata(page.metadata);
+}
 export default function ThankYouPage() {
 	return (
 		<SimpleLayout

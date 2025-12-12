@@ -14,11 +14,17 @@ import {
 	LinkCardTitle,
 } from "@/components/shared/link-card";
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
-import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import type { Project } from "@/lib/payload/payload-types";
-import { getAllProjects } from "@/lib/payload/queries";
+import {
+	getAllProjects,
+	getProjectsPage,
+	toNextMetadata,
+} from "@/lib/payload/queries";
 
-export const metadata: Metadata = { ...PAGE_METADATA.projects };
+export async function generateMetadata(): Promise<Metadata> {
+	const page = await getProjectsPage();
+	return toNextMetadata(page.metadata);
+}
 
 export const dynamic = "force-static";
 

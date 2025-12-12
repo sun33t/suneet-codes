@@ -18,14 +18,21 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import type { Use } from "@/lib/payload/payload-types";
-import { getUsesByCategory, type UsesCategory } from "@/lib/payload/queries";
+import {
+	getUsesByCategory,
+	getUsesPage,
+	toNextMetadata,
+	type UsesCategory,
+} from "@/lib/payload/queries";
 import { sortByTitleProperty } from "@/lib/utils/sortByTitleProperty";
 
 // https://www.robinwieruch.de/about/ look here for inspiration
 
-export const metadata: Metadata = { ...PAGE_METADATA.uses };
+export async function generateMetadata(): Promise<Metadata> {
+	const page = await getUsesPage();
+	return toNextMetadata(page.metadata);
+}
 
 export const dynamic = "force-static";
 
