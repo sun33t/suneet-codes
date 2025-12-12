@@ -1,3 +1,4 @@
+export { Categories } from "./Categories";
 export { Following } from "./Following";
 export { Media } from "./Media";
 export { Projects } from "./Projects";

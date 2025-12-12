@@ -1,5 +1,11 @@
 // Query functions for fetching data from Payload CMS
 export {
+	type CategoryWithSlug,
+	getAllCategories,
+	getCategoriesWithSlugs,
+	type PayloadCategory,
+} from "./categories";
+export {
 	type FollowingCategory,
 	getAllFollowing,
 	getFollowingByCategory,

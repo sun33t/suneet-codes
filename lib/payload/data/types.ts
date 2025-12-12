@@ -32,6 +32,9 @@ export type ServiceSeed = RequiredDataFromCollectionSlug<"services">;
 /** Seed type for following - makes id, createdAt, updatedAt optional */
 export type FollowingSeed = RequiredDataFromCollectionSlug<"following">;
 
+/** Seed type for categories - makes id, createdAt, updatedAt optional */
+export type CategorySeed = RequiredDataFromCollectionSlug<"categories">;
+
 /** Seed type for site content global - makes id, createdAt, updatedAt optional */
 export type SiteContentSeed = RequiredDataFromCollection<SiteContent>;
 

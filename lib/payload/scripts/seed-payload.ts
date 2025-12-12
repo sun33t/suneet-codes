@@ -1,6 +1,7 @@
 import {
 	ABOUT_PAGE_SEED,
 	ARTICLES_PAGE_SEED,
+	CATEGORIES_SEED,
 	CONTACT_PAGE_SEED,
 	FOLLOWING_PAGE_SEED,
 	FOLLOWING_SEED,
@@ -18,6 +19,7 @@ import { getPayloadClient } from "../get-payload";
 
 /** Collections that get seeded and should be cleared before re-seeding */
 const SEEDED_COLLECTIONS = [
+	"categories",
 	"testimonials",
 	"roles",
 	"projects",
@@ -49,6 +51,26 @@ async function clearCollections() {
 	}
 
 	console.log("Collections cleared!\n");
+}
+
+async function seedCategories() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding categories...");
+
+	for (const category of CATEGORIES_SEED) {
+		try {
+			await payload.create({
+				collection: "categories",
+				data: category,
+			});
+			console.log(`  ✓ Created category: ${category.title}`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create category ${category.title}:`, error);
+		}
+	}
+
+	console.log("Categories seeding complete!");
 }
 
 async function seedTestimonials() {
@@ -232,6 +254,9 @@ async function main() {
 
 	// Clear existing data to avoid duplicates
 	await clearCollections();
+
+	// Seed categories first (foundational data for articles)
+	await seedCategories();
 
 	// Seed collections
 	await seedTestimonials();
