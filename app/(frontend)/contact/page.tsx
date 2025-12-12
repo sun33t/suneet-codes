@@ -9,10 +9,12 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PAGE_METADATA } from "@/content/data/pageMetadata";
 import { env } from "@/lib/config/env";
+import { getAllServices } from "@/lib/payload/queries";
 
 export const metadata: Metadata = { ...PAGE_METADATA.contact };
 
-export default function Contact() {
+export default async function Contact() {
+	const services = await getAllServices();
 	return (
 		<PageContainer>
 			<PageIntro title="Contact">
@@ -43,7 +45,7 @@ export default function Contact() {
 						</div>
 					</CardContent>
 				</Card>
-				<ContactForm />
+				<ContactForm services={services} />
 			</PageSection>
 		</PageContainer>
 	);

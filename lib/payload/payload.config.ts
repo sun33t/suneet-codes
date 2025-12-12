@@ -8,6 +8,7 @@ import {
 	Media,
 	Projects,
 	Roles,
+	Services,
 	Testimonials,
 	Users,
 	Uses,
@@ -24,7 +25,7 @@ export default buildConfig({
 			baseDir: path.resolve(dirname),
 		},
 	},
-	collections: [Media, Projects, Roles, Testimonials, Uses, Users],
+	collections: [Media, Projects, Roles, Services, Testimonials, Uses, Users],
 	globals: [SiteContent],
 	secret: process.env.PAYLOAD_SECRET ?? "",
 	typescript: {

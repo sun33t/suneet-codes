@@ -11,14 +11,13 @@ import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PAGE_METADATA } from "@/content/data/pageMetadata";
-import {
-	DEVELOPMENT_SERVICES,
-	PROFESSIONAL_SERVICES,
-} from "@/content/data/services";
 import { env } from "@/lib/config/env";
-import { getSiteContent } from "@/lib/payload/queries";
+import {
+	getServicesByCategory,
+	getSiteContent,
+	type PayloadService,
+} from "@/lib/payload/queries";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
-import type { ServiceItem } from "@/types";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspiration
 
@@ -35,7 +34,7 @@ export const dynamic = "force-static";
 
 type ServiceCardSectionProps = {
 	title: string;
-	services: ServiceItem[];
+	services: PayloadService[];
 };
 
 const ServiceCardSection = ({ title, services }: ServiceCardSectionProps) => {
@@ -46,7 +45,7 @@ const ServiceCardSection = ({ title, services }: ServiceCardSectionProps) => {
 				{services.map((item) => (
 					<ServiceCard
 						description={item.description}
-						key={item.title}
+						key={item.id}
 						title={item.title}
 					/>
 				))}
@@ -146,6 +145,10 @@ const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
 
 export default async function About() {
 	const siteContent = await getSiteContent();
+	const servicesByCategory = await getServicesByCategory();
+	const developmentServices = servicesByCategory.get("Development") ?? [];
+	const professionalServices = servicesByCategory.get("Professional") ?? [];
+
 	const pageTitle = siteContent.about?.pageTitle ?? "A little bit about me";
 	const profileImageAlt =
 		siteContent.about?.profileImageAlt ??
@@ -187,11 +190,11 @@ export default async function About() {
 			</div>
 			<div className="mt-4 grid gap-6 md:grid-cols-2">
 				<ServiceCardSection
-					services={DEVELOPMENT_SERVICES}
+					services={developmentServices}
 					title="Development Services"
 				/>
 				<ServiceCardSection
-					services={PROFESSIONAL_SERVICES}
+					services={professionalServices}
 					title="Professional Services"
 				/>
 			</div>
