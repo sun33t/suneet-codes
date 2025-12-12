@@ -19,8 +19,6 @@ export type SearchParams = Promise<{
 	category: Article["categories"]["0"] | Article["categories"] | undefined;
 }>;
 
-export type ServiceItem = { title: string; description: string };
-
 export const contactFormFieldSchema = z.object({
 	firstname: z
 		.string({

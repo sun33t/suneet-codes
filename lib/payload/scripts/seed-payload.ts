@@ -1,6 +1,7 @@
 import {
 	PROJECTS_SEED,
 	ROLES_SEED,
+	SERVICES_SEED,
 	SITE_CONTENT_SEED,
 	TESTIMONIALS_SEED,
 	USES_SEED,
@@ -90,6 +91,28 @@ async function seedUses() {
 	console.log("Uses seeding complete!");
 }
 
+async function seedServices() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding services...");
+
+	for (const service of SERVICES_SEED) {
+		try {
+			await payload.create({
+				collection: "services",
+				data: service,
+			});
+			console.log(
+				`  ✓ Created service: ${service.title} (${service.category})`,
+			);
+		} catch (error) {
+			console.error(`  ✗ Failed to create service ${service.title}:`, error);
+		}
+	}
+
+	console.log("Services seeding complete!");
+}
+
 async function seedSiteContent() {
 	const payload = await getPayloadClient();
 
@@ -118,6 +141,7 @@ async function main() {
 	await seedRoles();
 	await seedProjects();
 	await seedUses();
+	await seedServices();
 	await seedSiteContent();
 
 	console.log("\nSeed complete!");

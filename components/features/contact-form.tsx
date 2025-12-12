@@ -23,18 +23,13 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import {
-	DEVELOPMENT_SERVICES,
-	PROFESSIONAL_SERVICES,
-} from "@/content/data/services";
 import { useToast } from "@/hooks/use-toast";
 import { env } from "@/lib/config/env";
-import type { ServiceItem } from "@/types";
+import type { PayloadService } from "@/lib/payload/queries";
 
-const enquiryReasons: ServiceItem[] = [
-	...DEVELOPMENT_SERVICES,
-	...PROFESSIONAL_SERVICES,
-];
+type ContactFormProps = {
+	services: PayloadService[];
+};
 
 const SubmitButton = ({
 	pending,
@@ -70,7 +65,7 @@ const ErrorMessage = ({ error }: { error?: string[] }) => {
 	) : null;
 };
 
-export const ContactForm = () => {
+export const ContactForm = ({ services }: ContactFormProps) => {
 	const [state, dispatch, isPending] = useActionState(createEnquiry, {
 		success: false,
 	});
@@ -199,9 +194,9 @@ export const ContactForm = () => {
 										<SelectValue placeholder="Select a reason" />
 									</SelectTrigger>
 									<SelectContent>
-										{enquiryReasons.map((reason) => (
-											<SelectItem key={reason.title} value={reason.title}>
-												{reason.title}
+										{services.map((service) => (
+											<SelectItem key={service.id} value={service.title}>
+												{service.title}
 											</SelectItem>
 										))}
 										<SelectItem value="other">Other</SelectItem>
@@ -242,7 +237,7 @@ export const ContactForm = () => {
 				</form>
 			</CardContent>
 		),
-		[state, isPending, token, formAction],
+		[state, isPending, token, formAction, services],
 	);
 
 	return (
