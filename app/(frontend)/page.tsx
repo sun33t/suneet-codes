@@ -18,37 +18,12 @@ import {
 } from "@/components/shared/link-card";
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
-import type { Role } from "@/content/data/roles";
 import { env } from "@/lib/config/env";
 import { latestArticles } from "@/lib/content/articles";
-import {
-	getAllRoles,
-	getSiteContent,
-	type PayloadRole,
-} from "@/lib/payload/queries";
+import { getAllRoles, getSiteContent } from "@/lib/payload/queries";
 import { formatDate } from "@/lib/utils/formatDate";
 
 export const dynamic = "force-static";
-
-function transformToRole(payload: PayloadRole): Role {
-	return {
-		company: payload.company,
-		title: payload.title,
-		logoDetails: {
-			src: payload.logoDetails?.src ?? "",
-			pixelWidth: payload.logoDetails?.pixelWidth ?? "20px",
-			imageWidth: payload.logoDetails?.imageWidth ?? 20,
-			imageHeight: payload.logoDetails?.imageHeight ?? 20,
-			className: payload.logoDetails?.className ?? "h-5 w-5 rounded-full",
-		},
-		href: payload.href,
-		start: payload.start,
-		end:
-			payload.end === "Present"
-				? { label: "Present", dateTime: new Date().getFullYear().toString() }
-				: payload.end,
-	};
-}
 
 const SocialLink = ({
 	icon: Icon,
@@ -113,11 +88,10 @@ const NoArticlesCard = () => {
 };
 
 export default async function Home() {
-	const [payloadRoles, siteContent] = await Promise.all([
+	const [roles, siteContent] = await Promise.all([
 		getAllRoles(),
 		getSiteContent(),
 	]);
-	const roles = payloadRoles.map(transformToRole);
 	const resumeSectionTitle = siteContent.ui?.resumeSectionTitle ?? "Work";
 	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
 

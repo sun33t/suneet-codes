@@ -1,17 +1,6 @@
-import type { LinkProps } from "next/link";
+import type { RoleSeed } from "./types";
 
-import type { LogoDetails } from "@/types";
-
-export interface Role {
-	company: string;
-	title: string;
-	start: string | { label: string; dateTime: string };
-	end: string | { label: string; dateTime: string };
-	href: LinkProps["href"];
-	logoDetails: LogoDetails;
-}
-
-export const ROLES: Array<Role> = [
+export const ROLES_SEED: RoleSeed[] = [
 	{
 		company: "Halobase",
 		title: "Co-Founder",
@@ -22,12 +11,10 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-6 w-6 rounded-full",
 		},
-		start: "2025",
-		end: {
-			label: "Present",
-			dateTime: new Date().getFullYear().toString(),
-		},
 		href: "https://halobase.com",
+		start: "2025",
+		end: "Present",
+		sortOrder: 0,
 	},
 	{
 		company: "Human+",
@@ -39,12 +26,10 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-5 w-5 rounded-full",
 		},
-		start: "2025",
-		end: {
-			label: "Present",
-			dateTime: new Date().getFullYear().toString(),
-		},
 		href: "https://human.plus",
+		start: "2025",
+		end: "Present",
+		sortOrder: 1,
 	},
 	{
 		company: "Juro",
@@ -56,9 +41,10 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-5 w-5 rounded-full",
 		},
+		href: "https://juro.com",
 		start: "2025",
 		end: "2025",
-		href: "https://juro.com",
+		sortOrder: 2,
 	},
 	{
 		company: "Pushorigin",
@@ -70,12 +56,10 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-5 w-5",
 		},
-		start: "2024",
-		end: {
-			label: "Present",
-			dateTime: new Date().getFullYear().toString(),
-		},
 		href: "https://pushorigin.co",
+		start: "2024",
+		end: "Present",
+		sortOrder: 3,
 	},
 	{
 		company: "Lumin",
@@ -87,9 +71,10 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-5 w-5",
 		},
+		href: "https://www.trustalliancegroup.org/our-companies/lumin",
 		start: "2023",
 		end: "2024",
-		href: "https://www.trustalliancegroup.org/our-companies/lumin",
+		sortOrder: 4,
 	},
 	{
 		company: "ANS",
@@ -101,9 +86,10 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-5 w-5",
 		},
+		href: "https://ans.co.uk",
 		start: "2021",
 		end: "2021",
-		href: "https://ans.co.uk",
+		sortOrder: 5,
 	},
 	{
 		company: "Verse",
@@ -115,9 +101,10 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-5 w-5",
 		},
+		href: "https://verse.co.uk",
 		start: "2020",
 		end: "2023",
-		href: "https://verse.co.uk",
+		sortOrder: 6,
 	},
 	{
 		company: "Northcoders",
@@ -129,8 +116,9 @@ export const ROLES: Array<Role> = [
 			imageHeight: 20,
 			className: "h-5 w-5",
 		},
+		href: "https://northcoders.com",
 		start: "2019",
 		end: "2020",
-		href: "https://northcoders.com",
+		sortOrder: 7,
 	},
 ];

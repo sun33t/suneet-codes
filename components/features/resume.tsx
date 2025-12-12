@@ -3,16 +3,16 @@ import Link from "next/link";
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Role } from "@/content/data/roles";
+import type { Role } from "@/lib/payload/payload-types";
 
 const RoleComp = ({ role }: { role: Role }) => {
-	const startLabel =
-		typeof role.start === "string" ? role.start : role.start.label;
-	const startDate =
-		typeof role.start === "string" ? role.start : role.start.dateTime;
+	const startLabel = role.start;
+	const startDate = role.start;
 
-	const endLabel = typeof role.end === "string" ? role.end : role.end.label;
-	const endDate = typeof role.end === "string" ? role.end : role.end.dateTime;
+	const endLabel = role.end;
+	// For "Present", use current year as dateTime for accessibility
+	const endDate =
+		role.end === "Present" ? new Date().getFullYear().toString() : role.end;
 
 	return (
 		<li className="group relative">

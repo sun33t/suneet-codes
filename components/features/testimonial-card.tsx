@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { memo } from "react";
-import type { Testimonial } from "@/types";
+import type { Testimonial } from "@/lib/payload/payload-types";
 import { SuspendedTestimonialCardAvatar } from "./testimonial-card-avatar";
 
 type TestimonialCardProps = {
@@ -8,29 +8,28 @@ type TestimonialCardProps = {
 };
 export const TestimonialCard = memo(
 	async ({ testimonial }: TestimonialCardProps) => {
+		const profileUrl = testimonial.authorProfileUrl ?? "#";
+		const handle = testimonial.authorHandle ?? "";
+
 		return (
 			<div className="pt-8 sm:inline-block sm:w-full sm:px-4">
-				<Link
-					href={testimonial.author.profileUrl}
-					rel="noopener norefferer"
-					target="_blank"
-				>
+				<Link href={profileUrl} rel="noopener norefferer" target="_blank">
 					<figure
-						aria-labelledby={`testimonial-${testimonial.author.handle}`}
+						aria-labelledby={`testimonial-${handle}`}
 						className="rounded-2xl border-none bg-zinc-50 p-8 text-sm/6 shadow-none dark:bg-zinc-800/50"
 					>
 						<blockquote>
-							<p className="italic">{`“${testimonial.shortBody}”`}</p>
+							<p className="italic">{`"${testimonial.shortBody}"`}</p>
 						</blockquote>
 						<figcaption className="mt-6 flex items-center gap-x-4">
-							<SuspendedTestimonialCardAvatar author={testimonial.author} />
+							<SuspendedTestimonialCardAvatar testimonial={testimonial} />
 							<div>
-								<div className="font-semibold">{testimonial.author.name}</div>
+								<div className="font-semibold">{testimonial.authorName}</div>
 								<div
 									className="text-muted-foreground text-xs"
-									id={`testimonial-${testimonial.author.handle}`}
+									id={`testimonial-${handle}`}
 								>
-									{testimonial.author.role}
+									{testimonial.authorRole}
 								</div>
 							</div>
 						</figcaption>

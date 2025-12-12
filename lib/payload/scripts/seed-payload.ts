@@ -1,8 +1,10 @@
-// Import existing data
-import { PROJECTS } from "@/content/data/projects";
-import { ROLES } from "@/content/data/roles";
-import { TESTIMONIALS } from "@/content/data/testimonials";
-import { USES } from "@/content/data/uses";
+import {
+	PROJECTS_SEED,
+	ROLES_SEED,
+	SITE_CONTENT_SEED,
+	TESTIMONIALS_SEED,
+	USES_SEED,
+} from "../data";
 import { getPayloadClient } from "../get-payload";
 
 async function seedTestimonials() {
@@ -10,25 +12,16 @@ async function seedTestimonials() {
 
 	console.log("Seeding testimonials...");
 
-	for (const testimonial of TESTIMONIALS) {
+	for (const testimonial of TESTIMONIALS_SEED) {
 		try {
 			await payload.create({
 				collection: "testimonials",
-				data: {
-					authorName: testimonial.author.name,
-					authorRole: testimonial.author.role,
-					authorImgSrc: testimonial.author.imgSrc,
-					authorHandle: testimonial.author.handle,
-					authorProfileUrl: testimonial.author.profileUrl,
-					date: testimonial.date.toISOString(),
-					shortBody: testimonial.shortBody,
-					fullBody: testimonial.fullBody.map((paragraph) => ({ paragraph })),
-				},
+				data: testimonial,
 			});
-			console.log(`  ✓ Created testimonial from ${testimonial.author.name}`);
+			console.log(`  ✓ Created testimonial from ${testimonial.authorName}`);
 		} catch (error) {
 			console.error(
-				`  ✗ Failed to create testimonial from ${testimonial.author.name}:`,
+				`  ✗ Failed to create testimonial from ${testimonial.authorName}:`,
 				error,
 			);
 		}
@@ -42,29 +35,11 @@ async function seedRoles() {
 
 	console.log("Seeding roles...");
 
-	for (let i = 0; i < ROLES.length; i++) {
-		const role = ROLES[i];
+	for (const role of ROLES_SEED) {
 		try {
-			// Handle end field - extract label if it's an object
-			const endValue = typeof role.end === "string" ? role.end : role.end.label;
-
 			await payload.create({
 				collection: "roles",
-				data: {
-					company: role.company,
-					title: role.title,
-					logoDetails: {
-						src: role.logoDetails.src,
-						pixelWidth: role.logoDetails.pixelWidth,
-						imageWidth: role.logoDetails.imageWidth,
-						imageHeight: role.logoDetails.imageHeight,
-						className: role.logoDetails.className,
-					},
-					href: typeof role.href === "string" ? role.href : String(role.href),
-					start: typeof role.start === "string" ? role.start : role.start.label,
-					end: endValue,
-					sortOrder: i,
-				},
+				data: role,
 			});
 			console.log(`  ✓ Created role: ${role.company} - ${role.title}`);
 		} catch (error) {
@@ -80,27 +55,11 @@ async function seedProjects() {
 
 	console.log("Seeding projects...");
 
-	for (let i = 0; i < PROJECTS.length; i++) {
-		const project = PROJECTS[i];
+	for (const project of PROJECTS_SEED) {
 		try {
 			await payload.create({
 				collection: "projects",
-				data: {
-					company: project.company,
-					description: project.description,
-					logoDetails: {
-						src: project.logoDetails.src,
-						pixelWidth: project.logoDetails.pixelWidth,
-						imageWidth: project.logoDetails.imageWidth,
-						imageHeight: project.logoDetails.imageHeight,
-						className: project.logoDetails.className,
-					},
-					link: {
-						href: project.link.href,
-						label: project.link.label,
-					},
-					sortOrder: i,
-				},
+				data: project,
 			});
 			console.log(`  ✓ Created project: ${project.company}`);
 		} catch (error) {
@@ -116,28 +75,15 @@ async function seedUses() {
 
 	console.log("Seeding uses...");
 
-	// Iterate over the Map entries
-	for (const [category, entries] of USES.entries()) {
-		for (let i = 0; i < entries.length; i++) {
-			const entry = entries[i];
-			try {
-				await payload.create({
-					collection: "uses",
-					data: {
-						title: entry.title,
-						description: entry.description,
-						category: category,
-						link: {
-							href: entry.link.href,
-							label: entry.link.label,
-						},
-						sortOrder: i,
-					},
-				});
-				console.log(`  ✓ Created use: ${entry.title} (${category})`);
-			} catch (error) {
-				console.error(`  ✗ Failed to create use ${entry.title}:`, error);
-			}
+	for (const use of USES_SEED) {
+		try {
+			await payload.create({
+				collection: "uses",
+				data: use,
+			});
+			console.log(`  ✓ Created use: ${use.title} (${use.category})`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create use ${use.title}:`, error);
 		}
 	}
 
@@ -150,31 +96,9 @@ async function seedSiteContent() {
 	console.log("Seeding site content...");
 
 	try {
-		// Update the global with default values
-		// Note: richText fields (bio, myValues, myExperience) require manual entry
-		// through the admin panel as they need Lexical editor format
 		await payload.updateGlobal({
 			slug: "site-content",
-			data: {
-				homepage: {
-					shortBio: "Developer based in the UK",
-				},
-				about: {
-					pageTitle: "A little bit about me",
-					profileImageAlt:
-						"Side profile photo of Suneet on the coast of Iceland at sunset",
-				},
-				newsletter: {
-					title: "Stay up to date",
-					description:
-						"Get notified when I publish something new, and unsubscribe at any time.",
-					buttonText: "Join",
-				},
-				ui: {
-					ctaButtonText: "Let's Talk",
-					resumeSectionTitle: "Work",
-				},
-			},
+			data: SITE_CONTENT_SEED,
 		});
 		console.log("  ✓ Site content initialized with defaults");
 		console.log(

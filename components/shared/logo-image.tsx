@@ -1,8 +1,8 @@
 import { memo, Suspense } from "react";
 
 import { Skeleton, type SkeletonProps } from "@/components/ui/skeleton";
+import type { Project } from "@/lib/payload/payload-types";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
-import type { LogoDetails } from "@/types";
 import { CloudinaryImage } from "./cloudinary-image";
 
 const LogoSkeleton = (props: SkeletonProps) => {
@@ -11,24 +11,30 @@ const LogoSkeleton = (props: SkeletonProps) => {
 
 type LogoImageProps = {
 	company: string;
-	logoDetails: LogoDetails;
+	logoDetails: Project["logoDetails"];
 };
 
 const LogoImage = async ({ logoDetails, company }: LogoImageProps) => {
+	const src = logoDetails?.src ?? "";
+	const pixelWidth = logoDetails?.pixelWidth ?? "20px";
+	const imageWidth = logoDetails?.imageWidth ?? 20;
+	const imageHeight = logoDetails?.imageHeight ?? 20;
+	const className = logoDetails?.className ?? "h-5 w-5";
+
 	const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
-		src: `logos/${logoDetails.src}`,
-		width: logoDetails.pixelWidth,
+		src: `logos/${src}`,
+		width: pixelWidth,
 	});
 
 	return blurDataUrl ? (
 		<CloudinaryImage
 			alt={`Company logo for ${company}`}
 			blurDataURL={blurDataUrl}
-			className={logoDetails.className}
-			height={logoDetails.imageHeight}
-			sizes={logoDetails.pixelWidth}
+			className={className}
+			height={imageHeight}
+			sizes={pixelWidth}
 			src={imageSrc}
-			width={logoDetails.imageWidth}
+			width={imageWidth}
 		/>
 	) : (
 		<LogoSkeleton hasPulse={false} />

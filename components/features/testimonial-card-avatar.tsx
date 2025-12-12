@@ -1,18 +1,20 @@
 import { Suspense } from "react";
 import { CloudinaryImage } from "@/components/shared/cloudinary-image";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { Testimonial } from "@/lib/payload/payload-types";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
-import type { Testimonial } from "@/types";
 
 const TestimonialCardAvatar = async ({
-	author,
+	testimonial,
 }: {
-	author: Testimonial["author"];
+	testimonial: Testimonial;
 }) => {
-	const isCompanyLogo = author.imgSrc.startsWith("logos/");
+	const imgSrc = testimonial.authorImgSrc ?? "";
+	const name = testimonial.authorName;
+	const isCompanyLogo = imgSrc.startsWith("logos/");
 
 	const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
-		src: `${author.imgSrc}`,
+		src: imgSrc,
 		width: "40px",
 	});
 	if (!blurDataUrl) {
@@ -22,7 +24,7 @@ const TestimonialCardAvatar = async ({
 		return (
 			<div className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
 				<CloudinaryImage
-					alt={`Company logo for ${author.name}`}
+					alt={`Company logo for ${name}`}
 					blurDataURL={blurDataUrl}
 					height={28}
 					placeholder="blur"
@@ -35,7 +37,7 @@ const TestimonialCardAvatar = async ({
 	}
 	return (
 		<CloudinaryImage
-			alt={`LinkedIn profile image of ${author.name}`}
+			alt={`LinkedIn profile image of ${name}`}
 			blurDataURL={blurDataUrl}
 			className="size-10 rounded-full bg-zinc-100 dark:bg-zinc-800"
 			height={40}
@@ -51,13 +53,13 @@ const AvatarSkeleton = () => {
 };
 
 export const SuspendedTestimonialCardAvatar = ({
-	author,
+	testimonial,
 }: {
-	author: Testimonial["author"];
+	testimonial: Testimonial;
 }) => {
 	return (
 		<Suspense fallback={<AvatarSkeleton />}>
-			<TestimonialCardAvatar author={author} />
+			<TestimonialCardAvatar testimonial={testimonial} />
 		</Suspense>
 	);
 };
