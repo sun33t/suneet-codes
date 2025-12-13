@@ -1,14 +1,18 @@
 import { getPayloadClient } from "../get-payload";
-import type { Article, Category, Keyword } from "../payload-types";
+import type { Article, Author, Category, Keyword } from "../payload-types";
 
 export type { Article as PayloadArticle } from "../payload-types";
 
 /**
  * Article with populated relationships (full objects instead of IDs)
  */
-export type ArticleWithRelations = Omit<Article, "categories" | "keywords"> & {
+export type ArticleWithRelations = Omit<
+	Article,
+	"categories" | "keywords" | "author"
+> & {
 	categories: Category[];
 	keywords: Keyword[];
+	author: Author;
 };
 
 /**

@@ -1,8 +1,8 @@
 import type { CollectionConfig } from "payload";
 import { triggerDeployHook } from "../deploy-hook";
 
-export const Keywords: CollectionConfig = {
-	slug: "keywords",
+export const Authors: CollectionConfig = {
+	slug: "authors",
 	hooks: {
 		afterChange: [() => triggerDeployHook()],
 		afterDelete: [() => triggerDeployHook()],
@@ -11,7 +11,7 @@ export const Keywords: CollectionConfig = {
 		group: "Blog",
 		useAsTitle: "name",
 		defaultColumns: ["name"],
-		description: "SEO keywords for articles",
+		description: "Article authors",
 	},
 	access: {
 		read: () => true,
@@ -26,10 +26,9 @@ export const Keywords: CollectionConfig = {
 			type: "text",
 			required: true,
 			unique: true,
-			minLength: 2,
-			label: "Keyword",
+			label: "Author Name",
 			admin: {
-				description: "SEO keyword (e.g., 'typescript', 'react')",
+				description: "Full name of the author",
 			},
 		},
 	],

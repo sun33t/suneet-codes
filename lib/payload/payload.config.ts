@@ -6,6 +6,7 @@ import { buildConfig } from "payload";
 
 import {
 	Articles,
+	Authors,
 	Categories,
 	Following,
 	Keywords,
@@ -40,6 +41,7 @@ export default buildConfig({
 	},
 	collections: [
 		Articles,
+		Authors,
 		Categories,
 		Following,
 		Keywords,

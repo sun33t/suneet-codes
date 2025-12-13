@@ -53,6 +53,7 @@ export const Articles: CollectionConfig = {
 		afterDelete: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Blog",
 		useAsTitle: "title",
 		defaultColumns: ["title", "isPublished", "date", "author"],
 		description: "Blog articles with rich text content",
@@ -98,12 +99,12 @@ export const Articles: CollectionConfig = {
 		},
 		{
 			name: "author",
-			type: "text",
+			type: "relationship",
+			relationTo: "authors",
 			required: true,
-			defaultValue: "Suneet Misra",
 			label: "Author",
 			admin: {
-				description: "Article author name",
+				description: "Select the article author",
 				position: "sidebar",
 			},
 		},

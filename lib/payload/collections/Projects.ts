@@ -8,6 +8,7 @@ export const Projects: CollectionConfig = {
 		afterDelete: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Content",
 		useAsTitle: "company",
 		defaultColumns: ["company", "link_label"],
 		description: "Portfolio project showcases",

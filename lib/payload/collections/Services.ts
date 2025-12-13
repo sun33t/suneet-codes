@@ -8,6 +8,7 @@ export const Services: CollectionConfig = {
 		afterDelete: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Content",
 		useAsTitle: "title",
 		defaultColumns: ["title", "category", "sortOrder"],
 		description: "Services offered for development and professional work",

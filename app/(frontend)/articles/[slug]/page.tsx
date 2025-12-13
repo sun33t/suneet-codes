@@ -47,14 +47,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		title: `${article.title}`,
 		description: article.description,
 		keywords,
-		authors: [{ name: article.author }],
+		authors: [{ name: article.author.name }],
 		openGraph: {
 			images: [ogImageUrl],
 			title: article.title,
 			description: article.description,
 			url: `/articles/${slug}`,
 			type: "article",
-			authors: article.author,
+			authors: article.author.name,
 			tags: categoryTitles,
 			locale: "en-GB",
 			siteName: env.PROJECT_BASE_TITLE,
@@ -93,7 +93,7 @@ export default async function Page({
 										<span className="ml-3">{formatDate(article.date)}</span>
 									</time>
 									<span> - </span>
-									<Link href="/about">{article.author}</Link>
+									<Link href="/about">{article.author.name}</Link>
 								</div>
 								<div className="mb-4 flex flex-row flex-wrap items-center justify-start gap-4">
 									{article.categories.map((category) => {

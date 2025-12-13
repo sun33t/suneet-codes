@@ -8,6 +8,7 @@ export const Uses: CollectionConfig = {
 		afterDelete: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Content",
 		useAsTitle: "title",
 		defaultColumns: ["title", "category"],
 		description: "Tools, hardware, and software recommendations",
