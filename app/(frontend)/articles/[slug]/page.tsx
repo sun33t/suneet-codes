@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCldImageUrl } from "next-cloudinary";
 import { Container } from "@/components/layout/container";
-import { SuspendedArticleImage } from "@/components/shared/article-image";
 import { BackButton } from "@/components/shared/back-button";
 import { env } from "@/lib/config/env";
 import { ArticleRichText } from "@/lib/payload/lexical/article-rich-text";
@@ -34,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const ogImageUrl = getCldImageUrl({
 		width: 960,
 		height: 600,
-		src: withCloudinaryCloudName(`articles/${article.coverImage}`),
+		src: withCloudinaryCloudName(`articles/${article.ogImage}`),
 	});
 
 	// Extract keywords from the keywords relationship
@@ -108,10 +107,6 @@ export default async function Page({
 									})}
 								</div>
 							</header>
-							<SuspendedArticleImage
-								alt={article.title}
-								src={article.coverImage}
-							/>
 							{article.content && <ArticleRichText data={article.content} />}
 						</div>
 					</article>

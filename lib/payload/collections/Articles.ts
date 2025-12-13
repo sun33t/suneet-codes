@@ -98,7 +98,7 @@ export const Articles: CollectionConfig = {
 			type: "text",
 			required: true,
 			minLength: 5,
-			label: "Article Title",
+			label: "Title",
 			admin: {
 				description: "The title of the article",
 			},
@@ -108,7 +108,7 @@ export const Articles: CollectionConfig = {
 			type: "text",
 			required: true,
 			unique: true,
-			label: "URL Slug",
+			label: "Slug",
 			admin: {
 				description: "Used in URLs (e.g., 'my-article-title')",
 				position: "sidebar",
@@ -162,16 +162,6 @@ export const Articles: CollectionConfig = {
 			},
 		},
 		{
-			name: "coverImage",
-			type: "text",
-			required: true,
-			label: "Cover Image",
-			admin: {
-				description:
-					"Cloudinary image ID (e.g., 'linting-formatting-node_dsdot4')",
-			},
-		},
-		{
 			name: "keywords",
 			type: "relationship",
 			relationTo: "keywords",
@@ -196,9 +186,28 @@ export const Articles: CollectionConfig = {
 			},
 		},
 		{
+			type: "collapsible",
+			label: "OpenGraph",
+			admin: {
+				initCollapsed: true,
+				position: "sidebar",
+			},
+			fields: [
+				{
+					name: "ogImage",
+					type: "text",
+					required: true,
+					label: "OG Image",
+					admin: {
+						description: "Cloudinary image ID for social sharing previews",
+					},
+				},
+			],
+		},
+		{
 			name: "content",
 			type: "richText",
-			label: "Article Content",
+			label: "Content",
 			editor: lexicalEditor({
 				features: ({ defaultFeatures }) => [
 					...defaultFeatures,
