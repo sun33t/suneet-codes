@@ -3,6 +3,7 @@
 // Seed data
 export { CATEGORIES_SEED, CATEGORYTITLES } from "./categories.seed";
 export { FOLLOWING_SEED } from "./following.seed";
+export { KEYWORDS_SEED } from "./keywords.seed";
 export {
 	ABOUT_PAGE_SEED,
 	ARTICLES_PAGE_SEED,
@@ -25,6 +26,7 @@ export type {
 	ContactPageSeed,
 	FollowingPageSeed,
 	FollowingSeed,
+	KeywordSeed,
 	ProjectSeed,
 	ProjectsPageSeed,
 	RoleSeed,

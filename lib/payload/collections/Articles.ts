@@ -156,19 +156,14 @@ export const Articles: CollectionConfig = {
 		},
 		{
 			name: "keywords",
-			type: "array",
+			type: "relationship",
+			relationTo: "keywords",
+			hasMany: true,
 			label: "Keywords",
 			admin: {
 				description: "SEO keywords for the article",
 				position: "sidebar",
 			},
-			fields: [
-				{
-					name: "keyword",
-					type: "text",
-					required: true,
-				},
-			],
 		},
 		{
 			name: "categories",

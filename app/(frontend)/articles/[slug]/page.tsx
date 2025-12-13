@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		src: withCloudinaryCloudName(`articles/${article.coverImage}`),
 	});
 
-	// Extract keywords from the keywords array
-	const keywords = article.keywords?.map((k) => k.keyword) ?? [];
+	// Extract keywords from the keywords relationship
+	const keywords = article.keywords?.map((k) => k.name) ?? [];
 
 	// Extract category titles from populated categories
 	const categoryTitles = article.categories.map((cat) => cat.title);

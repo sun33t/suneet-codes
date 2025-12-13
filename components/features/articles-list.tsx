@@ -13,7 +13,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-	type ArticleWithCategories,
+	type ArticleWithRelations,
 	getArticlesByCategory,
 } from "@/lib/payload/queries";
 import { cn } from "@/lib/utils";
@@ -93,7 +93,7 @@ const NoArticlesCard = () => {
 	);
 };
 
-const ArticleCard = ({ article }: { article: ArticleWithCategories }) => {
+const ArticleCard = ({ article }: { article: ArticleWithRelations }) => {
 	const formattedDate = formatDate(article.date);
 	return (
 		<article className="md:grid md:grid-cols-4 md:items-baseline">

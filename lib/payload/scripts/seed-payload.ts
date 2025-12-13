@@ -5,6 +5,7 @@ import {
 	CONTACT_PAGE_SEED,
 	FOLLOWING_PAGE_SEED,
 	FOLLOWING_SEED,
+	KEYWORDS_SEED,
 	PROJECTS_PAGE_SEED,
 	PROJECTS_SEED,
 	ROLES_SEED,
@@ -20,6 +21,7 @@ import { getPayloadClient } from "../get-payload";
 /** Collections that get seeded and should be cleared before re-seeding */
 const SEEDED_COLLECTIONS = [
 	"categories",
+	"keywords",
 	"testimonials",
 	"roles",
 	"projects",
@@ -71,6 +73,26 @@ async function seedCategories() {
 	}
 
 	console.log("Categories seeding complete!");
+}
+
+async function seedKeywords() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding keywords...");
+
+	for (const keyword of KEYWORDS_SEED) {
+		try {
+			await payload.create({
+				collection: "keywords",
+				data: keyword,
+			});
+			console.log(`  ✓ Created keyword: ${keyword.name}`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create keyword ${keyword.name}:`, error);
+		}
+	}
+
+	console.log("Keywords seeding complete!");
 }
 
 async function seedTestimonials() {
@@ -255,8 +277,9 @@ async function main() {
 	// Clear existing data to avoid duplicates
 	await clearCollections();
 
-	// Seed categories first (foundational data for articles)
+	// Seed categories and keywords first (foundational data for articles)
 	await seedCategories();
+	await seedKeywords();
 
 	// Seed collections
 	await seedTestimonials();

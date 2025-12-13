@@ -1,6 +1,6 @@
 // Query functions for fetching data from Payload CMS
 export {
-	type ArticleWithCategories,
+	type ArticleWithRelations,
 	getAllArticleSlugs,
 	getAllArticles,
 	getArticleBySlug,

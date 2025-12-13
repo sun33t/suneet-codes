@@ -1,6 +1,7 @@
 export { Articles } from "./Articles";
 export { Categories } from "./Categories";
 export { Following } from "./Following";
+export { Keywords } from "./Keywords";
 export { Media } from "./Media";
 export { Projects } from "./Projects";
 export { Roles } from "./Roles";

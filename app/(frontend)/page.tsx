@@ -19,7 +19,7 @@ import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { env } from "@/lib/config/env";
 import {
-	type ArticleWithCategories,
+	type ArticleWithRelations,
 	getAllRoles,
 	getLatestArticles,
 	getSiteContent,
@@ -48,7 +48,7 @@ const SocialLink = ({
 	);
 };
 
-const ArticleCard = ({ article }: { article: ArticleWithCategories }) => {
+const ArticleCard = ({ article }: { article: ArticleWithRelations }) => {
 	return (
 		<article>
 			<LinkCard href={`/articles/${article.slug}`} key={article.id}>

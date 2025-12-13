@@ -1,20 +1,21 @@
 import { getPayloadClient } from "../get-payload";
-import type { Article, Category } from "../payload-types";
+import type { Article, Category, Keyword } from "../payload-types";
 
 export type { Article as PayloadArticle } from "../payload-types";
 
 /**
- * Article with populated categories (category objects instead of IDs)
+ * Article with populated relationships (full objects instead of IDs)
  */
-export type ArticleWithCategories = Omit<Article, "categories"> & {
+export type ArticleWithRelations = Omit<Article, "categories" | "keywords"> & {
 	categories: Category[];
+	keywords: Keyword[];
 };
 
 /**
  * Fetches all articles from Payload CMS, sorted by date descending.
- * Categories are populated as full objects.
+ * Relationships are populated as full objects.
  */
-export async function getAllArticles(): Promise<ArticleWithCategories[]> {
+export async function getAllArticles(): Promise<ArticleWithRelations[]> {
 	const payload = await getPayloadClient();
 	const result = await payload.find({
 		collection: "articles",
@@ -22,14 +23,14 @@ export async function getAllArticles(): Promise<ArticleWithCategories[]> {
 		limit: 100,
 		depth: 1,
 	});
-	return result.docs as ArticleWithCategories[];
+	return result.docs as ArticleWithRelations[];
 }
 
 /**
  * Fetches only published articles, sorted by date descending.
- * Categories are populated as full objects.
+ * Relationships are populated as full objects.
  */
-export async function getPublishedArticles(): Promise<ArticleWithCategories[]> {
+export async function getPublishedArticles(): Promise<ArticleWithRelations[]> {
 	const payload = await getPayloadClient();
 	const result = await payload.find({
 		collection: "articles",
@@ -40,7 +41,7 @@ export async function getPublishedArticles(): Promise<ArticleWithCategories[]> {
 		limit: 100,
 		depth: 1,
 	});
-	return result.docs as ArticleWithCategories[];
+	return result.docs as ArticleWithRelations[];
 }
 
 /**
@@ -49,7 +50,7 @@ export async function getPublishedArticles(): Promise<ArticleWithCategories[]> {
  */
 export async function getArticleBySlug(
 	slug: string,
-): Promise<ArticleWithCategories | null> {
+): Promise<ArticleWithRelations | null> {
 	const payload = await getPayloadClient();
 	const result = await payload.find({
 		collection: "articles",
@@ -60,7 +61,7 @@ export async function getArticleBySlug(
 		depth: 1,
 		limit: 1,
 	});
-	return (result.docs[0] as ArticleWithCategories) ?? null;
+	return (result.docs[0] as ArticleWithRelations) ?? null;
 }
 
 /**
@@ -70,7 +71,7 @@ export async function getArticleBySlug(
  */
 export async function getArticlesByCategory(
 	category: string | string[] | undefined,
-): Promise<ArticleWithCategories[]> {
+): Promise<ArticleWithRelations[]> {
 	if (!category) {
 		return getPublishedArticles();
 	}
@@ -109,7 +110,7 @@ export async function getArticlesByCategory(
 		depth: 1,
 	});
 
-	return result.docs as ArticleWithCategories[];
+	return result.docs as ArticleWithRelations[];
 }
 
 /**
@@ -117,7 +118,7 @@ export async function getArticlesByCategory(
  */
 export async function getLatestArticles(
 	count = 3,
-): Promise<ArticleWithCategories[]> {
+): Promise<ArticleWithRelations[]> {
 	const payload = await getPayloadClient();
 	const result = await payload.find({
 		collection: "articles",
@@ -128,7 +129,7 @@ export async function getLatestArticles(
 		limit: count,
 		depth: 1,
 	});
-	return result.docs as ArticleWithCategories[];
+	return result.docs as ArticleWithRelations[];
 }
 
 /**
