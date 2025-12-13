@@ -87,7 +87,7 @@ function CodeBlockRenderer({
 			<Highlight
 				code={code.trim()}
 				language={normalizedLanguage}
-				theme={themes.vsDark}
+				theme={themes.nightOwl}
 			>
 				{({ style, tokens, getLineProps, getTokenProps }) => (
 					<pre
