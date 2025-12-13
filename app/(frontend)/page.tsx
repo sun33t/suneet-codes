@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import type { Article } from "content-collections";
 import Link, { type LinkProps } from "next/link";
 import { Fragment } from "react";
 import { Resume } from "@/components/features/resume";
@@ -19,8 +18,12 @@ import {
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { env } from "@/lib/config/env";
-import { latestArticles } from "@/lib/content/articles";
-import { getAllRoles, getSiteContent } from "@/lib/payload/queries";
+import {
+	type ArticleWithCategories,
+	getAllRoles,
+	getLatestArticles,
+	getSiteContent,
+} from "@/lib/payload/queries";
 import { formatDate } from "@/lib/utils/formatDate";
 
 export const dynamic = "force-static";
@@ -45,10 +48,10 @@ const SocialLink = ({
 	);
 };
 
-const ArticleCard = ({ article }: { article: Article }) => {
+const ArticleCard = ({ article }: { article: ArticleWithCategories }) => {
 	return (
 		<article>
-			<LinkCard href={`/articles/${article.slug}`} key={article._meta.fileName}>
+			<LinkCard href={`/articles/${article.slug}`} key={article.id}>
 				<LinkCardHeader>
 					<LinkCardEyebrow>
 						<time dateTime={article.date}>{formatDate(article.date)}</time>
@@ -88,9 +91,10 @@ const NoArticlesCard = () => {
 };
 
 export default async function Home() {
-	const [roles, siteContent] = await Promise.all([
+	const [roles, siteContent, latestArticles] = await Promise.all([
 		getAllRoles(),
 		getSiteContent(),
+		getLatestArticles(3),
 	]);
 	const resumeSectionTitle = siteContent.ui?.resumeSectionTitle ?? "Work";
 	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
@@ -198,12 +202,7 @@ export default async function Home() {
 						<div className="flex flex-col gap-16">
 							{latestArticles.length > 0 ? (
 								latestArticles.map((article) => {
-									return (
-										<ArticleCard
-											article={article}
-											key={article._meta.fileName}
-										/>
-									);
+									return <ArticleCard article={article} key={article.id} />;
 								})
 							) : (
 								<NoArticlesCard />

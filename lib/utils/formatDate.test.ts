@@ -63,6 +63,24 @@ describe("formatDate", () => {
 		});
 	});
 
+	describe("ISO 8601 format (Payload CMS)", () => {
+		it("handles ISO 8601 format with Z timezone", () => {
+			expect(formatDate("2024-01-15T00:00:00.000Z")).toBe("15 January 2024");
+		});
+
+		it("handles ISO 8601 format without milliseconds", () => {
+			expect(formatDate("2024-03-05T12:30:00Z")).toBe("5 March 2024");
+		});
+
+		it("handles ISO 8601 format with timezone offset", () => {
+			expect(formatDate("2023-12-25T00:00:00+00:00")).toBe("25 December 2023");
+		});
+
+		it("extracts date correctly regardless of time component", () => {
+			expect(formatDate("2024-06-15T23:59:59.999Z")).toBe("15 June 2024");
+		});
+	});
+
 	describe("invalid inputs", () => {
 		it("throws ZodError for empty string", () => {
 			expect(() => formatDate("")).toThrow(ZodError);
@@ -114,6 +132,17 @@ describe("DateStringSchema", () => {
 
 	it("transforms valid date string to Date object", () => {
 		const result = DateStringSchema.safeParse("2024-06-15");
+		expect(result.success).toBe(true);
+		if (result.success) {
+			expect(result.data).toBeInstanceOf(Date);
+			expect(result.data.getUTCFullYear()).toBe(2024);
+			expect(result.data.getUTCMonth()).toBe(5); // June is 5 (0-indexed)
+			expect(result.data.getUTCDate()).toBe(15);
+		}
+	});
+
+	it("transforms ISO 8601 string to Date object", () => {
+		const result = DateStringSchema.safeParse("2024-06-15T12:30:00.000Z");
 		expect(result.success).toBe(true);
 		if (result.success) {
 			expect(result.data).toBeInstanceOf(Date);

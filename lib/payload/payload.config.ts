@@ -5,6 +5,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 
 import {
+	Articles,
 	Categories,
 	Following,
 	Media,
@@ -37,6 +38,7 @@ export default buildConfig({
 		},
 	},
 	collections: [
+		Articles,
 		Categories,
 		Following,
 		Media,

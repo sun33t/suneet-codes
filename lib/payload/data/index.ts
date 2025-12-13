@@ -19,6 +19,7 @@ export { SITE_CONTENT_SEED } from "./site-content.seed";
 export { TESTIMONIALS_SEED } from "./testimonials.seed";
 export type {
 	AboutPageSeed,
+	ArticleSeed,
 	ArticlesPageSeed,
 	CategorySeed,
 	ContactPageSeed,
