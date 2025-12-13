@@ -43,8 +43,10 @@ async function main() {
 		await fs.writeFile(SITEMAP_INDEX_PATH, xml.trim());
 
 		console.log(`Sitemap index generated with ${sitemaps.length} entries.`);
+		process.exit(0);
 	} catch (error) {
 		console.error("Error generating sitemap:", error);
+		process.exit(1);
 	}
 }
 
