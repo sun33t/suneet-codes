@@ -66,36 +66,6 @@ export const Articles: CollectionConfig = {
 	defaultSort: "-date",
 	fields: [
 		{
-			name: "title",
-			type: "text",
-			required: true,
-			minLength: 5,
-			label: "Article Title",
-			admin: {
-				description: "The title of the article",
-			},
-		},
-		{
-			name: "slug",
-			type: "text",
-			required: true,
-			unique: true,
-			label: "URL Slug",
-			admin: {
-				description: "Used in URLs (e.g., 'my-article-title')",
-			},
-		},
-		{
-			name: "author",
-			type: "text",
-			required: true,
-			defaultValue: "Suneet Misra",
-			label: "Author",
-			admin: {
-				description: "Article author name",
-			},
-		},
-		{
 			name: "isPublished",
 			type: "checkbox",
 			defaultValue: false,
@@ -106,12 +76,46 @@ export const Articles: CollectionConfig = {
 			},
 		},
 		{
+			name: "title",
+			type: "text",
+			required: true,
+			minLength: 5,
+			label: "Article Title",
+			admin: {
+				description: "The title of the article",
+				position: "sidebar",
+			},
+		},
+		{
+			name: "slug",
+			type: "text",
+			required: true,
+			unique: true,
+			label: "URL Slug",
+			admin: {
+				description: "Used in URLs (e.g., 'my-article-title')",
+				position: "sidebar",
+			},
+		},
+		{
+			name: "author",
+			type: "text",
+			required: true,
+			defaultValue: "Suneet Misra",
+			label: "Author",
+			admin: {
+				description: "Article author name",
+				position: "sidebar",
+			},
+		},
+		{
 			name: "date",
 			type: "date",
 			required: true,
 			label: "Publish Date",
 			admin: {
 				description: "The date the article was published",
+				position: "sidebar",
 				date: {
 					pickerAppearance: "dayOnly",
 					displayFormat: "yyyy-MM-dd",
@@ -124,6 +128,7 @@ export const Articles: CollectionConfig = {
 			label: "Last Updated",
 			admin: {
 				description: "The date the article was last updated",
+				position: "sidebar",
 				date: {
 					pickerAppearance: "dayOnly",
 					displayFormat: "yyyy-MM-dd",
@@ -155,6 +160,7 @@ export const Articles: CollectionConfig = {
 			label: "Keywords",
 			admin: {
 				description: "SEO keywords for the article",
+				position: "sidebar",
 			},
 			fields: [
 				{
@@ -174,6 +180,7 @@ export const Articles: CollectionConfig = {
 			label: "Categories",
 			admin: {
 				description: "Select at least one category",
+				position: "sidebar",
 			},
 		},
 		{
