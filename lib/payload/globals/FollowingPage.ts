@@ -8,6 +8,7 @@ export const FollowingPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Following page content and metadata",
 	},
 	access: {

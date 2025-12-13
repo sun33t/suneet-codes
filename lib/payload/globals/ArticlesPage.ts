@@ -8,6 +8,7 @@ export const ArticlesPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Articles page content and metadata",
 	},
 	access: {

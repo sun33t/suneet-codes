@@ -8,6 +8,7 @@ export const ProjectsPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Projects page content and metadata",
 	},
 	access: {

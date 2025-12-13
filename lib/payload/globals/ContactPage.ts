@@ -8,6 +8,7 @@ export const ContactPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Contact page content and metadata",
 	},
 	access: {

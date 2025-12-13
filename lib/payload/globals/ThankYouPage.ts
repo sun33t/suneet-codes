@@ -8,6 +8,7 @@ export const ThankYouPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Thank you page content and metadata",
 	},
 	access: {

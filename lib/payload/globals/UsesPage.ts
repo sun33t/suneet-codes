@@ -8,6 +8,7 @@ export const UsesPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Uses page content and metadata",
 	},
 	access: {
