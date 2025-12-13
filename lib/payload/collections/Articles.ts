@@ -83,7 +83,6 @@ export const Articles: CollectionConfig = {
 			label: "Article Title",
 			admin: {
 				description: "The title of the article",
-				position: "sidebar",
 			},
 		},
 		{
@@ -189,7 +188,7 @@ export const Articles: CollectionConfig = {
 						blocks: [
 							ArticleImageBlock,
 							CodeBlock({
-								defaultLanguage: "typescript",
+								defaultLanguage: "shell",
 								languages: {
 									bash: "Bash",
 									css: "CSS",
@@ -217,16 +216,6 @@ export const Articles: CollectionConfig = {
 			}),
 			admin: {
 				description: "The main content of the article",
-			},
-		},
-		{
-			name: "sortOrder",
-			type: "number",
-			defaultValue: 0,
-			label: "Sort Order",
-			admin: {
-				description: "Custom sort order (lower numbers appear first)",
-				position: "sidebar",
 			},
 		},
 	],

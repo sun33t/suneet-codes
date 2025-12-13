@@ -3,10 +3,11 @@
 import type {
 	DefaultNodeTypes,
 	SerializedBlockNode,
+	SerializedLinkNode,
 } from "@payloadcms/richtext-lexical";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import type { JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
-import { RichText } from "@payloadcms/richtext-lexical/react";
+import { LinkJSXConverter, RichText } from "@payloadcms/richtext-lexical/react";
 import { Check, Copy } from "lucide-react";
 import { Highlight, themes } from "prism-react-renderer";
 import { useState } from "react";
@@ -38,6 +39,25 @@ type NodeTypes =
 	| DefaultNodeTypes
 	| SerializedBlockNode<ArticleImageBlockFields>
 	| SerializedBlockNode<CodeBlockFields>;
+
+/**
+ * Converts internal Payload document references to URLs.
+ * Required for rendering internal links in rich text content.
+ */
+const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
+	const { relationTo, value } = linkNode.fields.doc!;
+	if (typeof value !== "object") {
+		throw new Error("Expected value to be an object");
+	}
+	const slug = value.slug;
+
+	switch (relationTo) {
+		case "articles":
+			return `/articles/${slug}`;
+		default:
+			return `/${relationTo}/${slug}`;
+	}
+};
 
 /**
  * Code block component for rendering syntax-highlighted code
@@ -124,6 +144,7 @@ const articleConverters: JSXConvertersFunction<NodeTypes> = ({
 	defaultConverters,
 }) => ({
 	...defaultConverters,
+	...LinkJSXConverter({ internalDocToHref }),
 	blocks: {
 		articleImage: ({ node }) => (
 			<ArticleImageClient
