@@ -80,7 +80,6 @@
 		"tailwindcss-animate": "1.0.7",
 		"tsx": "4.21.0",
 		"typescript": "5.9.3",
-		"vercel": "49.1.2",
 		"vitest": "4.0.15"
 	},
 	"pnpm": {
