@@ -40,7 +40,24 @@ const ArticleImageBlock: Block = {
 			label: "Aspect Ratio",
 			defaultValue: 1.78,
 			admin: {
-				description: "Width/height ratio (default 16:9 = 1.78)",
+				description:
+					"Width/height ratio (default 16:9 = 1.78). Used when width/height not specified.",
+			},
+		},
+		{
+			name: "width",
+			type: "number",
+			label: "Width (px)",
+			admin: {
+				description: "Optional fixed width in pixels",
+			},
+		},
+		{
+			name: "height",
+			type: "number",
+			label: "Height (px)",
+			admin: {
+				description: "Optional fixed height in pixels",
 			},
 		},
 	],

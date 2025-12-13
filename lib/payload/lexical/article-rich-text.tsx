@@ -20,6 +20,8 @@ type ArticleImageBlockFields = {
 	src: string;
 	alt: string;
 	aspectRatio?: number | null;
+	width?: number | null;
+	height?: number | null;
 	blockType: "articleImage";
 };
 
@@ -150,7 +152,9 @@ const articleConverters: JSXConvertersFunction<NodeTypes> = ({
 			<ArticleImageClient
 				alt={node.fields.alt}
 				aspectRatio={node.fields.aspectRatio ?? 16 / 9}
+				height={node.fields.height ?? undefined}
 				src={node.fields.src}
+				width={node.fields.width ?? undefined}
 			/>
 		),
 		Code: ({ node }) => (
