@@ -3,6 +3,7 @@ import type { CollectionConfig } from "payload";
 export const Users: CollectionConfig = {
 	slug: "users",
 	admin: {
+		group: "Auth",
 		useAsTitle: "email",
 	},
 	auth: true,

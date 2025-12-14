@@ -1,6 +1,7 @@
 import type { GlobalConfig } from "payload";
 import { triggerDeployHook } from "../deploy-hook";
 import { createMetadataFields } from "./fields/metadata-fields";
+import { createPageIntroFields } from "./fields/page-intro-fields";
 
 export const ContactPage: GlobalConfig = {
 	slug: "contact-page",
@@ -8,11 +9,12 @@ export const ContactPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Contact page content and metadata",
 	},
 	access: {
 		read: () => true,
 		update: ({ req }) => !!req.user,
 	},
-	fields: [createMetadataFields()],
+	fields: [createPageIntroFields(), createMetadataFields()],
 };

@@ -26,13 +26,18 @@ type AvatarProps = Omit<
 	"href" | "style" | "className"
 > & {
 	isHomePage?: boolean;
+	imageSrc: string;
+	imageAlt: string;
 };
 
-export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
-	const avatarImageSrc = `profile/avatar_front`;
-
+export const Avatar = async ({
+	isHomePage = false,
+	imageSrc,
+	imageAlt,
+	...rest
+}: AvatarProps) => {
 	const { blurDataUrl } = await getCloudinaryBlurDataUrl({
-		src: avatarImageSrc,
+		src: imageSrc,
 		width: "64px",
 	});
 
@@ -51,7 +56,7 @@ export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
 		>
 			{blurDataUrl ? (
 				<CloudinaryImage
-					alt="profile picture"
+					alt={imageAlt}
 					blurDataURL={blurDataUrl}
 					className={clsx(
 						"fade-in animate-in rounded-full bg-zinc-100 object-cover duration-1000 dark:bg-zinc-800",
@@ -60,7 +65,7 @@ export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
 					height={64}
 					placeholder="blur"
 					sizes={isHomePage ? "4rem" : "2.25rem"}
-					src={withCloudinaryCloudName(avatarImageSrc)}
+					src={withCloudinaryCloudName(imageSrc)}
 					width={64}
 				/>
 			) : (
@@ -69,17 +74,23 @@ export const Avatar = async ({ isHomePage = false, ...rest }: AvatarProps) => {
 		</Link>
 	);
 };
-export const MobileAvatar = async () => {
-	const avatarImageSrc = `profile/avatar_small`;
+type MobileAvatarProps = {
+	imageSrc: string;
+	imageAlt: string;
+};
 
+export const MobileAvatar = async ({
+	imageSrc,
+	imageAlt,
+}: MobileAvatarProps) => {
 	const { blurDataUrl } = await getCloudinaryBlurDataUrl({
-		src: avatarImageSrc,
+		src: imageSrc,
 		width: "64px",
 	});
 
 	return blurDataUrl ? (
 		<CloudinaryImage
-			alt="profile picture"
+			alt={imageAlt}
 			blurDataURL={blurDataUrl}
 			className={
 				"fade-in h-9 w-9 animate-in rounded-full bg-zinc-100 object-cover duration-1000 dark:bg-zinc-800"
@@ -87,7 +98,7 @@ export const MobileAvatar = async () => {
 			height={64}
 			placeholder="blur"
 			sizes="2.25rem"
-			src={withCloudinaryCloudName(avatarImageSrc)}
+			src={withCloudinaryCloudName(imageSrc)}
 			width={64}
 		/>
 	) : (
@@ -104,10 +115,20 @@ const AvatarSkeleton = ({
 	return <Skeleton className={classes} {...rest} />;
 };
 
-export const SuspendedAvatar = ({ isHomePage }: { isHomePage?: boolean }) => {
+type SuspendedAvatarProps = {
+	isHomePage?: boolean;
+	imageSrc: string;
+	imageAlt: string;
+};
+
+export const SuspendedAvatar = ({
+	isHomePage,
+	imageSrc,
+	imageAlt,
+}: SuspendedAvatarProps) => {
 	return (
 		<Suspense fallback={<AvatarSkeleton isHomePage={isHomePage} />}>
-			<Avatar isHomePage={isHomePage} />
+			<Avatar imageAlt={imageAlt} imageSrc={imageSrc} isHomePage={isHomePage} />
 		</Suspense>
 	);
 };

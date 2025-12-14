@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
@@ -18,6 +17,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import type { Use } from "@/lib/payload/payload-types";
 import {
 	getUsesByCategory,
@@ -55,7 +55,10 @@ const UsesCard = ({ entry: { description, link, title } }: { entry: Use }) => {
 };
 
 export default async function Uses() {
-	const usesByCategory = await getUsesByCategory();
+	const [page, usesByCategory] = await Promise.all([
+		getUsesPage(),
+		getUsesByCategory(),
+	]);
 
 	// Get categories in order
 	const categories: UsesCategory[] = [
@@ -73,24 +76,8 @@ export default async function Uses() {
 
 	return (
 		<PageContainer>
-			<PageIntro title="What I use">
-				<p>
-					From time to time, I get asked about what I use to work on my
-					projects. I&apos;ve tried to list as many of the tools I use below,
-					and{" "}
-					<Link
-						aria-label="View my development environment setup scripts on GitHub"
-						className="font-semibold text-accent-foreground"
-						href="https://github.com/sun33t/install-scripts-v2"
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						here&apos;s
-					</Link>{" "}
-					a link to my install-scripts repo too which is what I use to set up my
-					dev environment. It&apos;s not the most sophisticated, but it
-					get&apos;s the job done quickly and consistently!
-				</p>
+			<PageIntro title={page.pageIntro.title}>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<div className="mx-auto max-w-2xl" id="accordion">

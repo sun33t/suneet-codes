@@ -5,9 +5,19 @@ import { ROUTES } from "@/lib/config/routes";
 import { Footer } from "./footer";
 import { Header } from "./header";
 
-type LayoutProps = React.ComponentPropsWithoutRef<"div">;
+type ProfileImages = {
+	headerProfileImage: string;
+	headerProfileImageAlt: string;
+	mobileProfileImage: string;
+	mobileProfileImageAlt: string;
+};
 
-export const Layout = ({ children }: LayoutProps) => {
+type LayoutProps = React.ComponentPropsWithoutRef<"div"> & {
+	siteOwner: string;
+	profileImages: ProfileImages;
+};
+
+export const Layout = ({ children, siteOwner, profileImages }: LayoutProps) => {
 	const memoizedRouteNames = useMemo(() => Array.from(ROUTES.keys()), []);
 
 	return (
@@ -15,13 +25,29 @@ export const Layout = ({ children }: LayoutProps) => {
 			<PageBackground />
 			<div className="relative flex w-full flex-col">
 				<Header
-					headerAvatar={<SuspendedAvatar />}
-					homepageAvatar={<SuspendedAvatar isHomePage={true} />}
-					mobileAvatar={<MobileAvatar />}
+					headerAvatar={
+						<SuspendedAvatar
+							imageAlt={profileImages.headerProfileImageAlt}
+							imageSrc={profileImages.headerProfileImage}
+						/>
+					}
+					homepageAvatar={
+						<SuspendedAvatar
+							imageAlt={profileImages.headerProfileImageAlt}
+							imageSrc={profileImages.headerProfileImage}
+							isHomePage={true}
+						/>
+					}
+					mobileAvatar={
+						<MobileAvatar
+							imageAlt={profileImages.mobileProfileImageAlt}
+							imageSrc={profileImages.mobileProfileImage}
+						/>
+					}
 					routeNames={memoizedRouteNames}
 				/>
 				<main className="flex-auto">{children}</main>
-				<Footer routeNames={memoizedRouteNames} />
+				<Footer routeNames={memoizedRouteNames} siteOwner={siteOwner} />
 				<Toaster />
 			</div>
 		</div>

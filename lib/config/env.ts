@@ -6,16 +6,6 @@ export const env = createEnv({
 	server: {
 		PAYLOAD_CONFIG_PATH: z.string(),
 		PROJECT_DOMAIN: z.string(),
-		PROJECT_GITHUB_URL: z.string().url(),
-		PROJECT_LINKEDIN_URL: z.string().url(),
-		PROJECT_NOTION_URL: z.string().url(),
-		PROJECT_BLUESKY_URL: z.string().url(),
-		PROJECT_AUTHOR: z.string(),
-		PROJECT_AUTHOR_LOCATION: z.string(),
-		PROJECT_BASE_TITLE: z.string(),
-		PROJECT_BASE_DESCRIPTION: z.string(),
-		PROJECT_CALENDAR_URL: z.string().url(),
-		PROJECT_EMAIL_ADDRESS: z.string().email(),
 		RESEND_EMAIL_ADDRESS: z.string().email(),
 		RESEND_API_KEY: z.string(),
 		/** The production URL of the Vercel project - https://vercel.com/docs/projects/environment-variables/system-environment-variables */

@@ -8,6 +8,7 @@ export const Testimonials: CollectionConfig = {
 		afterDelete: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Content",
 		useAsTitle: "authorName",
 		defaultColumns: ["authorName", "authorRole", "date"],
 		description: "Recommendations from colleagues and clients",

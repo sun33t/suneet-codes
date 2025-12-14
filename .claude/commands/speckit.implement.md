@@ -26,6 +26,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 | article, mdx, frontmatter, content, category, blog | Content | `content-layer` |
 | component, button, card, form, ui, radix, shadcn | Component | `component-layer` |
 | page, route, layout, metadata, generateMetadata | Page | `page-layer` |
+| payload, global, collection, seed, query, cms, migration | Payload | `payload-layer` |
 | setup, config, dependencies, environment | Setup | Direct implementation (no skill) |
 
 ### Implementation Order (from Constitution)

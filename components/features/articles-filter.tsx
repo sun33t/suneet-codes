@@ -5,10 +5,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { memo, Suspense, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-	CATEGORY_PARAM_NAME,
-	CATEGORYWITHSLUGS,
-} from "@/content/data/categories";
+import type { CategoryWithSlug } from "@/lib/payload/queries";
+
+const CATEGORY_PARAM_NAME = "category";
+
+type ArticlesFilterProps = {
+	categories: CategoryWithSlug[];
+};
 
 const SkeletonFilter = () => {
 	return (
@@ -26,7 +29,7 @@ const SkeletonFilter = () => {
 	);
 };
 
-const ArticlesFilter = memo(() => {
+const ArticlesFilter = memo(({ categories }: ArticlesFilterProps) => {
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const categoryParamName = CATEGORY_PARAM_NAME;
@@ -82,7 +85,7 @@ const ArticlesFilter = memo(() => {
 
 	const renderedCategories = useMemo(
 		() =>
-			CATEGORYWITHSLUGS.map((category) => {
+			categories.map((category) => {
 				const selected = isSelected(category.slug);
 
 				return (
@@ -97,7 +100,7 @@ const ArticlesFilter = memo(() => {
 					</Link>
 				);
 			}),
-		[createQueryString, pathname, isSelected],
+		[categories, createQueryString, pathname, isSelected],
 	);
 	return (
 		<div className="mb-8 flex max-w-3xl flex-row flex-wrap items-center gap-4">
@@ -117,10 +120,12 @@ const ArticlesFilter = memo(() => {
 
 ArticlesFilter.displayName = "ArticlesFilter";
 
-export const SuspendedArticlesFilter = () => {
+export const SuspendedArticlesFilter = ({
+	categories,
+}: ArticlesFilterProps) => {
 	return (
 		<Suspense fallback={<SkeletonFilter />}>
-			<ArticlesFilter />
+			<ArticlesFilter categories={categories} />
 		</Suspense>
 	);
 };

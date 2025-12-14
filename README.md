@@ -52,12 +52,6 @@ To run this project, you will need to add a number of environment variables.
 # The canonical hostname for your website
 PROJECT_DOMAIN="example.com"
 
-# Your name
-PROJECT_AUTHOR="John Smith"
-
-# Your location
-PROJECT_AUTHOR_LOCATION="Mars, Solar Sytem"
-
 # The base title used across the website
 PROJECT_BASE_TITLE="My Portfolio"
 

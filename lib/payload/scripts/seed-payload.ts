@@ -1,15 +1,18 @@
 import {
 	ABOUT_PAGE_SEED,
 	ARTICLES_PAGE_SEED,
+	AUTHORS_SEED,
 	CATEGORIES_SEED,
 	CONTACT_PAGE_SEED,
 	FOLLOWING_PAGE_SEED,
 	FOLLOWING_SEED,
+	HOME_PAGE_SEED,
+	KEYWORDS_SEED,
 	PROJECTS_PAGE_SEED,
 	PROJECTS_SEED,
 	ROLES_SEED,
 	SERVICES_SEED,
-	SITE_CONTENT_SEED,
+	SITE_CONFIG_SEED,
 	TESTIMONIALS_SEED,
 	THANK_YOU_PAGE_SEED,
 	USES_PAGE_SEED,
@@ -19,7 +22,10 @@ import { getPayloadClient } from "../get-payload";
 
 /** Collections that get seeded and should be cleared before re-seeding */
 const SEEDED_COLLECTIONS = [
+	"users",
+	"authors",
 	"categories",
+	"keywords",
 	"testimonials",
 	"roles",
 	"projects",
@@ -53,6 +59,61 @@ async function clearCollections() {
 	console.log("Collections cleared!\n");
 }
 
+/**
+ * Creates a default admin user from environment variables.
+ * Skips if DEFAULT_USER_EMAIL or DEFAULT_USER_PASSWORD are not set.
+ */
+async function seedDefaultUser() {
+	const email = process.env.DEFAULT_USER_EMAIL;
+	const password = process.env.DEFAULT_USER_PASSWORD;
+
+	if (!email || !password) {
+		console.log(
+			"Skipping user seeding (DEFAULT_USER_EMAIL or DEFAULT_USER_PASSWORD not set)\n",
+		);
+		return;
+	}
+
+	const payload = await getPayloadClient();
+
+	console.log("Seeding default user...");
+
+	try {
+		await payload.create({
+			collection: "users",
+			data: {
+				email,
+				password,
+			},
+		});
+		console.log(`  ✓ Created default user: ${email}`);
+	} catch (error) {
+		console.error(`  ✗ Failed to create default user:`, error);
+	}
+
+	console.log("User seeding complete!\n");
+}
+
+async function seedAuthors() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding authors...");
+
+	for (const author of AUTHORS_SEED) {
+		try {
+			await payload.create({
+				collection: "authors",
+				data: author,
+			});
+			console.log(`  ✓ Created author: ${author.name}`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create author ${author.name}:`, error);
+		}
+	}
+
+	console.log("Authors seeding complete!");
+}
+
 async function seedCategories() {
 	const payload = await getPayloadClient();
 
@@ -71,6 +132,26 @@ async function seedCategories() {
 	}
 
 	console.log("Categories seeding complete!");
+}
+
+async function seedKeywords() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding keywords...");
+
+	for (const keyword of KEYWORDS_SEED) {
+		try {
+			await payload.create({
+				collection: "keywords",
+				data: keyword,
+			});
+			console.log(`  ✓ Created keyword: ${keyword.name}`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create keyword ${keyword.name}:`, error);
+		}
+	}
+
+	console.log("Keywords seeding complete!");
 }
 
 async function seedTestimonials() {
@@ -208,6 +289,7 @@ async function seedPageMetadata() {
 		{ slug: "articles-page", data: ARTICLES_PAGE_SEED, name: "Articles" },
 		{ slug: "contact-page", data: CONTACT_PAGE_SEED, name: "Contact" },
 		{ slug: "following-page", data: FOLLOWING_PAGE_SEED, name: "Following" },
+		{ slug: "home-page", data: HOME_PAGE_SEED, name: "Home" },
 		{ slug: "projects-page", data: PROJECTS_PAGE_SEED, name: "Projects" },
 		{ slug: "thank-you-page", data: THANK_YOU_PAGE_SEED, name: "Thank You" },
 		{ slug: "uses-page", data: USES_PAGE_SEED, name: "Uses" },
@@ -228,25 +310,22 @@ async function seedPageMetadata() {
 	console.log("Page metadata seeding complete!");
 }
 
-async function seedSiteContent() {
+async function seedSiteConfig() {
 	const payload = await getPayloadClient();
 
-	console.log("Seeding site content...");
+	console.log("Seeding site config...");
 
 	try {
 		await payload.updateGlobal({
-			slug: "site-content",
-			data: SITE_CONTENT_SEED,
+			slug: "site-config",
+			data: SITE_CONFIG_SEED,
 		});
-		console.log("  ✓ Site content initialized with defaults");
-		console.log(
-			"  ℹ Note: Rich text fields (bio, myValues, myExperience) require manual entry via /admin",
-		);
+		console.log("  ✓ Site config initialized with defaults");
 	} catch (error) {
-		console.error("  ✗ Failed to seed site content:", error);
+		console.error("  ✗ Failed to seed site config:", error);
 	}
 
-	console.log("Site content seeding complete!");
+	console.log("Site config seeding complete!");
 }
 
 async function main() {
@@ -255,8 +334,13 @@ async function main() {
 	// Clear existing data to avoid duplicates
 	await clearCollections();
 
-	// Seed categories first (foundational data for articles)
+	// Seed default user first (requires env vars)
+	await seedDefaultUser();
+
+	// Seed foundational data for articles first
+	await seedAuthors();
 	await seedCategories();
+	await seedKeywords();
 
 	// Seed collections
 	await seedTestimonials();
@@ -268,7 +352,7 @@ async function main() {
 
 	// Seed globals (these use updateGlobal, so no duplicates)
 	await seedPageMetadata();
-	await seedSiteContent();
+	await seedSiteConfig();
 
 	console.log("\nSeed complete!");
 	process.exit(0);

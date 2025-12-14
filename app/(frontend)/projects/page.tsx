@@ -14,6 +14,7 @@ import {
 	LinkCardTitle,
 } from "@/components/shared/link-card";
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import type { Project } from "@/lib/payload/payload-types";
 import {
 	getAllProjects,
@@ -56,14 +57,15 @@ const ProjectCard = ({ logoDetails, company, description, link }: Project) => {
 };
 
 export default async function Projects() {
-	const projects = await getAllProjects();
+	const [page, projects] = await Promise.all([
+		getProjectsPage(),
+		getAllProjects(),
+	]);
 
 	return (
 		<PageContainer>
-			<PageIntro title="Projects">
-				<p>
-					{`I've worked on many projects over the years as an employee but below are the ones that I've built myself as a freelance developer. It's a list of one right now but it's growing...`}
-				</p>
+			<PageIntro title={page.pageIntro.title}>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<ul className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">

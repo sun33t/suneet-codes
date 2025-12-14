@@ -1,4 +1,3 @@
-import type { Article } from "content-collections";
 import Link from "next/link";
 import { Suspense } from "react";
 import {
@@ -13,7 +12,10 @@ import {
 } from "@/components/shared/link-card";
 import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getArticlesByCategory } from "@/lib/content/articles";
+import {
+	type ArticleWithRelations,
+	getArticlesByCategory,
+} from "@/lib/payload/queries";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils/formatDate";
 import type { SearchParams } from "@/types";
@@ -91,7 +93,7 @@ const NoArticlesCard = () => {
 	);
 };
 
-const ArticleCard = ({ article }: { article: Article }) => {
+const ArticleCard = ({ article }: { article: ArticleWithRelations }) => {
 	const formattedDate = formatDate(article.date);
 	return (
 		<article className="md:grid md:grid-cols-4 md:items-baseline">
@@ -129,7 +131,7 @@ const ArticlesList = async ({
 }) => {
 	const { category } = await searchParams;
 
-	const articles = getArticlesByCategory({ category });
+	const articles = await getArticlesByCategory(category);
 	const classes = cn(
 		"md:pl-6",
 		articles.length > 0 &&
@@ -141,7 +143,7 @@ const ArticlesList = async ({
 			<div className="flex max-w-3xl flex-col space-y-16">
 				{articles.length > 0 ? (
 					articles.map((article) => (
-						<ArticleCard article={article} key={article._meta.path} />
+						<ArticleCard article={article} key={article.id} />
 					))
 				) : (
 					<NoArticlesCard />

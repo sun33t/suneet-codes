@@ -1,6 +1,7 @@
 import type { GlobalConfig } from "payload";
 import { triggerDeployHook } from "../deploy-hook";
 import { createMetadataFields } from "./fields/metadata-fields";
+import { createPageIntroFields } from "./fields/page-intro-fields";
 
 export const UsesPage: GlobalConfig = {
 	slug: "uses-page",
@@ -8,11 +9,12 @@ export const UsesPage: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Pages",
 		description: "Uses page content and metadata",
 	},
 	access: {
 		read: () => true,
 		update: ({ req }) => !!req.user,
 	},
-	fields: [createMetadataFields()],
+	fields: [createPageIntroFields(), createMetadataFields()],
 };

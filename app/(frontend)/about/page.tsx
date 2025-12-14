@@ -10,24 +10,17 @@ import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { env } from "@/lib/config/env";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	getAboutPage,
 	getServicesByCategory,
-	getSiteContent,
+	getSiteConfig,
 	type PayloadService,
 	toNextMetadata,
 } from "@/lib/payload/queries";
 import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspiration
-
-const profileImageSrc = `profile/profile_wide`;
-
-const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
-	src: profileImageSrc,
-	width: "512px",
-});
 
 export async function generateMetadata(): Promise<Metadata> {
 	const page = await getAboutPage();
@@ -112,26 +105,32 @@ const SocialButton = ({
 	);
 };
 
-const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
+type SocialLinksProps = {
+	github: string;
+	linkedin: string;
+	notion: string;
+};
+
+const SocialLinks = ({ github, linkedin, notion }: SocialLinksProps) => {
 	return (
 		<Card className="fade-in h-fit animate-in shadow-none duration-1000 lg:ml-20 lg:block lg:max-w-xs">
 			<CardContent>
 				<ul>
 					<SocialButton
-						href={env.PROJECT_GITHUB_URL}
+						href={github}
 						icon={GitHubIcon}
 						iconStyleOverride={{ width: "1.25rem", height: "1.25rem" }}
 					>
 						Follow on GitHub
 					</SocialButton>
 					<SocialButton
-						href={env.PROJECT_LINKEDIN_URL}
+						href={linkedin}
 						icon={LinkedInIcon}
 						iconStyleOverride={{ width: "1.25rem", height: "1.25rem" }}
 					>
 						Follow on LinkedIn
 					</SocialButton>
-					<SocialButton href={env.PROJECT_NOTION_URL} icon={NotionIcon}>
+					<SocialButton href={notion} icon={NotionIcon}>
 						View CV on Notion
 					</SocialButton>
 					<Link
@@ -139,7 +138,7 @@ const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
 						href="/contact"
 					>
 						<MessageCircle className="h-4 w-4 stroke-accent-foreground transition group-active:stroke-zinc-600 lg:col-span-1 lg:place-self-center dark:group-active:stroke-zinc-50 dark:group-hover:stroke-zinc-50" />
-						{ctaButtonText}
+						Let's Talk
 					</Link>
 				</ul>
 			</CardContent>
@@ -148,16 +147,18 @@ const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
 };
 
 export default async function About() {
-	const siteContent = await getSiteContent();
-	const servicesByCategory = await getServicesByCategory();
+	const [page, servicesByCategory, siteConfig] = await Promise.all([
+		getAboutPage(),
+		getServicesByCategory(),
+		getSiteConfig(),
+	]);
 	const developmentServices = servicesByCategory.get("Development") ?? [];
 	const professionalServices = servicesByCategory.get("Professional") ?? [];
 
-	const pageTitle = siteContent.about?.pageTitle ?? "A little bit about me";
-	const profileImageAlt =
-		siteContent.about?.profileImageAlt ??
-		"Side profile photo of Suneet on the coast of Iceland at sunset";
-	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
+	const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
+		src: siteConfig.profileImages.aboutPageProfileImage,
+		width: "512px",
+	});
 
 	return (
 		<PageContainer>
@@ -165,7 +166,7 @@ export default async function About() {
 				<div className="lg:pl-20">
 					<div className="max-w-xs px-2.5 lg:max-w-none">
 						<CloudinaryImage
-							alt={profileImageAlt}
+							alt={siteConfig.profileImages.aboutPageProfileImageAlt}
 							blurDataURL={blurDataUrl}
 							className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
 							height={512}
@@ -178,15 +179,24 @@ export default async function About() {
 				</div>
 				<div className="prose dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
 					<h1 className="font-bold text-4xl tracking-tight sm:text-5xl">
-						{pageTitle}
+						{page.pageIntro.title}
 					</h1>
 					<div className="mt-6 text-base">
-						<MyValues />
-						<MyExperience />
+						<ContentRichText data={page.pageIntro.intro} />
+						{page.myExperience && (
+							<ContentRichText
+								className="mt-8 lg:mt-4"
+								data={page.myExperience}
+							/>
+						)}
 					</div>
 				</div>
 				<div className="hidden lg:flex lg:justify-center">
-					<SocialLinks ctaButtonText={ctaButtonText} />
+					<SocialLinks
+						github={siteConfig.socialLinks.github}
+						linkedin={siteConfig.socialLinks.linkedin}
+						notion={siteConfig.socialLinks.notion}
+					/>
 				</div>
 			</div>
 			<div className="mt-8 lg:mt-4">
@@ -203,99 +213,12 @@ export default async function About() {
 				/>
 			</div>
 			<div className="mt-24 lg:hidden">
-				<SocialLinks ctaButtonText={ctaButtonText} />
+				<SocialLinks
+					github={siteConfig.socialLinks.github}
+					linkedin={siteConfig.socialLinks.linkedin}
+					notion={siteConfig.socialLinks.notion}
+				/>
 			</div>
 		</PageContainer>
 	);
 }
-
-const MyValues = () => {
-	return (
-		<div>
-			<p>
-				{`Helping people is great isn’t it? It’s been my primary motivator for as long as I can remember. I’ve tried my hand at a few different things over the years, but the ones that have stuck for the longest time are the experiences where I’ve walked away at the end of the day feeling like I’ve made a difference.`}
-			</p>
-			<p>{`My approach to building digital services starts and ends with helping people, because at the core of all of those beautiful bits and bytes, are the people who come together with an idea for a service, and the people that use them.`}</p>
-			<p>
-				{`Doing this with empathy and compassion helps to nurture the creative process, leading to meaningful and impactful digital experiences.`}
-			</p>
-			<p>
-				{`Solving problems with code, sharing ideas and contributing to a culture of continuous improvement and learning is how I make a difference. I have to understand the why behind what we're building, before I can best help the team, and myself to achieve our goals.`}
-			</p>
-			<p>
-				{`Below is a brief summary of my experience as a developer. The more I build, the more I want to build! Seriously, I think I might have a problem...`}
-			</p>
-		</div>
-	);
-};
-const MyExperience = () => {
-	return (
-		<div>
-			<div className="mt-8 lg:mt-4">
-				<h2 className="font-bold text-2xl">My experience:</h2>
-			</div>
-			<p>
-				{`Hi! I'm Suneet, I have an `}
-				<strong>MSc in Computing</strong>
-				{` with my dissertation focussing on bringing cultural heritage experiences to those of limited mobility through the use of mixed reality technologies.`}
-			</p>
-			<p>
-				{`I'm a graduate of the `}
-				<strong>
-					<Link
-						className="text-accent-foreground"
-						href="https://northcoders.com"
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						Northcoders
-					</Link>
-				</strong>
-				{` Developer Pathway which I completed in 2019 and also a former member of the tuition team there, where I was proud to help other students on their route into dev.`}
-			</p>
-			<p>
-				{`Following my time at Northcoders, I've worked within both `}
-				<strong>agency</strong>
-				{` and `}
-				<strong>client-side</strong>
-				{` environments, on all aspects of `}
-				<strong>full-stack applications</strong>
-				{` for a variety of national and international brands.`}
-			</p>
-			<p>
-				{`My experience includes `}
-				<strong>addressing technical debt</strong>
-				{` in existing projects, building `}
-				<strong>design systems</strong>
-				{` and `}
-				<strong>internal tooling</strong>
-				{`, designing and implementing `}
-				<strong>cloud infrastructure</strong>
-				{` and `}
-				<strong>CI/CD</strong> {` pipelines, `}
-				<strong>writing documentation</strong>
-				{`, `}
-				<strong>leading/mentoring junior developers</strong>
-				{` and setting up `}
-				<strong>greenfield projects</strong>.
-			</p>
-			<p>
-				{`Although I have some experience working in java, ruby, and python, I'm most experienced with `}
-				<strong>node and TypeScript</strong>
-				{`. Its a versatile and vibrant stack where the tooling and libraries are constantly being moved forwards.`}
-			</p>
-			<p>
-				{`My most recent experience as a team-member has been at `}
-				<Link
-					className="font-semibold text-accent-foreground"
-					href="https://www.trustalliancegroup.org/our-companies/lumin"
-					rel="noopener noreferrer"
-					target="_blank"
-				>
-					Lumin
-				</Link>
-				{` as a fullstack developer where I helped to address technical debt in their legacy react application and to extend their utilisation of AWS infrastructure to achieve improved performance and reliability at scale.`}
-			</p>
-		</div>
-	);
-};

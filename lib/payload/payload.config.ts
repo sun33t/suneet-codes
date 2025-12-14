@@ -5,8 +5,11 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 
 import {
+	Articles,
+	Authors,
 	Categories,
 	Following,
+	Keywords,
 	Media,
 	Projects,
 	Roles,
@@ -20,8 +23,9 @@ import {
 	ArticlesPage,
 	ContactPage,
 	FollowingPage,
+	HomePage,
 	ProjectsPage,
-	SiteContent,
+	SiteConfig,
 	ThankYouPage,
 	UsesPage,
 } from "./globals";
@@ -37,8 +41,11 @@ export default buildConfig({
 		},
 	},
 	collections: [
+		Articles,
+		Authors,
 		Categories,
 		Following,
+		Keywords,
 		Media,
 		Projects,
 		Roles,
@@ -52,8 +59,9 @@ export default buildConfig({
 		ArticlesPage,
 		ContactPage,
 		FollowingPage,
+		HomePage,
 		ProjectsPage,
-		SiteContent,
+		SiteConfig,
 		ThankYouPage,
 		UsesPage,
 	],

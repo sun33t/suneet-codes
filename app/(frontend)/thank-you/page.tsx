@@ -1,25 +1,33 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { SimpleLayout } from "@/components/layout/simple-layout";
+import { PageContainer } from "@/components/layout/page-container";
+import { PageIntro } from "@/components/layout/page-intro";
+import { PageSection } from "@/components/layout/page-section";
 import { Confetti } from "@/components/shared/confetti";
 import { buttonVariants } from "@/components/ui/button";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import { getThankYouPage, toNextMetadata } from "@/lib/payload/queries";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const page = await getThankYouPage();
 	return toNextMetadata(page.metadata);
 }
-export default function ThankYouPage() {
+
+export default async function ThankYouPage() {
+	const page = await getThankYouPage();
+
 	return (
-		<SimpleLayout
-			intro="I'm looking forward to learning more about your project and I'll get back to you on the contact details provided as soon as I can. You can also rest assured that your details are kept safe and not passed on to anyone else without your express permission"
-			title="Thanks for getting in touch."
-		>
-			<Link className={buttonVariants({ variant: "default" })} href="/">
-				Back home
-			</Link>
+		<PageContainer>
+			<PageIntro title={page.pageIntro.title}>
+				<ContentRichText data={page.pageIntro.intro} />
+			</PageIntro>
+			<PageSection>
+				<Link className={buttonVariants({ variant: "default" })} href="/">
+					Back home
+				</Link>
+			</PageSection>
 			<Confetti />
-		</SimpleLayout>
+		</PageContainer>
 	);
 }

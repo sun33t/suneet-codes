@@ -19,6 +19,7 @@ This project has layer-specific skills. When working on code in these areas,
 | MDX articles, content schema | `skill: content-layer` | `content/articles/`, `content/data/`, `content-collections.ts` |
 | React components, UI | `skill: component-layer` | `components/**/*.tsx` |
 | Pages, routes, layouts | `skill: page-layer` | `app/**/*.tsx` |
+| Payload CMS globals, collections, queries | `skill: payload-layer` | `lib/payload/**/*.ts` |
 
 **Why use skills:**
 - Skills contain project-specific patterns that must be followed
@@ -30,6 +31,7 @@ This project has layer-specific skills. When working on code in these areas,
 - `.claude/skills/content-layer/` - Content patterns and validation
 - `.claude/skills/component-layer/` - Component patterns and validation
 - `.claude/skills/page-layer/` - Page patterns and validation
+- `.claude/skills/payload-layer/` - Payload CMS patterns and validation
 
 ## Commands
 

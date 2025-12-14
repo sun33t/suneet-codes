@@ -1,4 +1,3 @@
-import type { Article } from "content-collections";
 import { z } from "zod";
 
 export type Route =
@@ -16,7 +15,7 @@ export type RouteProperties = {
 };
 
 export type SearchParams = Promise<{
-	category: Article["categories"]["0"] | Article["categories"] | undefined;
+	category: string | string[] | undefined;
 }>;
 
 export const contactFormFieldSchema = z.object({

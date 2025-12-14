@@ -6,12 +6,9 @@ import { Providers } from "@/components/providers";
 import { TwSizeIndicator } from "@/components/shared/tw-size-indicator";
 import { baseUrl } from "@/lib/config/baseUrl";
 import { env } from "@/lib/config/env";
+import { getSiteConfig } from "@/lib/payload/queries";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/globals.css";
-
-const ogImageUrl = getCldImageUrl({
-	src: withCloudinaryCloudName("profile/avatar_og"),
-});
 
 const geistSans = Geist({
 	weight: "variable",
@@ -33,35 +30,52 @@ export const viewport: Viewport = {
 	],
 };
 
-export const metadata: Metadata = {
-	metadataBase: baseUrl,
-	title: {
-		template: `%s | ${env.PROJECT_BASE_TITLE}`,
-		default: env.PROJECT_BASE_TITLE,
-	},
-	description: env.PROJECT_BASE_DESCRIPTION,
-	openGraph: {
-		title: env.PROJECT_BASE_TITLE,
-		description: env.PROJECT_BASE_DESCRIPTION,
-		url: baseUrl.href,
-		siteName: env.PROJECT_BASE_TITLE,
-		images: [ogImageUrl],
-		locale: "en_GB",
-		type: "website",
-	},
-	robots: {
-		...(baseUrl.hostname === env.PROJECT_DOMAIN
-			? { index: true, follow: true }
-			: { index: false, follow: false }),
-		nocache: false,
-	},
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const siteConfig = await getSiteConfig();
 
-export default function RootLayout({
+	const ogImageUrl = getCldImageUrl({
+		src: withCloudinaryCloudName(
+			siteConfig.profileImages.openGraphProfileImage,
+		),
+	});
+
+	return {
+		metadataBase: baseUrl,
+		title: {
+			template: `%s | ${siteConfig.siteTitle}`,
+			default: siteConfig.siteTitle,
+		},
+		description: siteConfig.siteDescription,
+		openGraph: {
+			title: siteConfig.siteTitle,
+			description: siteConfig.siteDescription,
+			url: baseUrl.href,
+			siteName: siteConfig.siteTitle,
+			images: [
+				{
+					url: ogImageUrl,
+					alt: siteConfig.profileImages.openGraphProfileImageAlt,
+				},
+			],
+			locale: "en_GB",
+			type: "website",
+		},
+		robots: {
+			...(baseUrl.hostname === env.PROJECT_DOMAIN
+				? { index: true, follow: true }
+				: { index: false, follow: false }),
+			nocache: false,
+		},
+	};
+}
+
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const siteConfig = await getSiteConfig();
+
 	return (
 		<html
 			className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
@@ -71,7 +85,12 @@ export default function RootLayout({
 			<body className="flex h-full bg-background">
 				<TwSizeIndicator />
 				<Providers>
-					<Layout>{children}</Layout>
+					<Layout
+						profileImages={siteConfig.profileImages}
+						siteOwner={siteConfig.siteOwner}
+					>
+						{children}
+					</Layout>
 				</Providers>
 			</body>
 		</html>

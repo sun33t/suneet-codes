@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { env } from "@/lib/config/env";
 import { ROUTES } from "@/lib/config/routes";
 import type { Route } from "@/types";
 import { ContainerInner, ContainerOuter } from "./container";
@@ -21,9 +20,10 @@ const NavLink = ({
 
 type FooterProps = {
 	routeNames: Route[];
+	siteOwner: string;
 };
 
-export const Footer = ({ routeNames }: FooterProps) => {
+export const Footer = ({ routeNames, siteOwner }: FooterProps) => {
 	return (
 		<footer
 			className="fade-in mt-32 flex-none animate-in duration-1000"
@@ -48,8 +48,8 @@ export const Footer = ({ routeNames }: FooterProps) => {
 								})}
 							</div>
 							<p className="text-sm text-zinc-400 dark:text-zinc-500">
-								&copy; {new Date().getFullYear()} {env.PROJECT_AUTHOR}. All
-								rights reserved.
+								&copy; {new Date().getFullYear()} {siteOwner}. All rights
+								reserved.
 							</p>
 						</div>
 					</ContainerInner>

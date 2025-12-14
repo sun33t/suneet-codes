@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import type { Article } from "content-collections";
 import Link, { type LinkProps } from "next/link";
 import { Fragment } from "react";
 import { Resume } from "@/components/features/resume";
@@ -18,9 +17,14 @@ import {
 } from "@/components/shared/link-card";
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
-import { env } from "@/lib/config/env";
-import { latestArticles } from "@/lib/content/articles";
-import { getAllRoles, getSiteContent } from "@/lib/payload/queries";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
+import {
+	type ArticleWithRelations,
+	getAllRoles,
+	getHomePage,
+	getLatestArticles,
+	getSiteConfig,
+} from "@/lib/payload/queries";
 import { formatDate } from "@/lib/utils/formatDate";
 
 export const dynamic = "force-static";
@@ -45,10 +49,10 @@ const SocialLink = ({
 	);
 };
 
-const ArticleCard = ({ article }: { article: Article }) => {
+const ArticleCard = ({ article }: { article: ArticleWithRelations }) => {
 	return (
 		<article>
-			<LinkCard href={`/articles/${article.slug}`} key={article._meta.fileName}>
+			<LinkCard href={`/articles/${article.slug}`} key={article.id}>
 				<LinkCardHeader>
 					<LinkCardEyebrow>
 						<time dateTime={article.date}>{formatDate(article.date)}</time>
@@ -88,103 +92,43 @@ const NoArticlesCard = () => {
 };
 
 export default async function Home() {
-	const [roles, siteContent] = await Promise.all([
+	const [roles, page, latestArticles, siteConfig] = await Promise.all([
 		getAllRoles(),
-		getSiteContent(),
+		getHomePage(),
+		getLatestArticles(3),
+		getSiteConfig(),
 	]);
-	const resumeSectionTitle = siteContent.ui?.resumeSectionTitle ?? "Work";
-	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
 
 	return (
 		<Fragment>
 			<Container className="fade-in mt-12 animate-in duration-1000">
 				<div className="max-w-2xl">
-					<PageIntro title={env.PROJECT_AUTHOR}>
-						<div className="space-y-4 text-muted-foreground">
-							<p>
-								👋, I&apos;m a developer based in the UK. I&apos;ve been
-								building software in the{" "}
-								<span className="font-semibold text-foreground underline">
-									e-commerce
-								</span>
-								,{" "}
-								<span className="font-semibold text-foreground underline">
-									retail
-								</span>{" "}
-								and{" "}
-								<span className="font-semibold text-foreground underline">
-									hospitality
-								</span>{" "}
-								spaces as well as for the{" "}
-								<span className="font-semibold text-foreground underline">
-									energy and comms ombudsman
-								</span>{" "}
-								over a five year period after completing my{" "}
-								<span className="font-semibold text-foreground underline">
-									MSc in Computing
-								</span>
-								.
-							</p>
-							<p>
-								I love to create digital experiences which{" "}
-								<span className="font-semibold text-foreground underline">
-									build community
-								</span>{" "}
-								and provide{" "}
-								<span className="font-semibold text-foreground underline">
-									meaningful value
-								</span>{" "}
-								.
-							</p>
-							<p>
-								If you&apos;d like to learn more about my journey into dev,
-								here&apos;s my{" "}
-								<Link
-									className="font-semibold text-accent-foreground"
-									href="/about"
-								>
-									about page
-								</Link>
-								, or if you&apos;re interested in working together here&apos;s
-								my{" "}
-								<Link
-									className="font-semibold text-accent-foreground"
-									href={env.PROJECT_NOTION_URL}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									cv
-								</Link>
-								, or use the links below.
-							</p>
-							<p>
-								When I&apos;m not working or learning new skills, I like to
-								read, cook, travel with my wife and spend time in the outdoors
-								with my friends.
-							</p>
+					<PageIntro title={page.pageIntro.title}>
+						<div>
+							<ContentRichText data={page.pageIntro.intro} />
 						</div>
 						<div className="mt-6 flex items-center gap-4">
 							<SocialLink
 								aria-label="Follow on GitHub"
-								href={env.PROJECT_GITHUB_URL}
+								href={siteConfig.socialLinks.github}
 								icon={GitHubIcon}
 								iconClasses="h-6 w-6"
 							/>
 							<SocialLink
 								aria-label="Follow on LinkedIn"
-								href={env.PROJECT_LINKEDIN_URL}
+								href={siteConfig.socialLinks.linkedin}
 								icon={LinkedInIcon}
 								iconClasses="h-6 w-6"
 							/>
 							<SocialLink
 								aria-label="Read my CV on Notion"
-								href={env.PROJECT_NOTION_URL}
+								href={siteConfig.socialLinks.notion}
 								icon={NotionIcon}
 								iconClasses="h-5 w-5"
 							/>
 							<SocialLink
 								aria-label="Follow me on bluesky"
-								href={env.PROJECT_BLUESKY_URL}
+								href={siteConfig.socialLinks.bluesky}
 								icon={BlueskyIcon}
 								iconClasses="h-5 w-5"
 							/>
@@ -198,12 +142,7 @@ export default async function Home() {
 						<div className="flex flex-col gap-16">
 							{latestArticles.length > 0 ? (
 								latestArticles.map((article) => {
-									return (
-										<ArticleCard
-											article={article}
-											key={article._meta.fileName}
-										/>
-									);
+									return <ArticleCard article={article} key={article.id} />;
 								})
 							) : (
 								<NoArticlesCard />
@@ -214,9 +153,9 @@ export default async function Home() {
 						{/* <Newsletter /> */}
 						<div>
 							<Resume
-								ctaButtonText={ctaButtonText}
+								ctaButtonText="Let's Talk"
 								roles={roles}
-								sectionTitle={resumeSectionTitle}
+								sectionTitle="Work"
 							/>
 						</div>
 					</div>

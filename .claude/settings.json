@@ -25,6 +25,10 @@
 					{
 						"type": "command",
 						"command": ".claude/skills/page-layer/scripts/validate-page-patterns.sh \"$CLAUDE_FILE_PATH\""
+					},
+					{
+						"type": "command",
+						"command": ".claude/skills/payload-layer/scripts/validate-payload-patterns.sh \"$CLAUDE_FILE_PATH\""
 					}
 				]
 			}

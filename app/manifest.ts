@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 import { baseUrl } from "@/lib/config/baseUrl";
-import { env } from "@/lib/config/env";
+import { getSiteConfig } from "@/lib/payload/queries";
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+	const siteConfig = await getSiteConfig();
+
 	return {
-		name: env.PROJECT_BASE_TITLE,
-		short_name: env.PROJECT_BASE_TITLE,
-		description: env.PROJECT_BASE_DESCRIPTION,
+		name: siteConfig.siteTitle,
+		short_name: siteConfig.siteTitle,
+		description: siteConfig.siteDescription,
 		orientation: "portrait",
 		start_url: "/",
 		display: "standalone",

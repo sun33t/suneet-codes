@@ -1,5 +1,15 @@
 // Query functions for fetching data from Payload CMS
 export {
+	type ArticleWithRelations,
+	getAllArticleSlugs,
+	getAllArticles,
+	getArticleBySlug,
+	getArticlesByCategory,
+	getLatestArticles,
+	getPublishedArticles,
+	type PayloadArticle,
+} from "./articles";
+export {
 	type CategoryWithSlug,
 	getAllCategories,
 	getCategoriesWithSlugs,
@@ -16,6 +26,7 @@ export {
 	getArticlesPage,
 	getContactPage,
 	getFollowingPage,
+	getHomePage,
 	getProjectsPage,
 	getThankYouPage,
 	getUsesPage,
@@ -23,6 +34,7 @@ export {
 	type PayloadArticlesPage,
 	type PayloadContactPage,
 	type PayloadFollowingPage,
+	type PayloadHomePage,
 	type PayloadProjectsPage,
 	type PayloadThankYouPage,
 	type PayloadUsesPage,
@@ -36,7 +48,7 @@ export {
 	type PayloadService,
 	type ServiceCategory,
 } from "./services";
-export { getSiteContent, type PayloadSiteContent } from "./site-content";
+export { getSiteConfig, type PayloadSiteConfig } from "./site-config";
 export { getAllTestimonials, type PayloadTestimonial } from "./testimonials";
 export {
 	getAllUses,

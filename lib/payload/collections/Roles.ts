@@ -8,6 +8,7 @@ export const Roles: CollectionConfig = {
 		afterDelete: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Content",
 		useAsTitle: "company",
 		defaultColumns: ["company", "title", "start", "end"],
 		description: "Work history / resume entries",

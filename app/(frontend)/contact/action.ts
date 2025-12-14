@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { env } from "@/lib/config/env";
+import { getSiteConfig } from "@/lib/payload/queries";
 import { sendResendEmail } from "@/lib/services/email/resend";
 import NewEnquiryConfirmationEmail from "@/lib/services/email/templates/NewEnquiryConfirmation";
 import NewEnquiryEmail from "@/lib/services/email/templates/NewEnquiryEmail";
@@ -84,9 +85,12 @@ export const createEnquiry = async (
 	// with server-side validation passing, send new enquiry email
 	const parsedData = parsed.data;
 
+	// Fetch contact email from CMS
+	const siteConfig = await getSiteConfig();
+
 	const isEnquiryEmailSent = await sendResendEmail({
 		from: env.RESEND_EMAIL_ADDRESS,
-		to: env.PROJECT_EMAIL_ADDRESS,
+		to: siteConfig.contact.email,
 		BASE_DELAY_MS: 1000,
 		MAX_ATTEMPTS: 3,
 		subject: "Website Enquiry",

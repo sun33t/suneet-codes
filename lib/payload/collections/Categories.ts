@@ -8,6 +8,7 @@ export const Categories: CollectionConfig = {
 		afterDelete: [() => triggerDeployHook()],
 	},
 	admin: {
+		group: "Blog",
 		useAsTitle: "title",
 		defaultColumns: ["title", "slug", "sortOrder"],
 		description: "Article categories for filtering and organization",

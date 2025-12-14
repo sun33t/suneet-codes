@@ -8,8 +8,9 @@ import type {
 	ArticlesPage,
 	ContactPage,
 	FollowingPage,
+	HomePage,
 	ProjectsPage,
-	SiteContent,
+	SiteConfig,
 	ThankYouPage,
 	UsesPage,
 } from "../payload-types";
@@ -35,8 +36,14 @@ export type FollowingSeed = RequiredDataFromCollectionSlug<"following">;
 /** Seed type for categories - makes id, createdAt, updatedAt optional */
 export type CategorySeed = RequiredDataFromCollectionSlug<"categories">;
 
-/** Seed type for site content global - makes id, createdAt, updatedAt optional */
-export type SiteContentSeed = RequiredDataFromCollection<SiteContent>;
+/** Seed type for keywords - makes id, createdAt, updatedAt optional */
+export type KeywordSeed = RequiredDataFromCollectionSlug<"keywords">;
+
+/** Seed type for articles - makes id, createdAt, updatedAt optional */
+export type ArticleSeed = RequiredDataFromCollectionSlug<"articles">;
+
+/** Seed type for site config global - makes id, createdAt, updatedAt optional */
+export type SiteConfigSeed = RequiredDataFromCollection<SiteConfig>;
 
 /** Seed type for about page global */
 export type AboutPageSeed = RequiredDataFromCollection<AboutPage>;
@@ -49,6 +56,9 @@ export type ContactPageSeed = RequiredDataFromCollection<ContactPage>;
 
 /** Seed type for following page global */
 export type FollowingPageSeed = RequiredDataFromCollection<FollowingPage>;
+
+/** Seed type for home page global */
+export type HomePageSeed = RequiredDataFromCollection<HomePage>;
 
 /** Seed type for projects page global */
 export type ProjectsPageSeed = RequiredDataFromCollection<ProjectsPage>;
