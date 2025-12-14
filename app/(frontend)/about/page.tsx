@@ -180,12 +180,10 @@ export default async function About() {
 				</div>
 				<div className="prose dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
 					<h1 className="font-bold text-4xl tracking-tight sm:text-5xl">
-						{page.pageTitle}
+						{page.pageIntro.title}
 					</h1>
 					<div className="mt-6 text-base">
-						{siteContent.about?.myValues && (
-							<ContentRichText data={siteContent.about.myValues} />
-						)}
+						<ContentRichText data={page.pageIntro.intro} />
 						{siteContent.about?.myExperience && (
 							<ContentRichText
 								className="mt-8 lg:mt-4"

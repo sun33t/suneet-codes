@@ -11,37 +11,6 @@ import {
 import type { SiteContentSeed } from "./types";
 
 /**
- * My Values content for the about page in Lexical format
- */
-const MY_VALUES = richText([
-	paragraph([
-		text(
-			"Helping people is great isn't it? It's been my primary motivator for as long as I can remember. I've tried my hand at a few different things over the years, but the ones that have stuck for the longest time are the experiences where I've walked away at the end of the day feeling like I've made a difference.",
-		),
-	]),
-	paragraph([
-		text(
-			"My approach to building digital services starts and ends with helping people, because at the core of all of those beautiful bits and bytes, are the people who come together with an idea for a service, and the people that use them.",
-		),
-	]),
-	paragraph([
-		text(
-			"Doing this with empathy and compassion helps to nurture the creative process, leading to meaningful and impactful digital experiences.",
-		),
-	]),
-	paragraph([
-		text(
-			"Solving problems with code, sharing ideas and contributing to a culture of continuous improvement and learning is how I make a difference. I have to understand the why behind what we're building, before I can best help the team, and myself to achieve our goals.",
-		),
-	]),
-	paragraph([
-		text(
-			"Below is a brief summary of my experience as a developer. The more I build, the more I want to build! Seriously, I think I might have a problem...",
-		),
-	]),
-]);
-
-/**
  * My Experience content for the about page in Lexical format
  */
 const MY_EXPERIENCE = richText([
@@ -160,9 +129,6 @@ export const SITE_CONTENT_SEED: Partial<SiteContentSeed> = {
 		shortBio: "Developer based in the UK",
 	},
 	about: {
-		pageTitle: "A little bit about me",
-		// biome-ignore lint/suspicious/noExplicitAny: Lexical JSON structure is complex
-		myValues: MY_VALUES as any,
 		// biome-ignore lint/suspicious/noExplicitAny: Lexical JSON structure is complex
 		myExperience: MY_EXPERIENCE as any,
 		profileImageAlt:

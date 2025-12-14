@@ -59,20 +59,6 @@ export const SiteContent: GlobalConfig = {
 			},
 			fields: [
 				{
-					name: "pageTitle",
-					type: "text",
-					label: "Page Title",
-					defaultValue: "A little bit about me",
-				},
-				{
-					name: "myValues",
-					type: "richText",
-					label: "My Values Section",
-					admin: {
-						description: "Values and philosophy content",
-					},
-				},
-				{
 					name: "myExperience",
 					type: "richText",
 					label: "My Experience Section",

@@ -252,7 +252,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE "about_page" (
   	"id" serial PRIMARY KEY NOT NULL,
-  	"page_title" varchar NOT NULL,
+  	"page_intro_title" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
   	"metadata_title" varchar NOT NULL,
   	"metadata_description" varchar NOT NULL,
   	"metadata_open_graph_title" varchar,
@@ -314,8 +315,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"site_owner" varchar NOT NULL,
   	"homepage_bio" jsonb,
   	"homepage_short_bio" varchar,
-  	"about_page_title" varchar DEFAULT 'A little bit about me',
-  	"about_my_values" jsonb,
   	"about_my_experience" jsonb,
   	"about_profile_image_alt" varchar DEFAULT 'Side profile photo of Suneet on the coast of Iceland at sunset',
   	"newsletter_title" varchar DEFAULT 'Stay up to date',

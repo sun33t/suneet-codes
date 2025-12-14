@@ -2786,9 +2786,15 @@
           "primaryKey": true,
           "notNull": true
         },
-        "page_title": {
-          "name": "page_title",
+        "page_intro_title": {
+          "name": "page_intro_title",
           "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "page_intro_intro": {
+          "name": "page_intro_intro",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": true
         },
@@ -3133,19 +3139,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "about_page_title": {
-          "name": "about_page_title",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'A little bit about me'"
-        },
-        "about_my_values": {
-          "name": "about_my_values",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
-        },
         "about_my_experience": {
           "name": "about_my_experience",
           "type": "jsonb",
@@ -3399,6 +3392,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "2a59ba72-3923-4dad-bd12-f0e79469d186",
+  "id": "6d656a1a-6443-4058-b583-76eb084bf595",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
