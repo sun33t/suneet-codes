@@ -33,29 +33,41 @@ description: "This skill should be used when the user asks to 'create a page glo
 ### Adding or changing fields in an existing global?
 
 1. **Update global definition**: Edit fields in `lib/payload/globals/{Name}.ts`
-2. **Update seed data**: Modify corresponding seed constant
+2. **Update seed data**: Modify corresponding seed file
+   - Page globals: `lib/payload/data/page-metadata.seed.ts`
+   - SiteConfig: `lib/payload/data/site-config.seed.ts`
 3. **Generate types**: Run `pnpm payload:types`
 4. **Create migration**: Run `pnpm payload:generate`
 5. **Apply migration**: Run `pnpm payload:migrate`
 6. **Re-seed**: Run `pnpm payload:seed`
 7. **Update frontend**: Adjust components using the global
 
-### Adding a field to SiteContent?
-
-1. **Add field definition**: Edit `lib/payload/globals/SiteContent.ts`
-2. **Update seed data**: Edit `lib/payload/data/site-content.seed.ts`
-3. **Generate types**: Run `pnpm payload:types`
-4. **Create migration**: Run `pnpm payload:generate`
-5. **Update frontend**: Access via `getSiteContent()`
-
-### Moving content from SiteContent to a page global?
+### Moving content from SiteConfig to a page global?
 
 1. **Create/update page global**: Add fields with `createPageIntroFields()` + `createMetadataFields()`
-2. **Remove from SiteContent**: Delete fields from global definition
-3. **Move seed data**: Transfer from `site-content.seed.ts` to `page-metadata.seed.ts`
+2. **Remove from SiteConfig**: Delete fields from global definition
+3. **Move seed data**: Transfer from `site-config.seed.ts` to `page-metadata.seed.ts`
 4. **Update seed script**: Ensure new global is in `seedPageMetadata()` pages array
 5. **Generate types**: Run `pnpm payload:types`
-6. **Update frontend**: Change from `getSiteContent()` to `get{PageName}()`
+6. **Create migration**: Run `pnpm payload:generate`
+7. **Apply migration**: Run `pnpm payload:migrate`
+8. **Re-seed**: Run `pnpm payload:seed`
+9. **Update frontend**: Change from `getSiteConfig()` to `get{PageName}()`
+
+### Migrating environment variables to CMS?
+
+1. **Identify candidates**: Content/config values (not secrets/API keys)
+2. **Add fields to SiteConfig**: Create field groups for logical organization
+3. **Update seed data**: Add values from `.env.local` to `site-config.seed.ts`
+4. **Generate types**: Run `pnpm payload:types`
+5. **Create migration**: Run `pnpm payload:generate`
+6. **Apply migration**: Run `pnpm payload:migrate`
+7. **Re-seed**: Run `pnpm payload:seed`
+8. **Update frontend**: Replace `env.VAR_NAME` with `siteConfig.fieldName`
+9. **Remove from env.ts**: Delete migrated variables from schema
+
+**Good candidates for CMS**: Site title, description, social links, contact info, calendar URLs
+**Keep in env vars**: API keys, secrets, domain config, infrastructure settings
 
 ### Creating seed data with rich text?
 
@@ -69,7 +81,7 @@ description: "This skill should be used when the user asks to 'create a page glo
 1. **Remove field definition**: Delete field/group from `lib/payload/globals/{Name}.ts` or `lib/payload/collections/{Name}.ts`
 2. **Remove seed data**: Delete corresponding data from `lib/payload/data/*.seed.ts`
 3. **Update frontend**: Either hardcode values directly in JSX or remove usage entirely
-4. **Clean up imports**: Remove unused query imports (e.g., `getSiteContent()`) if no longer needed
+4. **Clean up imports**: Remove unused query imports (e.g., `getSiteConfig()`) if no longer needed
 5. **Generate types**: Run `pnpm payload:types`
 6. **Create migration**: Run `pnpm payload:generate`
 7. **Apply migration**: Run `pnpm payload:migrate`
@@ -174,6 +186,19 @@ Located in `lib/payload/data/lexical-helpers.ts`:
 - ❌ Skipping migration generation/application
 - ❌ Not updating frontend after moving content between globals
 - ❌ Forgetting to add type to `data/types.ts` for new globals
+- ❌ Using plural slugs that get singularized (see naming convention below)
+
+## Type Naming Convention
+
+**IMPORTANT**: Payload singularizes slug names when generating TypeScript types.
+
+| Slug | Generated Type | Problem? |
+|------|----------------|----------|
+| `site-config` | `SiteConfig` | ✅ No issue |
+| `site-settings` | `SiteSetting` | ⚠️ Singularized! |
+| `about-page` | `AboutPage` | ✅ No issue |
+
+**Recommendation**: Avoid slugs ending in "s" that look plural (settings, users, options). Use singular or compound names like `site-config` instead of `site-settings`.
 
 ## Validation
 

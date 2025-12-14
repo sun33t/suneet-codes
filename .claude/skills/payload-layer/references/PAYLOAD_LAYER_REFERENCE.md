@@ -23,7 +23,7 @@ lib/payload/
 │   ├── FollowingPage.ts
 │   ├── HomePage.ts
 │   ├── ProjectsPage.ts
-│   ├── SiteContent.ts          # Site-wide content (UI labels, etc.)
+│   ├── SiteConfig.ts           # Site-wide config (title, social links, contact)
 │   ├── ThankYouPage.ts
 │   └── UsesPage.ts
 ├── collections/
@@ -37,12 +37,12 @@ lib/payload/
 │   ├── types.ts                # Seed type definitions
 │   ├── lexical-helpers.ts      # Rich text builder utilities
 │   ├── page-metadata.seed.ts   # Page global seed data
-│   ├── site-content.seed.ts    # SiteContent seed data
+│   ├── site-config.seed.ts     # SiteConfig seed data
 │   └── ... (collection seed files)
 ├── queries/
 │   ├── index.ts                # Query exports
 │   ├── page-metadata.ts        # Page global queries
-│   ├── site-content.ts         # SiteContent queries
+│   ├── site-config.ts          # SiteConfig queries
 │   └── ... (collection queries)
 ├── scripts/
 │   └── seed-payload.ts         # Seed execution script
@@ -165,38 +165,48 @@ export {
 } from "./page-metadata";
 ```
 
-### Pattern 2: SiteContent Fields
+### Pattern 2: SiteConfig Fields
 
-**When to use**: Site-wide content not specific to a single page (footer, UI labels, etc.)
+**When to use**: Site-wide config not specific to a single page (site title, social links, contact info, etc.)
 
-**Add field** (`lib/payload/globals/SiteContent.ts`):
+**Add field** (`lib/payload/globals/SiteConfig.ts`):
 ```typescript
 {
   name: "groupName",
   type: "group",
   label: "Group Label",
   admin: {
-    description: "Description of this content group",
+    description: "Description of this config group",
   },
   fields: [
     {
       name: "fieldName",
       type: "text",
       label: "Field Label",
-      defaultValue: "Default value",
+      required: true,
+      admin: {
+        description: "Field description",
+      },
     },
   ],
 },
 ```
 
-**Seed data** (`lib/payload/data/site-content.seed.ts`):
+**Seed data** (`lib/payload/data/site-config.seed.ts`):
 ```typescript
-export const SITE_CONTENT_SEED: Partial<SiteContentSeed> = {
+export const SITE_CONFIG_SEED: Partial<SiteConfigSeed> = {
   groupName: {
     fieldName: "Value",
   },
 };
 ```
+
+**Current SiteConfig structure**:
+- `siteOwner` - Name for footer copyright
+- `siteTitle` - Site title for metadata
+- `siteDescription` - Default meta description
+- `socialLinks` group - github, linkedin, bluesky, notion URLs
+- `contact` group - email, calendarUrl
 
 ### Pattern 3: Rich Text Content
 
