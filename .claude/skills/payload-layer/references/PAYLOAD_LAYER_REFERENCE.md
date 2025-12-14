@@ -1,57 +1,24 @@
 # Payload Layer Reference
 
-## Overview
+## Purpose
 
-The payload layer manages all Payload CMS configuration including globals, collections, seed data, queries, and migrations. Uses Postgres via Neon with Lexical rich text editor.
+This reference covers **patterns for ongoing Payload development** in an existing project:
+- Adding page globals and collections
+- Creating seed data and queries
+- Frontend consumption patterns
+
+For **initial setup and infrastructure file templates**, see [PAYLOAD_BOOTSTRAP_REFERENCE.md](PAYLOAD_BOOTSTRAP_REFERENCE.md#bootstrap-checklist).
 
 ## File Organization
 
-```
-lib/payload/
-├── payload.config.ts           # Main Payload configuration
-├── payload-types.ts            # Auto-generated types (DO NOT EDIT)
-├── get-payload.ts              # Payload client singleton
-├── deploy-hook.ts              # Deployment trigger hook
-├── globals/
-│   ├── index.ts                # Global exports
-│   ├── fields/
-│   │   ├── metadata-fields.ts  # Reusable metadata field group
-│   │   └── page-intro-fields.ts # Reusable pageIntro field group
-│   ├── AboutPage.ts
-│   ├── ArticlesPage.ts
-│   ├── ContactPage.ts
-│   ├── FollowingPage.ts
-│   ├── HomePage.ts
-│   ├── ProjectsPage.ts
-│   ├── SiteConfig.ts           # Site-wide config (title, social links, contact)
-│   ├── ThankYouPage.ts
-│   └── UsesPage.ts
-├── collections/
-│   ├── index.ts                # Collection exports
-│   ├── Articles.ts
-│   ├── Authors.ts
-│   ├── Categories.ts
-│   └── ... (other collections)
-├── data/
-│   ├── index.ts                # Seed data exports
-│   ├── types.ts                # Seed type definitions
-│   ├── lexical-helpers.ts      # Rich text builder utilities
-│   ├── page-metadata.seed.ts   # Page global seed data
-│   ├── site-config.seed.ts     # SiteConfig seed data
-│   └── ... (collection seed files)
-├── queries/
-│   ├── index.ts                # Query exports
-│   ├── page-metadata.ts        # Page global queries
-│   ├── site-config.ts          # SiteConfig queries
-│   └── ... (collection queries)
-├── scripts/
-│   └── seed-payload.ts         # Seed execution script
-├── migrations/
-│   ├── index.ts                # Migration registry
-│   └── *.ts                    # Migration files
-└── lexical/
-    └── content-rich-text.tsx   # Rich text renderer component
-```
+See [PAYLOAD_BOOTSTRAP_REFERENCE.md](PAYLOAD_BOOTSTRAP_REFERENCE.md#directory-structure) for the complete directory structure and infrastructure file templates.
+
+Key directories:
+- `lib/payload/globals/` - Global configurations (SiteConfig, page globals)
+- `lib/payload/collections/` - Collection configurations
+- `lib/payload/data/` - Seed data and lexical helpers
+- `lib/payload/queries/` - Query functions for frontend
+- `lib/payload/scripts/` - Seed execution script
 
 ## Patterns
 
@@ -267,13 +234,400 @@ richText([
 ])
 ```
 
-### Pattern 4: Frontend Consumption
+### Pattern 4: Simple Collection
 
-**Page component**:
+**When to use**: Basic data like Authors, Keywords, or any simple entity.
+
+**Collection definition** (`lib/payload/collections/{CollectionName}.ts`):
+```typescript
+import type { CollectionConfig } from "payload";
+import { triggerDeployHook } from "../deploy-hook";
+
+export const Authors: CollectionConfig = {
+  slug: "authors",
+  hooks: {
+    afterChange: [() => triggerDeployHook()],
+    afterDelete: [() => triggerDeployHook()],
+  },
+  admin: {
+    group: "Blog",
+    useAsTitle: "name",
+    defaultColumns: ["name"],
+    description: "Article authors",
+  },
+  access: {
+    read: () => true,
+    create: ({ req }) => !!req.user,
+    update: ({ req }) => !!req.user,
+    delete: ({ req }) => !!req.user,
+  },
+  defaultSort: "name",
+  fields: [
+    {
+      name: "name",
+      type: "text",
+      required: true,
+      unique: true,
+      label: "Author Name",
+      admin: {
+        description: "Full name of the author",
+      },
+    },
+  ],
+};
+```
+
+**Export** (`lib/payload/collections/index.ts`):
+```typescript
+export { Authors } from "./Authors";
+```
+
+**Seed type** (`lib/payload/data/types.ts`):
+```typescript
+export type AuthorSeed = RequiredDataFromCollectionSlug<"authors">;
+```
+
+**Seed data** (`lib/payload/data/authors.seed.ts`):
+```typescript
+import type { AuthorSeed } from "./types";
+
+export const AUTHORS_SEED: AuthorSeed[] = [
+  { name: "Suneet Misra" },
+  { name: "Guest Author" },
+];
+```
+
+**Seed function** (`lib/payload/scripts/seed-payload.ts`):
+```typescript
+async function seedAuthors() {
+  const payload = await getPayloadClient();
+
+  console.log("Seeding authors...");
+
+  for (const author of AUTHORS_SEED) {
+    try {
+      await payload.create({
+        collection: "authors",
+        data: author,
+      });
+      console.log(`  ✓ Created author: ${author.name}`);
+    } catch (error) {
+      console.error(`  ✗ Failed to create author ${author.name}:`, error);
+    }
+  }
+
+  console.log("Authors seeding complete!");
+}
+```
+
+### Pattern 5: Collection with Relationships
+
+**When to use**: Collections that reference other collections (e.g., Articles with Authors, Categories).
+
+**Important**: Create related collections first (Authors, Categories, Keywords before Articles).
+
+**Collection definition** (`lib/payload/collections/Articles.ts`):
+```typescript
+import type { CollectionConfig } from "payload";
+import { triggerDeployHook } from "../deploy-hook";
+
+export const Articles: CollectionConfig = {
+  slug: "articles",
+  hooks: {
+    afterChange: [() => triggerDeployHook()],
+    afterDelete: [() => triggerDeployHook()],
+  },
+  admin: {
+    group: "Blog",
+    useAsTitle: "title",
+    defaultColumns: ["title", "isPublished", "date", "author"],
+    description: "Blog articles with rich text content",
+  },
+  access: {
+    read: () => true,
+    create: ({ req }) => !!req.user,
+    update: ({ req }) => !!req.user,
+    delete: ({ req }) => !!req.user,
+  },
+  defaultSort: "-date",
+  fields: [
+    {
+      name: "isPublished",
+      type: "checkbox",
+      defaultValue: false,
+      label: "Published",
+      admin: {
+        description: "Only published articles are visible",
+        position: "sidebar",
+      },
+    },
+    {
+      name: "title",
+      type: "text",
+      required: true,
+      minLength: 5,
+      label: "Title",
+    },
+    {
+      name: "slug",
+      type: "text",
+      required: true,
+      unique: true,
+      label: "Slug",
+      admin: {
+        description: "Used in URLs (e.g., 'my-article-title')",
+        position: "sidebar",
+      },
+    },
+    // Single relationship (required)
+    {
+      name: "author",
+      type: "relationship",
+      relationTo: "authors",
+      required: true,
+      label: "Author",
+      admin: {
+        position: "sidebar",
+      },
+    },
+    {
+      name: "date",
+      type: "date",
+      required: true,
+      label: "Publish Date",
+      admin: {
+        position: "sidebar",
+        date: {
+          pickerAppearance: "dayOnly",
+          displayFormat: "yyyy-MM-dd",
+        },
+      },
+    },
+    {
+      name: "description",
+      type: "textarea",
+      required: true,
+      label: "Description",
+      admin: {
+        description: "Short description for article cards and SEO",
+      },
+    },
+    // Many-to-many relationship (optional)
+    {
+      name: "keywords",
+      type: "relationship",
+      relationTo: "keywords",
+      hasMany: true,
+      label: "Keywords",
+      admin: {
+        description: "SEO keywords for the article",
+        position: "sidebar",
+      },
+    },
+    // Many-to-many relationship (required, min 1)
+    {
+      name: "categories",
+      type: "relationship",
+      relationTo: "categories",
+      hasMany: true,
+      required: true,
+      minRows: 1,
+      label: "Categories",
+      admin: {
+        description: "Select at least one category",
+        position: "sidebar",
+      },
+    },
+    {
+      name: "content",
+      type: "richText",
+      label: "Content",
+    },
+  ],
+};
+```
+
+**Query with populated relationships** (`lib/payload/queries/articles.ts`):
+```typescript
+import { getPayloadClient } from "../get-payload";
+import type { Article, Author, Category, Keyword } from "../payload-types";
+
+export type { Article as PayloadArticle } from "../payload-types";
+
+/**
+ * Article with populated relationships (full objects instead of IDs).
+ *
+ * Why this type exists:
+ * - The generated `Article` type has union types: `author: number | Author`
+ * - This is because Payload doesn't know if relationships will be populated
+ * - When using `depth: 1`, relationships ARE populated as full objects
+ * - This type reflects that reality for type safety
+ */
+export type ArticleWithRelations = Omit<
+  Article,
+  "categories" | "keywords" | "author"
+> & {
+  categories: Category[];
+  keywords: Keyword[];
+  author: Author;
+};
+
+/**
+ * Fetches all articles with populated relationships.
+ */
+export async function getAllArticles(): Promise<ArticleWithRelations[]> {
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "articles",
+    sort: "-date",
+    limit: 100,
+    depth: 1, // Populate relationships one level deep
+  });
+  return result.docs as ArticleWithRelations[];
+}
+
+/**
+ * Fetches only published articles.
+ */
+export async function getPublishedArticles(): Promise<ArticleWithRelations[]> {
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "articles",
+    where: {
+      isPublished: { equals: true },
+    },
+    sort: "-date",
+    limit: 100,
+    depth: 1,
+  });
+  return result.docs as ArticleWithRelations[];
+}
+
+/**
+ * Fetches a single article by slug.
+ */
+export async function getArticleBySlug(
+  slug: string
+): Promise<ArticleWithRelations | null> {
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "articles",
+    where: {
+      slug: { equals: slug },
+      isPublished: { equals: true },
+    },
+    depth: 1,
+    limit: 1,
+  });
+  return (result.docs[0] as ArticleWithRelations) ?? null;
+}
+
+/**
+ * Fetches all published article slugs for generateStaticParams.
+ */
+export async function getAllArticleSlugs(): Promise<{ slug: string }[]> {
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "articles",
+    where: {
+      isPublished: { equals: true },
+    },
+    limit: 100,
+    depth: 0, // No need to populate for just slugs
+  });
+  return result.docs.map((article) => ({ slug: article.slug }));
+}
+```
+
+**Understanding depth parameter**:
+- `depth: 0` - Returns only IDs for relationships (faster, less data)
+- `depth: 1` - Populates relationships one level (full objects)
+- `depth: 2` - Populates nested relationships (relationships of relationships)
+
+**Understanding union types in generated types**:
+```typescript
+// In payload-types.ts, relationships are typed as unions:
+interface Article {
+  author: number | Author;       // Could be ID or full object
+  categories?: (number | Category)[] | null;
+}
+
+// After querying with depth: 1, we know they're populated:
+// article.author.name  // ✅ Works at runtime
+// But TypeScript still sees: number | Author
+
+// Solution: Create ArticleWithRelations type that asserts the populated shape
+```
+
+### Pattern 6: Collection with Slug and Sort Order
+
+**When to use**: Collections used for filtering/categorization (Categories, Tags).
+
+```typescript
+import type { CollectionConfig } from "payload";
+import { triggerDeployHook } from "../deploy-hook";
+
+export const Categories: CollectionConfig = {
+  slug: "categories",
+  hooks: {
+    afterChange: [() => triggerDeployHook()],
+    afterDelete: [() => triggerDeployHook()],
+  },
+  admin: {
+    group: "Blog",
+    useAsTitle: "title",
+    defaultColumns: ["title", "slug", "sortOrder"],
+    description: "Article categories for filtering",
+  },
+  access: {
+    read: () => true,
+    create: ({ req }) => !!req.user,
+    update: ({ req }) => !!req.user,
+    delete: ({ req }) => !!req.user,
+  },
+  defaultSort: "sortOrder",
+  fields: [
+    {
+      name: "title",
+      type: "text",
+      required: true,
+      unique: true,
+      minLength: 2,
+      label: "Category Title",
+    },
+    {
+      name: "slug",
+      type: "text",
+      required: true,
+      unique: true,
+      label: "URL Slug",
+      admin: {
+        description: "Used in URLs for filtering",
+      },
+    },
+    {
+      name: "sortOrder",
+      type: "number",
+      label: "Display Order",
+      defaultValue: 0,
+      admin: {
+        description: "Order in filter list (lower numbers first)",
+      },
+    },
+  ],
+};
+```
+
+### Pattern 7: Frontend Consumption
+
+**Helper function `toNextMetadata`**: Defined in `lib/payload/queries/page-metadata.ts`, converts Payload's `PageMetadata` to Next.js `Metadata` format. Falls back to page title/description if OG values are not set.
+
+**Page component with global data**:
 ```tsx
+import type { Metadata } from "next";
 import {
   get{PageName},
-  toNextMetadata,
+  toNextMetadata,  // From page-metadata.ts
 } from "@/lib/payload/queries";
 import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 
@@ -296,6 +650,100 @@ export default async function Page() {
 }
 ```
 
+**Page component with collection data (articles list)**:
+```tsx
+import type { Metadata } from "next";
+import {
+  getArticlesPage,
+  getPublishedArticles,
+  toNextMetadata,
+} from "@/lib/payload/queries";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getArticlesPage();
+  return toNextMetadata(page.metadata);
+}
+
+export default async function ArticlesPage() {
+  const [page, articles] = await Promise.all([
+    getArticlesPage(),
+    getPublishedArticles(),
+  ]);
+
+  return (
+    <PageContainer>
+      <h1>{page.pageIntro.title}</h1>
+      <ul>
+        {articles.map((article) => (
+          <li key={article.id}>
+            <a href={`/articles/${article.slug}`}>{article.title}</a>
+            <p>By {article.author.name}</p> {/* Populated relationship */}
+          </li>
+        ))}
+      </ul>
+    </PageContainer>
+  );
+}
+```
+
+**Dynamic route with generateStaticParams**:
+```tsx
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import {
+  getArticleBySlug,
+  getAllArticleSlugs,
+} from "@/lib/payload/queries";
+
+// Generate static paths at build time
+export async function generateStaticParams() {
+  const slugs = await getAllArticleSlugs();
+  return slugs; // Returns [{ slug: "article-1" }, { slug: "article-2" }, ...]
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
+
+  if (!article) {
+    return { title: "Article Not Found" };
+  }
+
+  return {
+    title: article.title,
+    description: article.description,
+  };
+}
+
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
+
+  if (!article) {
+    notFound();
+  }
+
+  return (
+    <article>
+      <h1>{article.title}</h1>
+      <p>By {article.author.name}</p>
+      <div>
+        Categories: {article.categories.map((c) => c.title).join(", ")}
+      </div>
+      {/* Render article.content with rich text renderer */}
+    </article>
+  );
+}
+```
+
 ## Commands
 
 ```bash
@@ -308,22 +756,12 @@ pnpm payload:reset    # Reset database (destructive)
 
 ## Reusable Field Groups
 
-### pageIntro Fields
+For full implementation templates, see [PAYLOAD_BOOTSTRAP_REFERENCE.md](PAYLOAD_BOOTSTRAP_REFERENCE.md#infrastructure-files).
 
-Defined in `lib/payload/globals/fields/page-intro-fields.ts`:
-- `title` (text, required) - Page H1 heading
-- `intro` (richText, required) - Intro content below title
-
-Type: `PageIntro` from same file.
-
-### metadata Fields
-
-Defined in `lib/payload/globals/fields/metadata-fields.ts`:
-- `title` (text, required) - SEO title
-- `description` (text, required) - SEO description
-- `openGraph` (group) - OG title, description
-
-Type: `PageMetadata` from same file.
+| Field Group | File | Fields | TypeScript Type |
+|-------------|------|--------|-----------------|
+| `createPageIntroFields()` | `globals/fields/page-intro-fields.ts` | `title` (text), `intro` (richText) | `PageIntro` |
+| `createMetadataFields()` | `globals/fields/metadata-fields.ts` | `title`, `description`, `openGraph` | `PageMetadata` |
 
 ## Anti-Patterns
 
