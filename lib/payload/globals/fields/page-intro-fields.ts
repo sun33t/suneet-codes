@@ -1,3 +1,4 @@
+import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import type { GroupField } from "payload";
 
 /**
@@ -6,7 +7,7 @@ import type { GroupField } from "payload";
  */
 export type PageIntro = {
 	title: string;
-	intro: string;
+	intro: SerializedEditorState;
 };
 
 /**
@@ -32,11 +33,11 @@ export const createPageIntroFields = (): GroupField => ({
 		},
 		{
 			name: "intro",
-			type: "textarea",
+			type: "richText",
 			label: "Intro Text",
 			required: true,
 			admin: {
-				description: "Introductory paragraph displayed below the title",
+				description: "Introductory content displayed below the title",
 			},
 		},
 	],

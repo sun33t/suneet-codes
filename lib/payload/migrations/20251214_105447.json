@@ -2855,7 +2855,7 @@
         },
         "page_intro_intro": {
           "name": "page_intro_intro",
-          "type": "varchar",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": true
         },
@@ -2922,7 +2922,7 @@
         },
         "page_intro_intro": {
           "name": "page_intro_intro",
-          "type": "varchar",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": true
         },
@@ -2989,7 +2989,7 @@
         },
         "page_intro_intro": {
           "name": "page_intro_intro",
-          "type": "varchar",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": true
         },
@@ -3056,7 +3056,7 @@
         },
         "page_intro_intro": {
           "name": "page_intro_intro",
-          "type": "varchar",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": true
         },
@@ -3233,7 +3233,7 @@
         },
         "page_intro_intro": {
           "name": "page_intro_intro",
-          "type": "varchar",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": true
         },
@@ -3300,7 +3300,7 @@
         },
         "page_intro_intro": {
           "name": "page_intro_intro",
-          "type": "varchar",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": true
         },
@@ -3399,6 +3399,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "e34a6672-fdfe-4055-b4c9-5696efb436ab",
+  "id": "2a59ba72-3923-4dad-bd12-f0e79469d186",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

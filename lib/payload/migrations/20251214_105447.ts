@@ -264,7 +264,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "articles_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"page_intro_title" varchar NOT NULL,
-  	"page_intro_intro" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
   	"metadata_title" varchar NOT NULL,
   	"metadata_description" varchar NOT NULL,
   	"metadata_open_graph_title" varchar,
@@ -276,7 +276,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "contact_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"page_intro_title" varchar NOT NULL,
-  	"page_intro_intro" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
   	"metadata_title" varchar NOT NULL,
   	"metadata_description" varchar NOT NULL,
   	"metadata_open_graph_title" varchar,
@@ -288,7 +288,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "following_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"page_intro_title" varchar NOT NULL,
-  	"page_intro_intro" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
   	"metadata_title" varchar NOT NULL,
   	"metadata_description" varchar NOT NULL,
   	"metadata_open_graph_title" varchar,
@@ -300,7 +300,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "projects_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"page_intro_title" varchar NOT NULL,
-  	"page_intro_intro" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
   	"metadata_title" varchar NOT NULL,
   	"metadata_description" varchar NOT NULL,
   	"metadata_open_graph_title" varchar,
@@ -330,7 +330,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "thank_you_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"page_intro_title" varchar NOT NULL,
-  	"page_intro_intro" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
   	"metadata_title" varchar NOT NULL,
   	"metadata_description" varchar NOT NULL,
   	"metadata_open_graph_title" varchar,
@@ -342,7 +342,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "uses_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"page_intro_title" varchar NOT NULL,
-  	"page_intro_intro" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
   	"metadata_title" varchar NOT NULL,
   	"metadata_description" varchar NOT NULL,
   	"metadata_open_graph_title" varchar,

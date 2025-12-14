@@ -17,6 +17,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import type { Use } from "@/lib/payload/payload-types";
 import {
 	getUsesByCategory,
@@ -76,7 +77,7 @@ export default async function Uses() {
 	return (
 		<PageContainer>
 			<PageIntro title={page.pageIntro.title}>
-				<p>{page.pageIntro.intro}</p>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<div className="mx-auto max-w-2xl" id="accordion">

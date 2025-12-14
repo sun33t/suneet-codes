@@ -5,6 +5,7 @@ import { SuspendedArticlesList } from "@/components/features/articles-list";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
 import { PageSection } from "@/components/layout/page-section";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	getArticlesPage,
 	getCategoriesWithSlugs,
@@ -30,7 +31,7 @@ export default async function Articles({
 	return (
 		<PageContainer>
 			<PageIntro title={page.pageIntro.title}>
-				<p>{page.pageIntro.intro}</p>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<SuspendedArticlesFilter categories={categories} />

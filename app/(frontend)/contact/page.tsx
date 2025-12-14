@@ -8,6 +8,7 @@ import { PageSection } from "@/components/layout/page-section";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { env } from "@/lib/config/env";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	getAllServices,
 	getContactPage,
@@ -28,7 +29,7 @@ export default async function Contact() {
 	return (
 		<PageContainer>
 			<PageIntro title={page.pageIntro.title}>
-				<p>{page.pageIntro.intro}</p>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<Card className="mx-auto mb-16 max-w-xl px-6 py-6 shadow-none">

@@ -6,6 +6,7 @@ import { PageIntro } from "@/components/layout/page-intro";
 import { PageSection } from "@/components/layout/page-section";
 import { Confetti } from "@/components/shared/confetti";
 import { buttonVariants } from "@/components/ui/button";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import { getThankYouPage, toNextMetadata } from "@/lib/payload/queries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -19,7 +20,7 @@ export default async function ThankYouPage() {
 	return (
 		<PageContainer>
 			<PageIntro title={page.pageIntro.title}>
-				<p>{page.pageIntro.intro}</p>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<Link className={buttonVariants({ variant: "default" })} href="/">

@@ -14,6 +14,7 @@ import {
 	LinkCardTitle,
 } from "@/components/shared/link-card";
 import { SuspendedLogoImage } from "@/components/shared/logo-image";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import type { Project } from "@/lib/payload/payload-types";
 import {
 	getAllProjects,
@@ -64,7 +65,7 @@ export default async function Projects() {
 	return (
 		<PageContainer>
 			<PageIntro title={page.pageIntro.title}>
-				<p>{page.pageIntro.intro}</p>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<ul className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">

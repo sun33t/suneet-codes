@@ -18,6 +18,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	type FollowingCategory,
 	getFollowingByCategory,
@@ -69,7 +70,7 @@ export default async function Following() {
 	return (
 		<PageContainer>
 			<PageIntro title={page.pageIntro.title}>
-				<p>{page.pageIntro.intro}</p>
+				<ContentRichText data={page.pageIntro.intro} />
 			</PageIntro>
 			<PageSection>
 				<div className="mx-auto max-w-2xl" id="accordion">
