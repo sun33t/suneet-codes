@@ -3248,6 +3248,54 @@
           "primaryKey": false,
           "notNull": true
         },
+        "profile_images_header_profile_image": {
+          "name": "profile_images_header_profile_image",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_images_header_profile_image_alt": {
+          "name": "profile_images_header_profile_image_alt",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_images_mobile_profile_image": {
+          "name": "profile_images_mobile_profile_image",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_images_mobile_profile_image_alt": {
+          "name": "profile_images_mobile_profile_image_alt",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_images_open_graph_profile_image": {
+          "name": "profile_images_open_graph_profile_image",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_images_open_graph_profile_image_alt": {
+          "name": "profile_images_open_graph_profile_image_alt",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_images_about_page_profile_image": {
+          "name": "profile_images_about_page_profile_image",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_images_about_page_profile_image_alt": {
+          "name": "profile_images_about_page_profile_image_alt",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -3453,6 +3501,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "6a2fdd3c-cb8e-41c2-8e24-aa37082e4041",
+  "id": "b778bb78-f7a1-4336-a5ae-9d212f5d0523",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

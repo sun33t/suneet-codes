@@ -10,10 +10,6 @@ import { getSiteConfig } from "@/lib/payload/queries";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/globals.css";
 
-const ogImageUrl = getCldImageUrl({
-	src: withCloudinaryCloudName("profile/avatar_og"),
-});
-
 const geistSans = Geist({
 	weight: "variable",
 	variable: "--font-geist-sans",
@@ -37,6 +33,12 @@ export const viewport: Viewport = {
 export async function generateMetadata(): Promise<Metadata> {
 	const siteConfig = await getSiteConfig();
 
+	const ogImageUrl = getCldImageUrl({
+		src: withCloudinaryCloudName(
+			siteConfig.profileImages.openGraphProfileImage,
+		),
+	});
+
 	return {
 		metadataBase: baseUrl,
 		title: {
@@ -49,7 +51,12 @@ export async function generateMetadata(): Promise<Metadata> {
 			description: siteConfig.siteDescription,
 			url: baseUrl.href,
 			siteName: siteConfig.siteTitle,
-			images: [ogImageUrl],
+			images: [
+				{
+					url: ogImageUrl,
+					alt: siteConfig.profileImages.openGraphProfileImageAlt,
+				},
+			],
 			locale: "en_GB",
 			type: "website",
 		},
@@ -78,7 +85,12 @@ export default async function RootLayout({
 			<body className="flex h-full bg-background">
 				<TwSizeIndicator />
 				<Providers>
-					<Layout siteOwner={siteConfig.siteOwner}>{children}</Layout>
+					<Layout
+						profileImages={siteConfig.profileImages}
+						siteOwner={siteConfig.siteOwner}
+					>
+						{children}
+					</Layout>
 				</Providers>
 			</body>
 		</html>

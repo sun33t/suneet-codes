@@ -118,5 +118,83 @@ export const SiteConfig: GlobalConfig = {
 				},
 			],
 		},
+		{
+			name: "profileImages",
+			type: "group",
+			label: "Profile Images",
+			admin: {
+				description: "Profile images used across the site (Cloudinary paths)",
+			},
+			fields: [
+				{
+					name: "headerProfileImage",
+					type: "text",
+					required: true,
+					admin: {
+						description:
+							"Cloudinary path for desktop header navigation avatar (e.g., profile/avatar_front)",
+					},
+				},
+				{
+					name: "headerProfileImageAlt",
+					type: "text",
+					required: true,
+					admin: {
+						description: "Alt text for header profile image",
+					},
+				},
+				{
+					name: "mobileProfileImage",
+					type: "text",
+					required: true,
+					admin: {
+						description:
+							"Cloudinary path for mobile navigation avatar (e.g., profile/avatar_small)",
+					},
+				},
+				{
+					name: "mobileProfileImageAlt",
+					type: "text",
+					required: true,
+					admin: {
+						description: "Alt text for mobile profile image",
+					},
+				},
+				{
+					name: "openGraphProfileImage",
+					type: "text",
+					required: true,
+					admin: {
+						description:
+							"Cloudinary path for Open Graph social sharing image (e.g., profile/avatar_og)",
+					},
+				},
+				{
+					name: "openGraphProfileImageAlt",
+					type: "text",
+					required: true,
+					admin: {
+						description: "Alt text for Open Graph profile image",
+					},
+				},
+				{
+					name: "aboutPageProfileImage",
+					type: "text",
+					required: true,
+					admin: {
+						description:
+							"Cloudinary path for About page hero image (e.g., profile/profile_wide)",
+					},
+				},
+				{
+					name: "aboutPageProfileImageAlt",
+					type: "text",
+					required: true,
+					admin: {
+						description: "Alt text for About page profile image",
+					},
+				},
+			],
+		},
 	],
 };

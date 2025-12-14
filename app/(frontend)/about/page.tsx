@@ -22,13 +22,6 @@ import { getCloudinaryBlurDataUrl } from "@/lib/utils/getCloudinaryBlurDataUrl";
 
 // https://www.robinwieruch.de/work-with-me/ see here for inspiration
 
-const profileImageSrc = `profile/profile_wide`;
-
-const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
-	src: profileImageSrc,
-	width: "512px",
-});
-
 export async function generateMetadata(): Promise<Metadata> {
 	const page = await getAboutPage();
 	return toNextMetadata(page.metadata);
@@ -161,8 +154,11 @@ export default async function About() {
 	]);
 	const developmentServices = servicesByCategory.get("Development") ?? [];
 	const professionalServices = servicesByCategory.get("Professional") ?? [];
-	const profileImageAlt =
-		"Side profile photo of Suneet on the coast of Iceland at sunset";
+
+	const { blurDataUrl, imageSrc } = await getCloudinaryBlurDataUrl({
+		src: siteConfig.profileImages.aboutPageProfileImage,
+		width: "512px",
+	});
 
 	return (
 		<PageContainer>
@@ -170,7 +166,7 @@ export default async function About() {
 				<div className="lg:pl-20">
 					<div className="max-w-xs px-2.5 lg:max-w-none">
 						<CloudinaryImage
-							alt={profileImageAlt}
+							alt={siteConfig.profileImages.aboutPageProfileImageAlt}
 							blurDataURL={blurDataUrl}
 							className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
 							height={512}

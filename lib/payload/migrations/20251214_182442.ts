@@ -334,6 +334,14 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"social_links_notion" varchar NOT NULL,
   	"contact_email" varchar NOT NULL,
   	"contact_calendar_url" varchar NOT NULL,
+  	"profile_images_header_profile_image" varchar NOT NULL,
+  	"profile_images_header_profile_image_alt" varchar NOT NULL,
+  	"profile_images_mobile_profile_image" varchar NOT NULL,
+  	"profile_images_mobile_profile_image_alt" varchar NOT NULL,
+  	"profile_images_open_graph_profile_image" varchar NOT NULL,
+  	"profile_images_open_graph_profile_image_alt" varchar NOT NULL,
+  	"profile_images_about_page_profile_image" varchar NOT NULL,
+  	"profile_images_about_page_profile_image_alt" varchar NOT NULL,
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );

@@ -18,4 +18,15 @@ export const SITE_CONFIG_SEED: Partial<SiteConfigSeed> = {
 		email: "hello@suneet.codes",
 		calendarUrl: "https://calendar.notion.so/meet/suneetmisra/ni17z4luz",
 	},
+	profileImages: {
+		headerProfileImage: "profile/avatar_front",
+		headerProfileImageAlt: "Profile picture",
+		mobileProfileImage: "profile/avatar_small",
+		mobileProfileImageAlt: "Profile picture",
+		openGraphProfileImage: "profile/avatar_og",
+		openGraphProfileImageAlt: "Profile picture of Suneet Misra",
+		aboutPageProfileImage: "profile/profile_wide",
+		aboutPageProfileImageAlt:
+			"Side profile photo of Suneet on the coast of Iceland at sunset",
+	},
 };
