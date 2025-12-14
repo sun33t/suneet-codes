@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers";
 import { TwSizeIndicator } from "@/components/shared/tw-size-indicator";
 import { baseUrl } from "@/lib/config/baseUrl";
 import { env } from "@/lib/config/env";
+import { getSiteContent } from "@/lib/payload/queries";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 import "@/styles/globals.css";
 
@@ -57,11 +58,13 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const siteContent = await getSiteContent();
+
 	return (
 		<html
 			className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
@@ -71,7 +74,7 @@ export default function RootLayout({
 			<body className="flex h-full bg-background">
 				<TwSizeIndicator />
 				<Providers>
-					<Layout>{children}</Layout>
+					<Layout siteOwner={siteContent.siteOwner}>{children}</Layout>
 				</Providers>
 			</body>
 		</html>

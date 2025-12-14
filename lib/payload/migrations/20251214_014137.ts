@@ -311,6 +311,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE "site_content" (
   	"id" serial PRIMARY KEY NOT NULL,
+  	"site_owner" varchar NOT NULL,
   	"homepage_bio" jsonb,
   	"homepage_short_bio" varchar,
   	"about_page_title" varchar DEFAULT 'A little bit about me',

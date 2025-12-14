@@ -5,9 +5,11 @@ import { ROUTES } from "@/lib/config/routes";
 import { Footer } from "./footer";
 import { Header } from "./header";
 
-type LayoutProps = React.ComponentPropsWithoutRef<"div">;
+type LayoutProps = React.ComponentPropsWithoutRef<"div"> & {
+	siteOwner: string;
+};
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children, siteOwner }: LayoutProps) => {
 	const memoizedRouteNames = useMemo(() => Array.from(ROUTES.keys()), []);
 
 	return (
@@ -21,7 +23,7 @@ export const Layout = ({ children }: LayoutProps) => {
 					routeNames={memoizedRouteNames}
 				/>
 				<main className="flex-auto">{children}</main>
-				<Footer routeNames={memoizedRouteNames} />
+				<Footer routeNames={memoizedRouteNames} siteOwner={siteOwner} />
 				<Toaster />
 			</div>
 		</div>

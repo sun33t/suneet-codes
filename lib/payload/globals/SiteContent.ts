@@ -15,6 +15,16 @@ export const SiteContent: GlobalConfig = {
 	},
 	fields: [
 		{
+			name: "siteOwner",
+			type: "text",
+			label: "Site Owner",
+			required: true,
+			admin: {
+				description:
+					"Name of the site owner (used in footer copyright and homepage)",
+			},
+		},
+		{
 			name: "homepage",
 			type: "group",
 			label: "Homepage Content",

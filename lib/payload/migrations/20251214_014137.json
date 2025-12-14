@@ -3115,6 +3115,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "site_owner": {
+          "name": "site_owner",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "homepage_bio": {
           "name": "homepage_bio",
           "type": "jsonb",
@@ -3393,6 +3399,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "79d4b38f-7cb0-4ca3-a8bf-3d0133d0d2bc",
+  "id": "774e4a72-f148-4b8d-9cd8-9a485ff6bf20",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -18,6 +18,7 @@ import {
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { env } from "@/lib/config/env";
+import { HomepageRichText } from "@/lib/payload/lexical/homepage-rich-text";
 import {
 	type ArticleWithRelations,
 	getAllRoles,
@@ -103,70 +104,15 @@ export default async function Home() {
 		<Fragment>
 			<Container className="fade-in mt-12 animate-in duration-1000">
 				<div className="max-w-2xl">
-					<PageIntro title={env.PROJECT_AUTHOR}>
-						<div className="space-y-4 text-muted-foreground">
-							<p>
-								👋, I&apos;m a developer based in the UK. I&apos;ve been
-								building software in the{" "}
-								<span className="font-semibold text-foreground underline">
-									e-commerce
-								</span>
-								,{" "}
-								<span className="font-semibold text-foreground underline">
-									retail
-								</span>{" "}
-								and{" "}
-								<span className="font-semibold text-foreground underline">
-									hospitality
-								</span>{" "}
-								spaces as well as for the{" "}
-								<span className="font-semibold text-foreground underline">
-									energy and comms ombudsman
-								</span>{" "}
-								over a five year period after completing my{" "}
-								<span className="font-semibold text-foreground underline">
-									MSc in Computing
-								</span>
-								.
-							</p>
-							<p>
-								I love to create digital experiences which{" "}
-								<span className="font-semibold text-foreground underline">
-									build community
-								</span>{" "}
-								and provide{" "}
-								<span className="font-semibold text-foreground underline">
-									meaningful value
-								</span>{" "}
-								.
-							</p>
-							<p>
-								If you&apos;d like to learn more about my journey into dev,
-								here&apos;s my{" "}
-								<Link
-									className="font-semibold text-accent-foreground"
-									href="/about"
-								>
-									about page
-								</Link>
-								, or if you&apos;re interested in working together here&apos;s
-								my{" "}
-								<Link
-									className="font-semibold text-accent-foreground"
-									href={env.PROJECT_NOTION_URL}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									cv
-								</Link>
-								, or use the links below.
-							</p>
-							<p>
-								When I&apos;m not working or learning new skills, I like to
-								read, cook, travel with my wife and spend time in the outdoors
-								with my friends.
-							</p>
-						</div>
+					<PageIntro title={siteContent.siteOwner}>
+						{siteContent.homepage?.bio && (
+							<div>
+								<HomepageRichText
+									className="space-y-4 text-muted-foreground [&_a]:text-accent-foreground [&_a_strong]:font-semibold [&_span>strong]:text-foreground"
+									data={siteContent.homepage.bio}
+								/>
+							</div>
+						)}
 						<div className="mt-6 flex items-center gap-4">
 							<SocialLink
 								aria-label="Follow on GitHub"
