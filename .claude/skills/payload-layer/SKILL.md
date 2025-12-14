@@ -1,6 +1,6 @@
 ---
 name: payload-layer
-description: "This skill should be used when the user asks to 'create a page global', 'add payload global', 'migrate content to CMS', 'create seed data', 'add page metadata', or 'update payload schema'. Provides guidance for Payload CMS globals, collections, seed data, and queries in lib/payload/."
+description: "This skill should be used when the user asks to 'create a page global', 'add payload global', 'migrate content to CMS', 'create seed data', 'add page metadata', 'update payload schema', or 'remove fields from payload'. Provides guidance for Payload CMS globals, collections, seed data, and queries in lib/payload/."
 ---
 
 # Payload Layer Skill
@@ -30,7 +30,7 @@ description: "This skill should be used when the user asks to 'create a page glo
 10. **Generate types**: Run `pnpm payload:types`
 11. **Update frontend**: Use query in page component
 
-### Modifying an existing global?
+### Adding or changing fields in an existing global?
 
 1. **Update global definition**: Edit fields in `lib/payload/globals/{Name}.ts`
 2. **Update seed data**: Modify corresponding seed constant
@@ -63,6 +63,19 @@ description: "This skill should be used when the user asks to 'create a page glo
 2. **Build content**: Compose Lexical JSON structure
 3. **Cast type**: Use `as any` for complex Lexical structures
 4. **Add biome comment**: Optional `// biome-ignore lint/suspicious/noExplicitAny: Lexical JSON`
+
+### Removing fields from a global or collection?
+
+1. **Remove field definition**: Delete field/group from `lib/payload/globals/{Name}.ts` or `lib/payload/collections/{Name}.ts`
+2. **Remove seed data**: Delete corresponding data from `lib/payload/data/*.seed.ts`
+3. **Update frontend**: Either hardcode values directly in JSX or remove usage entirely
+4. **Clean up imports**: Remove unused query imports (e.g., `getSiteContent()`) if no longer needed
+5. **Generate types**: Run `pnpm payload:types`
+6. **Create migration**: Run `pnpm payload:generate`
+7. **Apply migration**: Run `pnpm payload:migrate`
+8. **Re-seed**: Run `pnpm payload:seed`
+
+**When to hardcode vs use CMS**: Static UI labels or values that rarely change (e.g., button text, section titles) can be hardcoded directly in JSX rather than managed through the CMS.
 
 ## File Templates
 
