@@ -298,6 +298,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone
   );
   
+  CREATE TABLE "home_page" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"page_intro_title" varchar NOT NULL,
+  	"page_intro_intro" jsonb NOT NULL,
+  	"metadata_title" varchar NOT NULL,
+  	"metadata_description" varchar NOT NULL,
+  	"metadata_open_graph_title" varchar,
+  	"metadata_open_graph_description" varchar,
+  	"updated_at" timestamp(3) with time zone,
+  	"created_at" timestamp(3) with time zone
+  );
+  
   CREATE TABLE "projects_page" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"page_intro_title" varchar NOT NULL,
@@ -313,8 +325,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "site_content" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"site_owner" varchar NOT NULL,
-  	"homepage_bio" jsonb,
-  	"homepage_short_bio" varchar,
   	"about_my_experience" jsonb,
   	"about_profile_image_alt" varchar DEFAULT 'Side profile photo of Suneet on the coast of Iceland at sunset',
   	"newsletter_title" varchar DEFAULT 'Stay up to date',
@@ -471,6 +481,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "articles_page" CASCADE;
   DROP TABLE "contact_page" CASCADE;
   DROP TABLE "following_page" CASCADE;
+  DROP TABLE "home_page" CASCADE;
   DROP TABLE "projects_page" CASCADE;
   DROP TABLE "site_content" CASCADE;
   DROP TABLE "thank_you_page" CASCADE;

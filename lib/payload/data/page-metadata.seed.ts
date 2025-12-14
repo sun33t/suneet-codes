@@ -1,9 +1,17 @@
-import { externalLink, paragraph, richText, text } from "./lexical-helpers";
+import {
+	BOLD_UNDERLINE,
+	externalLink,
+	internalLink,
+	paragraph,
+	richText,
+	text,
+} from "./lexical-helpers";
 import type {
 	AboutPageSeed,
 	ArticlesPageSeed,
 	ContactPageSeed,
 	FollowingPageSeed,
+	HomePageSeed,
 	ProjectsPageSeed,
 	ThankYouPageSeed,
 	UsesPageSeed,
@@ -39,6 +47,61 @@ const MY_VALUES = richText([
 		),
 	]),
 ]);
+
+/**
+ * Bio content for the homepage intro in Lexical format
+ */
+const HOMEPAGE_BIO = richText([
+	paragraph([
+		text(
+			"👋, I'm a developer based in the UK. I've been building software in the ",
+		),
+		text("e-commerce", BOLD_UNDERLINE),
+		text(", "),
+		text("retail", BOLD_UNDERLINE),
+		text(" and "),
+		text("hospitality", BOLD_UNDERLINE),
+		text(" spaces as well as for the "),
+		text("energy and comms ombudsman", BOLD_UNDERLINE),
+		text(" over a five year period after completing my "),
+		text("MSc in Computing", BOLD_UNDERLINE),
+		text("."),
+	]),
+	paragraph([
+		text("I love to create digital experiences which "),
+		text("build community", BOLD_UNDERLINE),
+		text(" and provide "),
+		text("meaningful value", BOLD_UNDERLINE),
+		text("."),
+	]),
+	paragraph([
+		text("If you'd like to learn more about my journey into dev, here's my "),
+		internalLink("about page", "/about"),
+		text(", or if you're interested in working together here's my "),
+		externalLink("cv", "CV_URL_PLACEHOLDER"),
+		text(", or use the links below."),
+	]),
+	paragraph([
+		text(
+			"When I'm not working or learning new skills, I like to read, cook, travel with my wife and spend time in the outdoors with my friends.",
+		),
+	]),
+]);
+
+export const HOME_PAGE_SEED: Partial<HomePageSeed> = {
+	pageIntro: {
+		title: "Suneet Misra",
+		intro: HOMEPAGE_BIO as any,
+	},
+	metadata: {
+		title: "suneet.codes",
+		description: "Developer based in the UK",
+		openGraph: {
+			title: "suneet.codes",
+			description: "Developer based in the UK",
+		},
+	},
+};
 
 export const ABOUT_PAGE_SEED: Partial<AboutPageSeed> = {
 	pageIntro: {

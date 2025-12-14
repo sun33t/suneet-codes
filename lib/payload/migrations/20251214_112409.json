@@ -3044,6 +3044,73 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.home_page": {
+      "name": "home_page",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "page_intro_title": {
+          "name": "page_intro_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "page_intro_intro": {
+          "name": "page_intro_intro",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metadata_title": {
+          "name": "metadata_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metadata_description": {
+          "name": "metadata_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metadata_open_graph_title": {
+          "name": "metadata_open_graph_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata_open_graph_description": {
+          "name": "metadata_open_graph_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.projects_page": {
       "name": "projects_page",
       "schema": "",
@@ -3126,18 +3193,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
-        },
-        "homepage_bio": {
-          "name": "homepage_bio",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "homepage_short_bio": {
-          "name": "homepage_short_bio",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
         },
         "about_my_experience": {
           "name": "about_my_experience",
@@ -3392,6 +3447,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "6d656a1a-6443-4058-b583-76eb084bf595",
+  "id": "6f243847-ffda-4918-a190-63fe4541022f",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

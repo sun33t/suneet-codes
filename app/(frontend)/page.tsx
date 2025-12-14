@@ -22,6 +22,7 @@ import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	type ArticleWithRelations,
 	getAllRoles,
+	getHomePage,
 	getLatestArticles,
 	getSiteContent,
 } from "@/lib/payload/queries";
@@ -92,8 +93,9 @@ const NoArticlesCard = () => {
 };
 
 export default async function Home() {
-	const [roles, siteContent, latestArticles] = await Promise.all([
+	const [roles, page, siteContent, latestArticles] = await Promise.all([
 		getAllRoles(),
+		getHomePage(),
 		getSiteContent(),
 		getLatestArticles(3),
 	]);
@@ -104,12 +106,10 @@ export default async function Home() {
 		<Fragment>
 			<Container className="fade-in mt-12 animate-in duration-1000">
 				<div className="max-w-2xl">
-					<PageIntro title={siteContent.siteOwner}>
-						{siteContent.homepage?.bio && (
-							<div>
-								<ContentRichText data={siteContent.homepage.bio} />
-							</div>
-						)}
+					<PageIntro title={page.pageIntro.title}>
+						<div>
+							<ContentRichText data={page.pageIntro.intro} />
+						</div>
 						<div className="mt-6 flex items-center gap-4">
 							<SocialLink
 								aria-label="Follow on GitHub"

@@ -25,32 +25,6 @@ export const SiteContent: GlobalConfig = {
 			},
 		},
 		{
-			name: "homepage",
-			type: "group",
-			label: "Homepage Content",
-			admin: {
-				description: "Content displayed on the homepage",
-			},
-			fields: [
-				{
-					name: "bio",
-					type: "richText",
-					label: "Main Bio",
-					admin: {
-						description: "Main bio text with formatting support",
-					},
-				},
-				{
-					name: "shortBio",
-					type: "textarea",
-					label: "Short Bio / Tagline",
-					admin: {
-						description: "Brief tagline text",
-					},
-				},
-			],
-		},
-		{
 			name: "about",
 			type: "group",
 			label: "About Page Content",

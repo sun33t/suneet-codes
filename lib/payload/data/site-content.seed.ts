@@ -1,9 +1,7 @@
 import {
 	BOLD,
-	BOLD_UNDERLINE,
 	externalLink,
 	heading,
-	internalLink,
 	paragraph,
 	richText,
 	text,
@@ -79,55 +77,10 @@ const MY_EXPERIENCE = richText([
 ]);
 
 /**
- * Bio content for the homepage in Lexical format
- */
-const HOMEPAGE_BIO = richText([
-	paragraph([
-		text(
-			"👋, I'm a developer based in the UK. I've been building software in the ",
-		),
-		text("e-commerce", BOLD_UNDERLINE),
-		text(", "),
-		text("retail", BOLD_UNDERLINE),
-		text(" and "),
-		text("hospitality", BOLD_UNDERLINE),
-		text(" spaces as well as for the "),
-		text("energy and comms ombudsman", BOLD_UNDERLINE),
-		text(" over a five year period after completing my "),
-		text("MSc in Computing", BOLD_UNDERLINE),
-		text("."),
-	]),
-	paragraph([
-		text("I love to create digital experiences which "),
-		text("build community", BOLD_UNDERLINE),
-		text(" and provide "),
-		text("meaningful value", BOLD_UNDERLINE),
-		text("."),
-	]),
-	paragraph([
-		text("If you'd like to learn more about my journey into dev, here's my "),
-		internalLink("about page", "/about"),
-		text(", or if you're interested in working together here's my "),
-		externalLink("cv", "CV_URL_PLACEHOLDER"),
-		text(", or use the links below."),
-	]),
-	paragraph([
-		text(
-			"When I'm not working or learning new skills, I like to read, cook, travel with my wife and spend time in the outdoors with my friends.",
-		),
-	]),
-]);
-
-/**
  * Default values for the site content global.
  */
 export const SITE_CONTENT_SEED: Partial<SiteContentSeed> = {
 	siteOwner: "Suneet Misra",
-	homepage: {
-		// biome-ignore lint/suspicious/noExplicitAny: Lexical JSON structure is complex
-		bio: HOMEPAGE_BIO as any,
-		shortBio: "Developer based in the UK",
-	},
 	about: {
 		// biome-ignore lint/suspicious/noExplicitAny: Lexical JSON structure is complex
 		myExperience: MY_EXPERIENCE as any,

@@ -8,6 +8,7 @@ import type {
 	ArticlesPage,
 	ContactPage,
 	FollowingPage,
+	HomePage,
 	ProjectsPage,
 	SiteContent,
 	ThankYouPage,
@@ -55,6 +56,9 @@ export type ContactPageSeed = RequiredDataFromCollection<ContactPage>;
 
 /** Seed type for following page global */
 export type FollowingPageSeed = RequiredDataFromCollection<FollowingPage>;
+
+/** Seed type for home page global */
+export type HomePageSeed = RequiredDataFromCollection<HomePage>;
 
 /** Seed type for projects page global */
 export type ProjectsPageSeed = RequiredDataFromCollection<ProjectsPage>;

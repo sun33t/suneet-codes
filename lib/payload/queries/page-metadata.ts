@@ -6,6 +6,7 @@ import type {
 	ArticlesPage,
 	ContactPage,
 	FollowingPage,
+	HomePage,
 	ProjectsPage,
 	ThankYouPage,
 	UsesPage,
@@ -17,6 +18,7 @@ export type {
 	ArticlesPage as PayloadArticlesPage,
 	ContactPage as PayloadContactPage,
 	FollowingPage as PayloadFollowingPage,
+	HomePage as PayloadHomePage,
 	ProjectsPage as PayloadProjectsPage,
 	ThankYouPage as PayloadThankYouPage,
 	UsesPage as PayloadUsesPage,
@@ -41,6 +43,11 @@ export async function getContactPage(): Promise<ContactPage> {
 export async function getFollowingPage(): Promise<FollowingPage> {
 	const payload = await getPayloadClient();
 	return payload.findGlobal({ slug: "following-page" });
+}
+
+export async function getHomePage(): Promise<HomePage> {
+	const payload = await getPayloadClient();
+	return payload.findGlobal({ slug: "home-page" });
 }
 
 export async function getProjectsPage(): Promise<ProjectsPage> {
