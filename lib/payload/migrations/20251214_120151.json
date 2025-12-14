@@ -2798,6 +2798,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "my_experience": {
+          "name": "my_experience",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
         "metadata_title": {
           "name": "metadata_title",
           "type": "varchar",
@@ -3194,39 +3200,12 @@
           "primaryKey": false,
           "notNull": true
         },
-        "about_my_experience": {
-          "name": "about_my_experience",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
-        },
         "about_profile_image_alt": {
           "name": "about_profile_image_alt",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false,
           "default": "'Side profile photo of Suneet on the coast of Iceland at sunset'"
-        },
-        "newsletter_title": {
-          "name": "newsletter_title",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Stay up to date'"
-        },
-        "newsletter_description": {
-          "name": "newsletter_description",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Get notified when I publish something new, and unsubscribe at any time.'"
-        },
-        "newsletter_button_text": {
-          "name": "newsletter_button_text",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Join'"
         },
         "ui_cta_button_text": {
           "name": "ui_cta_button_text",
@@ -3447,6 +3426,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "6f243847-ffda-4918-a190-63fe4541022f",
+  "id": "89bf0e17-d134-4075-8922-94d5fde79804",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -33,48 +33,11 @@ export const SiteContent: GlobalConfig = {
 			},
 			fields: [
 				{
-					name: "myExperience",
-					type: "richText",
-					label: "My Experience Section",
-					admin: {
-						description: "Professional experience content",
-					},
-				},
-				{
 					name: "profileImageAlt",
 					type: "text",
 					label: "Profile Image Alt Text",
 					defaultValue:
 						"Side profile photo of Suneet on the coast of Iceland at sunset",
-				},
-			],
-		},
-		{
-			name: "newsletter",
-			type: "group",
-			label: "Newsletter Section",
-			admin: {
-				description: "Newsletter signup section content",
-			},
-			fields: [
-				{
-					name: "title",
-					type: "text",
-					label: "Title",
-					defaultValue: "Stay up to date",
-				},
-				{
-					name: "description",
-					type: "text",
-					label: "Description",
-					defaultValue:
-						"Get notified when I publish something new, and unsubscribe at any time.",
-				},
-				{
-					name: "buttonText",
-					type: "text",
-					label: "Button Text",
-					defaultValue: "Join",
 				},
 			],
 		},

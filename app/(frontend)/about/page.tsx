@@ -184,10 +184,10 @@ export default async function About() {
 					</h1>
 					<div className="mt-6 text-base">
 						<ContentRichText data={page.pageIntro.intro} />
-						{siteContent.about?.myExperience && (
+						{page.myExperience && (
 							<ContentRichText
 								className="mt-8 lg:mt-4"
-								data={siteContent.about.myExperience}
+								data={page.myExperience}
 							/>
 						)}
 					</div>

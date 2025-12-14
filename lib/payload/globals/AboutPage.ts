@@ -16,5 +16,17 @@ export const AboutPage: GlobalConfig = {
 		read: () => true,
 		update: ({ req }) => !!req.user,
 	},
-	fields: [createPageIntroFields(), createMetadataFields()],
+	fields: [
+		createPageIntroFields(),
+		{
+			name: "myExperience",
+			type: "richText",
+			label: "My Experience Section",
+			admin: {
+				description:
+					"Professional experience content displayed after the intro",
+			},
+		},
+		createMetadataFields(),
+	],
 };
