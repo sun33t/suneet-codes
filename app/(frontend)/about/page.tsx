@@ -10,11 +10,11 @@ import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { env } from "@/lib/config/env";
 import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	getAboutPage,
 	getServicesByCategory,
+	getSiteConfig,
 	type PayloadService,
 	toNextMetadata,
 } from "@/lib/payload/queries";
@@ -112,26 +112,32 @@ const SocialButton = ({
 	);
 };
 
-const SocialLinks = () => {
+type SocialLinksProps = {
+	github: string;
+	linkedin: string;
+	notion: string;
+};
+
+const SocialLinks = ({ github, linkedin, notion }: SocialLinksProps) => {
 	return (
 		<Card className="fade-in h-fit animate-in shadow-none duration-1000 lg:ml-20 lg:block lg:max-w-xs">
 			<CardContent>
 				<ul>
 					<SocialButton
-						href={env.PROJECT_GITHUB_URL}
+						href={github}
 						icon={GitHubIcon}
 						iconStyleOverride={{ width: "1.25rem", height: "1.25rem" }}
 					>
 						Follow on GitHub
 					</SocialButton>
 					<SocialButton
-						href={env.PROJECT_LINKEDIN_URL}
+						href={linkedin}
 						icon={LinkedInIcon}
 						iconStyleOverride={{ width: "1.25rem", height: "1.25rem" }}
 					>
 						Follow on LinkedIn
 					</SocialButton>
-					<SocialButton href={env.PROJECT_NOTION_URL} icon={NotionIcon}>
+					<SocialButton href={notion} icon={NotionIcon}>
 						View CV on Notion
 					</SocialButton>
 					<Link
@@ -148,9 +154,10 @@ const SocialLinks = () => {
 };
 
 export default async function About() {
-	const [page, servicesByCategory] = await Promise.all([
+	const [page, servicesByCategory, siteConfig] = await Promise.all([
 		getAboutPage(),
 		getServicesByCategory(),
+		getSiteConfig(),
 	]);
 	const developmentServices = servicesByCategory.get("Development") ?? [];
 	const professionalServices = servicesByCategory.get("Professional") ?? [];
@@ -189,7 +196,11 @@ export default async function About() {
 					</div>
 				</div>
 				<div className="hidden lg:flex lg:justify-center">
-					<SocialLinks />
+					<SocialLinks
+						github={siteConfig.socialLinks.github}
+						linkedin={siteConfig.socialLinks.linkedin}
+						notion={siteConfig.socialLinks.notion}
+					/>
 				</div>
 			</div>
 			<div className="mt-8 lg:mt-4">
@@ -206,7 +217,11 @@ export default async function About() {
 				/>
 			</div>
 			<div className="mt-24 lg:hidden">
-				<SocialLinks />
+				<SocialLinks
+					github={siteConfig.socialLinks.github}
+					linkedin={siteConfig.socialLinks.linkedin}
+					notion={siteConfig.socialLinks.notion}
+				/>
 			</div>
 		</PageContainer>
 	);

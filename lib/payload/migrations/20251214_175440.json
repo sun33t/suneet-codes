@@ -3200,6 +3200,54 @@
           "primaryKey": false,
           "notNull": true
         },
+        "site_title": {
+          "name": "site_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "site_description": {
+          "name": "site_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "social_links_github": {
+          "name": "social_links_github",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "social_links_linkedin": {
+          "name": "social_links_linkedin",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "social_links_bluesky": {
+          "name": "social_links_bluesky",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "social_links_notion": {
+          "name": "social_links_notion",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contact_email": {
+          "name": "contact_email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contact_calendar_url": {
+          "name": "contact_calendar_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -3405,6 +3453,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "ee924523-6411-41ed-a0f5-874a4348a77c",
+  "id": "6a2fdd3c-cb8e-41c2-8e24-aa37082e4041",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

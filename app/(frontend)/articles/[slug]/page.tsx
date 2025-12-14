@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { getCldImageUrl } from "next-cloudinary";
 import { Container } from "@/components/layout/container";
 import { BackButton } from "@/components/shared/back-button";
-import { env } from "@/lib/config/env";
 import { ArticleRichText } from "@/lib/payload/lexical/article-rich-text";
 import {
 	getAllArticleSlugs,
 	getArticleBySlug,
 } from "@/lib/payload/queries/articles";
+import { getSiteConfig } from "@/lib/payload/queries/site-config";
 import { formatDate } from "@/lib/utils/formatDate";
 import { withCloudinaryCloudName } from "@/lib/utils/withCloudinaryCloudName";
 
@@ -24,7 +24,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const slug = (await params).slug;
-	const article = await getArticleBySlug(slug);
+	const [article, siteConfig] = await Promise.all([
+		getArticleBySlug(slug),
+		getSiteConfig(),
+	]);
 
 	if (!article) {
 		notFound();
@@ -56,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			authors: article.author.name,
 			tags: categoryTitles,
 			locale: "en-GB",
-			siteName: env.PROJECT_BASE_TITLE,
+			siteName: siteConfig.siteTitle,
 		},
 	};
 }

@@ -17,13 +17,13 @@ import {
 } from "@/components/shared/link-card";
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
-import { env } from "@/lib/config/env";
 import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	type ArticleWithRelations,
 	getAllRoles,
 	getHomePage,
 	getLatestArticles,
+	getSiteConfig,
 } from "@/lib/payload/queries";
 import { formatDate } from "@/lib/utils/formatDate";
 
@@ -92,10 +92,11 @@ const NoArticlesCard = () => {
 };
 
 export default async function Home() {
-	const [roles, page, latestArticles] = await Promise.all([
+	const [roles, page, latestArticles, siteConfig] = await Promise.all([
 		getAllRoles(),
 		getHomePage(),
 		getLatestArticles(3),
+		getSiteConfig(),
 	]);
 
 	return (
@@ -109,25 +110,25 @@ export default async function Home() {
 						<div className="mt-6 flex items-center gap-4">
 							<SocialLink
 								aria-label="Follow on GitHub"
-								href={env.PROJECT_GITHUB_URL}
+								href={siteConfig.socialLinks.github}
 								icon={GitHubIcon}
 								iconClasses="h-6 w-6"
 							/>
 							<SocialLink
 								aria-label="Follow on LinkedIn"
-								href={env.PROJECT_LINKEDIN_URL}
+								href={siteConfig.socialLinks.linkedin}
 								icon={LinkedInIcon}
 								iconClasses="h-6 w-6"
 							/>
 							<SocialLink
 								aria-label="Read my CV on Notion"
-								href={env.PROJECT_NOTION_URL}
+								href={siteConfig.socialLinks.notion}
 								icon={NotionIcon}
 								iconClasses="h-5 w-5"
 							/>
 							<SocialLink
 								aria-label="Follow me on bluesky"
-								href={env.PROJECT_BLUESKY_URL}
+								href={siteConfig.socialLinks.bluesky}
 								icon={BlueskyIcon}
 								iconClasses="h-5 w-5"
 							/>

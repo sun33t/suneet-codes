@@ -34,29 +34,33 @@ export const viewport: Viewport = {
 	],
 };
 
-export const metadata: Metadata = {
-	metadataBase: baseUrl,
-	title: {
-		template: `%s | ${env.PROJECT_BASE_TITLE}`,
-		default: env.PROJECT_BASE_TITLE,
-	},
-	description: env.PROJECT_BASE_DESCRIPTION,
-	openGraph: {
-		title: env.PROJECT_BASE_TITLE,
-		description: env.PROJECT_BASE_DESCRIPTION,
-		url: baseUrl.href,
-		siteName: env.PROJECT_BASE_TITLE,
-		images: [ogImageUrl],
-		locale: "en_GB",
-		type: "website",
-	},
-	robots: {
-		...(baseUrl.hostname === env.PROJECT_DOMAIN
-			? { index: true, follow: true }
-			: { index: false, follow: false }),
-		nocache: false,
-	},
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const siteConfig = await getSiteConfig();
+
+	return {
+		metadataBase: baseUrl,
+		title: {
+			template: `%s | ${siteConfig.siteTitle}`,
+			default: siteConfig.siteTitle,
+		},
+		description: siteConfig.siteDescription,
+		openGraph: {
+			title: siteConfig.siteTitle,
+			description: siteConfig.siteDescription,
+			url: baseUrl.href,
+			siteName: siteConfig.siteTitle,
+			images: [ogImageUrl],
+			locale: "en_GB",
+			type: "website",
+		},
+		robots: {
+			...(baseUrl.hostname === env.PROJECT_DOMAIN
+				? { index: true, follow: true }
+				: { index: false, follow: false }),
+			nocache: false,
+		},
+	};
+}
 
 export default async function RootLayout({
 	children,

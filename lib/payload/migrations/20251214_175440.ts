@@ -326,6 +326,14 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "site_config" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"site_owner" varchar NOT NULL,
+  	"site_title" varchar NOT NULL,
+  	"site_description" varchar NOT NULL,
+  	"social_links_github" varchar NOT NULL,
+  	"social_links_linkedin" varchar NOT NULL,
+  	"social_links_bluesky" varchar NOT NULL,
+  	"social_links_notion" varchar NOT NULL,
+  	"contact_email" varchar NOT NULL,
+  	"contact_calendar_url" varchar NOT NULL,
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );
