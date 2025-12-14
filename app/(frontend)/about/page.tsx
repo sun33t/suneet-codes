@@ -113,7 +113,7 @@ const SocialButton = ({
 	);
 };
 
-const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
+const SocialLinks = () => {
 	return (
 		<Card className="fade-in h-fit animate-in shadow-none duration-1000 lg:ml-20 lg:block lg:max-w-xs">
 			<CardContent>
@@ -140,7 +140,7 @@ const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
 						href="/contact"
 					>
 						<MessageCircle className="h-4 w-4 stroke-accent-foreground transition group-active:stroke-zinc-600 lg:col-span-1 lg:place-self-center dark:group-active:stroke-zinc-50 dark:group-hover:stroke-zinc-50" />
-						{ctaButtonText}
+						Let's Talk
 					</Link>
 				</ul>
 			</CardContent>
@@ -159,7 +159,6 @@ export default async function About() {
 	const profileImageAlt =
 		siteContent.about?.profileImageAlt ??
 		"Side profile photo of Suneet on the coast of Iceland at sunset";
-	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
 
 	return (
 		<PageContainer>
@@ -193,7 +192,7 @@ export default async function About() {
 					</div>
 				</div>
 				<div className="hidden lg:flex lg:justify-center">
-					<SocialLinks ctaButtonText={ctaButtonText} />
+					<SocialLinks />
 				</div>
 			</div>
 			<div className="mt-8 lg:mt-4">
@@ -210,7 +209,7 @@ export default async function About() {
 				/>
 			</div>
 			<div className="mt-24 lg:hidden">
-				<SocialLinks ctaButtonText={ctaButtonText} />
+				<SocialLinks />
 			</div>
 		</PageContainer>
 	);

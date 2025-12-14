@@ -9,8 +9,4 @@ export const SITE_CONTENT_SEED: Partial<SiteContentSeed> = {
 		profileImageAlt:
 			"Side profile photo of Suneet on the coast of Iceland at sunset",
 	},
-	ui: {
-		ctaButtonText: "Let's Talk",
-		resumeSectionTitle: "Work",
-	},
 };

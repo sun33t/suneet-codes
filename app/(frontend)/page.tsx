@@ -24,7 +24,6 @@ import {
 	getAllRoles,
 	getHomePage,
 	getLatestArticles,
-	getSiteContent,
 } from "@/lib/payload/queries";
 import { formatDate } from "@/lib/utils/formatDate";
 
@@ -93,14 +92,11 @@ const NoArticlesCard = () => {
 };
 
 export default async function Home() {
-	const [roles, page, siteContent, latestArticles] = await Promise.all([
+	const [roles, page, latestArticles] = await Promise.all([
 		getAllRoles(),
 		getHomePage(),
-		getSiteContent(),
 		getLatestArticles(3),
 	]);
-	const resumeSectionTitle = siteContent.ui?.resumeSectionTitle ?? "Work";
-	const ctaButtonText = siteContent.ui?.ctaButtonText ?? "Let's Talk";
 
 	return (
 		<Fragment>
@@ -156,9 +152,9 @@ export default async function Home() {
 						{/* <Newsletter /> */}
 						<div>
 							<Resume
-								ctaButtonText={ctaButtonText}
+								ctaButtonText="Let's Talk"
 								roles={roles}
-								sectionTitle={resumeSectionTitle}
+								sectionTitle="Work"
 							/>
 						</div>
 					</div>

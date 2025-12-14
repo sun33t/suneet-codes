@@ -3207,20 +3207,6 @@
           "notNull": false,
           "default": "'Side profile photo of Suneet on the coast of Iceland at sunset'"
         },
-        "ui_cta_button_text": {
-          "name": "ui_cta_button_text",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Let''s Talk'"
-        },
-        "ui_resume_section_title": {
-          "name": "ui_resume_section_title",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Work'"
-        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -3426,6 +3412,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "89bf0e17-d134-4075-8922-94d5fde79804",
+  "id": "cf4c1c2e-4713-450e-9213-e61e4e1f1299",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

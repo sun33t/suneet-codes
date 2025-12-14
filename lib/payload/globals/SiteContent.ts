@@ -7,7 +7,7 @@ export const SiteContent: GlobalConfig = {
 		afterChange: [() => triggerDeployHook()],
 	},
 	admin: {
-		description: "Editable site copy and UI strings",
+		description: "Editable site copy",
 	},
 	access: {
 		read: () => true,
@@ -38,28 +38,6 @@ export const SiteContent: GlobalConfig = {
 					label: "Profile Image Alt Text",
 					defaultValue:
 						"Side profile photo of Suneet on the coast of Iceland at sunset",
-				},
-			],
-		},
-		{
-			name: "ui",
-			type: "group",
-			label: "UI Labels",
-			admin: {
-				description: "Configurable UI text labels",
-			},
-			fields: [
-				{
-					name: "ctaButtonText",
-					type: "text",
-					label: "CTA Button Text",
-					defaultValue: "Let's Talk",
-				},
-				{
-					name: "resumeSectionTitle",
-					type: "text",
-					label: "Resume Section Title",
-					defaultValue: "Work",
 				},
 			],
 		},

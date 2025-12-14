@@ -327,8 +327,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" serial PRIMARY KEY NOT NULL,
   	"site_owner" varchar NOT NULL,
   	"about_profile_image_alt" varchar DEFAULT 'Side profile photo of Suneet on the coast of Iceland at sunset',
-  	"ui_cta_button_text" varchar DEFAULT 'Let''s Talk',
-  	"ui_resume_section_title" varchar DEFAULT 'Work',
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );
