@@ -148,12 +148,13 @@ const SocialLinks = ({ ctaButtonText }: { ctaButtonText: string }) => {
 };
 
 export default async function About() {
-	const siteContent = await getSiteContent();
-	const servicesByCategory = await getServicesByCategory();
+	const [page, siteContent, servicesByCategory] = await Promise.all([
+		getAboutPage(),
+		getSiteContent(),
+		getServicesByCategory(),
+	]);
 	const developmentServices = servicesByCategory.get("Development") ?? [];
 	const professionalServices = servicesByCategory.get("Professional") ?? [];
-
-	const pageTitle = siteContent.about?.pageTitle ?? "A little bit about me";
 	const profileImageAlt =
 		siteContent.about?.profileImageAlt ??
 		"Side profile photo of Suneet on the coast of Iceland at sunset";
@@ -178,7 +179,7 @@ export default async function About() {
 				</div>
 				<div className="prose dark:prose-invert prose-strong:font-semibold prose-strong:underline lg:order-first lg:row-span-2">
 					<h1 className="font-bold text-4xl tracking-tight sm:text-5xl">
-						{pageTitle}
+						{page.pageTitle}
 					</h1>
 					<div className="mt-6 text-base">
 						<MyValues />

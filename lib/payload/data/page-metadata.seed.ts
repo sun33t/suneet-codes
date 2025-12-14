@@ -21,7 +21,11 @@ export const ABOUT_PAGE_SEED: Partial<AboutPageSeed> = {
 };
 
 export const ARTICLES_PAGE_SEED: Partial<ArticlesPageSeed> = {
-	pageTitle: "Articles",
+	pageIntro: {
+		title: "Articles",
+		intro:
+			"You're probably reading this because you're curious about how other developers do what they do. Congratulations! You're awesome! Learning from each other and sharing what we know is one of the superpowers that we have. We're all in this together! On this page you'll find posts that I've written. They're mostly made up from my own notes, that I wanted to put into the public domain in case any of it might be of help to you.",
+	},
 	metadata: {
 		title: "articles",
 		description:
@@ -35,7 +39,11 @@ export const ARTICLES_PAGE_SEED: Partial<ArticlesPageSeed> = {
 };
 
 export const PROJECTS_PAGE_SEED: Partial<ProjectsPageSeed> = {
-	pageTitle: "Projects",
+	pageIntro: {
+		title: "Projects",
+		intro:
+			"I've worked on many projects over the years as an employee but below are the ones that I've built myself as a freelance developer. It's a list of one right now but it's growing...",
+	},
 	metadata: {
 		title: "projects",
 		description: "Projects that I've built.",
@@ -47,7 +55,11 @@ export const PROJECTS_PAGE_SEED: Partial<ProjectsPageSeed> = {
 };
 
 export const FOLLOWING_PAGE_SEED: Partial<FollowingPageSeed> = {
-	pageTitle: "Following",
+	pageIntro: {
+		title: "Following",
+		intro:
+			"This industry is always changing and there are always new challenges to overcome. These are the people who I find continually inspiring and invaluable to learn from.",
+	},
 	metadata: {
 		title: "following",
 		description: "Developers and creative professionals whose work I follow.",
@@ -59,7 +71,11 @@ export const FOLLOWING_PAGE_SEED: Partial<FollowingPageSeed> = {
 };
 
 export const USES_PAGE_SEED: Partial<UsesPageSeed> = {
-	pageTitle: "Uses",
+	pageIntro: {
+		title: "Uses",
+		intro:
+			"From time to time, I get asked about what I use to work on my projects. I've tried to list as many of the tools I use below.",
+	},
 	metadata: {
 		title: "uses",
 		description: "What I use.",
@@ -71,7 +87,11 @@ export const USES_PAGE_SEED: Partial<UsesPageSeed> = {
 };
 
 export const CONTACT_PAGE_SEED: Partial<ContactPageSeed> = {
-	pageTitle: "Contact",
+	pageIntro: {
+		title: "Contact",
+		intro:
+			"You can book some time in my calendar, send me an email, or if you prefer, fill in an enquiry form and I'll come back to you as soon as I can.",
+	},
 	metadata: {
 		title: "contact",
 		description: "Tell me about your project.",
@@ -83,7 +103,11 @@ export const CONTACT_PAGE_SEED: Partial<ContactPageSeed> = {
 };
 
 export const THANK_YOU_PAGE_SEED: Partial<ThankYouPageSeed> = {
-	pageTitle: "Thank You",
+	pageIntro: {
+		title: "Thanks for getting in touch.",
+		intro:
+			"I'm looking forward to learning more about your project and I'll get back to you on the contact details provided as soon as I can. You can also rest assured that your details are kept safe and not passed on to anyone else without your express permission.",
+	},
 	metadata: {
 		title: "thank you",
 		description: "Thanks for getting in touch",

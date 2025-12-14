@@ -55,7 +55,10 @@ const FollowingCard = ({
 };
 
 export default async function Following() {
-	const followingByCategory = await getFollowingByCategory();
+	const [page, followingByCategory] = await Promise.all([
+		getFollowingPage(),
+		getFollowingByCategory(),
+	]);
 	const categories = Array.from(followingByCategory.keys());
 
 	const getSortedEntries = (category: FollowingCategory) => {
@@ -65,12 +68,8 @@ export default async function Following() {
 
 	return (
 		<PageContainer>
-			<PageIntro title="Creative professionals whose work I follow">
-				<p>
-					{`This industry is always changing and there are always new
-          challenges to overcome. These are the people who I find continually inspiring and
-          invaluable to learn from.`}
-				</p>
+			<PageIntro title={page.pageIntro.title}>
+				<p>{page.pageIntro.intro}</p>
 			</PageIntro>
 			<PageSection>
 				<div className="mx-auto max-w-2xl" id="accordion">

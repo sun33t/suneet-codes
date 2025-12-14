@@ -20,11 +20,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Contact() {
-	const services = await getAllServices();
+	const [page, services] = await Promise.all([
+		getContactPage(),
+		getAllServices(),
+	]);
+
 	return (
 		<PageContainer>
-			<PageIntro title="Contact">
-				<p>{`You can book some time in my calendar, send me an email, or if you prefer, fill in an enquiry form and I'll come back to you as soon as I can.`}</p>
+			<PageIntro title={page.pageIntro.title}>
+				<p>{page.pageIntro.intro}</p>
 			</PageIntro>
 			<PageSection>
 				<Card className="mx-auto mb-16 max-w-xl px-6 py-6 shadow-none">
