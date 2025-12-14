@@ -21,6 +21,7 @@ import { getPayloadClient } from "../get-payload";
 
 /** Collections that get seeded and should be cleared before re-seeding */
 const SEEDED_COLLECTIONS = [
+	"users",
 	"authors",
 	"categories",
 	"keywords",
@@ -55,6 +56,41 @@ async function clearCollections() {
 	}
 
 	console.log("Collections cleared!\n");
+}
+
+/**
+ * Creates a default admin user from environment variables.
+ * Skips if DEFAULT_USER_EMAIL or DEFAULT_USER_PASSWORD are not set.
+ */
+async function seedDefaultUser() {
+	const email = process.env.DEFAULT_USER_EMAIL;
+	const password = process.env.DEFAULT_USER_PASSWORD;
+
+	if (!email || !password) {
+		console.log(
+			"Skipping user seeding (DEFAULT_USER_EMAIL or DEFAULT_USER_PASSWORD not set)\n",
+		);
+		return;
+	}
+
+	const payload = await getPayloadClient();
+
+	console.log("Seeding default user...");
+
+	try {
+		await payload.create({
+			collection: "users",
+			data: {
+				email,
+				password,
+			},
+		});
+		console.log(`  ✓ Created default user: ${email}`);
+	} catch (error) {
+		console.error(`  ✗ Failed to create default user:`, error);
+	}
+
+	console.log("User seeding complete!\n");
 }
 
 async function seedAuthors() {
@@ -283,9 +319,6 @@ async function seedSiteContent() {
 			data: SITE_CONTENT_SEED,
 		});
 		console.log("  ✓ Site content initialized with defaults");
-		console.log(
-			"  ℹ Note: Rich text fields (bio, myValues, myExperience) require manual entry via /admin",
-		);
 	} catch (error) {
 		console.error("  ✗ Failed to seed site content:", error);
 	}
@@ -298,6 +331,9 @@ async function main() {
 
 	// Clear existing data to avoid duplicates
 	await clearCollections();
+
+	// Seed default user first (requires env vars)
+	await seedDefaultUser();
 
 	// Seed foundational data for articles first
 	await seedAuthors();

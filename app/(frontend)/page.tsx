@@ -18,7 +18,7 @@ import {
 import { NotionIcon } from "@/components/shared/notion-icon";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/social-icons";
 import { env } from "@/lib/config/env";
-import { HomepageRichText } from "@/lib/payload/lexical/homepage-rich-text";
+import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	type ArticleWithRelations,
 	getAllRoles,
@@ -107,10 +107,7 @@ export default async function Home() {
 					<PageIntro title={siteContent.siteOwner}>
 						{siteContent.homepage?.bio && (
 							<div>
-								<HomepageRichText
-									className="space-y-4 text-muted-foreground [&_a]:text-accent-foreground [&_a_strong]:font-semibold [&_span>strong]:text-foreground"
-									data={siteContent.homepage.bio}
-								/>
+								<ContentRichText data={siteContent.homepage.bio} />
 							</div>
 						)}
 						<div className="mt-6 flex items-center gap-4">
