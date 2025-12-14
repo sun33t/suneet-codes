@@ -9,6 +9,7 @@ import type {
 } from "./types";
 
 export const ABOUT_PAGE_SEED: Partial<AboutPageSeed> = {
+	pageTitle: "About",
 	metadata: {
 		title: "about",
 		description: "I'm Suneet - a developer working from the UK.",
@@ -20,6 +21,7 @@ export const ABOUT_PAGE_SEED: Partial<AboutPageSeed> = {
 };
 
 export const ARTICLES_PAGE_SEED: Partial<ArticlesPageSeed> = {
+	pageTitle: "Articles",
 	metadata: {
 		title: "articles",
 		description:
@@ -33,6 +35,7 @@ export const ARTICLES_PAGE_SEED: Partial<ArticlesPageSeed> = {
 };
 
 export const PROJECTS_PAGE_SEED: Partial<ProjectsPageSeed> = {
+	pageTitle: "Projects",
 	metadata: {
 		title: "projects",
 		description: "Projects that I've built.",
@@ -44,6 +47,7 @@ export const PROJECTS_PAGE_SEED: Partial<ProjectsPageSeed> = {
 };
 
 export const FOLLOWING_PAGE_SEED: Partial<FollowingPageSeed> = {
+	pageTitle: "Following",
 	metadata: {
 		title: "following",
 		description: "Developers and creative professionals whose work I follow.",
@@ -55,6 +59,7 @@ export const FOLLOWING_PAGE_SEED: Partial<FollowingPageSeed> = {
 };
 
 export const USES_PAGE_SEED: Partial<UsesPageSeed> = {
+	pageTitle: "Uses",
 	metadata: {
 		title: "uses",
 		description: "What I use.",
@@ -66,6 +71,7 @@ export const USES_PAGE_SEED: Partial<UsesPageSeed> = {
 };
 
 export const CONTACT_PAGE_SEED: Partial<ContactPageSeed> = {
+	pageTitle: "Contact",
 	metadata: {
 		title: "contact",
 		description: "Tell me about your project.",
@@ -77,6 +83,7 @@ export const CONTACT_PAGE_SEED: Partial<ContactPageSeed> = {
 };
 
 export const THANK_YOU_PAGE_SEED: Partial<ThankYouPageSeed> = {
+	pageTitle: "Thank You",
 	metadata: {
 		title: "thank you",
 		description: "Thanks for getting in touch",

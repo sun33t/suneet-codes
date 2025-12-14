@@ -1,6 +1,7 @@
 import {
 	ABOUT_PAGE_SEED,
 	ARTICLES_PAGE_SEED,
+	AUTHORS_SEED,
 	CATEGORIES_SEED,
 	CONTACT_PAGE_SEED,
 	FOLLOWING_PAGE_SEED,
@@ -20,6 +21,7 @@ import { getPayloadClient } from "../get-payload";
 
 /** Collections that get seeded and should be cleared before re-seeding */
 const SEEDED_COLLECTIONS = [
+	"authors",
 	"categories",
 	"keywords",
 	"testimonials",
@@ -53,6 +55,26 @@ async function clearCollections() {
 	}
 
 	console.log("Collections cleared!\n");
+}
+
+async function seedAuthors() {
+	const payload = await getPayloadClient();
+
+	console.log("Seeding authors...");
+
+	for (const author of AUTHORS_SEED) {
+		try {
+			await payload.create({
+				collection: "authors",
+				data: author,
+			});
+			console.log(`  ✓ Created author: ${author.name}`);
+		} catch (error) {
+			console.error(`  ✗ Failed to create author ${author.name}:`, error);
+		}
+	}
+
+	console.log("Authors seeding complete!");
 }
 
 async function seedCategories() {
@@ -277,7 +299,8 @@ async function main() {
 	// Clear existing data to avoid duplicates
 	await clearCollections();
 
-	// Seed categories and keywords first (foundational data for articles)
+	// Seed foundational data for articles first
+	await seedAuthors();
 	await seedCategories();
 	await seedKeywords();
 

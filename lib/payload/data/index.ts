@@ -1,6 +1,7 @@
 // Types
 
 // Seed data
+export { AUTHORS_SEED } from "./authors.seed";
 export { CATEGORIES_SEED, CATEGORYTITLES } from "./categories.seed";
 export { FOLLOWING_SEED } from "./following.seed";
 export { KEYWORDS_SEED } from "./keywords.seed";

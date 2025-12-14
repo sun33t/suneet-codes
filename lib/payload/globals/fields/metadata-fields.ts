@@ -22,6 +22,7 @@ export const createMetadataFields = (): GroupField => ({
 	type: "group",
 	label: "SEO Metadata",
 	admin: {
+		position: "sidebar",
 		description: "Page metadata for SEO and social sharing",
 	},
 	fields: [

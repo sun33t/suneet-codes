@@ -15,5 +15,16 @@ export const ArticlesPage: GlobalConfig = {
 		read: () => true,
 		update: ({ req }) => !!req.user,
 	},
-	fields: [createMetadataFields()],
+	fields: [
+		{
+			name: "pageTitle",
+			type: "text",
+			required: true,
+			label: "Page Title",
+			admin: {
+				description: "The heading displayed on the page (H1)",
+			},
+		},
+		createMetadataFields(),
+	],
 };

@@ -5,7 +5,11 @@ import { SuspendedArticlesList } from "@/components/features/articles-list";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageIntro } from "@/components/layout/page-intro";
 import { PageSection } from "@/components/layout/page-section";
-import { getArticlesPage, toNextMetadata } from "@/lib/payload/queries";
+import {
+	getArticlesPage,
+	getCategoriesWithSlugs,
+	toNextMetadata,
+} from "@/lib/payload/queries";
 import type { SearchParams } from "@/types";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,11 +17,13 @@ export async function generateMetadata(): Promise<Metadata> {
 	return toNextMetadata(page.metadata);
 }
 
-export default function Articles({
+export default async function Articles({
 	searchParams,
 }: {
 	searchParams: SearchParams;
 }) {
+	const categories = await getCategoriesWithSlugs();
+
 	return (
 		<PageContainer>
 			<PageIntro title="Articles">
@@ -32,7 +38,7 @@ export default function Articles({
 				</p>
 			</PageIntro>
 			<PageSection>
-				<SuspendedArticlesFilter />
+				<SuspendedArticlesFilter categories={categories} />
 				<SuspendedArticlesList searchParams={searchParams} />
 			</PageSection>
 		</PageContainer>
