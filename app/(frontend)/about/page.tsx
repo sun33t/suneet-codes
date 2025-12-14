@@ -15,7 +15,6 @@ import { ContentRichText } from "@/lib/payload/lexical/content-rich-text";
 import {
 	getAboutPage,
 	getServicesByCategory,
-	getSiteContent,
 	type PayloadService,
 	toNextMetadata,
 } from "@/lib/payload/queries";
@@ -149,15 +148,13 @@ const SocialLinks = () => {
 };
 
 export default async function About() {
-	const [page, siteContent, servicesByCategory] = await Promise.all([
+	const [page, servicesByCategory] = await Promise.all([
 		getAboutPage(),
-		getSiteContent(),
 		getServicesByCategory(),
 	]);
 	const developmentServices = servicesByCategory.get("Development") ?? [];
 	const professionalServices = servicesByCategory.get("Professional") ?? [];
 	const profileImageAlt =
-		siteContent.about?.profileImageAlt ??
 		"Side profile photo of Suneet on the coast of Iceland at sunset";
 
 	return (

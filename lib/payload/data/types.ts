@@ -10,7 +10,7 @@ import type {
 	FollowingPage,
 	HomePage,
 	ProjectsPage,
-	SiteContent,
+	SiteConfig,
 	ThankYouPage,
 	UsesPage,
 } from "../payload-types";
@@ -42,8 +42,8 @@ export type KeywordSeed = RequiredDataFromCollectionSlug<"keywords">;
 /** Seed type for articles - makes id, createdAt, updatedAt optional */
 export type ArticleSeed = RequiredDataFromCollectionSlug<"articles">;
 
-/** Seed type for site content global - makes id, createdAt, updatedAt optional */
-export type SiteContentSeed = RequiredDataFromCollection<SiteContent>;
+/** Seed type for site config global - makes id, createdAt, updatedAt optional */
+export type SiteConfigSeed = RequiredDataFromCollection<SiteConfig>;
 
 /** Seed type for about page global */
 export type AboutPageSeed = RequiredDataFromCollection<AboutPage>;

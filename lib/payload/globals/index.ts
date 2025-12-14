@@ -4,6 +4,6 @@ export { ContactPage } from "./ContactPage";
 export { FollowingPage } from "./FollowingPage";
 export { HomePage } from "./HomePage";
 export { ProjectsPage } from "./ProjectsPage";
-export { SiteContent } from "./SiteContent";
+export { SiteConfig } from "./SiteConfig";
 export { ThankYouPage } from "./ThankYouPage";
 export { UsesPage } from "./UsesPage";

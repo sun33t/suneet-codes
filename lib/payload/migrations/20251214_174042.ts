@@ -323,10 +323,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone
   );
   
-  CREATE TABLE "site_content" (
+  CREATE TABLE "site_config" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"site_owner" varchar NOT NULL,
-  	"about_profile_image_alt" varchar DEFAULT 'Side profile photo of Suneet on the coast of Iceland at sunset',
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );
@@ -478,7 +477,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "following_page" CASCADE;
   DROP TABLE "home_page" CASCADE;
   DROP TABLE "projects_page" CASCADE;
-  DROP TABLE "site_content" CASCADE;
+  DROP TABLE "site_config" CASCADE;
   DROP TABLE "thank_you_page" CASCADE;
   DROP TABLE "uses_page" CASCADE;
   DROP TYPE "public"."enum_following_cta";

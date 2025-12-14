@@ -25,7 +25,7 @@ import {
 	FollowingPage,
 	HomePage,
 	ProjectsPage,
-	SiteContent,
+	SiteConfig,
 	ThankYouPage,
 	UsesPage,
 } from "./globals";
@@ -61,7 +61,7 @@ export default buildConfig({
 		FollowingPage,
 		HomePage,
 		ProjectsPage,
-		SiteContent,
+		SiteConfig,
 		ThankYouPage,
 		UsesPage,
 	],

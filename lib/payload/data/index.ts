@@ -18,7 +18,7 @@ export {
 export { PROJECTS_SEED } from "./projects.seed";
 export { ROLES_SEED } from "./roles.seed";
 export { SERVICES_SEED } from "./services.seed";
-export { SITE_CONTENT_SEED } from "./site-content.seed";
+export { SITE_CONFIG_SEED } from "./site-config.seed";
 export { TESTIMONIALS_SEED } from "./testimonials.seed";
 export type {
 	AboutPageSeed,
@@ -34,7 +34,7 @@ export type {
 	ProjectsPageSeed,
 	RoleSeed,
 	ServiceSeed,
-	SiteContentSeed,
+	SiteConfigSeed,
 	TestimonialSeed,
 	ThankYouPageSeed,
 	UseSeed,

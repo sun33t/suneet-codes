@@ -12,7 +12,7 @@ import {
 	PROJECTS_SEED,
 	ROLES_SEED,
 	SERVICES_SEED,
-	SITE_CONTENT_SEED,
+	SITE_CONFIG_SEED,
 	TESTIMONIALS_SEED,
 	THANK_YOU_PAGE_SEED,
 	USES_PAGE_SEED,
@@ -310,22 +310,22 @@ async function seedPageMetadata() {
 	console.log("Page metadata seeding complete!");
 }
 
-async function seedSiteContent() {
+async function seedSiteConfig() {
 	const payload = await getPayloadClient();
 
-	console.log("Seeding site content...");
+	console.log("Seeding site config...");
 
 	try {
 		await payload.updateGlobal({
-			slug: "site-content",
-			data: SITE_CONTENT_SEED,
+			slug: "site-config",
+			data: SITE_CONFIG_SEED,
 		});
-		console.log("  ✓ Site content initialized with defaults");
+		console.log("  ✓ Site config initialized with defaults");
 	} catch (error) {
-		console.error("  ✗ Failed to seed site content:", error);
+		console.error("  ✗ Failed to seed site config:", error);
 	}
 
-	console.log("Site content seeding complete!");
+	console.log("Site config seeding complete!");
 }
 
 async function main() {
@@ -352,7 +352,7 @@ async function main() {
 
 	// Seed globals (these use updateGlobal, so no duplicates)
 	await seedPageMetadata();
-	await seedSiteContent();
+	await seedSiteConfig();
 
 	console.log("\nSeed complete!");
 	process.exit(0);

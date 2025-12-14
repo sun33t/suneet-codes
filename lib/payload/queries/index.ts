@@ -48,7 +48,7 @@ export {
 	type PayloadService,
 	type ServiceCategory,
 } from "./services";
-export { getSiteContent, type PayloadSiteContent } from "./site-content";
+export { getSiteConfig, type PayloadSiteConfig } from "./site-config";
 export { getAllTestimonials, type PayloadTestimonial } from "./testimonials";
 export {
 	getAllUses,

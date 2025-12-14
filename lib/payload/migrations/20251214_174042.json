@@ -3184,8 +3184,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.site_content": {
-      "name": "site_content",
+    "public.site_config": {
+      "name": "site_config",
       "schema": "",
       "columns": {
         "id": {
@@ -3199,13 +3199,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
-        },
-        "about_profile_image_alt": {
-          "name": "about_profile_image_alt",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'Side profile photo of Suneet on the coast of Iceland at sunset'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -3412,6 +3405,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "cf4c1c2e-4713-450e-9213-e61e4e1f1299",
+  "id": "ee924523-6411-41ed-a0f5-874a4348a77c",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
